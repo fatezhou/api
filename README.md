@@ -5,44 +5,44 @@
 
 ----------------------------------------------
 # 拉取通讯录
-##url: http://ip:port/api/v1.0/get_contact
-##method: post
-##param: 
-##{
-##	"openid": "xxxxxxxxxxx"
-##}
-##response:
-##{
-##    "code": 0,
-##    "data": {
-##        "contact": [
-##            {
-##                "group": "family",
-##                "member": [
-##                    {
-##                        "name": "Jack",
-##                        "age": 10,
-##                        "nickName": "Jakkie",
-##                        "memberId": "1001"
-##                    }
-##                ]
-##            },
-##            {
-##                "group": "other",
-##                "member": [
-##                    {
-##                        "name": "Chris",
-##                        "age": 50,
-##                        "nickName": null,
-##                        "memberId": "1002"
-##                    }
-##                ]
-##            }
-##        ]
-##    }
-##}
-##other situation:
-##code: 0/1
+>>>url: http://ip:port/api/v1.0/get_contact
+>>>method: post
+>>>param: 
+>>>{
+>>>	"openid": "xxxxxxxxxxx"
+>>>}
+>>>response:
+>>>{
+>>>    "code": 0,
+>>>    "data": {
+>>>        "contact": [
+>>>            {
+>>>                "group": "family",
+>>>                "member": [
+>>>                    {
+>>>                        "name": "Jack",
+>>>                        "age": 10,
+>>>                        "nickName": "Jakkie",
+>>>                        "memberId": "1001"
+>>>                    }
+>>>                ]
+>>>            },
+>>>            {
+>>>                "group": "other",
+>>>                "member": [
+>>>                    {
+>>>                        "name": "Chris",
+>>>                        "age": 50,
+>>>                        "nickName": null,
+>>>                        "memberId": "1002"
+>>>                    }
+>>>                ]
+>>>            }
+>>>        ]
+>>>    }
+>>>}
+>>>other situation:
+>>>code: 0/1
 
 ---------------------------------------------
 # 获取会员资料明细
