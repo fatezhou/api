@@ -1,10 +1,29 @@
 # response中的code错误码, 如果错误的话, 在response中的data将为空
 0 : 成功
 1 : 权限不足
-2 : 
+2 : 错误的会员id
+3 : 找不到该成长记录
+
+----------------------------------------------
+# 登录系统
+url: https://ip:port/api/v1.0/login
+method: post
+param:
+{
+	"openid":"xxxxxxxx"
+}
+response:
+{
+	"code":0,
+	"data":{
+		"memberId":"0592001001",
+		"type":"teacher/parent"
+	}
+}
+
 ----------------------------------------------
 # 拉取通讯录
-url: http://ip:port/api/v1.0/get_contact
+url: https://ip:port/api/v1.0/get_contact
 method: post
 param: 
 {
@@ -22,7 +41,8 @@ response:
                         "name": "Jack",
                         "age": 10,
                         "nickName": "Jakkie",
-                        "memberId": "1001"
+                        "memberId": "1001",
+                        "type": "teacher/parent"
                     }
                 ]
             },
@@ -33,7 +53,20 @@ response:
                         "name": "Chris",
                         "age": 50,
                         "nickName": null,
-                        "memberId": "1002"
+                        "memberId": "1002",
+                        "type": "teacher/parent"
+                    }
+                ]
+            },
+            {
+                "group": "star",
+                "member": [
+                    {
+                        "name": "James",
+                        "age": 30,
+                        "nickName": null,
+                        "type": "teacher/parent",
+                        "memberId": "1003"
                     }
                 ]
             }
@@ -42,9 +75,10 @@ response:
 }
 other situation:
 code: 0/1
+
 ---------------------------------------------
 # 获取会员资料明细
-url: http://ip:port/api/v1.0/get_profile
+url: https://ip:port/api/v1.0/get_profile
 method: post
 param: 
 {
@@ -63,11 +97,231 @@ response:
             "birthday": "2012-05-05",
             "memberStatus": "年费会员",
             "expiryDate": "2020-10-10",
-            "isStaff": false
+            "growthRecords": 533,
+            "isStaff": false,
+            "family": [
+                {
+                    "name": "李爸爸",
+                    "memberId": "059200001",
+                    "relationship": "父亲",
+                    "mobile": "1300010010001",
+                    "wechat": "libaba"
+                },
+                {
+                    "name": "李妈妈",
+                    "memberId": "059200001",
+                    "relationship": "母亲",
+                    "mobile": "1300010010002",
+                    "wechat": "limama"
+                }
+            ]
         }
     }
 }
 other situation:
-code: 0/1
+code: 0/1/2
+
 ---------------------------------------------
-# 获取会员资料明细
+# 获取批量会员成长记录
+url: https://ip:port/api/v1.0/get_growth_records
+method: post
+param: 
+{
+	"openid": "xxxxxxxxxxx",
+	"beginRecodId": "150",//从第几张开始加载
+	"range": 30
+}
+response:
+{
+    "code": 0,
+    "data": {
+        "records": [
+            {
+                "recordId": "10003",
+                "pictureUrls": ["https://xxxx.jpg", "https://xxx.jpg"],
+                "text": "这是一段文字",
+                "authorId": "05920001(这个对应会员或老师id)",
+                "authorName": "Teacher Chen",
+                "type": "teacher/parent",
+                "icon": "https://xxxxx.jpg",
+                "dateTime": "2018-11-22 15:33"
+            },
+            {
+                "recordId": "10005",
+                "pictureUrls": ["https://xxxx.jpg", "https://xxx.jpg"],
+                "text": "这是另一段文字",
+                "authorId": "05920001(这个对应会员或老师id)",
+                "icon": "https://xxxxx.jpg",
+                "authorName": "Teacher Chen",
+                "type": "teacher/parent",
+                "dateTime": "2018-11-19 13:13"
+            }
+        ]
+    }
+}
+other situation:
+code: 0/1
+
+---------------------------------------------
+# 获取单独会员成长记录
+url: https://ip:port/api/v1.0/get_growth_record
+method: post
+param: 
+{
+	"openid": "xxxxxxxxxxx",
+	"growthRecordId":"10001"
+}
+response:
+{
+    "code": 0,
+    "data": {
+        "record": {
+            "recordId": "10003",
+            "icon": "https://xxxxx.jpg",
+            "pictureUrls": [
+                "https://xxxx.jpg",
+                "https://xxx.jpg"
+            ],
+            "text": "这是一段文字",
+            "authorId": "05920001(这个对应会员或老师id)",
+            "authorName": "Teacher Chen",
+            "type":"teacher(现在这边只有老师)",
+            "dateTime": "2018-11-22 15:33",
+            "like": [
+                "05920001",
+                "05920002"
+            ],
+            "append": [
+                {
+                    "authorId": "05920001",
+                    "authorName": "小葡萄家长",
+                    "icon": "https://xxx.jpg",
+                    "text": "这是一段文字",
+                    "isLike": true,
+                    "type":"teacher/parent"
+                },
+                {
+                    "authorId": "05920002",
+                    "authorName": "Teacher Chen",
+                    "icon": "https://xxx.jpg",
+                    "text": "这是一段文字",
+                    "isLike": false,
+                    "type":"teacher/parent"
+                }
+            ]
+        }
+    }
+}
+other situation:
+code: 0/1/2/3
+
+---------------------------------------------
+# 获取特定会员成长记录数
+url: https://ip:port/api/v1.0/get_child_growth_record_count
+method: post
+param: 
+{
+	"openid": "xxxxxxxxxxx",
+	"memberId":"10001"
+}
+response:
+{
+    "code": 0,
+    "data": {
+        "count": 763
+    }
+}
+other situation:
+code: 0/1/2
+
+---------------------------------------------
+# 获取新消息记录数量
+url: https://ip:port/api/v1.0/get_new_message_count
+method: post
+param: 
+{
+	"openid": "xxxxxxxxxxx"
+}
+response:
+{
+    "code": 0,
+    "data": {
+        "count": 2
+    }
+}
+other situation:
+code: 0/1
+
+---------------------------------------------
+# 获取新消息记录
+url: https://ip:port/api/v1.0/get_new_message
+method: post
+param: 
+{
+	"openid": "xxxxxxxxxxx"
+}
+response:
+{
+    "code": 0,
+    "data": {
+        "newRecords": [
+            {
+                "type": "text",
+                "authorId": "05920001",
+                "authorName": "Teacher Chen",
+                "type":"teacher",
+                "text": "这是针对某条成长记录的评论",
+                "growthRecordId": "100001"
+            },
+            {
+                "type": "like",
+                "authorName": "小葡萄家长",
+                "authorId": "059200001",
+                "type":"parent"
+            }
+        ]
+    }
+}
+
+---------------------------------------------
+# 发送新的成长日志
+url: https://ip:port/api/v1.0/put_new_record
+method: post
+param:
+{
+    "opid": "xxxxxxxx",
+    "text": "这是一篇将要发送的成长记录",
+    "authorId": "059200001",
+    "studentId": "05920002",
+    "pictureUrls": [
+        "https://xxxxx.jpg",
+        "https://xxxx.jpg"
+    ]
+}
+response:
+{
+    "code": 0,
+    "data": {
+        "text": "添加成功"
+    }
+}
+other situation:
+code: 0/1
+
+---------------------------------------------
+# 设置星标
+url: https://ip:port/api/v1.0/put_member_fav
+method: post
+param:
+{
+    "opid": "xxxxxxxx",
+    "memberId": "059200001",
+    "type": "parent/teacher/student"
+}
+response:
+{
+    "code": 0,
+    "data": {
+        "text": "添加成功"
+    }
+}
