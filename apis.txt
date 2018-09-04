@@ -1,34 +1,36 @@
-# responseÖĞµÄcode´íÎóÂë, Èç¹û´íÎóµÄ»°, ÔÚresponseÖĞµÄdata½«Îª¿Õ
-0 : ³É¹¦
-1 : È¨ÏŞ²»×ã
-2 : ´íÎóµÄ»áÔ±id
-3 : ÕÒ²»µ½¸Ã³É³¤¼ÇÂ¼
-4 : ÕÒ²»µ½ºÏÊÊµÄapi½Ó¿Ú
+ï»¿# responseä¸­çš„codeé”™è¯¯ç , å¦‚æœé”™è¯¯çš„è¯, åœ¨responseä¸­çš„dataå°†ä¸ºç©º
+0 : æˆåŠŸ
+1 : æƒé™ä¸è¶³
+2 : é”™è¯¯çš„ä¼šå‘˜id
+3 : æ‰¾ä¸åˆ°è¯¥æˆé•¿è®°å½•
+4 : æ‰¾ä¸åˆ°åˆé€‚çš„apiæ¥å£
 
 ----------------------------------------------
-# µÇÂ¼ÏµÍ³
+# ç™»å½•ç³»ç»Ÿ
 url: https://ip:port/api/v1.0/login
 method: post
 param:
 {
-	"openid":"xxxxxxxx"
+	"code":"xxxxx"
 }
 response:
 {
 	"code":0,
 	"data":{
-		"memberId":"0592001001",
-		"type":"teacher/parent"
+        "unionId":"xxxxxx",
+        "openId":"xxxxxxx",
+        "token":"xxxxxxx"
 	}
 }
 
 ----------------------------------------------
-# À­È¡Í¨Ñ¶Â¼
+# æ‹‰å–é€šè®¯å½•
 url: https://ip:port/api/v1.0/get_contact
 method: post
 param: 
 {
-	"openid": "xxxxxxxxxxx"
+	"unionId":"xxxxxx",
+    "openId":"xxxxxxx"
 }
 response:
 {
@@ -78,12 +80,13 @@ other situation:
 code: 0/1
 
 ---------------------------------------------
-# »ñÈ¡»áÔ±×ÊÁÏÃ÷Ï¸
+# è·å–ä¼šå‘˜èµ„æ–™æ˜ç»†
 url: https://ip:port/api/v1.0/get_profile
 method: post
 param: 
 {
-	"openid": "xxxxxxxxxxx",
+	"unionId":"xxxxxx",
+    "openId":"xxxxxxx"
 	"memberId": "1003"
 }
 response:
@@ -91,27 +94,27 @@ response:
     "code": 0,
     "data": {
         "profile": {
-            "name": "Àî²èµÂ",
+            "name": "æèŒ¶å¾·",
             "sexual": "male/famale",
             "idCardNumber": "05920001",
-            "nickName": "Ğ¡Àî",
+            "nickName": "å°æ",
             "birthday": "2012-05-05",
-            "memberStatus": "Äê·Ñ»áÔ±",
+            "memberStatus": "å¹´è´¹ä¼šå‘˜",
             "expiryDate": "2020-10-10",
             "growthRecords": 533,
             "isStaff": false,
             "family": [
                 {
-                    "name": "Àî°Ö°Ö",
+                    "name": "æçˆ¸çˆ¸",
                     "memberId": "059200001",
-                    "relationship": "¸¸Ç×",
+                    "relationship": "çˆ¶äº²",
                     "mobile": "1300010010001",
                     "wechat": "libaba"
                 },
                 {
-                    "name": "ÀîÂèÂè",
+                    "name": "æå¦ˆå¦ˆ",
                     "memberId": "059200001",
-                    "relationship": "Ä¸Ç×",
+                    "relationship": "æ¯äº²",
                     "mobile": "1300010010002",
                     "wechat": "limama"
                 }
@@ -123,13 +126,14 @@ other situation:
 code: 0/1/2
 
 ---------------------------------------------
-# »ñÈ¡ÅúÁ¿»áÔ±³É³¤¼ÇÂ¼
+# è·å–æ‰¹é‡ä¼šå‘˜æˆé•¿è®°å½•
 url: https://ip:port/api/v1.0/get_growth_records
 method: post
 param: 
 {
-	"openid": "xxxxxxxxxxx",
-	"beginRecodId": "150",//´ÓµÚ¼¸ÕÅ¿ªÊ¼¼ÓÔØ
+	"unionId":"xxxxxx",
+    "openId":"xxxxxxx"
+	"beginRecodId": "150",//ä»ç¬¬å‡ å¼ å¼€å§‹åŠ è½½
 	"range": 30
 }
 response:
@@ -140,8 +144,8 @@ response:
             {
                 "recordId": "10003",
                 "pictureUrls": ["https://xxxx.jpg", "https://xxx.jpg"],
-                "text": "ÕâÊÇÒ»¶ÎÎÄ×Ö",
-                "authorId": "05920001(Õâ¸ö¶ÔÓ¦»áÔ±»òÀÏÊ¦id)",
+                "text": "è¿™æ˜¯ä¸€æ®µæ–‡å­—",
+                "authorId": "05920001(è¿™ä¸ªå¯¹åº”ä¼šå‘˜æˆ–è€å¸ˆid)",
                 "authorName": "Teacher Chen",
                 "type": "teacher/parent",
                 "icon": "https://xxxxx.jpg",
@@ -150,8 +154,8 @@ response:
             {
                 "recordId": "10005",
                 "pictureUrls": ["https://xxxx.jpg", "https://xxx.jpg"],
-                "text": "ÕâÊÇÁíÒ»¶ÎÎÄ×Ö",
-                "authorId": "05920001(Õâ¸ö¶ÔÓ¦»áÔ±»òÀÏÊ¦id)",
+                "text": "è¿™æ˜¯å¦ä¸€æ®µæ–‡å­—",
+                "authorId": "05920001(è¿™ä¸ªå¯¹åº”ä¼šå‘˜æˆ–è€å¸ˆid)",
                 "icon": "https://xxxxx.jpg",
                 "authorName": "Teacher Chen",
                 "type": "teacher/parent",
@@ -164,12 +168,13 @@ other situation:
 code: 0/1
 
 ---------------------------------------------
-# »ñÈ¡µ¥¶À»áÔ±³É³¤¼ÇÂ¼
+# è·å–å•ç‹¬ä¼šå‘˜æˆé•¿è®°å½•
 url: https://ip:port/api/v1.0/get_growth_record
 method: post
 param: 
 {
-	"openid": "xxxxxxxxxxx",
+	"unionId":"xxxxxx",
+    "openId":"xxxxxxx"
 	"growthRecordId":"10001"
 }
 response:
@@ -183,10 +188,10 @@ response:
                 "https://xxxx.jpg",
                 "https://xxx.jpg"
             ],
-            "text": "ÕâÊÇÒ»¶ÎÎÄ×Ö",
-            "authorId": "05920001(Õâ¸ö¶ÔÓ¦»áÔ±»òÀÏÊ¦id)",
+            "text": "è¿™æ˜¯ä¸€æ®µæ–‡å­—",
+            "authorId": "05920001(è¿™ä¸ªå¯¹åº”ä¼šå‘˜æˆ–è€å¸ˆid)",
             "authorName": "Teacher Chen",
-            "type":"teacher(ÏÖÔÚÕâ±ßÖ»ÓĞÀÏÊ¦)",
+            "type":"teacher(ç°åœ¨è¿™è¾¹åªæœ‰è€å¸ˆ)",
             "dateTime": "2018-11-22 15:33",
             "like": [
                 "05920001",
@@ -195,9 +200,9 @@ response:
             "append": [
                 {
                     "authorId": "05920001",
-                    "authorName": "Ğ¡ÆÏÌÑ¼Ò³¤",
+                    "authorName": "å°è‘¡è„å®¶é•¿",
                     "icon": "https://xxx.jpg",
-                    "text": "ÕâÊÇÒ»¶ÎÎÄ×Ö",
+                    "text": "è¿™æ˜¯ä¸€æ®µæ–‡å­—",
                     "isLike": true,
                     "type":"teacher/parent"
                 },
@@ -205,7 +210,7 @@ response:
                     "authorId": "05920002",
                     "authorName": "Teacher Chen",
                     "icon": "https://xxx.jpg",
-                    "text": "ÕâÊÇÒ»¶ÎÎÄ×Ö",
+                    "text": "è¿™æ˜¯ä¸€æ®µæ–‡å­—",
                     "isLike": false,
                     "type":"teacher/parent"
                 }
@@ -217,12 +222,13 @@ other situation:
 code: 0/1/2/3
 
 ---------------------------------------------
-# »ñÈ¡ÌØ¶¨»áÔ±³É³¤¼ÇÂ¼Êı
+# è·å–ç‰¹å®šä¼šå‘˜æˆé•¿è®°å½•æ•°
 url: https://ip:port/api/v1.0/get_child_growth_record_count
 method: post
 param: 
 {
-	"openid": "xxxxxxxxxxx",
+	"unionId":"xxxxxx",
+    "openId":"xxxxxxx"
 	"memberId":"10001"
 }
 response:
@@ -236,12 +242,13 @@ other situation:
 code: 0/1/2
 
 ---------------------------------------------
-# »ñÈ¡ĞÂÏûÏ¢¼ÇÂ¼ÊıÁ¿
+# è·å–æ–°æ¶ˆæ¯è®°å½•æ•°é‡
 url: https://ip:port/api/v1.0/get_new_message_count
 method: post
 param: 
 {
-	"openid": "xxxxxxxxxxx"
+	"unionId":"xxxxxx",
+    "openId":"xxxxxxx"
 }
 response:
 {
@@ -254,12 +261,13 @@ other situation:
 code: 0/1
 
 ---------------------------------------------
-# »ñÈ¡ĞÂÏûÏ¢¼ÇÂ¼
+# è·å–æ–°æ¶ˆæ¯è®°å½•
 url: https://ip:port/api/v1.0/get_new_message
 method: post
 param: 
 {
-	"openid": "xxxxxxxxxxx"
+	"unionId":"xxxxxx",
+    "openId":"xxxxxxx"
 }
 response:
 {
@@ -271,12 +279,12 @@ response:
                 "authorId": "05920001",
                 "authorName": "Teacher Chen",
                 "type":"teacher",
-                "text": "ÕâÊÇÕë¶ÔÄ³Ìõ³É³¤¼ÇÂ¼µÄÆÀÂÛ",
+                "text": "è¿™æ˜¯é’ˆå¯¹æŸæ¡æˆé•¿è®°å½•çš„è¯„è®º",
                 "growthRecordId": "100001"
             },
             {
                 "type": "like",
-                "authorName": "Ğ¡ÆÏÌÑ¼Ò³¤",
+                "authorName": "å°è‘¡è„å®¶é•¿",
                 "authorId": "059200001",
                 "type":"parent"
             }
@@ -285,13 +293,14 @@ response:
 }
 
 ---------------------------------------------
-# ·¢ËÍĞÂµÄ³É³¤ÈÕÖ¾
+# å‘é€æ–°çš„æˆé•¿æ—¥å¿—
 url: https://ip:port/api/v1.0/put_new_record
 method: post
 param:
 {
-    "opid": "xxxxxxxx",
-    "text": "ÕâÊÇÒ»Æª½«Òª·¢ËÍµÄ³É³¤¼ÇÂ¼",
+	"unionId":"xxxxxx",
+    "openId":"xxxxxxx"
+    "text": "è¿™æ˜¯ä¸€ç¯‡å°†è¦å‘é€çš„æˆé•¿è®°å½•",
     "authorId": "059200001",
     "studentId": "05920002",
     "pictureUrls": [
@@ -303,19 +312,20 @@ response:
 {
     "code": 0,
     "data": {
-        "text": "Ìí¼Ó³É¹¦"
+        "text": "æ·»åŠ æˆåŠŸ"
     }
 }
 other situation:
 code: 0/1
 
 ---------------------------------------------
-# ÉèÖÃĞÇ±ê
+# è®¾ç½®æ˜Ÿæ ‡
 url: https://ip:port/api/v1.0/put_member_fav
 method: post
 param:
 {
-    "opid": "xxxxxxxx",
+	"unionId":"xxxxxx",
+    "openId":"xxxxxxx"
     "memberId": "059200001",
     "type": "parent/teacher/student"
 }
@@ -323,6 +333,6 @@ response:
 {
     "code": 0,
     "data": {
-        "text": "Ìí¼Ó³É¹¦"
+        "text": "æ·»åŠ æˆåŠŸ"
     }
 }
