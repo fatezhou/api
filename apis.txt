@@ -30,7 +30,9 @@ method: post
 param: 
 {
 	"unionId":"xxxxxx",
-    "openId":"xxxxxxx"
+    "openId":"xxxxxxx",
+    "startPage":0,
+    "pages":1
 }
 response:
 {
@@ -40,24 +42,23 @@ response:
             {
                 "group": "family",
                 "member": [
-                    {
-                        "name": "Jack",
-                        "age": 10,
-                        "nickName": "Jakkie",
-                        "memberId": "1001",
-                        "type": "teacher/parent"
-                    }
+                   
                 ]
             },
             {
                 "group": "other",
                 "member": [
                     {
-                        "name": "Chris",
-                        "age": 50,
-                        "nickName": null,
-                        "memberId": "1002",
-                        "type": "teacher/parent"
+                        "studentId": 41,          // 学员 ID
+                        "cardCode": "05920001",   // 学员卡号
+                        "sex": 2,                 // 1 为男，2 为女
+                        "freeze": 0,              // 1 表示被冻结
+                        "name": "曹语荞",          // 学员姓名
+                        "nickname": "",           // 学员昵称
+                        "birthday": "2011-11-16", // 学员出生日期
+                        "avatarUrl": "",          // 学员头像 URL
+                        "remainMoney": 10000,     // 储值卡余额
+                        "bandMac": null           // 手环 MAC 地址
                     }
                 ]
             },
@@ -65,11 +66,16 @@ response:
                 "group": "star",
                 "member": [
                     {
-                        "name": "James",
-                        "age": 30,
-                        "nickName": null,
-                        "type": "teacher/parent",
-                        "memberId": "1003"
+                        "studentId": 41,          // 学员 ID
+                        "cardCode": "05920001",   // 学员卡号
+                        "sex": 2,                 // 1 为男，2 为女
+                        "freeze": 0,              // 1 表示被冻结
+                        "name": "曹语荞",          // 学员姓名
+                        "nickname": "",           // 学员昵称
+                        "birthday": "2011-11-16", // 学员出生日期
+                        "avatarUrl": "",          // 学员头像 URL
+                        "remainMoney": 10000,     // 储值卡余额
+                        "bandMac": null           // 手环 MAC 地址
                     }
                 ]
             }

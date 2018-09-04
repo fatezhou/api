@@ -12,7 +12,7 @@ function CuteRouter(){
         this.version = arr[1];
         return true;
     }
-    this.Service = function(postData){
+    this.Service = function(data, callback){
         var baseApi = {};
         switch(this.apiFunction){            
             case "login":
@@ -59,7 +59,7 @@ function CuteRouter(){
                 return this.BadApi();
                 break;
         }
-        return baseApi.Service(this.version, postData);
+        return baseApi.Service(this.version, data, callback);
     }
     this.BadApi = function(){
         return (new require("./response.js")).BadApi();

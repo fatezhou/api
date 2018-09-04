@@ -19,8 +19,9 @@ function CuteHttp(){
             if(opt.response)
                 opt.response(res);
         });
-
-        req.on("error", opt.requestError);
+        if(opt.requestError){
+            req.on("error", opt.requestError);
+        }        
         if(opt.method == "POST"){
             req.write(opt.postData);
         }
