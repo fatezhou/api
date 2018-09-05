@@ -1,13 +1,18 @@
 function ApiGetProfile(){
-    this.Service = function(version, postData){
-        var CuteDbController = require("./../dbController.js");
-        var db = new CuteDbController;
-        var res = db.Query("");
-        if(res.code == 0){
-            return {code:0, data:{profile:res.profile}};
-        }else{
-            return {code:res.code, data:{}};
-        }     
+    this.Service = function(version, postData, callback){
+        var CuteHttps = require("./../https.js");
+        var cuteHttps = new CuteHttps;
+        var cuteConfig = new require("./../config.js");
+        var strUrl = cuteConfig.GetParentProfileInfoUrl() + "?openid=" + data.openid + "&unionid=" + data.unionid;
+        function ResponseCallback(data){
+            var res = {code:0, data:{profile:{}}};
+            if(data.success)
+                res.data.profile = data.data;
+            else
+                res.code = 1;
+            callback(res);
+        }
+        cuteHttps.Get(strUrl, ResponseCallback);   
     }
 }
 

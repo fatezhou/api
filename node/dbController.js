@@ -21,12 +21,12 @@ function CuteDbController(conn){
         try{
             connection.query(sqlfmt, data, function (error, results) {
                 if (error) throw error;
-                callback(results);
-                connection.end();
+                callback(results);                
             });
         }catch(err){
-
+            callback({error:"sql error"});
         }
+        connection.end();
     }
 	this.Init(conn);
 }

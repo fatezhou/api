@@ -22,4 +22,15 @@ function CuteConfig(){
     this.GetLog = function(){
         return this.cfg.log;
     }
+    this.GetStudentsInfoUrl = function(){
+        return "https://ouat.buzaishudian.com/api/students";
+    }
+    this.GetParentProfileInfoUrl = function(){
+        return "https://ouat.buzaishudian.com/api/parent-info";
+    }
+    this.GetLoginUrl = function(){
+        return "https://https://ouat.buzaishudian.com/api/mini/user-id";
+    }
 }
+
+module.exports = CuteConfig;

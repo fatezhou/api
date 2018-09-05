@@ -17,8 +17,8 @@ response:
 {
 	"code":0,
 	"data":{
-        "unionId":"xxxxxx",
-        "openId":"xxxxxxx",
+        "unionid":"xxxxxx",
+        "openid":"xxxxxxx",
         "token":"xxxxxxx"
 	}
 }
@@ -29,8 +29,8 @@ url: https://ip:port/api/v1.0/get_contact
 method: post
 param: 
 {
-	"unionId":"xxxxxx",
-    "openId":"xxxxxxx",
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx",
     "startPage":0,
     "pages":1
 }
@@ -91,41 +91,43 @@ url: https://ip:port/api/v1.0/get_profile
 method: post
 param: 
 {
-	"unionId":"xxxxxx",
-    "openId":"xxxxxxx"
-	"memberId": "1003"
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx",
+	"memberId": "预留参数" 
 }
 response:
 {
     "code": 0,
     "data": {
         "profile": {
-            "name": "李茶德",
-            "sexual": "male/famale",
-            "idCardNumber": "05920001",
-            "nickName": "小李",
-            "birthday": "2012-05-05",
-            "memberStatus": "年费会员",
-            "expiryDate": "2020-10-10",
-            "growthRecords": 533,
-            "isStaff": false,
-            "family": [
-                {
-                    "name": "李爸爸",
-                    "memberId": "059200001",
-                    "relationship": "父亲",
-                    "mobile": "1300010010001",
-                    "wechat": "libaba"
-                },
-                {
-                    "name": "李妈妈",
-                    "memberId": "059200001",
-                    "relationship": "母亲",
-                    "mobile": "1300010010002",
-                    "wechat": "limama"
-                }
-            ]
-        }
+        "id": 1,
+        "phone": "13328791363",
+        "name": "熊猫先生",
+        "address": "",
+        "wechat": "",
+        "company": "",
+        "companyPhone": "",
+        "unionid": "oO_8zw0yAhzBcEwEuPehvblLIGe0",
+        "openid": "oO_8zw0yAhzBcEwEuPehvblLIGe0",
+        "createTime": "2018-03-28T08:27:24.000Z",
+        "students": [{
+            "id": 1,
+            "name": "T小明",
+            "cardCode": "05929991", // 学员卡号
+            "sex": 1, // 1:男，2:女
+            "birthday": "2018-04-12",
+            "nickname": "wx",
+            "avatarUrl": "https://ouat-file.buzaishudian.com/images/student/1/avatar.png"
+        }, {
+            "id": 3,
+            "name": "T肠粉",
+            "cardCode": "05929993",
+            "sex": 1,
+            "birthday": "2018-04-04",
+            "nickname": "",
+            "avatarUrl": "https://ouat-file.buzaishudian.com/images/student/3/avatar.png"
+        }]
+      }
     }
 }
 other situation:
@@ -137,8 +139,8 @@ url: https://ip:port/api/v1.0/get_growth_records
 method: post
 param: 
 {
-	"unionId":"xxxxxx",
-    "openId":"xxxxxxx"
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx"
 	"beginRecodId": "150",//从第几张开始加载
 	"range": 30
 }
@@ -179,8 +181,8 @@ url: https://ip:port/api/v1.0/get_growth_record
 method: post
 param: 
 {
-	"unionId":"xxxxxx",
-    "openId":"xxxxxxx"
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx"
 	"growthRecordId":"10001"
 }
 response:
@@ -233,8 +235,8 @@ url: https://ip:port/api/v1.0/get_child_growth_record_count
 method: post
 param: 
 {
-	"unionId":"xxxxxx",
-    "openId":"xxxxxxx"
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx"
 	"memberId":"10001"
 }
 response:
@@ -253,8 +255,8 @@ url: https://ip:port/api/v1.0/get_new_message_count
 method: post
 param: 
 {
-	"unionId":"xxxxxx",
-    "openId":"xxxxxxx"
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx"
 }
 response:
 {
@@ -272,8 +274,8 @@ url: https://ip:port/api/v1.0/get_new_message
 method: post
 param: 
 {
-	"unionId":"xxxxxx",
-    "openId":"xxxxxxx"
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx"
 }
 response:
 {
@@ -304,21 +306,27 @@ url: https://ip:port/api/v1.0/put_new_record
 method: post
 param:
 {
-	"unionId":"xxxxxx",
-    "openId":"xxxxxxx"
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx",
+    "authorType":1,//1 teacher, 2 parent
     "text": "这是一篇将要发送的成长记录",
     "authorId": "059200001",
-    "studentId": "05920002",
+    "studentId": "05920002",//如果是评论的话, 则此项可以不用填,
     "pictureUrls": [
         "https://xxxxx.jpg",
         "https://xxxx.jpg"
-    ]
+    ],
+    "recordType":1, //1:record,2:append",
+    "parentRecordId":111111    //如果是全新的一条记录, 则此项可以不用填,
 }
 response:
 {
     "code": 0,
     "data": {
-        "text": "添加成功"
+        "put_new_record":{
+            "recordId":"xxxxxx",
+            "parentRecordId":"xxxxxx"//如果是一条全新的记录, 则此项为空
+        }
     }
 }
 other situation:
@@ -330,8 +338,8 @@ url: https://ip:port/api/v1.0/put_member_fav
 method: post
 param:
 {
-	"unionId":"xxxxxx",
-    "openId":"xxxxxxx"
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx"
     "memberId": "059200001",
     "type": "parent/teacher/student"
 }
@@ -340,5 +348,25 @@ response:
     "code": 0,
     "data": {
         "text": "添加成功"
+    }
+}
+
+---------------------------------------------
+# 给评论点赞
+url: https://ip:port/api/v1.0/put_record_fav
+method: post
+param:
+{
+    "unionid":"xxxxxx",
+    "openid":"xxxxxxx"
+    "memberId": "059200001",
+    "type": "parent/teacher/student",
+    "recordId": 12356
+}
+response:
+{
+    "code": 0,
+    "data": {
+        "text": "点赞成功"
     }
 }

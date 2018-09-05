@@ -47,7 +47,8 @@ function ApiGetContact(){
             }
             callback(res);
         }
-        cuteHttps.Get("https://ouat.buzaishudian.com/test/api/students?pageSize=9999", onResponse);        
+        var cuteConfig = new require("./../config.js");        
+        cuteHttps.Get(cuteConfig.GetStudentsInfoUrl() + "?pageSize=9999", onResponse);        
     }
 }
 /*
