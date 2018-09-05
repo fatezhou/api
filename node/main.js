@@ -1,10 +1,38 @@
 var CuteRouter = require("./router.js");
-var obj = new CuteRouter();
-var res;
-if(obj.IsVaild("/api/v1.0/login1")){
-    res = obj.Service("{}");
-}else{
-    res = obj.BadApi();
+var http = require("http");
+var url = require("url");
+var router = new CuteRouter();
+var port = 20000;
+if(process.argv.length > 2){
+    port = parseInt(process.argv[2]);
 }
-var strJson = JSON.stringify(res);
-console.info(strJson);
+
+http.createServer(function(req, res){
+    if(router.IsVaild(req.path) == false){
+        res.writeHead(503, {'Content-Type': 'text/html; charset=utf8'});
+        res.write(JSON.stringify({code:503, text:"forbidden!"}));
+        res.end();
+        return;
+    }
+    
+    var urlPath = url.parse(req.url).pathname;
+    var data;
+    req.on('data', function(chunk){
+        data += chunk;
+    });
+    req.on('end', function(){
+        try{
+            router.Service(JSON.parse(data), urlPath, function(json){
+                res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
+                res.write(JSON.stringify(json));
+                res.end();
+            });
+        }catch(err){
+            res.writeHead(503, {'Content-Type': 'text/html; charset=utf8'});
+            res.write(JSON.stringify({code:503, text:"error request!"}));
+            res.end();
+        }        
+    })
+}).listen(port);
+
+console.info("server work on port:" + port);

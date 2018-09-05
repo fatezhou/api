@@ -13,10 +13,10 @@ function ApiGetContact(){
             return {code:res.code, data:{}};
         }     
     }
-    this.GetStar = function(){
-        //var CuteDbController = require("./../dbController.js");
-        //var db = new CuteDbController;
-        //var res = db.Query("select studentId from star_table where ?", {uid:1});
+    this.GetStar = function(data){
+        var CuteDbController = require("./../dbController.js");
+        var db = new CuteDbController;
+        var res = db.Query("select studentIds from star_table where ?", {uid:data.uid});
         return [41,42,9];
     }
     this.GetStudents = function(version, data, callback){
@@ -25,7 +25,7 @@ function ApiGetContact(){
         var self = this;
         function onResponse(data){
             var object = JSON.parse(data.toString());
-            var starArray = self.GetStar();
+            var starArray = self.GetStar(data);
             var resObject= {code:0};
             for(var i = 0; i < starArray.length; i++){
                 for(var j = 0; j < object.data.size; j++){

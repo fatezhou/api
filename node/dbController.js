@@ -2,7 +2,7 @@ var mysql = require('mysql');
 
 
 /*
-var connectionz = {
+var conn = {
   host     : 'localhost',
   user     : 'minidope',
   password : 'minidope',
