@@ -1,13 +1,35 @@
 function ApiGetNewMessage(){
-    this.Service = function(version, postData){
+    this.Service = function(version, data, callback){
         var CuteDbController = require("./../dbController.js");
         var db = new CuteDbController;
-        var res = db.Query("");
-        if(res.code == 0){
-            return {code:0, data:{records:res.dataArray}};
-        }else{
-            return {code:res.code, data:{}};
-        }     
+
+        function ToSQL(data){
+            var sql = {};
+            sql.author_id = data.memberId;
+            return sql;
+        }
+
+        var sqlData = ToSQL(data);
+        function QueryLike(){
+            var res = db.Query(
+                "select "
+            )
+        }
+        function QueryAppend(){
+            var res = db.Query(
+                "select A.text,  from growth_record A, new_message B where A.id = B.record_id and ??", 
+                sqlData, function(e){
+                    if(e.error){
+    
+                    }else{
+                        QueryLike();
+                    }
+                });
+        }
+
+
+        
+         
     }
 }
 
