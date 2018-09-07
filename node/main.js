@@ -25,13 +25,12 @@ http.createServer(function(req, res){
             router.Service(JSON.parse(data), urlPath, function(json){
                 res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
                 res.write(JSON.stringify(json));
-                res.end();
             });
         }catch(err){
             res.writeHead(503, {'Content-Type': 'text/html; charset=utf8'});
             res.write(JSON.stringify({code:503, text:"error request!"}));
-            res.end();
         }        
+        res.end();
     })
 }).listen(port);
 

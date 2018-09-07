@@ -1,13 +1,13 @@
+var CuteTool = require("./../tools.js");
+
 function ApiPutMemberFav(){
-    this.Service = function(version, postData){
-        var CuteDbController = require("./../dbController.js");
-        var db = new CuteDbController;
-        var res = db.Exec("");
-        if(res.code == 0){
-            return {code:0, data:{records:res.dataArray}};
-        }else{
-            return {code:res.code, data:{}};
-        }     
+    this.Service = function(version, postData, callback){
+        var tools = new CuteTool;
+        var db = tools.GetDataBase();
+        var config = tools.GetConfig();
+        var response = tools.GetResponse();
+
+        
     }
 }
 

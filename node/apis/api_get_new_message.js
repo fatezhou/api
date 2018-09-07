@@ -1,7 +1,9 @@
+var CuteTool = require("./../tools.js");
+
 function ApiGetNewMessage(){
     this.Service = function(version, data, callback){
-        var CuteDbController = require("./../dbController.js");
-        var db = new CuteDbController;
+        var tool = new CuteTool;
+        var db = tool.GetDataBase();
 
         function ToSQL(data){
             var sql = {};

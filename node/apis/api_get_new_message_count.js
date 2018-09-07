@@ -1,7 +1,10 @@
+var CuteTool = require("./../tools.js");
+
 function ApiGetNewMessageCount(){
     this.Service = function(version, data, callback){
-        var CuteDbController = require("./../dbController.js");
-        var db = new CuteDbController;
+        var tool = new CuteTool;
+        var db = tool.GetDataBase();
+        var response = tool.GetResponse();
         var res = db.Query("");
 
         function ToSQL(data){
@@ -13,13 +16,11 @@ function ApiGetNewMessageCount(){
 
         db.Query("select count(*) as msgSize from new_message where ??", data, function(res){
             if(res.error){
-                callback();
+                callback(response.BadSQL());
             }else{
-                {count:res[0].msgSize}
-                callback();
+                callback(response.Succ({count:res[0].msgSize}));
             }
         })
-
     }
 }
 

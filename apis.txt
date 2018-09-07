@@ -191,20 +191,15 @@ response:
     "data": {
         "record": {
             "recordId": "10003",
-            "icon": "https://xxxxx.jpg",
             "pictureUrls": [
                 "https://xxxx.jpg",
                 "https://xxx.jpg"
             ],
             "text": "这是一段文字",
             "authorId": "05920001(这个对应会员或老师id)",
-            "authorName": "Teacher Chen",
-            "type":"teacher(现在这边只有老师)",
+            "type": 1, //1 teacher, 2 parent
             "dateTime": "2018-11-22 15:33",
-            "like": [
-                "05920001",
-                "05920002"
-            ],
+            "like": 5, //5 个点赞
             "append": [
                 {
                     "authorId": "05920001",
@@ -360,7 +355,7 @@ param:
     "unionid":"xxxxxx",
     "openid":"xxxxxxx"
     "memberId": "059200001",
-    "type": "parent/teacher/student",
+    "type": 1, //1: teacher, 2: parent",
     "recordId": 12356
 }
 response:

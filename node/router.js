@@ -56,13 +56,10 @@ function CuteRouter(){
                 baseApi = new ApiPutMemberFav;
                 break;
             default:
-                return this.BadApi();
+                return {code:4, data:{}, error:"api错误"};
                 break;
         }
         return baseApi.Service(this.version, data, callback);
-    }
-    this.BadApi = function(){
-        return (new require("./response.js")).BadApi();
     }
 }
 

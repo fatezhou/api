@@ -18,6 +18,9 @@ function CuteResponse(){
     this.BadGrowthRecord = function(){
         return {code:3, data:{}, error:"找不到成长记录"};
     }
+    this.BadSQL = function(){
+        return {code:4, data:{}, error:"sql error"};
+    }
     this.Succ = function(succData){
         return {code:0, data:succData, error:"成功"}
     }
