@@ -402,6 +402,19 @@ response:
     }
 }
 
+-------------------------------------------
+#获取家长清单#
+url: https://ip:port/api/v1.0/get_parent_info
+method: post
+param:
+{
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx"
+    "authorId": 1,//自己的id
+    "authorType": 1, //1: teacher, 2: parent"
+}
+
+
 
 
 

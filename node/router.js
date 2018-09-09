@@ -63,9 +63,12 @@ function CuteRouter(){
                 var ApiGetChildGrowthRecordCount = require("./apis/api_get_child_growth_record_count.js");
                 baseApi = new ApiGetChildGrowthRecordCount;
                 break;
+            case "get_parent_info":
+                var ApiGetParentInfo = require("./apis/api_get_parent_info.js");
+                baseApi = new ApiGetParentInfo;
+                break;
             default:
                 return {code:4, data:{}, error:"api错误"};
-                break;
         }
         return baseApi.Service(this.version, data, callback);
     }
