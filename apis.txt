@@ -6,7 +6,7 @@
 4 : 找不到合适的api接口
 
 ----------------------------------------------
-# 登录系统
+# 登录系统#
 url: https://ip:port/api/v1.0/login
 method: post
 param:
@@ -24,15 +24,13 @@ response:
 }
 
 ----------------------------------------------
-# 拉取通讯录
+# 拉取通讯录#
 url: https://ip:port/api/v1.0/get_contact
 method: post
 param: 
 {
 	"unionid":"xxxxxx",
-    "openid":"xxxxxxx",
-    "startPage":0,
-    "pages":1
+    "openid":"xxxxxxx"
 }
 response:
 {
@@ -86,14 +84,15 @@ other situation:
 code: 0/1
 
 ---------------------------------------------
-# 获取会员资料明细
+# 获取会员资料明细#
 url: https://ip:port/api/v1.0/get_profile
 method: post
 param: 
 {
 	"unionid":"xxxxxx",
     "openid":"xxxxxxx",
-	"memberId": "预留参数" 
+	"authorId":1,//可选, 只要特定老师发的
+	"authorType":1//保留参数, 用来标记是老师还是家长
 }
 response:
 {
@@ -134,15 +133,16 @@ other situation:
 code: 0/1/2
 
 ---------------------------------------------
-# 获取批量会员成长记录
-url: https://ip:port/api/v1.0/get_growth_records
+#获取批量会员成长记录(不包括评论)#
+url: https://ip:port/api/v1.0/get_growth_records_without_append
 method: post
 param: 
 {
 	"unionid":"xxxxxx",
-    "openid":"xxxxxxx"
-	"beginRecodId": "150",//从第几张开始加载
-	"range": 30
+    "openid":"xxxxxxx",
+	"studentId":12345,
+	"authorId":1,//可选, 只要特定老师发的
+	"authorType":1//保留参数, 用来标记是老师还是家长
 }
 response:
 {
@@ -153,10 +153,8 @@ response:
                 "recordId": "10003",
                 "pictureUrls": ["https://xxxx.jpg", "https://xxx.jpg"],
                 "text": "这是一段文字",
-                "authorId": "05920001(这个对应会员或老师id)",
-                "authorName": "Teacher Chen",
-                "type": "teacher/parent",
-                "icon": "https://xxxxx.jpg",
+                "authorId": 1,
+                "authorType": 1,
                 "dateTime": "2018-11-22 15:33"
             },
             {
@@ -165,7 +163,6 @@ response:
                 "text": "这是另一段文字",
                 "authorId": "05920001(这个对应会员或老师id)",
                 "icon": "https://xxxxx.jpg",
-                "authorName": "Teacher Chen",
                 "type": "teacher/parent",
                 "dateTime": "2018-11-19 13:13"
             }
@@ -176,14 +173,14 @@ other situation:
 code: 0/1
 
 ---------------------------------------------
-# 获取单独会员成长记录
-url: https://ip:port/api/v1.0/get_growth_record
+# 获取单独会员成长记录, 包括评论#
+url: https://ip:port/api/v1.0/get_one_growth_record_with_append_by_recordId
 method: post
 param: 
 {
 	"unionid":"xxxxxx",
     "openid":"xxxxxxx"
-	"growthRecordId":"10001"
+	"recordId": 10001
 }
 response:
 {
@@ -196,26 +193,25 @@ response:
                 "https://xxx.jpg"
             ],
             "text": "这是一段文字",
-            "authorId": "05920001(这个对应会员或老师id)",
-            "type": 1, //1 teacher, 2 parent
+            "authorId": 1(这个对应会员或老师id),
+            "authorType": 1, //1 teacher, 2 parent
+			"studentId":123,
             "dateTime": "2018-11-22 15:33",
             "like": 5, //5 个点赞
             "append": [
                 {
-                    "authorId": "05920001",
-                    "authorName": "小葡萄家长",
+                    "authorId": 1,
                     "icon": "https://xxx.jpg",
                     "text": "这是一段文字",
-                    "isLike": true,
-                    "type":"teacher/parent"
+                    "ILike": true,
+                    "type":2
                 },
-                {
-                    "authorId": "05920002",
-                    "authorName": "Teacher Chen",
+                {				
+                    "authorId": 2,
                     "icon": "https://xxx.jpg",
                     "text": "这是一段文字",
-                    "isLike": false,
-                    "type":"teacher/parent"
+                    "ILike": false,
+                    "type":2
                 }
             ]
         }
@@ -225,33 +221,15 @@ other situation:
 code: 0/1/2/3
 
 ---------------------------------------------
-# 获取特定会员成长记录数
-url: https://ip:port/api/v1.0/get_child_growth_record_count
-method: post
-param: 
-{
-	"unionid":"xxxxxx",
-    "openid":"xxxxxxx"
-	"memberId":"10001"
-}
-response:
-{
-    "code": 0,
-    "data": {
-        "count": 763
-    }
-}
-other situation:
-code: 0/1/2
-
----------------------------------------------
-# 获取新消息记录数量
+# 获取新消息记录数量#
 url: https://ip:port/api/v1.0/get_new_message_count
 method: post
 param: 
 {
 	"unionid":"xxxxxx",
-    "openid":"xxxxxxx"
+    "openid":"xxxxxxx",
+	"authorId":1,//自己的id
+	"authorType":1//自己的type
 }
 response:
 {
@@ -264,39 +242,48 @@ other situation:
 code: 0/1
 
 ---------------------------------------------
-# 获取新消息记录
+# 获取新消息记录#
 url: https://ip:port/api/v1.0/get_new_message
 method: post
 param: 
 {
 	"unionid":"xxxxxx",
-    "openid":"xxxxxxx"
+    "openid":"xxxxxxx",
+	"authorId":1,//自己的id
+	"authorType":1//自己的type
 }
 response:
 {
     "code": 0,
     "data": {
-        "newRecords": [
-            {
-                "type": "text",
-                "authorId": "05920001",
-                "authorName": "Teacher Chen",
-                "type":"teacher",
-                "text": "这是针对某条成长记录的评论",
-                "growthRecordId": "100001"
-            },
-            {
-                "type": "like",
-                "authorName": "小葡萄家长",
-                "authorId": "059200001",
-                "type":"parent"
-            }
-        ]
-    }
+		"like":[
+			{
+				"recordId":1,
+				"text":"xxxxxx",//被点赞的记录的文本
+				"pictureUrls" : ["https://xxxx.jpg", "https://xxx.jpg"],
+				"authorId":1,
+				"authorType":1,
+				"dateTime":"2011-11-16 11:11:11",
+				"parentRecordId":1 			
+			}
+		],
+		"append":[
+			{	
+				"recordId":1,
+				"parentRecordId":1,
+				"parentText":"xxxxxx",//评论的父记录的文本
+				"text":"xxxxxx",//评论本体文本
+				"authorId":1,
+				"authorType":1,
+				"dateTime":"xxxx-xx-xx xx:xx:xx,			
+				"pictureUrls" : ["https://xxxx.jpg", "https://xxx.jpg"],
+			}
+		]
+	}
 }
 
 ---------------------------------------------
-# 发送新的成长日志
+# 发送新的成长日志或评论#
 url: https://ip:port/api/v1.0/put_new_record
 method: post
 param:
@@ -305,30 +292,30 @@ param:
     "openid":"xxxxxxx",
     "authorType":1,//1 teacher, 2 parent
     "text": "这是一篇将要发送的成长记录",
-    "authorId": "059200001",
-    "studentId": "05920002",//如果是评论的话, 则此项可以不用填,
+    "authorId": 1,
+    "studentId": 2,//如果是评论的话, 则此项可以不用填,
     "pictureUrls": [
         "https://xxxxx.jpg",
         "https://xxxx.jpg"
     ],
     "recordType":1, //1:record,2:append",
     "parentRecordId":111111    //如果是全新的一条记录, 则此项可以不用填,
+	"orgAuthorId":1, //原作者的id, 如果这是一条全新的, 那么就填自己
+	"orgAuthorType":1//原作者的type
 }
 response:
 {
     "code": 0,
     "data": {
-        "put_new_record":{
-            "recordId":"xxxxxx",
-            "parentRecordId":"xxxxxx"//如果是一条全新的记录, 则此项为空
-        }
+		"recordId":1,
+        "parentRecordId":1//如果是一条全新的记录, 则此项为空
     }
 }
 other situation:
 code: 0/1
 
 ---------------------------------------------
-# 设置星标
+# 设置星标(还没做)
 url: https://ip:port/api/v1.0/put_member_fav
 method: post
 param:
@@ -347,15 +334,15 @@ response:
 }
 
 ---------------------------------------------
-# 给评论点赞
-url: https://ip:port/api/v1.0/put_record_fav
+# 点赞#
+url: https://ip:port/api/v1.0/put_record_like
 method: post
 param:
 {
     "unionid":"xxxxxx",
     "openid":"xxxxxxx"
-    "memberId": "059200001",
-    "type": 1, //1: teacher, 2: parent",
+    "authorId": 1,//自己的id
+    "authorType": 1, //1: teacher, 2: parent",
     "recordId": 12356
 }
 response:
@@ -365,3 +352,113 @@ response:
         "text": "点赞成功"
     }
 }
+
+---------------------------------------------
+# 获取小孩成长记录个数#
+url: https://ip:port/api/v1.0/get_child_growth_record_count
+method: post
+param:
+{
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx"
+    "authorId": 1,//自己的id
+    "authorType": 1, //1: teacher, 2: parent",
+    "studentId": 12356
+}
+
+response:
+{
+    "code": 0,
+    "data": {
+        "count": 763
+    }
+}
+
+---------------------------------------------
+#获取小孩成长记录#
+url: https://ip:port/api/v1.0/get_child_growth_records
+method: post
+param:
+{
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx"
+    "authorId": 1,//可选项, 如果有写, 就是指定某个老师的
+    "authorType": 1, //可选项, 如果有指定某个老师, 则此项必填, 1: teacher, 2: parent",
+    "studentId": 12356
+}
+response:
+{
+    "code": 0,
+    "data": {
+		"records":[
+			{
+				"recordId":1,
+				"author_id":1,
+				"author_type":1,
+				"text":"xxx",
+				"pictureUrls":["https://wwwww.jpg"]				
+			}
+		]
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

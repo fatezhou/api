@@ -7,6 +7,7 @@ function CuteTool(){
     this.GetDataBase = function(){
         var CuteDbController = require("./dbController.js");
         var res = new CuteDbController;
+        res.Init(this.GetConfig().GetDataBaseConfig());
         return res;
     }
     this.GetConfig = function(){

@@ -27,13 +27,13 @@ function CuteRouter(){
                 var ApiGetProfile = require("./apis/api_get_profile.js");
                 baseApi = new ApiGetProfile;
                 break;
-            case "get_growth_records":
-                var ApiGetGrowthRecords = require("./apis/api_get_growth_records.js");
-                baseApi = new ApiGetGrowthRecords;
+            case "get_one_growth_record_with_append_by_recordId":
+                var ApiGetOneGrowthRecordWithAppendByRecordId = require("./apis/api_get_one_growth_record_with_append.js");
+                baseApi = new ApiGetOneGrowthRecordWithAppendByRecordId;
                 break;
-            case "get_growth_record":
-                var ApiGetGrowthRecord = require("./apis/api_get_growth_record.js");
-                baseApi = new ApiGetGrowthRecord;
+            case "get_growth_records_without_append":
+                var ApiGetGrowthRecordWithoutAppend = require("./apis/api_get_growth_record_without_append.js");
+                baseApi = new ApiGetGrowthRecordWithoutAppend;
                 break;
             case "get_child_growth_record_count":
                 var ApiGetChildGrowthRecordCount = require("./apis/api_get_child_growth_record_count.js");
@@ -54,6 +54,14 @@ function CuteRouter(){
             case "put_member_fav":
                 var ApiPutMemberFav = require("./apis/api_put_member_fav.js");
                 baseApi = new ApiPutMemberFav;
+                break;
+            case "get_child_growth_records":
+                var ApiGetChildGrowthRecordWithoutAppendByStudentId = require("./apis/api_get_child_growth_record_without_append_by_studentId.js");
+                baseApi = new ApiGetChildGrowthRecordWithoutAppendByStudentId;
+                break;
+            case "get_child_growth_record_count":
+                var ApiGetChildGrowthRecordCount = require("./apis/api_get_child_growth_record_count.js");
+                baseApi = new ApiGetChildGrowthRecordCount;
                 break;
             default:
                 return {code:4, data:{}, error:"api错误"};

@@ -5,22 +5,17 @@ function ApiGetNewMessageCount(){
         var tool = new CuteTool;
         var db = tool.GetDataBase();
         var response = tool.GetResponse();
-        var res = db.Query("");
+        var sqlData = {};
+        sqlData.org_author_id = data.authorId;
+        sqlData.org_author_type = data.authorType;
 
-        function ToSQL(data){
-            var sql = {};
-            sql.member_id = data.memberId;
-        }
-
-        var sqlData = ToSQL(data);
-
-        db.Query("select count(*) as msgSize from new_message where ??", data, function(res){
+        db.Query("select count(*) as msgSize from new_message where ??", sqlData, function(res){
             if(res.error){
                 callback(response.BadSQL());
             }else{
                 callback(response.Succ({count:res[0].msgSize}));
             }
-        })
+        });
     }
 }
 
