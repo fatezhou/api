@@ -4,9 +4,11 @@ function ApiPutNewRecord(){
     this.Service = function(version, data, callback){
         var tools = new CuteTool;
         var db = tools.GetDataBase();
+        var logger = tools.GetLogger(); 
         var response = tools.GetResponse();
-
-        function MakeToDataFmt(data){
+        logger.debug("ApiPutNewRecord.begin");
+        function MakeToDataFmt(data){                        
+            logger.debug("MakeToDataFmt.begin");
             var sqlData = {};
             sqlData.text = data.text;
             sqlData.author_id = data.authorId;
@@ -16,10 +18,13 @@ function ApiPutNewRecord(){
                 sqlData.student_id = data.studentId;
             sqlData.record_type = data.recordType;
             if(data.parentRecordId)
-                sqlData.parent_record_id = data.parentRecordId;
+                sqlData.parent_record_id = data.parentRecordId;      
+            logger.debug("MakeToDataFmt.finish");
+            return sqlData;
         }
 
         function WriteToDataBase(data, callback){
+            logger.debug("WriteToDataBase.begin");
             var sqlData = MakeToDataFmt(data);
             var result = {code:0, data:{}};
             if(data.recordType == 1){//日志
@@ -31,6 +36,7 @@ function ApiPutNewRecord(){
                     )VALUES(?,?,?,?,?,?,?,?,?)",
                     [sqlData.text, sqlData.author_id, sqlData.picture_urls, sqlData.author_type, sqlData.student_id,
                     1, 0, sqlData.author_id, sqlData.author_type], function(res){
+                        logger.debug("ApiPutNewRecord.finish");
                         if(res.error){
                             callback(response.BadSQL());
                         }else{
@@ -45,14 +51,19 @@ function ApiPutNewRecord(){
                         org_author_id, org_author_type\
                     )VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                     [sqlData.text, sqlData.author_id, sqlData.author_type, sqlData.student_id, 2, sqlData.parent_record_id, data.orgAuthorId, data.orgAuthorType], function(e){
+                        logger.debug("ApiPutNewRecord.finish");
                         if(e.error){
                             callback(response.BadSQL());
                         }else{
                             callback(response.Succ({put_new_record:res.insertId}));
                         }
                 });                
-            }            
+            }else{
+                callback(response.Succ({put_new_record: "type error"}));
+            }           
         }  
+        WriteToDataBase(data, callback);        
+        logger.debug("ApiPutNewRecord.end");
     }
 }
 

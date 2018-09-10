@@ -1,5 +1,5 @@
 function ApiGetChildGrowthRecordCount(){
-    this.Service = function(version, data, callback){
+    this.Service = function(version, data, callback){        
         var CuteTools = require("./../tools.js");
         var tool = new CuteTools;
         var db = tool.GetDataBase();

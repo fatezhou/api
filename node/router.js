@@ -1,7 +1,11 @@
 
+var CuteTool = require("./tools.js");
+
 function CuteRouter(){    
     var version;
     var apiFunction;
+    var tool = new CuteTool;
+    var logger = tool.GetLogger();
     this.IsVaild = function(path){
         path = path.substr(1, path.length);
         var arr = path.split("/");
@@ -12,7 +16,8 @@ function CuteRouter(){
         this.version = arr[1];
         return true;
     }
-    this.Service = function(data, callback){
+    this.Service = function(data, url, callback){
+        logger.debug("CuteRouter.Service, url:%s", url, "apiFunction:" + this.apiFunction);
         var baseApi = {};
         switch(this.apiFunction){            
             case "login":
@@ -49,7 +54,7 @@ function CuteRouter(){
                 break;
             case "put_new_record":
                 var ApiPutNewRecord = require("./apis/api_put_new_record.js");
-                baseApi = new ApiPutNewRecord;
+                baseApi = new ApiPutNewRecord;                
                 break;
             case "put_member_fav":
                 var ApiPutMemberFav = require("./apis/api_put_member_fav.js");
@@ -70,6 +75,7 @@ function CuteRouter(){
             default:
                 return {code:4, data:{}, error:"api错误"};
         }
+        logger.debug("start service");
         return baseApi.Service(this.version, data, callback);
     }
 }

@@ -6,8 +6,11 @@ function CuteTool(){
     }
     this.GetDataBase = function(){
         var CuteDbController = require("./dbController.js");
-        var res = new CuteDbController;
-        res.Init(this.GetConfig().GetDataBaseConfig());
+        var config = this.GetConfig();
+        var conn = config.GetDataBaseConfig();
+        console.info(conn);
+        var res = new CuteDbController(conn);
+        console.info("get data base");
         return res;
     }
     this.GetConfig = function(){
@@ -15,10 +18,23 @@ function CuteTool(){
         var res = new CuteConfig;
         return res;
     }
-    this.Https = function(){
+    this.GetHttps = function(){
         var CuteHttps = require("./https.js");
         var res = new CuteHttps;
         return res;
+    }
+    this.GetLogger = function(){
+        var log4js=require('log4js');
+        log4js.configure({
+            appenders: {
+              out: { type: 'stdout' },//设置是否在控制台打印日志
+              info: { type: 'file', filename: './logs/info.log' }
+            },
+            categories: {
+              default: { appenders: [ 'out', 'info'], level: 'debug' }//去掉'out'。控制台不打印日志
+            }
+          });
+        return log4js.getLogger('info');;
     }
 }
 

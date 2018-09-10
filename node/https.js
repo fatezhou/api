@@ -3,7 +3,16 @@ function CuteHttps(){
     this.Get = function(url, callback){
         console.info(url);
         https.get(url, function(res){
-            res.on('data', callback);
+            var data = "";
+            res.on('data', function(chunk){
+                data += chunk.toString();
+            });            
+            res.on('end', function(){
+                callback(data);
+            });
+            res.on('error', function(e){
+                console.info(e);
+            });
         }).end();
     };
     this.Post = function(url, data, callback){

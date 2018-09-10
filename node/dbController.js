@@ -11,9 +11,9 @@ var conn = {
 */
 
 function CuteDbController(conn){
-    var connection;
-    var conn;
-    var isConnect = false;
+    this.connection;
+    this.conn = conn;
+    this.isConnect = false;
     this.Init = function(conn){
         this.conn = conn;
         this.connection = mysql.createConnection(conn);
@@ -27,19 +27,22 @@ function CuteDbController(conn){
         var connection = this.connection;        
         try{
             connection.query(sqlfmt, data, function (error, results) {
-                if (error) throw error;
+                console.info("query.finish");
+                if (error) 
+                    throw error;
                 callback(results);                
             });
         }catch(err){
-            callback({error:"sql error"});
+            callback({error:true});
         }
         connection.end();
         this.isConnect = false;
     }
     this.Connect = function(){
-        this.Init();
+        this.Init(this.conn);
     }
-	this.Init(conn);
+    this.Init(conn);
+    console.info("database connect succ!");
 }
 
 module.exports = CuteDbController;

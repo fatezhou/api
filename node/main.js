@@ -8,7 +8,8 @@ if(process.argv.length > 2){
 }
 
 http.createServer(function(req, res){
-    if(router.IsVaild(req.path) == false){
+    console.info(req.url);
+    if(router.IsVaild(req.url) == false){
         res.writeHead(503, {'Content-Type': 'text/html; charset=utf8'});
         res.write(JSON.stringify({code:503, text:"forbidden!"}));
         res.end();
@@ -16,22 +17,34 @@ http.createServer(function(req, res){
     }
     
     var urlPath = url.parse(req.url).pathname;
-    var data;
+    var data = "";
     req.on('data', function(chunk){
-        data += chunk;
+        data += chunk.toString();
     });
     req.on('end', function(){
-        try{
-            router.Service(JSON.parse(data), urlPath, function(json){
+        console.info("on request end, data:\n" + data + ", url:\n" + urlPath);
+            router.Service(JSON.parse(data), urlPath, function(json){                
                 res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
+                console.info(json);
                 res.write(JSON.stringify(json));
+                res.end();
             });
-        }catch(err){
-            res.writeHead(503, {'Content-Type': 'text/html; charset=utf8'});
-            res.write(JSON.stringify({code:503, text:"error request!"}));
-        }        
-        res.end();
-    })
+
+        //debug
+        // try{
+        //     console.info("on request end, data:\n" + data + ", url:\n" + urlPath);
+        //     router.Service(JSON.parse(data), urlPath, function(json){                
+        //         res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
+        //         console.info(json);
+        //         res.write(JSON.stringify(json));
+        //         res.end();
+        //     });
+        // }catch(err){
+        //     res.writeHead(503, {'Content-Type': 'text/html; charset=utf8'});
+        //     res.write(JSON.stringify({code:503, text:"deal service error"}));
+        //     res.end();
+        // }        
+    });
 }).listen(port);
 
 console.info("server work on port:" + port);
