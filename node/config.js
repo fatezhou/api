@@ -36,6 +36,7 @@ function CuteConfig(){
     this.GetLoginUrl = function(){
         return "https://https://ouat.buzaishudian.com/api/mini/user-id";
     }
+    
 }
 
 module.exports = CuteConfig;

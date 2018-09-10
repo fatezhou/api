@@ -10,38 +10,42 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
         var headerLike = 0;
 
         function GetMainTextLike(){
-            var sqlFmt = "select count(id) as like from growth_record_like ??";
-            db.Query(sqlFmt, {id:data.recordId}, function(e){
+            var sqlFmt = "select count(id) as someOneLike from growth_record_like where record_id=?";
+            db.Query(sqlFmt, [data.recordId], function(e){
                 if(e.error){
                     callback(response.BadSQL());
                 }else{
-                    headerLike = e.like;
+                    headerLike = e.someOneLike;
                     GetText();
                 }
             })
         };
 
         function GetText(){
-            var sqlFmt = "select text, id as recordId, author_id as authorId, author_type as authorType, student_id as studentId, creaet_time as dateTime\
+            var sqlFmt = "select \
+            text, id as recordId, author_id as authorId, \
+            author_type as authorType, student_id as studentId, create_time as dateTime,\
             false as ILike\
              from growth_record where id=? or parent_record_id=? order by create_time desc";
             db.Query(sqlFmt, [data.recordId, data.recordId], function(e){
                 if(e.error){
                     callback(response.BadSQL());
-                }
-
-                res.record = e[0];
-                res.record.like = headerLike;
-                delete res.record["ILike"];
-                res.record.append = [];
-
-                for(var i in e){
-                    recordId_in += e[i].id;
-                    recordId_in += ",";
-                }
-                res.record.append = e;
-                recordId_in = recordId_in.substr(0, recordId_in.length - 1);
-                GetAppendTextILike();
+                }else{
+                    res.record = e[0];
+                    res.record.like = headerLike;
+                    delete res.record["ILike"];
+                    res.record.append = [];
+    
+                    for(var i in e){
+                        recordId_in += e[i].id;
+                        recordId_in += ",";
+                    }
+                    for(var i in e){
+                        res.record.append.push(e[i]);    
+                    }
+                    recordId_in = recordId_in.substr(0, recordId_in.length - 1);
+                    GetAppendTextILike();
+                }               
             });
         }
         

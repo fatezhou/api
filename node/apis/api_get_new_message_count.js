@@ -9,7 +9,7 @@ function ApiGetNewMessageCount(){
         sqlData.org_author_id = data.authorId;
         sqlData.org_author_type = data.authorType;
 
-        db.Query("select count(*) as msgSize from new_message where ??", sqlData, function(res){
+        db.Query("select count(*) as msgSize from new_message where org_author_id=? and org_author_type=?", [data.authorId, data.authorType], function(res){
             if(res.error){
                 callback(response.BadSQL());
             }else{

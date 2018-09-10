@@ -10,17 +10,12 @@ function ApiGetNewMessage(){
         function GetNewLike(){
             var sqlFmt = "select \
             a.id as recordId, a.text, a.picture_urls as pictureUrls, \
-            a.create_time as dateTime , a.author_id, a.author_type \
+            a.create_time as dateTime , a.author_id, a.author_type, \
             a.parent_record_id as parentRecordId\
             from growth_record a, growth_record_like b where a.id = b.record_id and a.record_type = 2 and a.id in (\
-            select record_id from new_messaeg ??) ";
+            select record_id from new_message where org_author_id=? and org_author_type=?) ";
 
-            var sqlParam = {
-                org_author_id : data.authorId,
-                org_author_type : data.authorType
-            };
-
-            db.Query(sqlFmt, sqlParam, function(e){
+            db.Query(sqlFmt, [data.authorId, data.authorType], function(e){
                 if(e.error){
                     callback(response.BadSQL());
                 }else{
@@ -39,13 +34,9 @@ function ApiGetNewMessage(){
             a.text, a.parent_record_id as parentRecordId, a.id as recordId, \
             b.text as parentText, b.picture_urls as pictureUrls\
             from growth_record a , growth_record b where a.parent_record_id = b.id and a.id in (\
-            select record_id from new_message ??)";
+            select record_id from new_message where org_author_id=? and org_author_type=?)";
 
-            var sqlParam = {};
-            sqlParam.org_author_id = data.authorId;
-            sqlParam.org_author_type = data.authorType;
-
-            db.Query(sqlFmt, sqlParam, function(e){
+            db.Query(sqlFmt, [data.authorId, data.authorType], function(e){
                 if(e.error){
                     callback(response.BadSQL());
                 }else{

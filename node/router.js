@@ -33,7 +33,7 @@ function CuteRouter(){
                 baseApi = new ApiGetProfile;
                 break;
             case "get_one_growth_record_with_append_by_recordId":
-                var ApiGetOneGrowthRecordWithAppendByRecordId = require("./apis/api_get_one_growth_record_with_append.js");
+                var ApiGetOneGrowthRecordWithAppendByRecordId = require("./apis/api_get_one_growth_record_with_append_by_recordId.js");
                 baseApi = new ApiGetOneGrowthRecordWithAppendByRecordId;
                 break;
             case "get_growth_records_without_append":
@@ -71,6 +71,10 @@ function CuteRouter(){
             case "get_parent_info":
                 var ApiGetParentInfo = require("./apis/api_get_parent_info.js");
                 baseApi = new ApiGetParentInfo;
+                break;
+            case "put_record_like":
+                var ApiPutRecordLike = require("./apis/api_put_record_like.js");
+                baseApi = new ApiPutRecordLike;
                 break;
             default:
                 return {code:4, data:{}, error:"api错误"};

@@ -1,7 +1,7 @@
 var CuteTool = require("./../tools.js");
 
 function ApiPutRecordLike(){
-    this.Service = function(version, data, callbcak){
+    this.Service = function(version, data, callback){
         var tools = new CuteTool;
         var db = tools.GetDataBase();
         var response = tools.GetResponse();
@@ -16,3 +16,5 @@ function ApiPutRecordLike(){
         });
     }
 }
+
+module.exports = ApiPutRecordLike;

@@ -8,7 +8,6 @@ function ApiPutNewRecord(){
         var response = tools.GetResponse();
         logger.debug("ApiPutNewRecord.begin");
         function MakeToDataFmt(data){                        
-            logger.debug("MakeToDataFmt.begin");
             var sqlData = {};
             sqlData.text = data.text;
             sqlData.author_id = data.authorId;
@@ -19,13 +18,13 @@ function ApiPutNewRecord(){
             sqlData.record_type = data.recordType;
             if(data.parentRecordId)
                 sqlData.parent_record_id = data.parentRecordId;      
-            logger.debug("MakeToDataFmt.finish");
             return sqlData;
         }
 
         function WriteToDataBase(data, callback){
             logger.debug("WriteToDataBase.begin");
             var sqlData = MakeToDataFmt(data);
+            logger.debug(sqlData);
             var result = {code:0, data:{}};
             if(data.recordType == 1){//日志
                 db.Query(
@@ -40,14 +39,14 @@ function ApiPutNewRecord(){
                         if(res.error){
                             callback(response.BadSQL());
                         }else{
-                            callback(response.Succ({recordId:insertId}));                        
+                            callback(response.Succ({recordId:res.insertId}));                        
                         }                        
                     })    
             }else if(data.recordType == 2){//评论
                 db.Query(
                     "insert into growth_record(\
                         text, author_id, author_type, \
-                        student_id, record_type, parent_record_id\
+                        student_id, record_type, parent_record_id,\
                         org_author_id, org_author_type\
                     )VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                     [sqlData.text, sqlData.author_id, sqlData.author_type, sqlData.student_id, 2, sqlData.parent_record_id, data.orgAuthorId, data.orgAuthorType], function(e){
@@ -55,7 +54,7 @@ function ApiPutNewRecord(){
                         if(e.error){
                             callback(response.BadSQL());
                         }else{
-                            callback(response.Succ({put_new_record:res.insertId}));
+                            callback(response.Succ({put_new_record:e.insertId}));
                         }
                 });                
             }else{
