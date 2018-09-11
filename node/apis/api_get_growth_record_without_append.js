@@ -22,22 +22,27 @@ function ApiGetGrowthRecordWithoutAppend(){
         var tools = new CuteTool;
         var db = tools.GetDataBase();
         var response = tools.GetResponse();
+        var logger = tools.GetLogger();
         var res = {};
         var likeCount = 0;
         var tableMainRecord = [];
 
+        logger.debug("ApiGetGrowthRecordWithoutAppend.begin");
+
         function GetGrowthRecordHeader(){
-            var sqlFmt = "select text, author_id \
-            as authorId, id as recordId, student_id as studentId, \
-            picture_urls as pictures, author_type as authorType create_time as dateTime from \
-            growth_record ?? order by create_time desc";
+            var sqlFmt = "select text, author_id as authorId, \
+            id as recordId, student_id as studentId, \
+            picture_urls as pictures, author_type as authorType, create_time as dateTime from \
+            growth_record where student_id = ? and ? order by create_time desc";
             var sqlData = {};
             sqlData.student_id = data.studentId;
             if(data.authorId){
                 sqlData.author_id = data.authorId;
+            }else{
+                sqlData.author_id = true;
             }
 
-            db.Query(sqlFmt, sqlData, function(e){
+            db.Query(sqlFmt, [sqlData.student_id, sqlData.author_id], function(e){
                 if(e.error){
                     callback(response.BadSQL());
                 }else{

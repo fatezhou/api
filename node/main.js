@@ -25,7 +25,6 @@ http.createServer(function(req, res){
         console.info("on request end, data:\n" + data + ", url:\n" + urlPath);
             router.Service(JSON.parse(data), urlPath, function(json){                
                 res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
-                console.info(json);
                 res.write(JSON.stringify(json));
                 res.end();
             });
