@@ -340,10 +340,13 @@ method: post
 param:
 {
     "unionid":"xxxxxx",
-    "openid":"xxxxxxx"
+    "openid":"xxxxxxx",
     "authorId": 1,//自己的id
     "authorType": 1, //1: teacher, 2: parent",
-    "recordId": 12356
+    "recordId": 12356,
+    "parentRecordId":17,
+    "orgAuthorId":1,
+    "orgAuthorType":1
 }
 response:
 {
@@ -403,7 +406,7 @@ response:
 }
 
 -------------------------------------------
-#获取家长清单#
+#获取家长清单#(对方还没实现)
 url: https://ip:port/api/v1.0/get_parent_info
 method: post
 param:
