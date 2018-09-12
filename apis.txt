@@ -407,19 +407,172 @@ response:
 
 -------------------------------------------
 #获取家长清单#(对方还没实现)
-url: https://ip:port/api/v1.0/get_parent_info
+url: https://ip:port/api/v1.0/get_parents_info
 method: post
 param:
 {
 	"unionid":"xxxxxx",
-    "openid":"xxxxxxx"
-    "authorId": 1,//自己的id
-    "authorType": 1, //1: teacher, 2: parent"
+    "openid":"xxxxxxx",
+    "startPage":0,//起始页码，从第几页开始获取记录，例如：从头一页开始获取，那么 startPage=0
+    "pageSize":10,//每页包含记录数，例如：一次要请求 2 页，每页包含 10 条记录，那么 pageSize=10
+    "pages":10    //要获取多少页，例如：一次请求 2 页，pages=2，如果每页包含 10 条记录，总共获取了 20 条记录
+}
+response:
+{
+    "code":0,
+    "data":{
+        "records":[
+            {
+                "parentId": 2,          // 家长 ID
+                "name": "石头",          // 家长姓名
+                "phone": "13003303272", // 家长手机号码
+                "address": "",          // 家庭地址
+                "wechat": "",           // 微信号
+                "avatarUrl": "",        // 家长头像 URL
+                "company": "",          // 公司名称
+                "companyPhone": "",     // 公司电话
+                "familyId": 1,          // 家庭 ID
+                "familyName": "",       // 家庭名称
+                "memberType": 2         // 家庭成员类型，1爸爸，2妈妈，3监护人
+                }, {
+                "parentId": 1,
+                "name": "熊猫先生",
+                "phone": "13324795363",
+                "address": "",
+                "wechat": "",
+                "avatarUrl": "",
+                "company": "",
+                "companyPhone": "",
+                "familyId": 2,
+                "familyName": "",
+                "memberType": 1
+            }
+        ]
+    }
+}
+-------------------------------------------
+#获取老师信息
+url: https://ip:port/api/v1.0/get_teacher_info
+method: post
+param:
+{
+    
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx",
+    "teacherId":1,//要查的老师id
+    "phone":"xxxx"//选填
+}
+response:
+{
+    "code":0,
+    "data":{
+        "teacherInfo":{
+            "teacherId": 1,         // 教师 ID
+            "name": "Iris",         // 教师姓名
+            "nickname": "Iris",     // 教师昵称
+            "avatarUrl": "",        // 教师头像 URL
+            "phone": "13804831933", // 手机号码
+            "sex": 2,               // 0:未知，1:男，2:女
+            "unionId": "oO_8zw0yAhzBcEwEuPehvblLIGe0",
+            "openId": "oO_8zw0yAhzBcEwEuPehvblLIGe0",
+            "createTime": "2018-03-28T08:27:24.000Z",
+        }
+    }
+}
+------------------------------------------
+#获取教师列表
+url: https://ip:port/api/v1.0/get_teachers
+method: post
+param:
+{
+	"unionid":"xxxxxx",
+    "openid":"xxxxxxx",
+    "startPage":0,//起始页码，从第几页开始获取记录，例如：从头一页开始获取，那么 startPage=0
+    "pageSize":10,//每页包含记录数，例如：一次要请求 2 页，每页包含 10 条记录，那么 pageSize=10
+    "pages":10    //要获取多少页，例如：一次请求 2 页，pages=2，如果每页包含 10 条记录，总共获取了 20 条记录
+}
+response:
+{
+    "code":0,
+    "data":{
+        "teachers":[
+            {
+                "teacherId": 1,          // 教师 ID
+                "name": "Iris",          // 教师姓名
+                "nickname": "Iris",      // 教师昵称
+                "phone": "18060999548",  // 教师手机号码
+                "avatarUrl": "",         // 教师头像 URL
+                "sex": 2,                // 0:未知，1:男，2:女
+            }, {
+                "teacherId": 2,
+                "name": "Colin",
+                "nickname": "Colin",
+                "phone": "13328791363",
+                "avatarUrl": "",
+                "sex": 1,
+            }
+        ]
+    }
 }
 
+------------------------------------------------
+#绑定手机
+url: https://ip:port/api/v1.0/bindPhone
+method: post
+param:
+{
+    "unionid" : "xxxxxxxxx",
+    "openid" : "xxxxxxxxxxxxx",
+    "phone" : "xxxxxxxx",
+    "vcode" : "验证码",
+    "userType" : 1, 1:teacher, 2:parent
+    "token" : "之前通过login拿过来的token"
+}
+response:
+{
+    "code" : 0,
+    "data": {
+        "text":"成功"
+    }
+}
 
+------------------------------------------------
+#解绑手机
+url: https://ip:port/api/v1.0/unbindPhone
+method: post
+param:
+{
+    "unionid" : "xxxxxxxxx",
+    "openid" : "xxxxxxxxxxxxx",
+    "userType" : 1, 1:teacher, 2:parent
+    "token" : "之前通过login拿过来的token"
+}
+response:
+{
+    "code" : 0,
+    "data": {
+        "text":"成功"
+    }
+}
 
-
+------------------------------------------------
+#发送短信验证码
+url: https://ip:port/api/v1.0/phone-vcode
+method: post
+param:
+{
+    "unionid" : "xxxxxxxxx",
+    "openid" : "xxxxxxxxxxxxx",
+    "userType" : 1, 1:teacher, 2:parent
+    "phone" : "xxxxxx"
+}
+response:
+{
+    "code" : 0,
+    "data": {
+        "text":"成功"
+    }
+}
 
 
 

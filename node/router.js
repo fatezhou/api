@@ -68,7 +68,7 @@ function CuteRouter(){
                 var ApiGetChildGrowthRecordCount = require("./apis/api_get_child_growth_record_count.js");
                 baseApi = new ApiGetChildGrowthRecordCount;
                 break;
-            case "get_parent_info":
+            case "get_parents_info":
                 var ApiGetParentInfo = require("./apis/api_get_parent_info.js");
                 baseApi = new ApiGetParentInfo;
                 break;
@@ -76,8 +76,29 @@ function CuteRouter(){
                 var ApiPutRecordLike = require("./apis/api_put_record_like.js");
                 baseApi = new ApiPutRecordLike;
                 break;
+            case "get_teacher_info":
+                var ApiGetTeacherInfo = require("./apis/api_get_teacher_info.js");
+                baseApi = new ApiGetTeacherInfo;
+                break;
+            case "get_teachers":
+                var ApiGetTeachers = require("./apis/api_get_teachers.js");
+                baseApi = new ApiGetTeachers;
+                break;
+            case "bindPhone":
+                var ApiBindPhone = require("./apis/api_bind_phone.js");
+                baseApi = new ApiBindPhone;
+                break;
+            case "unbindPhone":
+                var ApiUnBindPhone = require("./apis/api_unbind_phone.js");
+                baseApi = new ApiUnBindPhone;
+                break;
+            case "phone-vcode":
+                var ApiPhoneVcode = require("./apis/api_phone_vcode.js");
+                baseApi = new ApiPhoneVcode;
+                break;                
             default:
-                return {code:4, data:{}, error:"api错误"};
+                callback({code:4, data:{}, error:"api错误"});
+                return;
         }
         logger.debug("start service");
         return baseApi.Service(this.version, data, callback);
