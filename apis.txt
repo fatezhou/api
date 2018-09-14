@@ -564,7 +564,7 @@ param:
     "unionid" : "xxxxxxxxx",
     "openid" : "xxxxxxxxxxxxx",
     "userType" : 1, 1:teacher, 2:parent
-    "phone" : "xxxxxx"
+    "phone" : "18059866237"
 }
 response:
 {
