@@ -36,7 +36,7 @@ function CuteRouter(){
                 var ApiGetOneGrowthRecordWithAppendByRecordId = require("./apis/api_get_one_growth_record_with_append_by_recordId.js");
                 baseApi = new ApiGetOneGrowthRecordWithAppendByRecordId;
                 break;
-            case "get_growth_record_without_append":
+            case "get_growth_records_without_append":
                 var ApiGetGrowthRecordWithoutAppend = require("./apis/api_get_growth_record_without_append.js");
                 baseApi = new ApiGetGrowthRecordWithoutAppend;
                 break;

@@ -43,12 +43,20 @@ function ApiGetGrowthRecordWithoutAppend(){
             }
 
             db.Query(sqlFmt, [sqlData.student_id, sqlData.author_id], function(e){
+				
                 if(e.error){
                     callback(response.BadSQL());
                 }else{
-                    
+					e = JSON.stringify(e);
+					e = JSON.parse(e);
+					
+					
                     for(var i in e){
-                        e[i].pictureUrls = JSON.parse(e[i].pictures).urls;
+						try{
+							e[i].pictureUrls = JSON.parse(e[i].pictures).urls;	
+						}catch(err){							
+							e[i].pictureUrls = [];
+						}                        
                         delete e[i]["pictrues"];
                     }
 

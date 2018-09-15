@@ -2,7 +2,8 @@ function ApiLogin(){
     this.Service = function(version, data, callback){
         var CuteHttps = require("./../https.js");
         var cuteHttps = new CuteHttps;
-        var cuteConfig = new require("./../config.js");
+		var CuteConfig = require("./../config.js");
+        var cuteConfig = new CuteConfig;
         var strUrl = cuteConfig.GetLoginUrl() + "?appid=" + data.appid + "&code=" + data.code;
         function ResponseCallback(data){
             var res = {code:0, data:{}};
