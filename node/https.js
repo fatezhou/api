@@ -25,10 +25,13 @@ function CuteHttps(){
         }, function(res){
             res.setEncoding("utf8");
             res.on('data', callback);
+            res.on('end', callback);
         });
         req.on('error', function(e){console.info(e);});
-        req.write(data);
+        strJson = JSON.stringify(data);
+        req.write(strJson);
         req.end();
+        console.info("post end");
     }
 }
 /*

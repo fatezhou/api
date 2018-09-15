@@ -46,6 +46,7 @@ function ApiGetGrowthRecordWithoutAppend(){
                 if(e.error){
                     callback(response.BadSQL());
                 }else{
+                    
                     for(var i in e){
                         e[i].pictureUrls = JSON.parse(e[i].pictures).urls;
                         delete e[i]["pictrues"];

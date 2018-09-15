@@ -34,9 +34,11 @@ function CuteConfig(){
         return "https://ouat.buzaishudian.com/api/parent-info";
     }
     this.GetLoginUrl = function(){
-        return "https://https://ouat.buzaishudian.com/api/mini/user-id";
+        return "https://test.buzaishudian.com/api/mini/user-id";
     }
-    
+    this.GetTeathersUrl = function(){
+		return "https://test.buzaishudian.com/api/teachers";
+	}
 }
 
 module.exports = CuteConfig;
