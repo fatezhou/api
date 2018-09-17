@@ -11,11 +11,16 @@ Page({
     mainText: "",
     recordId: 0,
     appendList: [],
+    listNumber: 0,
     studentId: 0,
     orgAuthorId: 0,
     orgAuthorType: 0,
     name: "加载中",
     recordSize: "正在查询记录个数",
+
+    imgUrl: [],
+    bigImgUrl: '',
+    canShowBigImg: false,
   },
 
   /**
@@ -30,10 +35,34 @@ Page({
     this.data.orgAuthorType = options.orgAuthorType;
     this.data.recordId = options.recordId;
     this.data.name = options.name;
+    this.data.dateTime = options.dateTime;
     this.setData(this.data);
     console.info(app.globalData.oneGrowthRecordWithAppendUrl);
     this.getRecordSize();
+    console.info(app.globalData.contact)
+    for (var i = 0; i < app.globalData.contact.length; i++) {
+      if (app.globalData.contact[i].recordId == options.recordId) {
+        this.setData({
+          imgUrl: app.globalData.contact[i].pictureUrls
+        })
+      }
+    }
+    console.info(this.data.imgUrl)
   },
+
+  showBigImg: function(e) {
+    this.setData({
+      bigImgUrl: e.currentTarget.dataset.showbigimg,
+      canShowBigImg: true
+    })
+  },
+
+  notShowImg:function(){
+    this.setData({
+      canShowBigImg: false
+    })
+  },
+
   goMoreRecords: function(e) {
     getApp().globalData.studentId = this.data.studentId;
     getApp().globalData.showAllStudents = false;
@@ -100,7 +129,8 @@ Page({
           }
         }
         self.setData({
-          appendList: self.data.appendList
+          appendList: self.data.appendList,
+          listNumber: self.data.appendList.length
         })
         console.info(self.data.appendList)
       },
