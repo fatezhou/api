@@ -104,8 +104,8 @@
 
 
 </view>
-<view class='fixed'>
+<!-- <view class='fixed'>
  <navigator url='./../pull/pull?studentId={{studentId}}'>
   <image src='./../../image/edit.png' mode='widthFix'></image>
  </navigator>
-</view>
+</view> -->
