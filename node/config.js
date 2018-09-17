@@ -48,7 +48,10 @@ function CuteConfig(){
 	}
 	this.GetTeacherInfoByPhone = function(){
 		return "https://test.buzaishudian.com/api/teacher-info";
-	}
+    }
+    this.GetCdnTokenUrl = function(){
+        return "https://test.buzaishudian.com/api/upload-auth";
+    }
 }
 
 module.exports = CuteConfig;
