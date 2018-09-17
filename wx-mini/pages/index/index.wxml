@@ -27,16 +27,16 @@
      <image style='width:160rpx;height:160rpx;' wx:for="{{itemObject.pictureUrls}}" wx:for-item="aaa" wx:key='index' src='{{aaa}}' mode='widthFix'></image>
     </view> -->
     <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && index == 0}}">
-     <image src='./../../image/pic0.jpg' mode='widthFix'></image>
+     <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
     </view>
     <view class='picList th2' wx:if="{{itemObject.pictureUrls !=[] && index == 1}}">
-     <image src='./../../image/pic0.jpg' mode='widthFix'></image>
-     <image src='./../../image/pic0.jpg' mode='widthFix'></image>
+     <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
+     <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
     </view>
     <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && index > 1}}">
-     <image src='./../../image/pic0.jpg' mode='widthFix'></image>
-     <image src='./../../image/pic0.jpg' mode='widthFix'></image>
-     <image src='./../../image/pic0.jpg' mode='widthFix'></image>
+     <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
+     <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
+     <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image>
     </view>
     </navigator>
   </view>
