@@ -36,7 +36,7 @@
     <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && index > 1}}">
      <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
      <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
-     <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image>
+     <!-- <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image> -->
     </view>
     </navigator>
   </view>
