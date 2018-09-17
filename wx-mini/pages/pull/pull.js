@@ -21,6 +21,8 @@ Page({
 
     downloadUrl:'',
     pictureUrls:[],
+
+    prepareToUpload: [],
   },
   charChange: function(e) {
     this.setData({
@@ -46,56 +48,36 @@ Page({
     var that = this;
     var gData = app.globalData;
     console.info(that.data);
-    // console.info(gData.userId)
-    var uploadImgNumber = that.data.imgs.length
-    var q;
-    for (q = 0; q < uploadImgNumber; q++) {
-      // 图片上传七牛云
-      that.getTokenAndImgUrl(q, function(res) {
-        var token = res.data.data.cdn.token
-        var key = res.data.data.cdn.key
-        var downloadUrl = res.data.data.cdn.downloadUrl
-        that.data.downloadUrl = downloadUrl
-        console.info(res)
-        console.info('-----------')
-        var imgn = downloadUrl.substring(downloadUrl.lastIndexOf('.') - 1, downloadUrl.lastIndexOf('.'))
-        // console.info(imgn)
-        console.info(token)
-        console.info(key)
-        console.info(that.data.imgs)
-        console.info(uploadImgNumber)
 
-        wx.uploadFile({
-          url: "https://up-z2.qiniup.com",
-          filePath: that.data.imgs[imgn],
-          name: 'file',
-          header: 'Content-Type: multipart/form-data;',
-          method: 'post',
-          formData: {
-            token: token,
-            key: key,
-          },
-          success: function(res) {
-            // console.info(res)
-          },
-          complete: function(res) {
-            console.info(res)
-          }
-        })
-      })
-      console.info(that.data.downloadUrl)
-      that.data.pictureUrls[q] = that.data.downloadUrl
-      that.setData({
-        pictureUrls: that.data.pictureUrls
-      })
+    for(var i in this.data.prepareToUpload){
+      wx.uploadFile({
+        url: 'https://up-z2.qiniup.com',
+        filePath: this.data.prepareToUpload[i].localFilePath,
+        name: "file",
+        header: 'Content-Type: multipart/form-data;',
+        method: 'post',
+        formData: {
+          token: this.data.prepareToUpload[i].token,
+          key: this.data.prepareToUpload[i].key,
+        },
+        success: function (res) {
+          // console.info(res)
+        },
+        complete: function (res) {
+          console.info(res)
+        }
+      });
     }
-    that.addRecard()
+    that.addRecard();
   },
 
   addRecard() {
     var gData = app.globalData;
-    var that = this
-    var pictureUrls = that.data.pictureUrls
+    var that = this;
+    var pictureUrls = [];
+    for(var i in this.data.prepareToUpload){
+      pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
+    }
     console.info(pictureUrls)
     console.info('------------')
     wx.request({
@@ -220,6 +202,37 @@ Page({
     return callback(fileName)
   },
 
+  makePicName:function(index, tmpFilePath){
+    var userId = app.globalData.userId
+
+    var date = new Date()
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var hour = date.getHours()
+    var minute = date.getMinutes()
+    var second = date.getSeconds()
+
+    const formatNumber = n => {
+      n = n.toString()
+      return n[1] ? n : '0' + n
+    }
+    var timeArr = [year, month, day, hour, minute, second].map(formatNumber)
+    var time = '';
+
+    for (var t = 0; t < timeArr.length; t++) {
+      time += timeArr[t]
+    }
+    console.info(time)
+    var arr = tmpFilePath.split('.');
+    var ext = "JPG";
+    if(arr.length > 0){
+      ext = arr[arr.length-1];
+    }
+    var fileName = 't_' + userId + '_' + time + '_' + index + '.' + ext;
+    return fileName;
+  },
+
   //删除上传图片
   reom(e) {
     let that = this
@@ -275,11 +288,40 @@ Page({
         var imgsLimit = [];
         var tempFilePaths = that.data.tempFilePaths;
         var imgs = that.data.imgs;
+        var index = imgs.length;
+
         console.log(res.tempFilePaths);
         for (var i = 0; i < res.tempFilePaths.length; i++) {
           tempFilePaths[res.tempFilePaths[i]] = '';
           console.log(res.tempFilePaths[i])
           imgs.push(res.tempFilePaths[i]);
+
+          var encodePicFileName = that.makePicName(index, res.tempFilePaths[i]);
+          console.info(encodePicFileName);
+          var self = that;
+          var localFilePath = res.tempFilePaths[i];
+          wx.request({
+            url: 'http://api.minidope.com/api/v1.0/get_cdn_token',
+            method: 'post',
+            data: {
+              appid: app.globalData.appId,
+              fileName: encodePicFileName,
+              localFilePath: localFilePath
+            },
+            success: function (res) {
+              console.info(res);
+              self.data.prepareToUpload.push(
+                {
+                  fileName: res.data.data.cdn.fileName,
+                  token: res.data.data.cdn.token,
+                  downloadUrl: res.data.data.cdn.downloadUrl,
+                  key: res.data.data.cdn.key,
+                  localFilePath: res.data.data.cdn.localFilePath
+                }
+              );
+              console.info(self.data.prepareToUpload);
+            }
+          })
         };
         if (imgs.length > 3) {
           for (var i = 0; i < 3; i++) {

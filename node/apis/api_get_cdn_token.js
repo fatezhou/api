@@ -6,7 +6,10 @@ function ApiGetCdnToken(){
     var config = tool.GetConfig();
     var response = tool.GetResponse();
     var logger = tool.GetLogger();
+    
     this.Service = function(version, data, callback){
+        var fileName = data.fileName;
+        var filePath = data.localFilePath;
         var url = config.GetCdnTokenUrl();
         url += "?appid=" + data.appid;
         url += "&file=" + data.fileName;
@@ -19,7 +22,7 @@ function ApiGetCdnToken(){
             }catch(err){
                 e = {token:"", downloadUrl:""}
             }
-            callback(response.Succ({cdn:{token:e.data.token, downloadUrl:e.data.downloadUrl, key:e.data.key}}));
+            callback(response.Succ({cdn:{localFilePath: localFilePath, fileName: fileName, token:e.data.token, downloadUrl:e.data.downloadUrl, key:e.data.key}}));
         });       
     }
 }
