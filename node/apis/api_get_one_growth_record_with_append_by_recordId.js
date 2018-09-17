@@ -17,7 +17,7 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
                 logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetMainTextLike.finish");
                 if(e.error){
                     callback(response.BadSQL());
-                }else{
+                }else{					
                     headerLike = e[0].someOneLike;
                     GetText();
                 }
@@ -30,9 +30,10 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
             text, id as recordId, author_id as authorId, \
             author_type as authorType, student_id as studentId, create_time as dateTime,\
             false as ILike\
-             from growth_record where id=? or parent_record_id=? order by create_time desc";
+             from growth_record where id=? or parent_record_id=? order by create_time";
             db.Query(sqlFmt, [data.recordId, data.recordId], function(e){                
                 logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetText.finish");
+				logger.debug(e);
                 if(e.error){
                     callback(response.BadSQL());
                 }else{
@@ -42,7 +43,7 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
                     res.record = e[0];
                     delete res.record["ILike"];
                     res.record.append = [];										
-                    for(var i = 1; i < e.length; i++){
+                    for(var i = e.length - 1; i > 0; i--){
                         recordId_in += e[i].recordId;
                         recordId_in += ",";
 						console.info(e[i]);

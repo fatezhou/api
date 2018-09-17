@@ -18,7 +18,8 @@ function CuteConfig(){
             user     : 'minidope',
             password : 'minidope',
             database : 'minidope',
-            port:3306        
+            port:3306 ,
+			dateStrings:true			
         };
     };
     this.GetPort = function(){
@@ -28,16 +29,25 @@ function CuteConfig(){
         return this.cfg.log;
     }
     this.GetStudentsInfoUrl = function(){
-        return "https://ouat.buzaishudian.com/api/students";
+        return "https://test.buzaishudian.com/api/students";
     }
     this.GetParentProfileInfoUrl = function(){
-        return "https://ouat.buzaishudian.com/api/parent-info";
+        return "https://test.buzaishudian.com/api/parent-info";
     }
     this.GetLoginUrl = function(){
         return "https://test.buzaishudian.com/api/mini/user-id";
     }
     this.GetTeathersUrl = function(){
 		return "https://test.buzaishudian.com/api/teachers";
+	}
+	this.GetBindPhoneUrl = function(){
+		return "https://test.buzaishudian.com/api/mini/phone-bind";
+	}
+	this.GetVCode = function(){
+		return "https://test.buzaishudian.com/api/mini/phone-vcode";
+	}
+	this.GetTeacherInfoByPhone = function(){
+		return "https://test.buzaishudian.com/api/teacher-info";
 	}
 }
 

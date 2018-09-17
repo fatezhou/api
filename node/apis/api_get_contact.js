@@ -30,13 +30,13 @@ function ApiGetContact(){
                 }
             }*/
 
-            var res = {code:0, data:{contact:[{group:"star", member:[]},{member:[]}]}};
+            var res = {contact:[{group:"star", member:[]},{member:[]}]};
 
             for(var i = 0; i < object.data.size; i++){
                 if(object.data.records[i].isStar){
-                    res.data.contact[0].member.push(object.data.records[i]);
+                    res.contact[0].member.push(object.data.records[i]);
                 }else{
-                    res.data.contact[1].member.push(object.data.records[i]);
+                    res.contact[1].member.push(object.data.records[i]);
                 }
             }
             callback(response.Succ(res));

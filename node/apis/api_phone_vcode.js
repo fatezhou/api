@@ -5,24 +5,31 @@ function ApiPhoneVcode(){
         var tool = new CuteTool;
         var https = tool.GetHttps();
         var logger = tool.GetLogger();
+		var response = tool.GetResponse();
+		var config = tool.GetConfig();
         logger.debug("ApiPhoneVcode");
         
-        var url = "https://test.buzaishudian.com/api/mini/phone-vcode";
+        var url = config.GetVCode();
         var param = {
-            unionid : data.unionid,
-            openid : data.openid,
-            userType : data.userType == 3 ? 1 : 2,
+            unionId : data.unionid,
+            openId : data.openid,
+            userType : data.userType == 1 ? 3 : 2,
             phone : data.phone
         }
+		
+		logger.debug(param);
     
         https.Post(url, param, function(e){
+			logger.debug(typeof(e));
 			logger.debug(e);
 			try{
 				e = JSON.parse(e);
+				console.info(e);
 			}catch(error){
 				e = {message:"error"};
-			}
-            callback({text:e.message});
+			}			
+			logger.debug("after JSON");
+            callback(response.Succ({text:e.message}));
         });
     }
 }

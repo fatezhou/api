@@ -30,20 +30,38 @@ function ApiGetGrowthRecordWithoutAppend(){
         logger.debug("ApiGetGrowthRecordWithoutAppend.begin");
 
         function GetGrowthRecordHeader(){
+			logger.debug(data);
             var sqlFmt = "select text, author_id as authorId, \
             id as recordId, student_id as studentId, \
             picture_urls as pictures, author_type as authorType, create_time as dateTime from \
-            growth_record where student_id = ? and ? order by create_time desc";
+            growth_record where ? and record_type = 1 order by create_time desc";
             var sqlData = {};
-            sqlData.student_id = data.studentId;
+			var sql = [];
+			if(data.studentId){
+				sqlData.student_id = ("student_id = " + data.studentId);
+				sql.push(data.studentId);
+				
+				sqlFmt = "select text, author_id as authorId, \
+            id as recordId, student_id as studentId, \
+            picture_urls as pictures, author_type as authorType, create_time as dateTime from \
+            growth_record where student_id = ? and ? and record_type = 1 order by create_time desc";
+			}else{
+				
+				sqlData.student_id = true;
+			}
+            
             if(data.authorId){
-                sqlData.author_id = data.authorId;
+				sql.push(data.authorId);
+                sqlData.author_id = ("author_id = " + data.authorId);
             }else{
+				sql.push(true);
                 sqlData.author_id = true;
             }
+			
+			console.info(sqlData);
 
-            db.Query(sqlFmt, [sqlData.student_id, sqlData.author_id], function(e){
-				
+            db.Query(sqlFmt, sql, function(e){
+				console.info(e);
                 if(e.error){
                     callback(response.BadSQL());
                 }else{

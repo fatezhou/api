@@ -7,7 +7,7 @@ function ApiLogin(){
         var strUrl = cuteConfig.GetLoginUrl() + "?appid=" + data.appid + "&code=" + data.code;
         function ResponseCallback(data){
             var res = {code:0, data:{}};
-			
+			console.info(data);
 			try{
 				data = JSON.parse(data);
 			}catch(error){

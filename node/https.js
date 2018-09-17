@@ -18,14 +18,22 @@ function CuteHttps(){
     this.Post = function(url, data, callback){
         var urlObject = require("url").parse(url, true);
         console.info(urlObject);
+		var res_data = "";
         var req = https.request({
             host: urlObject.host,
             path: urlObject.pathname,
-            method: "POST"
+            method: "POST",
+			headers:{
+				'Content-Type' : 'application/json'
+			}
         }, function(res){
             res.setEncoding("utf8");
-            res.on('data', callback);
-            res.on('end', callback);
+            res.on('data', function(chuck){
+				res_data += chuck.toString();
+			});
+            res.on('end', function(){
+				callback(res_data);
+			});
         });
         req.on('error', function(e){console.info(e);});
         strJson = JSON.stringify(data);
