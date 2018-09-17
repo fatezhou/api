@@ -95,7 +95,11 @@ function CuteRouter(){
             case "phone-vcode":
                 var ApiPhoneVcode = require("./apis/api_phone_vcode.js");
                 baseApi = new ApiPhoneVcode;
-                break;                
+                break;    
+            case "get_cdn_token":
+                var ApiGetCdnToken = require("./apis/api_get_cdn_token.js");
+                baseApi = new ApiGetCdnToken;
+                break;
             default:
                 callback({code:4, data:{}, error:"api错误"});
                 return;
