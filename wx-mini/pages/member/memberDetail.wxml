@@ -1,0 +1,71 @@
+<!--pages/member/memberDetail.wxml-->
+<view style='height:200rpx;background:#fff;margin-top:30rpx;font-size:28rpx;display:flex;justify-content: space-between;align-items: center'>
+	<view style='display:flex;'>
+		<view style='margin-left:30rpx;margin-right:24rpx;position:relative;'>
+			<image src='../../image/head.png' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image>
+			<!-- <image src='../../image/Ticon.png' style='width:36rpx;height:36rpx;position:absolute;top:95rpx;left:95rpx;'></image> -->
+		</view>
+		<view>
+			<view style='display:flex;margin-top:20rpx;'>
+				<view>{{nickName}}</view>
+				<image src='../../image/man.png' style='width:38rpx;height:38rpx;margin-left:10rpx;'></image>
+			</view>
+			<view style='color:#98a5a5;margin-top:20rpx;'>卡号：{{cardCode}}</view>
+		</view>
+	</view>
+	<view style='display:flex;color:#58698a;align-items: center;font-weight:bold;margin-right:30rpx;' bindtap='xiugai'>
+		<image src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:10rpx;'></image>
+	</view>
+</view>
+
+<view style='background:#fff;font-size:32rpx;padding-left:30rpx;margin-top:30rpx;'>
+	<view class='MyInformationg'>
+		<view>姓名</view>
+		<view class='nameColor'>{{name}}</view>
+	</view>
+	<view class='MyInformationg'>
+		<view>生日</view>
+		<view class='nameColor'>{{birthDay}}</view>
+	</view>
+	<view class='MyInformationg'>
+		<view>会员状态</view>
+		<view class='nameColor'>{{freeze}}</view>
+	</view>
+	<view class='MyInformationg'>
+		<view>有效期</view>
+		<view class='nameColor'>2019-3-1</view>
+	</view>
+    <!--navigator url="./../index/index?studentId={{studentId}}"-->
+      <view class='MyInformationg' style='border:none;'>
+          <view>更多</view>
+        
+        <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
+      </view>
+    <!--/navigator-->
+</view>
+
+<view style='background:#fff;margin-top:30rpx;'>
+	<view style='height:88rpx;display:flex;font-size:32rpx;justify-content: space-between;align-items:center;'  bindtap="goMoreRecords">
+		<view style='margin-left:30rpx;'>成长记录</view>
+		<view style='display:flex;align-items:center;margin-right:30rpx;'>
+			<view style='color:#8f8e94;margin-right:20rpx'>{{recordSize}}</view>
+			<image src='../../image/RightIcon.png' style='width:20rpx;' mode='widthFix'></image>
+		</view>
+	</view>
+	<view style='padding:30rpx;width:690rpx;display:flex;justify-content:space-around;'>
+		<view style='width:160rpx;height:160rpx;background:#f2f4f7;text-align:center;' bindtap='toAddRecard'>
+			<image src='../../image/add.png' style='width:60rpx;height:60rpx;margin-top:50rpx;'></image>
+		</view>
+		<image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image>
+		<image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image>
+		<image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image>
+	</view>
+</view>
+
+<view style='padding-left:30rpx;margin-top:30rpx;background:#fff;font-size:32rpx;'>
+	<view class='MyInformationg' style='border:none;'>
+		<view>设为星标</view>
+		<switch checked='true' bindchange='putMemberFav'></switch>
+	</view>
+</view>
+

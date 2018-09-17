@@ -1,0 +1,6 @@
+<!--pages/my/meInforCha.wxml-->
+<view style='background:#fff;margin-top:30rpx;text-align:center;'>
+	<view class='change'>修改头像</view>
+	<view class='change'>修改昵称</view>
+	<view class='change'>修改简介</view>
+</view>

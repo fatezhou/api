@@ -1,0 +1,6 @@
+/* pages/member/member.wxss */
+
+
+.memberListBG{
+	background: #fff;
+}

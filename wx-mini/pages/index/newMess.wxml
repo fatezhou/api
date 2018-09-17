@@ -1,0 +1,21 @@
+<!--pages/index/newMess.wxml-->
+<view style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;margin-top:20rpx;'>
+	<image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+	<view style='width:600rpx;margin-left:20rpx;'>
+		<view style='color:#5b6c8c;margin-bottom:10rpx;'>Ayla老师</view>
+		<view>那时，我还是个有着25年丰富旱鸭子经验的严重恐水星人；凭借着在不会游泳界的出色成就，我轻松地成为了当天最难搞的学员。</view>
+		<view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>3分钟前</view>
+	</view>
+</view>	
+
+<view style='padding:30rpx;display:flex;justify-content: space-between;background:#fff;'>
+	<view style='display:flex;'>
+		<image src='../../image/head02.png' style='width:65rpx;height:65rpx;margin-right:20rpx;'></image>
+		<view>
+			<view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>小葡萄家长</view>
+			<image src='../../image/nice.png' style='width:30rpx;' mode='widthFix'></image>
+			<view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>3分钟前</view>
+		</view>
+	</view>
+	<image src='../../image/pic0.jpg' style='width:120rpx;height:120rpx;'></image>
+</view>

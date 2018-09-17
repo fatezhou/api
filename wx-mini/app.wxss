@@ -1,0 +1,11 @@
+/**app.wxss**/
+page{background: #F2F4F7;}
+.MyInformationg{
+	display: flex;justify-content: space-between;border-bottom: 1rpx solid #bfbfbf;width: 720rpx;height: 88rpx;align-items: center;
+}
+.nameColor{
+	color: #8f8e94;margin-right: 30rpx;
+}
+.leadW{
+	text-indent: 30rpx;font-size: 28rpx;height: 50rpx;line-height: 50rpx;color: #8e8e93;
+}

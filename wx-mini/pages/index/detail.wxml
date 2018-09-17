@@ -1,0 +1,58 @@
+<!--pages/index/detail.wxml-->
+<view style='padding:30rpx;background:#fff;margin-top:20rpx;'>
+  <view style='font-size:30rpx;'>{{mainText}}</view>
+  <view style='font-size:24rpx;display:flex;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:60rpx;'>
+    <view>3分钟前 · 3评论 · 2赞</view>
+    <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}">
+      <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
+    </navigator>
+
+  </view>
+</view>
+<view class='leadW' style='margin-top:20rpx;'>学员</view>
+
+<view style='height:88rpx;background:#fff;display:flex;align-items:center;justify-content: space-between;' bindtap='goMoreRecords'>
+  <view style='display:flex;align-items:center;'>
+    <image src='../../image/head.png' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image>
+    <view>
+      <view style='font-size:30rpx;'>{{name}}</view>
+      <!--view style='font-size:24rpx;color:#8e8e93'>赵小麦</view-->
+    </view>
+  </view>
+  <view style='display:flex;align-items:center;margin-right:30rpx;'>
+    <view class='leadW' style='margin-right:20rpx;'>{{recordSize}}</view>
+    <image src='../../image/RightIcon.png' style='width:20rpx;' mode='widthFix'></image>
+  </view>
+</view>
+
+<view class='leadW' style='margin-top:20rpx;'>讨论</view>
+
+<view wx:for='{{appendList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;'>
+  <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  <view style='width:600rpx;margin-left:20rpx;'>
+    <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.authorName}}</view>
+    <view>{{item.text}}</view>
+    <view style='font-size:24rpx;display:flex;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:60rpx;'>
+
+      <!-- 图 -->
+      <!-- <view class='picList th3'> -->
+      <!-- <image style='width:160rpx;height:160rpx;' wx:for="{{itemObject.pictureUrls}}" wx:for-item="aaa" wx:key='index' src='{{aaa}}' mode='widthFix'></image> -->
+      <!-- </view> -->
+ 
+      <!-- <view class='picList th3'  wx:if="{{itemObject.pictureUrls !=[] && index == 0}}">
+        <image src='./../../image/pic0.jpg' mode='widthFix'></image>
+        <image src='./../../image/pic0.jpg' mode='widthFix'></image>
+        <image src='./../../image/pic0.jpg' mode='widthFix'></image>
+      </view> -->
+      <!-- 图 -->
+
+      <!-- <view style="width:750rpx;"> -->
+        <view>3分钟前</view>
+        <view style='display:flex;justify-content: space-between;align-items:center;'>
+          <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix'></image>
+          <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
+        </view>
+      <!-- </view> -->
+    </view>
+  </view>
+</view>
