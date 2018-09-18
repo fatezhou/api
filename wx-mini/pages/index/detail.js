@@ -23,6 +23,10 @@ Page({
     canShowBigImg: false,
 
     hideBtn: false,
+
+    imgUrl: [],
+    bigImgUrl: '',
+    canShowBigImg: false,
   },
 
   /**
@@ -61,6 +65,16 @@ Page({
       })
     }
   },
+    console.info(app.globalData.contact)
+    for (var i = 0; i < app.globalData.contact.length; i++) {
+      if (app.globalData.contact[i].recordId == options.recordId) {
+        this.setData({
+          imgUrl: app.globalData.contact[i].pictureUrls
+        })
+      }
+    }
+    console.info(this.data.imgUrl)
+  },
 
   showBigImg: function(e) {
     this.setData({
@@ -70,6 +84,21 @@ Page({
   },
 
   notShowImg: function() {
+    this.setData({
+      canShowBigImg: false
+    })
+  },
+
+  goMoreRecords: function(e) {
+
+  showBigImg: function(e) {
+    this.setData({
+      bigImgUrl: e.currentTarget.dataset.showbigimg,
+      canShowBigImg: true
+    })
+  },
+
+  notShowImg:function(){
     this.setData({
       canShowBigImg: false
     })
