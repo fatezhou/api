@@ -47,9 +47,9 @@ function ApiPutNewRecord(){
                     "insert into growth_record(\
                         text, author_id, author_type, \
                         student_id, record_type, parent_record_id,\
-                        org_author_id, org_author_type\
-                    )VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
-                    [sqlData.text, sqlData.author_id, sqlData.author_type, sqlData.student_id, 2, sqlData.parent_record_id, data.orgAuthorId, data.orgAuthorType], function(e){
+                        org_author_id, org_author_type, picture_urls\
+                    )VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    [sqlData.text, sqlData.author_id, sqlData.author_type, sqlData.student_id, 2, sqlData.parent_record_id, data.orgAuthorId, data.orgAuthorType, sqlData.picture_urls], function(e){
                         logger.debug("ApiPutNewRecord.finish");
                         if(e.error){
                             callback(response.BadSQL());

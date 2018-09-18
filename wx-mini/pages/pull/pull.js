@@ -297,6 +297,7 @@ Page({
           imgs.push(res.tempFilePaths[i]);
 
           var encodePicFileName = that.makePicName(index, res.tempFilePaths[i]);
+          index++;
           console.info(encodePicFileName);
           var self = that;
           var localFilePath = res.tempFilePaths[i];
