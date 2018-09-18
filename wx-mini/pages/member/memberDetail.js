@@ -44,7 +44,8 @@ Page({
           "openid": app.globalData.openid,
           "studentId": that.data.studentId,
           "authorType": 1,
-          "authorId": app.globalData.teacherInfo.teacherId
+          "authorId": app.globalData.teacherInfo.teacherId,
+          "cancel": false
         },
         method: 'post',
         success: function(res) {
