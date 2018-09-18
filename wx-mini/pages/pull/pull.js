@@ -1,4 +1,5 @@
 const app = getApp();
+var calltext = null;
 Page({
 
   /**
@@ -25,6 +26,8 @@ Page({
     prepareToUpload: [],
 
     hindname: false,
+
+    // calltext: null,
   },
   charChange: function(e) {
     this.setData({
@@ -80,6 +83,13 @@ Page({
     for (var i in this.data.prepareToUpload) {
       pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
     }
+    var text = null;
+    if (calltext) {
+      text = calltext + that.data.text
+    } else {
+      text = that.data.text
+    }
+
     console.info(pictureUrls)
     console.info('------------')
     wx.request({
@@ -88,7 +98,7 @@ Page({
         "unionid": gData.unionid,
         "openid": gData.openid,
         "authorType": gData.userType, //1 teacher, 2 parent
-        "text": that.data.text,
+        "text": text,
         "authorId": gData.teacherInfo.teacherId,
         "studentId": that.data.studentId, //如果是评论的话, 则此项可以不用填,
         "pictureUrls": pictureUrls,
@@ -161,6 +171,11 @@ Page({
       this.setData({
         hindname: true
       })
+    }
+
+    if (options.callName) {
+      calltext = '回复' + ' ' + options.callName + ' '
+      console.info(calltext)
     }
   },
 
