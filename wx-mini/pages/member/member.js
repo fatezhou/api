@@ -7,9 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    memberList:[],
+    memberList: [],
+    star: null,
   },
-	member:function(e){
+  member: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.memberList[index];
     console.info("member.member");
@@ -19,33 +20,33 @@ Page({
     url += "&cardCode=" + item.cardCode;
     url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
     url += "&birthday=" + item.birthday;
-    url += "&freeze=" + item.freeze; 
+    url += "&freeze=" + item.freeze;
     console.info(url);
-		wx.navigateTo({
+    wx.navigateTo({
       url: url,
-			success: function(res) {},
-			fail: function(res) {},
-			complete: function(res) {},
-		})
-	},
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    
+  onLoad: function(options) {
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     // console.info("member.js");
     var that = this;
     var gData = app.globalData;
@@ -55,60 +56,70 @@ Page({
       data: {
         unionid: gData.unionid,
         openid: gData.openid,
-        authorId: gData.userId,//可选, 只要特定老师发的
-        authorType: gData.userType,//保留参数, 用来标记是老师还是家长
+        authorId: gData.userId, //可选, 只要特定老师发的
+        authorType: gData.userType, //保留参数, 用来标记是老师还是家长
       },
       header: {},
       method: 'POST',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
+      success: function(res) {
         console.log(res)
+        var memberList = res.data.data.contact[1].member
         that.setData({
           memberList: res.data.data.contact[1].member,
         })
-        // that.data.memberList = res.data.data.contact[1].member;
-        app.globalData.stararr = res.data.data.contact[0].member
+
+        var stararr = res.data.data.contact[0].member
+
+        for (var i = 0; i < memberList.length; i++) {
+          for (var j = 0; j < stararr.length; j++) {
+            if (memberList[i].studentId == stararr[j].studentId) {
+              memberList[i].star = true
+              that.setData({
+                memberList: memberList
+              })
+            }
+          }
+        }
       },
-      fail: function (res) {
-      },
-      complete: function (res) {
-      },
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })
