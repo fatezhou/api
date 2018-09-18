@@ -28,7 +28,7 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
             logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetText.begin");
             var sqlFmt = "select \
             text, id as recordId, author_id as authorId, \
-            author_type as authorType, student_id as studentId, create_time as dateTime,\
+            author_type as authorType, student_id as studentId, picture_urls as pictures, create_time as dateTime,\
             false as ILike\
              from growth_record where id=? or parent_record_id=? order by create_time";
             db.Query(sqlFmt, [data.recordId, data.recordId], function(e){                
@@ -46,7 +46,12 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
                     for(var i = e.length - 1; i > 0; i--){
                         recordId_in += e[i].recordId;
                         recordId_in += ",";
-						console.info(e[i]);
+                        console.info(e[i]);
+                        try{
+                            e[i].pictures = JSON.parse(e[i].pictures).urls;
+                        }catch(err){
+                            e[i].pictures = [];
+                        }
 						res.record["append"].push(e[i]);
                     }					
                     recordId_in = recordId_in.substr(0, recordId_in.length - 1);

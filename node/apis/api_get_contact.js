@@ -46,14 +46,19 @@ function ApiGetContact(){
         cuteHttps.Get(cuteConfig.GetStudentsInfoUrl() + "?pageSize=9999", onResponse);     
         logger.debug("ApiGetContact.end");
     }
-    this.GetStar = function(data){
+    this.GetStar = function(data, callback){
         var CuteDbController = require("./../dbController.js");
         var db = new CuteDbController;
-        var res = db.Query("select studentIds from star_table where ?", {uid:data.uid});
+        var res = db.Query("select student_id from star_table where uid=? and utype=?", [data.authorId, data.authorType], function(e){
+            try{
+                e = JSON.stringify(e);
+                e = JSON.parse(e);
+            }catch(err){
+                e = [];
+            }
+            callback(e);
+        });
         return [41,42,9];
-    }
-    this.GetStudents = function(version, data, callback){
-        
     }
 }
 /*
