@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    memberList:[]
+    memberList:[],
   },
 	member:function(e){
     var index = e.currentTarget.dataset.index;
@@ -32,34 +32,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.info("member.js");
-		var that = this;
-    var gData = app.globalData;
-    var url = gData.minodopeApi.contactUrl;
-		wx.request({
-      url: url,
-			data: {
-        unionid: gData.unionid,
-        openid: gData.openid,
-				authorId: gData.userId,//可选, 只要特定老师发的
-        authorType: gData.userType,//保留参数, 用来标记是老师还是家长
-			},
-			header: {},
-			method: 'POST',
-			dataType: 'json',
-			responseType: 'text',
-			success: function (res) {
-				console.log(res)
-				that.setData({
-					memberList: res.data.data.contact[1].member
-				})
-        that.data.memberList = res.data.data.contact[1].member;
-			},
-			fail: function (res) {
-			},
-			complete: function (res) {
-			},
-		})
+    
   },
 
   /**
@@ -73,7 +46,35 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    // console.info("member.js");
+    var that = this;
+    var gData = app.globalData;
+    var url = gData.minodopeApi.contactUrl;
+    wx.request({
+      url: url,
+      data: {
+        unionid: gData.unionid,
+        openid: gData.openid,
+        authorId: gData.userId,//可选, 只要特定老师发的
+        authorType: gData.userType,//保留参数, 用来标记是老师还是家长
+      },
+      header: {},
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          memberList: res.data.data.contact[1].member,
+        })
+        // that.data.memberList = res.data.data.contact[1].member;
+        app.globalData.stararr = res.data.data.contact[0].member
+      },
+      fail: function (res) {
+      },
+      complete: function (res) {
+      },
+    })
   },
 
   /**

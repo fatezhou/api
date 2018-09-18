@@ -13,7 +13,7 @@
 			<view style='color:#98a5a5;margin-top:20rpx;'>卡号：{{cardCode}}</view>
 		</view>
 	</view>
-	<view style='display:flex;color:#58698a;align-items: center;font-weight:bold;margin-right:30rpx;' bindtap='xiugai'>
+	<view style='display:flex;color:#58698a;align-items: center;font-weight:bold;margin-right:30rpx;' wx:if="{{star}}" bindtap='xiugai'>
 		<image src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:10rpx;'></image>
 	</view>
 </view>
@@ -65,7 +65,7 @@
 <view style='padding-left:30rpx;margin-top:30rpx;background:#fff;font-size:32rpx;'>
 	<view class='MyInformationg' style='border:none;'>
 		<view>设为星标</view>
-		<switch checked='true' bindchange='putMemberFav'></switch>
+		<switch checked='{{star}}' bindchange='putMemberFav'></switch>
 	</view>
 </view>
 

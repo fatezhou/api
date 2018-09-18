@@ -12,7 +12,10 @@ Page({
     birthDay: "",
     freeze: "",
     studentId: 0,
-    recordSize: "查询中"
+    recordSize: "查询中",
+
+    star: null,
+    nowStar: false,
   },
   goMoreRecords: function(e) {
     // getApp().globalData.studentId = this.data.studentId;
@@ -28,27 +31,67 @@ Page({
 
   // 星标
   putMemberFav: function(e) {
-    console.info(e.detail.value)
-    wx.request({
-      url: 'http://api.minidope.com/api/v1.0/put_member_fav',
-      data: {
-        "unionid": app.globalData.unionid,
-        "openid": app.globalData.openid,
-        "memberId": "059200001",
-        "type": "teacher"
-      },
-      method: 'post',
-      success: function(res) {
-        console.log(res)
-        
-      },
-      fail: function(res) {
-        console.info(res)
-      },
-      complete: function(res) {
-        console.info(res)
-      },
-    })
+    var that = this;
+    console.info(that.data.studentId)
+    console.info(app.globalData.teacherInfo.teacherId)
+    var statu = e.detail.value
+    if (statu) {
+      console.info(statu)
+      wx.request({
+        url: 'http://api.minidope.com/api/v1.0/put_member_fav',
+        data: {
+          "unionid": app.globalData.unionid,
+          "openid": app.globalData.openid,
+          "studentId": that.data.studentId,
+          "authorType": 1,
+          "authorId": app.globalData.teacherInfo.teacherId
+        },
+        method: 'post',
+        success: function(res) {
+          console.log(res)
+          that.setData({
+            star: true
+          })
+          // var length = app.globalData.stararr.length
+          // console.info(app.globalData.stararr)
+          // console.info(app.globalData.stararr.length)
+
+          // app.globalData.stararr.push({
+          //   studentId: that.data.studentId,
+          //   isStar: true
+          // })
+        },
+      })
+    } else {
+      console.info(statu)
+      wx.request({
+        url: 'http://api.minidope.com/api/v1.0/put_member_fav',
+        data: {
+          "unionid": app.globalData.unionid,
+          "openid": app.globalData.openid,
+          "studentId": that.data.studentId,
+          "authorType": 1,
+          "authorId": app.globalData.teacherInfo.teacherId,
+          "cancel": true
+        },
+        method: 'post',
+        success: function(res) {
+          console.log(res)
+          that.setData({
+            star: false
+          })
+          // var length = app.globalData.stararr.length
+          // console.info(app.globalData.stararr)
+          // console.info(app.globalData.stararr.length)
+
+          // app.globalData.stararr.push({
+          //   studentId: that.data.studentId,
+          //   isStar: true
+          // })
+        },
+      })
+    }
+
   },
   // 跳转新建记录页面
   toAddRecard: function() {
@@ -88,6 +131,7 @@ Page({
     this.data.studentId = parseInt(options.studentId);
     this.setData(this.data);
     this.getRecordSize();
+
   },
 
   /**
@@ -102,6 +146,43 @@ Page({
    */
   onShow: function() {
     this.getRecordSize()
+    var that = this;
+    var gData = app.globalData;
+    var url = gData.minodopeApi.contactUrl;
+    wx.request({
+      url: url,
+      data: {
+        unionid: gData.unionid,
+        openid: gData.openid,
+        authorId: gData.userId, //可选, 只要特定老师发的
+        authorType: gData.userType, //保留参数, 用来标记是老师还是家长
+      },
+      header: {},
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        console.log(res)
+
+        var stararr = res.data.data.contact[0].member
+        for (var i = 0; i < stararr.length; i++) {
+          if (stararr[i].studentId == that.data.studentId) {
+            // console.info(app.globalData.stararr[i].isStar)
+            // console.info(app.globalData.stararr[i].studentId)
+            // console.info(options.studentId)
+            that.setData({
+              star: stararr[i].isStar
+            })
+
+            break;
+          }
+        }
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+    // console.info(app.globalData.stararr)
+    // console.info(options.studentId)
   },
 
   /**
@@ -122,7 +203,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-  
+
   },
 
   /**

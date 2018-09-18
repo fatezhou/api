@@ -81,5 +81,7 @@ App({
     contact: {},
     teacherInfo: {},
     allTeacherInfo: null,
+
+    stararr: [],
   }
 })
