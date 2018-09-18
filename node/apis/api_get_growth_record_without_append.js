@@ -42,9 +42,9 @@ function ApiGetGrowthRecordWithoutAppend(){
 				sql.push(data.studentId);
 				
 				sqlFmt = "select text, author_id as authorId, \
-            id as recordId, student_id as studentId, \
-            picture_urls as pictures, author_type as authorType, create_time as dateTime from \
-            growth_record where student_id = ? and ? and record_type = 1 order by create_time desc";
+                    id as recordId, student_id as studentId, \
+                    picture_urls as pictures, author_type as authorType, create_time as dateTime from \
+                    growth_record where student_id = ? and ? and record_type = 1 order by create_time desc";
 			}else{
 				
 				sqlData.student_id = true;

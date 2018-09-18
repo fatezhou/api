@@ -10,17 +10,20 @@ function ApiPutMemberFav(){
 
         logger.debug("ApiPutMemberFav");
         logger.debug(data);
-
-        var sqlFmt = "insert into star_table(student_id, uid, utype)VALUES(?, ?, ?)";
-        var sqlParam = [data.studentId, data.uid, data.utype];
-        db.Query(sqlFmt, sqlParam, function(e){
-            if(e.error){
-                callback(response.BadSQL());
-            }else{
-                callback(response.Succ({res:"ok"}));
-            }
-        })
-        
+        var sqlFmt = "";
+        if(data.cancel == false){
+            sqlFmt = "insert into star_table(student_id, uid, utype)VALUES(?, ?, ?)";            
+        }else{
+            sqlFmt = "delete from star_table where student_id=? and uid=? and utype=?";
+        }    
+        var sqlParam = [data.studentId, data.authorId, data.authorType];
+            db.Query(sqlFmt, sqlParam, function(e){
+                if(e.error){
+                    callback(response.BadSQL());
+                }else{
+                    callback(response.Succ({res:"ok"}));
+                }
+            })    
     }
 }
 

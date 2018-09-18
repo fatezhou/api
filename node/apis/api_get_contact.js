@@ -5,60 +5,61 @@ function ApiGetContact(){
         var tool = new CuteTool;
         var logger = tool.GetLogger();
         var response = tool.GetResponse();
+        var db = tool.GetDataBase();        
+        var cuteConfig = tool.GetConfig();
         logger.debug("ApiGetContact.Service");
 
-        var res = {
-
-        };
-        
         var cuteHttps = tool.GetHttps();
-        function onResponse(data){
-            logger.debug("ApiGetContact.OnHttps response.begin");
-            //logger.debug(data.toString());
-            var strJson = data.toString();
-            logger.debug(strJson.length);
-            var object = JSON.parse(data.toString());
-            var starArray = [];//self.GetStar(data);
-
-            /*
-            for(var i = 0; i < starArray.length; i++){
-                for(var j = 0; j < object.data.size; j++){
-                    if(object.data.records[j].studentId == starArray[i]){
-                        object.data.records[j].isStar = true;
-                        break;
+        
+        function GetStar(){
+            db.Query("select student_id from star_table where uid=? and utype=?", [data.authorId, data.authorType], function(e){
+                console.info(e);
+                try{
+                    e = JSON.stringify(e);
+                    e = JSON.parse(e);
+                }catch(err){
+                    e = [];
+                }
+                var starArray = e;
+                cuteHttps.Get(cuteConfig.GetStudentsInfoUrl() + "?pageSize=9999", function(data){
+                    logger.debug("ApiGetContact.OnHttps response.begin");
+                    var strJson = data.toString();
+                    logger.debug(strJson.length);
+                    var object = JSON.parse(data.toString());
+        
+                    for(var i in starArray){
+                        for(var j in object.data.records){
+                            if(starArray[i].student_id == object.data.records[j].studentId){
+                                object.data.records[j].isStar = true;
+                            }
+                        }
                     }
-                }
-            }*/
 
-            var res = {contact:[{group:"star", member:[]},{member:[]}]};
-
-            for(var i = 0; i < object.data.size; i++){
-                if(object.data.records[i].isStar){
-                    res.contact[0].member.push(object.data.records[i]);
-                }else{
-                    res.contact[1].member.push(object.data.records[i]);
-                }
-            }
-            callback(response.Succ(res));
-            logger.debug("ApiGetContact.OnHttps response.finished!");
+                    /*
+                    for(var i = 0; i < starArray.length; i++){
+                        for(var j = 0; j < object.data.size; j++){
+                            if(object.data.records[j].studentId == starArray[i]){
+                                object.data.records[j].isStar = true;
+                                break;
+                            }
+                        }
+                    }*/
+        
+                    var res = {contact:[{group:"star", member:[]},{group:"normal", member:[]}]};
+        
+                    for(var i = 0; i < object.data.size; i++){
+                        if(object.data.records[i].isStar){
+                            res.contact[0].member.push(object.data.records[i]);
+                        }
+                        res.contact[1].member.push(object.data.records[i]);
+                    }
+                    callback(response.Succ(res));
+                    logger.debug("ApiGetContact.OnHttps response.finished!");
+                });     
+                logger.debug("ApiGetContact.end");
+            });
         }
-        var cuteConfig = tool.GetConfig();
-        cuteHttps.Get(cuteConfig.GetStudentsInfoUrl() + "?pageSize=9999", onResponse);     
-        logger.debug("ApiGetContact.end");
-    }
-    this.GetStar = function(data, callback){
-        var CuteDbController = require("./../dbController.js");
-        var db = new CuteDbController;
-        var res = db.Query("select student_id from star_table where uid=? and utype=?", [data.authorId, data.authorType], function(e){
-            try{
-                e = JSON.stringify(e);
-                e = JSON.parse(e);
-            }catch(err){
-                e = [];
-            }
-            callback(e);
-        });
-        return [41,42,9];
+        GetStar();
     }
 }
 /*

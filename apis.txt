@@ -315,15 +315,17 @@ other situation:
 code: 0/1
 
 ---------------------------------------------
-# 设置星标(还没做)
+# 设置星标(
 url: https://ip:port/api/v1.0/put_member_fav
 method: post
 param:
 {
 	"unionid":"xxxxxx",
     "openid":"xxxxxxx"
-    "memberId": "059200001",
-    "type": "parent/teacher/student"
+    "studentId": 41,
+    "authorType": 1,
+    "authorId":1,
+    "cancel":true//可选, 表示取消星标
 }
 response:
 {
