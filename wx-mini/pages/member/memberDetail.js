@@ -15,12 +15,15 @@ Page({
     recordSize: "查询中"
   },
   goMoreRecords: function(e) {
-    getApp().globalData.studentId = this.data.studentId;
-    getApp().globalData.showAllStudents = false;
-    console.info(getApp().globalData);
-    wx.switchTab({
-      url: '../index/index',
-    });
+    // getApp().globalData.studentId = this.data.studentId;
+    // getApp().globalData.showAllStudents = false;
+    // console.info(getApp().globalData);
+    // wx.switchTab({
+    //   url: '../index/perInfo',
+    // });
+    wx.navigateTo({
+      url: '../index/perInfo?studentId=' + this.data.studentId,
+    })
   },
 
   // 星标

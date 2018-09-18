@@ -3,6 +3,7 @@
     "pages/unBound/index",
     "pages/index/index",
     "pages/index/detail",
+    "pages/index/perInfo",
     "pages/my/my",
     "pages/member/member",
     "pages/pull/pull",

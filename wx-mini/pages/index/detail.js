@@ -21,6 +21,8 @@ Page({
     imgUrl: [],
     bigImgUrl: '',
     canShowBigImg: false,
+
+    hideBtn: false,
   },
 
   /**
@@ -48,6 +50,16 @@ Page({
       }
     }
     console.info(this.data.imgUrl)
+
+    if (options.hideBtn) {
+      this.setData({
+        hideBtn: true
+      })
+    } else {
+      this.setData({
+        hideBtn: false
+      })
+    }
   },
 
   showBigImg: function(e) {
@@ -57,19 +69,23 @@ Page({
     })
   },
 
-  notShowImg:function(){
+  notShowImg: function() {
     this.setData({
       canShowBigImg: false
     })
   },
 
   goMoreRecords: function(e) {
-    getApp().globalData.studentId = this.data.studentId;
-    getApp().globalData.showAllStudents = false;
-    console.info(getApp().globalData);
-    wx.switchTab({
-      url: '../index/index',
-    });
+    // getApp().globalData.studentId = this.data.studentId;
+    // getApp().globalData.showAllStudents = false;
+    // console.info(getApp().globalData);
+    // wx.switchTab({
+    //   url: '../index/index',
+    // });
+
+    wx.navigateTo({
+      url: '../index/perInfo?studentId=' + this.data.studentId,
+    })
   },
   getRecordSize: function() {
     var gData = getApp().globalData;

@@ -1,0 +1,97 @@
+<!--pages/index/perInfo.wxml-->
+<view class='counts'>
+  <view class='countsLeft'>{{recordSize}}条记录</view>
+  <navigator url='newMess'>
+    <view class='countsRight'>
+      <view class='crNews'>
+        <image src='./../../image/icnotification.png' mode='widthFix'></image>
+      </view>
+      <view class='newsList'>xx条消息</view>
+    </view>
+  </navigator>
+</view>
+
+<view class='listDetail'>
+  <view class='forlD'>
+    <navigator wx:for="{{allGrowthRecords}}" wx:for-item="item" wx:key='index' id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true'>
+      <block wx:if="{{studentId == item.studentId}}">
+        <view class='toplD'>
+          <view class='tlDleft'>
+            <image src='./../../image/ph.png' mode='widthFix'></image>
+            <text class='phName'>{{item.name}}</text>
+          </view>
+          <view class='tlDright'>
+            <text>{{item.dateTime}}</text>
+          </view>
+
+        </view>
+        <view class='words'>
+          {{item.text}}
+        </view>
+        <view class='picList th1' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 1}}">
+          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
+        </view>
+        <view class='picList th2' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 2}}">
+          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
+        </view>
+        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 3}}">
+          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
+        </view>
+        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 4}}">
+          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
+        </view>
+        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 5}}">
+          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
+        </view>
+        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 6}}">
+          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[5]}}' mode='widthFix'></image>
+        </view>
+        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 7}}">
+          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[5]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[6]}}' mode='widthFix'></image>
+        </view>
+        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 8}}">
+          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[5]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[6]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[7]}}' mode='widthFix'></image>
+        </view>
+        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 9}}">
+          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[5]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[6]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[7]}}' mode='widthFix'></image>
+          <image src='{{item.pictureUrls[8]}}' mode='widthFix'></image>
+        </view>
+      </block>
+    </navigator>
+  </view>
+</view>
