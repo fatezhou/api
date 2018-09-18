@@ -64,7 +64,7 @@ Page({
         hideBtn: false
       })
     }
-  },
+
     console.info(app.globalData.contact)
     for (var i = 0; i < app.globalData.contact.length; i++) {
       if (app.globalData.contact[i].recordId == options.recordId) {
@@ -89,8 +89,6 @@ Page({
     })
   },
 
-  goMoreRecords: function(e) {
-
   showBigImg: function(e) {
     this.setData({
       bigImgUrl: e.currentTarget.dataset.showbigimg,
@@ -98,7 +96,7 @@ Page({
     })
   },
 
-  notShowImg:function(){
+  notShowImg: function() {
     this.setData({
       canShowBigImg: false
     })

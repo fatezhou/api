@@ -2,10 +2,7 @@
 <view wx:if="{{canShowBigImg}}" style="position:fixed;background-color:#aaa;width:750rpx;height:100%;margin-top:-20rpx;" bindtap='notShowImg'>
   <image src="{{bigImgUrl}}" mode="widthFix" style="position:fixed;width:750rpx;top:0;bottom:0;margin:auto"></image>
 </view>
-<view style='padding:30rpx;background:#fff;margin-top:20rpx;'>
-<view wx:if="{{canShowBigImg}}" style="position:fixed;background-color:#aaa;width:750rpx;height:100%;margin-top:-20rpx;">
-  <image src="{{bigImgUrl}}" mode="widthFix" style="position:fixed;top:15%" bindtap='notShowImg'></image>
-</view>
+
 <view style='padding:30rpx;background:#fff;margin-top:20rpx;'>
   <view style='font-size:30rpx;'>{{mainText}}</view>
   <view style='font-size:24rpx;color:#8f8e94;margin-top:60rpx;'>
