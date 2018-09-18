@@ -1,5 +1,5 @@
 const app = getApp();
-var calltext = null;
+
 Page({
 
   /**
@@ -27,7 +27,8 @@ Page({
 
     hindname: false,
 
-    // calltext: null,
+    calltext: null,
+    placeholder:'填写内容(12-500字)'
   },
   charChange: function(e) {
     this.setData({
@@ -84,10 +85,14 @@ Page({
       pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
     }
     var text = null;
-    if (calltext) {
-      text = calltext + that.data.text
+    if (this.data.calltext) {
+      text = this.data.calltext + that.data.text
+      console.info(11111)
+      console.info(text)
     } else {
       text = that.data.text
+      console.info(22222)
+      console.info(text)
     }
 
     console.info(pictureUrls)
@@ -174,8 +179,12 @@ Page({
     }
 
     if (options.callName) {
-      calltext = '回复' + ' ' + options.callName + ' '
-      console.info(calltext)
+      this.data.calltext = '回复' + ' ' + options.callName + ' '
+      this.setData({
+        calltext: this.data.calltext,
+        placeholder: '回复' + ' ' + options.callName + ' '
+      })
+      // console.info(calltext)
     }
   },
 

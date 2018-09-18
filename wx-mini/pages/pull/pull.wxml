@@ -2,7 +2,7 @@
 <view class='uploadimg'>
 
   <form class='all'>
-    <textarea name="evaContent" maxlength="500" value="{{evaContent}}" class="weui-textarea" placeholder="填写内容(12-500字)" bindinput="charChange" />
+    <textarea name="evaContent" maxlength="500" value="{{evaContent}}" class="weui-textarea" placeholder="{{placeholder}}" bindinput="charChange" />
   </form>
   <view class='uploadimgBox'>
     <view class='addImg' wx:if="{{canChoose}}" bindtap='chooseImageTap'>
