@@ -19,8 +19,8 @@ Page({
     recordSize: "正在查询记录个数",
 
     imgUrl: [],
-    showswiper:'',
-    currentid:'',
+    showswiper: '',
+    currentid: '',
     bigImgUrl: '',
     canShowBigImg: false,
 
@@ -74,24 +74,16 @@ Page({
   },
 
   showBigImg: function(e) {
-    this.setData({
-      bigImgUrl: e.currentTarget.dataset.showbigimg,
-      canShowBigImg: true
-    })
-  },
+    // this.setData({
+    //   bigImgUrl: e.currentTarget.dataset.showbigimg,
+    //   showswiper: e.currentTarget.dataset.showswiper,
+    //   currentid: e.currentTarget.dataset.imgid,
+    //   canShowBigImg: true
+    // })
 
-  notShowImg: function() {
-    this.setData({
-      canShowBigImg: false
-    })
-  },
-
-  showBigImg: function(e) {
-    this.setData({
-      bigImgUrl: e.currentTarget.dataset.showbigimg,
-      showswiper: e.currentTarget.dataset.showswiper,
-      currentid: e.currentTarget.dataset.imgid,
-      canShowBigImg: true
+    wx.previewImage({
+      current: e.currentTarget.dataset.showbigimg,
+      urls: e.currentTarget.dataset.showswiper
     })
   },
 
