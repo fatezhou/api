@@ -117,7 +117,6 @@ Page({
           fail: function(res) {},
           complete: function(res) {},
         })
-
       },
       fail: function(res) {
         console.log(res)
@@ -156,7 +155,7 @@ Page({
         name: options.name
       })
     }
-    
+
     if (options.hindname) {
       console.info(options.hindname)
       this.setData({

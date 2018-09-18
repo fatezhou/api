@@ -1,8 +1,8 @@
 <!--pages/index/detail.wxml-->
 <!-- <view wx:if="{{canShowBigImg}}" style="position:fixed;background-color:#000;width:750rpx;height:100%;margin-top:-20rpx;" bindtap='notShowImg'> -->
-  <!-- <image src="{{bigImgUrl}}" mode="widthFix" style="position:fixed;width:750rpx;top:0;bottom:0;margin:auto"></image> -->
+<!-- <image src="{{bigImgUrl}}" mode="widthFix" style="position:fixed;width:750rpx;top:0;bottom:0;margin:auto"></image> -->
 
-  <!-- <swiper current="{{currentid}}" duration="100" indicator-dots="true" indicator-color="#A8A8A8" indicator-active-color="#fff" style="width:750rpx;height:100%;">
+<!-- <swiper current="{{currentid}}" duration="100" indicator-dots="true" indicator-color="#A8A8A8" indicator-active-color="#fff" style="width:750rpx;height:100%;">
     <block wx:for="{{showswiper}}" wx:for-item='item' wx:key='index'>
       <swiper-item>
         <image src="{{item}}" mode="widthFix" style="position:fixed;width:750rpx;top:0;bottom:0;margin:auto" />
@@ -127,7 +127,9 @@
         <view>{{item.dateTime}}</view>
         <view style='display:flex;justify-content: space-between;align-items:center;'>
           <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix'></image>
-          <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
+          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hindname=true">
+            <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
+          </navigator>
         </view>
       </view>
     </view>
