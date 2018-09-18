@@ -7,7 +7,7 @@
 		<view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>
 			<view>
 				<view style='font-size:32rpx'>{{item.name}}</view>
-				<view style='font-size:26rpx;color:#8f8e94;'>{{item.cardCode}}</view>
+				<view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
 			</view>
 			<image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
 		</view>

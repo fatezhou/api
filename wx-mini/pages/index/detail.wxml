@@ -1,11 +1,27 @@
 <!--pages/index/detail.wxml-->
+<view wx:if="{{canShowBigImg}}" style="position:fixed;background-color:#aaa;width:750rpx;height:100%;margin-top:-20rpx;" bindtap='notShowImg'>
+  <image src="{{bigImgUrl}}" mode="widthFix" style="position:fixed;width:750rpx;top:0;bottom:0;margin:auto"></image>
+</view>
 <view style='padding:30rpx;background:#fff;margin-top:20rpx;'>
   <view style='font-size:30rpx;'>{{mainText}}</view>
-  <view style='font-size:24rpx;display:flex;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:60rpx;'>
-    <view>3分钟前 · 3评论 · 2赞</view>
-    <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}">
-      <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
-    </navigator>
+  <view style='font-size:24rpx;color:#8f8e94;margin-top:60rpx;'>
+    <view wx:for="{{imgUrl}}" wx:for-item="item" wx:key='index' style="display: inline-block;lign-items:center;">
+      <view class='picList th1' wx:if="{{item.length == 1}}">
+        <image data-showBigImg="{{item}}" src='{{item}}' mode='widthFix' bindtap='showBigImg'></image>
+      </view>
+      <view class='picList th2' wx:if="{{item.length == 2}}">
+        <image data-showBigImg="{{item}}" src='{{item}}' mode='widthFix' bindtap='showBigImg'></image>
+      </view>
+      <view class='picList th3' wx:if="{{item.length >= 3}}">
+        <image data-showBigImg="{{item}}" src='{{item}}' mode='widthFix' bindtap='showBigImg'></image>
+      </view>
+    </view>
+    <view style="display:flex;lign-items:center;justify-content: space-between;">
+      <view>{{dateTime}} · {{listNumber}}评论 · 2赞</view>
+      <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}">
+        <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
+      </navigator>
+    </view>
 
   </view>
 </view>
@@ -36,22 +52,86 @@
 
       <!-- 图 -->
       <!-- <view class='picList th3'> -->
-      <!-- <image style='width:160rpx;height:160rpx;' wx:for="{{itemObject.pictureUrls}}" wx:for-item="aaa" wx:key='index' src='{{aaa}}' mode='widthFix'></image> -->
+      <!-- <image style='width:160rpx;height:160rpx;' wx:for="{{item.pictureUrls}}" wx:for-item="aaa" wx:key='index' src='{{aaa}}' mode='widthFix'></image> -->
       <!-- </view> -->
- 
-      <!-- <view class='picList th3'  wx:if="{{itemObject.pictureUrls !=[] && index == 0}}">
+
+      <!-- <view class='picList th3'  wx:if="{{index == 0}}">
         <image src='./../../image/pic0.jpg' mode='widthFix'></image>
         <image src='./../../image/pic0.jpg' mode='widthFix'></image>
         <image src='./../../image/pic0.jpg' mode='widthFix'></image>
       </view> -->
       <!-- 图 -->
+      <view class='picList th1' wx:if="{{item.length == 1}}">
+        <image src='{{item}}' mode='widthFix'></image>
+      </view>
+      <view class='picList th2' wx:if="{{item.length == 2}}">
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+      </view>
+      <view class='picList th3' wx:if="{{item.length == 3}}">
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+      </view>
+      <view class='picList th3' wx:if="{{item.length == 4}}">
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+      </view>
+      <view class='picList th3' wx:if="{{item.length == 5}}">
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+      </view>
+      <view class='picList th3' wx:if="{{item.length == 6}}">
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+      </view>
+      <view class='picList th3' wx:if="{{item.length == 7}}">
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+      </view>
+      <view class='picList th3' wx:if="{{item.length == 8}}">
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+      </view>
+      <view class='picList th3' wx:if="{{item.length == 9}}">
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+        <image src='{{item}}' mode='widthFix'></image>
+      </view>
+
 
       <!-- <view style="width:750rpx;"> -->
-        <view>3分钟前</view>
-        <view style='display:flex;justify-content: space-between;align-items:center;'>
-          <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix'></image>
-          <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
-        </view>
+      <view>3分钟前</view>
+      <view style='display:flex;justify-content: space-between;align-items:center;'>
+        <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix'></image>
+        <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
+      </view>
       <!-- </view> -->
     </view>
   </view>
