@@ -19,10 +19,12 @@ Page({
     recordId: 0,
     name: "",
 
-    downloadUrl:'',
-    pictureUrls:[],
+    downloadUrl: '',
+    pictureUrls: [],
 
     prepareToUpload: [],
+
+    hindname: false,
   },
   charChange: function(e) {
     this.setData({
@@ -49,7 +51,7 @@ Page({
     var gData = app.globalData;
     console.info(that.data);
 
-    for(var i in this.data.prepareToUpload){
+    for (var i in this.data.prepareToUpload) {
       wx.uploadFile({
         url: 'https://up-z2.qiniup.com',
         filePath: this.data.prepareToUpload[i].localFilePath,
@@ -60,10 +62,10 @@ Page({
           token: this.data.prepareToUpload[i].token,
           key: this.data.prepareToUpload[i].key,
         },
-        success: function (res) {
+        success: function(res) {
           // console.info(res)
         },
-        complete: function (res) {
+        complete: function(res) {
           console.info(res)
         }
       });
@@ -75,7 +77,7 @@ Page({
     var gData = app.globalData;
     var that = this;
     var pictureUrls = [];
-    for(var i in this.data.prepareToUpload){
+    for (var i in this.data.prepareToUpload) {
       pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
     }
     console.info(pictureUrls)
@@ -154,6 +156,13 @@ Page({
         name: options.name
       })
     }
+    
+    if (options.hindname) {
+      console.info(options.hindname)
+      this.setData({
+        hindname: true
+      })
+    }
   },
 
   getTokenAndImgUrl(imgNum, callback) {
@@ -202,7 +211,7 @@ Page({
     return callback(fileName)
   },
 
-  makePicName:function(index, tmpFilePath){
+  makePicName: function(index, tmpFilePath) {
     var userId = app.globalData.userId
 
     var date = new Date()
@@ -226,8 +235,8 @@ Page({
     console.info(time)
     var arr = tmpFilePath.split('.');
     var ext = "JPG";
-    if(arr.length > 0){
-      ext = arr[arr.length-1];
+    if (arr.length > 0) {
+      ext = arr[arr.length - 1];
     }
     var fileName = 't_' + userId + '_' + time + '_' + index + '.' + ext;
     return fileName;
@@ -308,17 +317,15 @@ Page({
               fileName: encodePicFileName,
               localFilePath: localFilePath
             },
-            success: function (res) {
+            success: function(res) {
               console.info(res);
-              self.data.prepareToUpload.push(
-                {
-                  fileName: res.data.data.cdn.fileName,
-                  token: res.data.data.cdn.token,
-                  downloadUrl: res.data.data.cdn.downloadUrl,
-                  key: res.data.data.cdn.key,
-                  localFilePath: res.data.data.cdn.localFilePath
-                }
-              );
+              self.data.prepareToUpload.push({
+                fileName: res.data.data.cdn.fileName,
+                token: res.data.data.cdn.token,
+                downloadUrl: res.data.data.cdn.downloadUrl,
+                key: res.data.data.cdn.key,
+                localFilePath: res.data.data.cdn.localFilePath
+              });
               console.info(self.data.prepareToUpload);
             }
           })

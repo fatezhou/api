@@ -8,6 +8,7 @@ Page({
   data: {
     allGrowthRecords: '',
     studentId: '',
+    recordSize: 0,
   },
 
   /**
@@ -15,10 +16,18 @@ Page({
    */
   onLoad: function(options) {
     var studentId = options.studentId
+    var recordSize = 0
     console.info(app.globalData.contact)
+    for (var i = 0; i < app.globalData.contact.length; i++) {
+      if (studentId == app.globalData.contact[i].studentId) {
+        recordSize++
+      }
+    }
+
     this.setData({
       allGrowthRecords: app.globalData.contact,
-      studentId: studentId
+      studentId: studentId,
+      recordSize: recordSize
     })
 
   },

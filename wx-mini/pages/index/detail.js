@@ -19,12 +19,15 @@ Page({
     recordSize: "正在查询记录个数",
 
     imgUrl: [],
+    showswiper:'',
+    currentid:'',
     bigImgUrl: '',
     canShowBigImg: false,
 
     hideBtn: false,
 
     imgUrl: [],
+    imgUrllength: '',
     bigImgUrl: '',
     canShowBigImg: false,
   },
@@ -54,6 +57,9 @@ Page({
       }
     }
     console.info(this.data.imgUrl)
+    this.setData({
+      imgUrllength: this.data.imgUrl.length
+    })
 
     if (options.hideBtn) {
       this.setData({
@@ -65,15 +71,6 @@ Page({
       })
     }
 
-    console.info(app.globalData.contact)
-    for (var i = 0; i < app.globalData.contact.length; i++) {
-      if (app.globalData.contact[i].recordId == options.recordId) {
-        this.setData({
-          imgUrl: app.globalData.contact[i].pictureUrls
-        })
-      }
-    }
-    console.info(this.data.imgUrl)
   },
 
   showBigImg: function(e) {
@@ -92,6 +89,8 @@ Page({
   showBigImg: function(e) {
     this.setData({
       bigImgUrl: e.currentTarget.dataset.showbigimg,
+      showswiper: e.currentTarget.dataset.showswiper,
+      currentid: e.currentTarget.dataset.imgid,
       canShowBigImg: true
     })
   },
