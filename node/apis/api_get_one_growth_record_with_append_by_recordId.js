@@ -12,8 +12,8 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
 
         function GetMainTextLike(){
             logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetMainTextLike.begin");
-            var sqlFmt = "select count(id) as someOneLike from growth_record_like where record_id=?";
-            db.Query(sqlFmt, [data.recordId], function(e){
+            var sqlFmt = "select count(id) as someOneLike from growth_record_like where record_id=? or parent_record_id=?";
+            db.Query(sqlFmt, [data.recordId, data.recordId], function(e){
                 logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetMainTextLike.finish");
                 if(e.error){
                     callback(response.BadSQL());
@@ -28,8 +28,7 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
             logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetText.begin");
             var sqlFmt = "select \
             text, id as recordId, author_id as authorId, \
-            author_type as authorType, student_id as studentId, picture_urls as pictures, create_time as dateTime,\
-            false as ILike\
+            author_type as authorType, student_id as studentId, picture_urls as pictures, create_time as dateTime\
              from growth_record where id=? or parent_record_id=? order by create_time";
             db.Query(sqlFmt, [data.recordId, data.recordId], function(e){                
                 logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetText.finish");
@@ -37,16 +36,18 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
                 if(e.error){
                     callback(response.BadSQL());
                 }else{
-                    e = JSON.stringify(e);
-                    e = JSON.parse(e);					
+                    try{
+                        e = JSON.stringify(e);
+                        e = JSON.parse(e);
+                    }					
+                    catch(err){
+                        
+                    }
                     e[0].like = headerLike;
                     res.record = e[0];
                     delete res.record["ILike"];
                     res.record.append = [];										
                     for(var i = e.length - 1; i > 0; i--){
-                        recordId_in += e[i].recordId;
-                        recordId_in += ",";
-                        console.info(e[i]);
                         try{
                             e[i].pictures = JSON.parse(e[i].pictures).urls;
                         }catch(err){
@@ -54,7 +55,6 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
                         }
 						res.record["append"].push(e[i]);
                     }					
-                    recordId_in = recordId_in.substr(0, recordId_in.length - 1);
                     GetAppendTextILike();
                 }               
             });
@@ -62,8 +62,11 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
         
         function GetAppendTextILike(){            
             logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetAppendTextILike.begin");
-            var sqlFmt = "select record_id from growth_record_like where author_id = ? and author_type = ? and record_id in (?)";
-            db.Query(sqlFmt, [data.authorId, data.authorType, recordId_in], function(e){
+            var sqlFmt = "\
+            select a.author_id, a.author_type, a.record_id \
+            from growth_record_like a where a.parent_record_id = ?\
+            ORDER BY record_id, author_type";
+            db.Query(sqlFmt, [data.recordId], function(e){
                 logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetAppendTextILike.finish");
                 if(e.error){
                     callback(response.BadSQL());
@@ -75,8 +78,14 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
                 for(var i in e){
                     for(var j in res.record.append){
                         if(e[i].record_id == res.record.append[j].recordId){
-                            res.record.append[j].like = true;
-                            break;
+                            if(!res.record.append[j].like){
+                                res.record.append[j].like = {teacher : [], parent: []};
+                            }
+                            if(e[i].author_type == 1){
+                                res.record.append[j].like.teacher.push(e[i].author_id);
+                            }else if(e[i].author_type == 2){                                
+                                res.record.append[i].like.parent.push(e[i].author_id);
+                            }
                         }
                     }
                 }
