@@ -83,6 +83,7 @@ App({
     putMemberFav:"http://api.minidope.com/api/v1.0/put_member_fav",
     getGrowthRecordsWithoutAppend:"http://api.minidope.com/api/v1.0/get_growth_records_without_append",
     getTeachers:"http://api.minidope.com/api/v1.0/get_teachers",
+    getFamily:'http://api.minidope.com/api/v1.0/get_family',
 
     contact: {},
     teacherInfo: {},

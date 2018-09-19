@@ -10,7 +10,8 @@
     "pages/my/meInforErro",
     "pages/my/meInforCha",
     "pages/member/memberDetail",
-    "pages/index/newMess"
+    "pages/index/newMess",
+    "pages/member/parents"
   ],
   "window": {
     "backgroundTextStyle": "light",
