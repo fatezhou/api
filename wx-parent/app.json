@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/growthRecord/growthRecord",
+    "pages/growthRecord/detail",
+    "pages/growthRecord/teacher",
+    "pages/index/index",
+    "pages/my/my",
+    "pages/my/vipCard",
+    "pages/my/vipDetail",
+    "pages/my/StoredCard"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "儿童学院",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#98A5A5",
+    "selectedColor": "#172951",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "selectedIconPath": "image/icnotification.png",
+        "iconPath": "image/icbook.png",
+        "pagePath": "pages/index/index",
+        "text": "约课"
+      },
+      {
+        "selectedIconPath": "image/icbookhl.png",
+        "iconPath": "image/icbook.png",
+        "pagePath": "pages/growthRecord/growthRecord",
+        "text": "成长记录"
+      },
+      {
+        "selectedIconPath": "image/icaccount2.png",
+        "iconPath": "image/icaccount.png",
+        "pagePath": "pages/my/my",
+        "text": "我的"
+      }
+    ]
+  }
+}
