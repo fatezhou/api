@@ -76,12 +76,18 @@ App({
       contactUrl: "http://api.minidope.com/api/v1.0/get_contact",
       recordSizeUrl: "http://api.minidope.com/api/v1.0/get_child_growth_record_count",
     },
-    // showAllStudents: true,
+    phoneVcode:"http://api.minidope.com/api/v1.0/phone-vcode",
+    getTeacherInfo:"http://api.minidope.com/api/v1.0/get_teacher_info",
+    putNewRecord:'http://api.minidope.com/api/v1.0/put_new_record',
+    getCdnToken:'http://api.minidope.com/api/v1.0/get_cdn_token',
+    putMemberFav:"http://api.minidope.com/api/v1.0/put_member_fav",
+    getGrowthRecordsWithoutAppend:"http://api.minidope.com/api/v1.0/get_growth_records_without_append",
+    getTeachers:"http://api.minidope.com/api/v1.0/get_teachers",
 
     contact: {},
     teacherInfo: {},
     allTeacherInfo: null,
-
+    qiniup:'https://up-z2.qiniup.com',
     stararr: [],
   }
 })

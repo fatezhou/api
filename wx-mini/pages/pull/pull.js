@@ -57,7 +57,7 @@ Page({
 
     for (var i in this.data.prepareToUpload) {
       wx.uploadFile({
-        url: 'https://up-z2.qiniup.com',
+        url: app.globalData.qiniup,
         filePath: this.data.prepareToUpload[i].localFilePath,
         name: "file",
         header: 'Content-Type: multipart/form-data;',
@@ -98,7 +98,7 @@ Page({
     console.info(pictureUrls)
     console.info('------------')
     wx.request({
-      url: 'http://api.minidope.com/api/v1.0/put_new_record',
+      url: app.globalData.putNewRecord,
       data: {
         "unionid": gData.unionid,
         "openid": gData.openid,
@@ -194,7 +194,7 @@ Page({
     that.getUploadImgFile(imgNumber, function(res) {
       var fileName = res;
       wx.request({
-        url: 'http://api.minidope.com/api/v1.0/get_cdn_token',
+        url: app.globalData.getCdnToken,
         method: 'post',
         data: {
           appid: app.globalData.appId,
@@ -334,7 +334,7 @@ Page({
           var self = that;
           var localFilePath = res.tempFilePaths[i];
           wx.request({
-            url: 'http://api.minidope.com/api/v1.0/get_cdn_token',
+            url: app.globalData.getCdnToken,
             method: 'post',
             data: {
               appid: app.globalData.appId,

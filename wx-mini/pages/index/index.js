@@ -99,7 +99,7 @@ Page({
     //   //"authorType": gData.userType,//保留参数, 用来标记是老师还是家长
     // };
     wx.request({
-      url: 'http://api.minidope.com/api/v1.0/get_growth_records_without_append',
+      url: app.globalData.getGrowthRecordsWithoutAppend,
       data: {
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
@@ -151,7 +151,7 @@ Page({
     // 获取所有教师信息
     if (!app.globalData.allTeacherInfo) {
       wx.request({
-        url: 'http://api.minidope.com/api/v1.0/get_teachers',
+        url: app.globalData.getTeachers,
         method: 'post',
         data: {
           "pages": 100

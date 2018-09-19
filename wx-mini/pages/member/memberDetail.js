@@ -38,7 +38,7 @@ Page({
     if (statu) {
       console.info(statu)
       wx.request({
-        url: 'http://api.minidope.com/api/v1.0/put_member_fav',
+        url: app.globalData.putMemberFav,
         data: {
           "unionid": app.globalData.unionid,
           "openid": app.globalData.openid,
@@ -53,20 +53,12 @@ Page({
           that.setData({
             star: true
           })
-          // var length = app.globalData.stararr.length
-          // console.info(app.globalData.stararr)
-          // console.info(app.globalData.stararr.length)
-
-          // app.globalData.stararr.push({
-          //   studentId: that.data.studentId,
-          //   isStar: true
-          // })
         },
       })
     } else {
       console.info(statu)
       wx.request({
-        url: 'http://api.minidope.com/api/v1.0/put_member_fav',
+        url: app.globalData.putMemberFav,
         data: {
           "unionid": app.globalData.unionid,
           "openid": app.globalData.openid,
@@ -81,14 +73,6 @@ Page({
           that.setData({
             star: false
           })
-          // var length = app.globalData.stararr.length
-          // console.info(app.globalData.stararr)
-          // console.info(app.globalData.stararr.length)
-
-          // app.globalData.stararr.push({
-          //   studentId: that.data.studentId,
-          //   isStar: true
-          // })
         },
       })
     }
@@ -168,9 +152,6 @@ Page({
         var stararr = res.data.data.contact[0].member
         for (var i = 0; i < stararr.length; i++) {
           if (stararr[i].studentId == that.data.studentId) {
-            // console.info(app.globalData.stararr[i].isStar)
-            // console.info(app.globalData.stararr[i].studentId)
-            // console.info(options.studentId)
             that.setData({
               star: stararr[i].isStar
             })
@@ -182,8 +163,7 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
-    // console.info(app.globalData.stararr)
-    // console.info(options.studentId)
+
   },
 
   /**

@@ -1,17 +1,4 @@
 <!--pages/index/detail.wxml-->
-<!-- <view wx:if="{{canShowBigImg}}" style="position:fixed;background-color:#000;width:750rpx;height:100%;margin-top:-20rpx;" bindtap='notShowImg'> -->
-<!-- <image src="{{bigImgUrl}}" mode="widthFix" style="position:fixed;width:750rpx;top:0;bottom:0;margin:auto"></image> -->
-
-<!-- <swiper current="{{currentid}}" duration="100" indicator-dots="true" indicator-color="#A8A8A8" indicator-active-color="#fff" style="width:750rpx;height:100%;">
-    <block wx:for="{{showswiper}}" wx:for-item='item' wx:key='index'>
-      <swiper-item>
-        <image src="{{item}}" mode="widthFix" style="position:fixed;width:750rpx;top:0;bottom:0;margin:auto" />
-      </swiper-item>
-    </block>
-  </swiper> -->
-
-<!-- </view> -->
-
 <view style='padding:30rpx;background:#fff;margin-top:20rpx;'>
   <view style='font-size:30rpx;'>{{mainText}}</view>
   <view style='font-size:24rpx;color:#8f8e94;margin-top:60rpx;'>
@@ -123,8 +110,13 @@
         <image src='{{item.pictures[7]}}' mode='widthFix' data-showBigImg="{{item.pictures[7]}}" data-showswiper="{{item.pictures}}" data-imgid="7" bindtap='showBigImg'></image>
         <image src='{{item.pictures[8]}}' mode='widthFix' data-showBigImg="{{item.pictures[8]}}" data-showswiper="{{item.pictures}}" data-imgid="8" bindtap='showBigImg'></image>
       </view>
+
+      <view style="margin-top:20rpx;">
+        <image src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
+        小名，大名
+      </view>
       <view style="display:flex;justify-content: space-between;align-items:center;margin-top:20rpx;">
-        <view>{{item.dateTime}}</view>
+        <view> {{item.dateTime}} </view>
         <view style='display:flex;justify-content: space-between;align-items:center;'>
           <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix'></image>
           <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hindname=true&callName={{item.authorName}}">

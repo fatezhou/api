@@ -47,7 +47,7 @@ Page({
 
   send: function(e) {
     const that = this
-    // const unionId = wx.getStorageSync('unionId')
+
     const phone = this.data.phone
     const pattern = /^[1][2-9][0-9]{9}$/
     if (!phone || !pattern.test(phone)) {
@@ -60,12 +60,9 @@ Page({
       that.setData({
         codeDisabled: true
       })
-      // console.info(app.globalData.unionid)
-      // console.info(app.globalData.openid)
-      // console.info(phone)
-      // console.info('---------------------')
+
       wx.request({
-        url: 'http://api.minidope.com/api/v1.0/phone-vcode',
+        url: app.globalData.phoneVcode,
         method: 'POST',
         data: {
           unionid: app.globalData.unionid,
@@ -99,29 +96,39 @@ Page({
     const code = that.data.code
     const phone = that.data.phone
     const token = app.globalData.token
-    // const unionId = wx.getStorageSync('unionId')
-    // console.info('---------------------')
-    // console.info(app.globalData.unionid)
-    // console.info(app.globalData.openid)
-    // console.info(phone)
-    // console.info(code)
-    // console.info(token)
-    // console.info('---------------------')
-    // console.info(phone)
-    if (phone) {
+
+    if (phone && code) {
       wx.request({
-        url: 'http://api.minidope.com/api/v1.0/get_teacher_info',
+        url: app.globalData.getTeacherInfo,
         method: 'POST',
         data: {
-          // unionid: app.globalData.unionid,
-          // openid: app.globalData.openid,
+          unionid: app.globalData.unionid,
+          openid: app.globalData.openid,
           phone: phone,
-          // vcode: code,
-          // userType: 1,
-          // token: token,
+          vcode: code,
+          userType: 1,
+          token: token,
         },
         success: function(res) {
-          if (res.data.data.teacherInfo.teacherId) {
+          console.info(res)
+          // if (res.data.data.teacherInfo.teacherId) {
+          //   app.globalData.teacherInfo = res.data.data.teacherInfo
+          //   app.globalData.userId = res.data.data.teacherInfo.teacherId
+          //   wx.switchTab({
+          //     url: '../index/index',
+          //   })
+          // } else {
+          //   wx.showModal({
+          //     content: '该手机号未在线下登记',
+          //     showCancel: false,
+          //     success: function(res) {
+          //       if (res.confirm) {
+          //         console.log('确定')
+          //       }
+          //     }
+          //   })
+          // }
+          if (res.data.code === 0) {
             app.globalData.teacherInfo = res.data.data.teacherInfo
             app.globalData.userId = res.data.data.teacherInfo.teacherId
             wx.switchTab({
@@ -129,38 +136,20 @@ Page({
             })
           } else {
             wx.showModal({
-              content: '该手机号未在线下登记',
+              content: '验证码错误',
               showCancel: false,
               success: function(res) {
                 if (res.confirm) {
                   console.log('确定')
                 }
               }
-            })
+            });
           }
-          // if(res.data.code === 0){
-          //   wx.reLaunch({
-          //     url: '../class/index',
-          //   })
-          // }else{
-          //   wx.showModal({
-          //     content: '验证码错误',
-          //     showCancel: false,
-          //     success: function (res) {
-          //       if (res.confirm) {
-          //         console.log('确定')
-          //       }
-          //     }
-          //   });
-          // }
         },
-        // complete:function(res){
-        //   console.info(res)
-        // }
       })
     } else {
       wx.showModal({
-        content: '请填写手机号码',
+        content: '请填写手机或验证码',
         showCancel: false,
         success: function(res) {
           if (res.confirm) {
