@@ -52,6 +52,9 @@ function CuteConfig(){
     this.GetCdnTokenUrl = function(){
         return "https://test.buzaishudian.com/api/upload-auth";
     }
+    this.GetFamilyUrl = function(){
+        return "https://test.buzaishudian.com/api/family-info";
+    }
 }
 
 module.exports = CuteConfig;

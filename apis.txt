@@ -577,8 +577,54 @@ response:
 }
 
 
-
-
+------------------------------------------------
+#获取学生家庭信息
+url: https://ip:port/api/v1.0/get_family
+method: post
+param:
+{
+    "unionid" : "xxxxxxxxx",
+    "openid" : "xxxxxxxxxxxxx",
+    "studentId":41,    
+}
+response
+{
+	"code": 0,
+	"data": {
+		"parents": [{
+			"id": 42,
+			"phone": "13950133211",
+			"name": "尤亮",
+			"address": "",
+			"wechat": "",
+			"company": "",
+			"companyPhone": "",
+			"unionId": "oa1h31swDKMc-3wr5IXwxlEefev4",
+			"openId": "oO_8zw6YqybDkjmZQQP0AgLMWQBo",
+			"familyId": 3,
+			"relationType": 2,
+			"memberType": 2,
+			"createTime": "2018-05-13T05:54:08.000Z",
+			"version": 1
+		}, {
+			"id": 68,
+			"phone": "18650113490",
+			"name": "曹舒旻",
+			"address": "",
+			"wechat": "",
+			"company": "",
+			"companyPhone": "",
+			"unionId": "oa1h31t5YMX9YUQRHlg6LjTEKXss",
+			"openId": "oO_8zwyKsHMwHfxv6aO_M8jdbTMo",
+			"familyId": 3,
+			"relationType": 1,
+			"memberType": 1, // 家庭成员类型: 1父亲，2母亲，3监护人
+			"createTime": "2018-05-23T02:15:07.000Z",
+			"version": 1
+		}]
+	},
+	"error": "成功"
+}
 
 
 

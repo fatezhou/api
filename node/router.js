@@ -100,6 +100,10 @@ function CuteRouter(){
                 var ApiGetCdnToken = require("./apis/api_get_cdn_token.js");
                 baseApi = new ApiGetCdnToken;
                 break;
+            case "get_family":
+                var ApiGetFamily = require("./apis/api_get_family.js");
+                baseApi = new ApiGetFamily;
+                break;
             default:
                 callback({code:4, data:{}, error:"api错误"});
                 return;
