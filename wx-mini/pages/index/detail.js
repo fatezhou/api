@@ -30,12 +30,16 @@ Page({
     imgUrllength: '',
     bigImgUrl: '',
     canShowBigImg: false,
+    allteacherInfo: [],
+
+    likenumber: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.data.allTeacherInfo = app.globalData.allTeacherInfo
     this.data.recordId = options.recordId;
     console.info(options);
     this.data.mainText = options.mainText;
@@ -49,6 +53,7 @@ Page({
     console.info(app.globalData.oneGrowthRecordWithAppendUrl);
     this.getRecordSize();
     console.info(app.globalData.contact)
+    console.info('------------------')
     for (var i = 0; i < app.globalData.contact.length; i++) {
       if (app.globalData.contact[i].recordId == options.recordId) {
         this.setData({
@@ -73,14 +78,32 @@ Page({
 
   },
 
-  showBigImg: function(e) {
-    // this.setData({
-    //   bigImgUrl: e.currentTarget.dataset.showbigimg,
-    //   showswiper: e.currentTarget.dataset.showswiper,
-    //   currentid: e.currentTarget.dataset.imgid,
-    //   canShowBigImg: true
-    // })
+  like: function(e) {
+    var gData = app.globalData
+    var that = this
+    console.info(e)
+    var recordId = e.currentTarget.dataset.recordid
+    var authorId = e.currentTarget.dataset.authorid
+    wx.request({
+      url: gData.putRecordLike,
+      method: 'post',
+      data: {
+        "unionid": gData.unionId,
+        "openid": gData.openid,
+        "authorId": gData.userId, //自己的id
+        "authorType": 1, //1: teacher, 2: parent",
+        "recordId": recordId,
+        "parentRecordId": that.data.recordId,
+        "orgAuthorId": authorId,
+        "orgAuthorType": 1
+      },
+      success: function(res) {
+        that.show()
+      }
+    })
+  },
 
+  showBigImg: function(e) {
     wx.previewImage({
       current: e.currentTarget.dataset.showbigimg,
       urls: e.currentTarget.dataset.showswiper
@@ -131,10 +154,7 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
+  show: function() {
     var self = this;
     var gData = app.globalData;
     wx.request({
@@ -151,6 +171,7 @@ Page({
       success: function(e) {
         if (e.data.code == 0) {
           self.data.appendList = e.data.data.record.append;
+          self.data.likenumber = e.data.data.record.like;
           self.setData(self.data);
         }
         console.info(self.data.appendList)
@@ -164,7 +185,8 @@ Page({
         }
         self.setData({
           appendList: self.data.appendList,
-          listNumber: self.data.appendList.length
+          listNumber: self.data.appendList.length,
+          likenumber: self.data.likenumber
         })
         console.info(self.data.appendList)
       },
@@ -175,6 +197,13 @@ Page({
         console.info(e);
       }
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    this.show()
   },
 
   /**
