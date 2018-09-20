@@ -72,7 +72,7 @@ Page({
         // console.info(res)
         // console.info('---')
         contact = res.data.data.contact[1].member;
-        
+        app.globalData.allStudent = contact
         for (var i in contact) {
           for (var j in self.data.recordsList) {
             if (contact[i].studentId == self.data.recordsList[j].studentId) {
@@ -85,6 +85,7 @@ Page({
           recordsList: self.data.recordsList
         });
         app.globalData.contact = self.data.recordsList;
+        
       },
       fail: function(res) {},
       complete: function(res) {},

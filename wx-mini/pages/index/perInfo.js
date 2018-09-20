@@ -1,6 +1,8 @@
 // pages/index/perInfo.js
 const app = getApp()
-var studentId
+var studentId;
+var perGrowthRecords;
+var perTeacherRecords = false;
 Page({
 
   /**
@@ -16,21 +18,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    studentId = options.studentId
-    var recordSize = 0
-    console.info(app.globalData.contact)
-    for (var i = 0; i < app.globalData.contact.length; i++) {
-      if (studentId == app.globalData.contact[i].studentId) {
-        recordSize++
-      }
+    if (options.perTeacherRecords) {
+      perTeacherRecords = true
     }
+    studentId = options.studentId
 
     this.setData({
-      allGrowthRecords: app.globalData.contact,
       studentId: studentId,
-      recordSize: recordSize
+      recordSize: app.globalData.studentRecordCount
     })
-
   },
 
   /**
@@ -68,83 +64,81 @@ Page({
     this.getGrowthRecords()
   },
 
-  getContact: function () {
+  getContact: function() {
     var self = this;
     var that = this;
-    var gData = app.globalData;
-    var url = gData.minodopeApi.contactUrl;
-    wx.request({
-      url: url,
-      data: {
-        unionid: gData.unionid,
-        openid: gData.openid,
-        authorId: gData.userId, //可选, 只要特定老师发的
-        authorType: gData.userType, //保留参数, 用来标记是老师还是家长
-      },
-      header: {},
-      method: 'POST',
-      dataType: 'json',
-      responseType: 'text',
-      success: function (res) {
-        var contact = res.data.data.contact[1].member;
-        for (var i in contact) {
-          for (var j in self.data.recordsList) {
-            if (contact[i].studentId == self.data.recordsList[j].studentId) {
-              self.data.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
-              // break;
-            }
-          }
-        }
-        self.setData({
-          recordsList: self.data.recordsList
-        });
-        app.globalData.contact = self.data.recordsList;
 
-        var recordSize = 0
-        console.info(app.globalData.contact)
-        for (var i = 0; i < app.globalData.contact.length; i++) {
-          if (studentId == app.globalData.contact[i].studentId) {
-            recordSize++
-          }
-        }
+    var contact = app.globalData.allStudent
+    console.info(self.data.recordsList)
+    console.info('----------====')
+    for (var i in contact) {
+      for (var j in self.data.recordsList) {
+        if (contact[i].studentId == self.data.recordsList[j].studentId) {
+          self.data.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
 
-        that.setData({
-          allGrowthRecords: app.globalData.contact,
-          studentId: studentId,
-          recordSize: recordSize
-        })
-      },
-      fail: function (res) { },
-      complete: function (res) { },
+        }
+      }
+    }
+    self.setData({
+      recordsList: self.data.recordsList
+    });
+    app.globalData.contact = self.data.recordsList;
+
+
+
+    that.setData({
+      allGrowthRecords: app.globalData.contact,
+      studentId: studentId,
+
     })
+    // },
+    //   fail: function(res) {},
+    //   complete: function(res) {},
+    // })
   },
 
-  getGrowthRecords: function () {
+  getGrowthRecords: function() {
     var that = this;
-    wx.request({
-      url: app.globalData.getGrowthRecordsWithoutAppend,
-      data: {
+    if (perTeacherRecords) {
+      var data = {
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
-      },
+        "studentId": studentId,
+        "pageSize": that.data.recordSize,
+        "authorType": app.globalData.userType,
+        "authorId": app.globalData.userId
+      }
+    } else {
+      var data = {
+        "unionid": app.globalData.unionid,
+        "openid": app.globalData.openid,
+        "studentId": studentId,
+        "pageSize": that.data.recordSize,
+      }
+    }
+
+    wx.request({
+      url: app.globalData.getGrowthRecordsWithoutAppend,
+      data: data,
       header: {},
       method: 'post',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
-        app.globalData.allGrowthRecords = res.data.data.records
-        console.log(app.globalData.allGrowthRecords)
+      success: function(res) {
+        console.info(res)
+        perGrowthRecords = res.data.data.records
+        console.log(perGrowthRecords)
         for (var i in res.data.data.records) {
           res.data.data.records[i].name = "加载中...";
         }
         that.setData({
           recordsList: res.data.data.records,
-          // recordSize: res.data.data.records.length
+
         });
         that.getContact();
       },
-      fail: function (res) { },
-      complete: function (res) { },
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
 

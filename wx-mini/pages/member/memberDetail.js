@@ -25,7 +25,7 @@ Page({
     //   url: '../index/perInfo',
     // });
     wx.navigateTo({
-      url: '../index/perInfo?studentId=' + this.data.studentId,
+      url: '../index/perInfo?studentId=' + this.data.studentId + '&perTeacherRecords=true',
     })
   },
 
@@ -85,28 +85,29 @@ Page({
     })
   },
 
-  getRecordSize: function() {
-    var gData = getApp().globalData;
-    var self = this;
-    wx.request({
-      url: gData.minodopeApi.recordSizeUrl,
-      data: {
-        "studentId": self.data.studentId
-      },
-      success: function(e) {
-        self.data.recordSize = "" + e.data.data.count + "条成长记录";
-        self.setData(self.data);
-      },
-      method: "POST",
-      complete: function(e) {
-        console.info(e);
-      }
-    });
-  },
+  // getRecordSize: function() {
+  //   var gData = getApp().globalData;
+  //   var self = this;
+  //   wx.request({
+  //     url: gData.minodopeApi.recordSizeUrl,
+  //     data: {
+  //       "studentId": self.data.studentId
+  //     },
+  //     success: function(e) {
+  //       self.data.recordSize = "" + e.data.data.count + "条成长记录";
+  //       self.setData(self.data);
+  //     },
+  //     method: "POST",
+  //     complete: function(e) {
+  //       console.info(e);
+  //     }
+  //   });
+  // },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this
     console.info(options);
     this.data.nickName = options.nickName;
     this.data.name = options.name;
@@ -115,8 +116,26 @@ Page({
     this.data.freeze = options.freeze == 0 ? 　"年费会员" : "普通会员";
     this.data.studentId = parseInt(options.studentId);
     this.setData(this.data);
-    this.getRecordSize();
+    // this.getRecordSize();
 
+    wx.request({
+      url: app.globalData.getChildGrowthRecordCount,
+      data: {
+        "unionid": app.globalData.unionid,
+        "openid": app.globalData.openid,
+        "authorId": app.globalData.userId,
+        "authorType": 1, //1: teacher, 2: parent",
+        "studentId": options.studentId
+      },
+      method: "post",
+      success: function(res) {
+        app.globalData.studentRecordCount = res.data.data.count
+        console.info(res.data.data.count)
+        that.setData({
+          recordSize: "" + res.data.data.count + "条成长记录"
+        })
+      }
+    })
   },
 
   /**
@@ -130,7 +149,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getRecordSize()
+    // this.getRecordSize()
     var that = this;
     var gData = app.globalData;
     var url = gData.minodopeApi.contactUrl;

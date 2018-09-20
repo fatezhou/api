@@ -112,11 +112,13 @@ App({
     getTeachers: "https://api.minidope.com/api/v1.0/get_teachers",
     getFamily: 'https://api.minidope.com/api/v1.0/get_family',
     putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
+    getChildGrowthRecordCount: 'https://api.minidope.com/api/v1.0/get_child_growth_record_count',
 
-
+    studentRecordCount:'',
     contact: {},
     teacherInfo: {},
     allTeacherInfo: null,
+    allStudent:null,
     qiniup: 'https://up-z2.qiniup.com',
     stararr: [],
   }

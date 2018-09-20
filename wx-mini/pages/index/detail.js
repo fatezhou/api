@@ -152,22 +152,47 @@ Page({
     })
   },
   getRecordSize: function() {
-    var gData = getApp().globalData;
-    var self = this;
+    var that = this
     wx.request({
-      url: gData.minodopeApi.recordSizeUrl,
+      url: app.globalData.getChildGrowthRecordCount,
       data: {
-        "studentId": self.data.studentId
+        "unionid": app.globalData.unionid,
+        "openid": app.globalData.openid,
+        "authorId": app.globalData.userId,
+        "authorType": 1, //1: teacher, 2: parent",
+        "studentId": that.data.studentId
       },
-      success: function(e) {
-        self.data.recordSize = "" + e.data.data.count + "条成长记录";
-        self.setData(self.data);
-      },
-      method: "POST",
-      complete: function(e) {
-        console.info(e);
+      method: "post",
+      success: function (res) {
+        app.globalData.studentRecordCount = res.data.data.count
+        console.info(res.data.data.count)
+        that.setData({
+          recordSize: "" + res.data.data.count + "条成长记录"
+        })
       }
-    });
+    })
+
+
+
+    // var gData = getApp().globalData;
+    // var self = this;
+    // console.info(gData.userId)
+    // wx.request({
+    //   url: gData.minodopeApi.recordSizeUrl,
+    //   data: {
+    //     "studentId": self.data.studentId,
+    //     "authorId": gData.userId,
+    //     "authorType": 1,
+    //   },
+    //   success: function(e) {
+    //     self.data.recordSize = "" + e.data.data.count + "条成长记录";
+    //     self.setData(self.data);
+    //   },
+    //   method: "POST",
+    //   complete: function(e) {
+    //     console.info(e);
+    //   }
+    // });
   },
 
   /**
