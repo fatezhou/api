@@ -98,6 +98,29 @@ Page({
         "orgAuthorType": 1
       },
       success: function(res) {
+        console.info(res)
+        if (res.data.code == 4) {
+          wx.request({
+            url: gData.putRecordLike,
+            method: 'post',
+            data: {
+              // "unionid": gData.unionId,
+              // "openid": gData.openid,
+              "authorId": gData.userId, //自己的id
+              "authorType": 1, //1: teacher, 2: parent",
+              "recordId": recordId,
+              "parentRecordId": that.data.recordId,
+              'cancel': true
+              // "orgAuthorId": authorId,
+              // "orgAuthorType": 1
+            },
+            success: function(res) {
+              console.info(res)
+              that.show()
+              return
+            }
+          })
+        }
         that.show()
       }
     })
