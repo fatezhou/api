@@ -96,7 +96,7 @@
     </navigator>
   </view>
 
-  <view wx:if="{{!recordsList}}">
+  <!-- <view wx:if="{{!recordsList}}">
 
     <view class='forlD'>
       <view class='toplD'>
@@ -155,7 +155,7 @@
       </view>
     </view>
 
-  </view>
+  </view> -->
 
 
 </view>
