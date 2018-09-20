@@ -11,8 +11,8 @@
 </view>
 
 <view class='listDetail'>
-  <view class='forlD'>
-    <navigator wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index' id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}'>
+  <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index'>
+    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}'>
       <view class='toplD'>
         <view class='tlDleft'>
           <image src='./../../image/ph.png' mode='widthFix'></image>
