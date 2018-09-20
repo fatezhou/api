@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+var recardid;
 Page({
   data: {
     motto: 'Hello World',
@@ -110,6 +110,8 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
+        recardid = res.data.data.records.pop().recordId
+
         app.globalData.allGrowthRecords = res.data.data.records
         console.log(app.globalData.allGrowthRecords)
         for (var i in res.data.data.records) {
@@ -170,6 +172,39 @@ Page({
    */
   onPullDownRefresh: function() {
     this.getGrowthRecords()
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    var that = this;
+    wx.request({
+      url: app.globalData.getGrowthRecordsWithoutAppend,
+      data: {
+        "unionid": app.globalData.unionid,
+        "openid": app.globalData.openid,
+        "recardid": recardid,
+      },
+      header: {},
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        app.globalData.allGrowthRecords = res.data.data.records
+        console.log(app.globalData.allGrowthRecords)
+        for (var i in res.data.data.records) {
+          res.data.data.records[i].name = "加载中...";
+        }
+        that.setData({
+          recordsList: res.data.data.records,
+          recordSize: res.data.data.records.length
+        });
+        that.getContact();
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   },
 
   getUserInfo: function(e) {

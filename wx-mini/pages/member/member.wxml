@@ -9,10 +9,11 @@
         <view style='font-size:32rpx'>{{item.name}}</view>
         <view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
       </view>
-      <view style='position:absolute;right:40rpx;color:#58698a;align-items: center;font-weight:bold;margin-right:30rpx;' wx:if="{{item.star}}">
-        <image src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:10rpx;'></image>
+      <view>
+        <image wx:if="{{item.star}}" src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:20rpx;'></image>
+        <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
       </view>
-      <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
+
     </view>
   </view>
 </view>
