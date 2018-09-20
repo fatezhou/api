@@ -7,7 +7,9 @@ function ApiGetTeacherInfo(){
         var config = tool.GetConfig();
         var url = config.GetTeacherInfoByPhone();
 		var response = tool.GetResponse();
-        url += "?phone=" + data.phone||"";//先这么写, 再优化
+
+		url += "?unionid=" + data.unionid;
+        //url += "?phone=" + data.phone||"";//先这么写, 再优化
     
         https.Get(url, function(e){
 			console.info(typeof(e));

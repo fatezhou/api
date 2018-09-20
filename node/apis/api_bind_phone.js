@@ -10,16 +10,17 @@ function ApiBindPhone(){
         
         var url = config.GetBindPhoneUrl();
         var param = {
-            unionid : data.unionid,
-            openid : data.openid,
+            unionId: data.unionid,
+            openId: data.openid,
             phone : data.phone,
             vcode : data.vcode,
             userType : data.userType == 1 ? 3 : 2,
             token : data.token
         }
     
+        logger.debug(param);
         https.Post(url, param, function(e){
-			logger.debug(typeof(e));
+			logger.debug("bindPhone:");
 			logger.debug(e);
 			try{
 				e = JSON.parse(e);
