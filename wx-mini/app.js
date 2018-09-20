@@ -47,8 +47,8 @@ App({
                       if (res.data.data.teacherInfo.teacherId) {
                         self.globalData.teacherInfo = res.data.data.teacherInfo
                         self.globalData.userId = res.data.data.teacherInfo.teacherId
-                      }else{
-                        wx.navigateTo({
+                      } else {
+                        wx.redirectTo({
                           url: '../unBound/index',
                         })
                       }
@@ -97,7 +97,7 @@ App({
     token: "",
     appId: "wxc3cdca6978c3b5ba",
     oneGrowthRecordWithAppendUrl: "http://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
-    bindPhone:'http://api.minidope.com/api/v1.0/bindPhone',
+    bindPhone: 'http://api.minidope.com/api/v1.0/bindPhone',
     minodopeApi: {
       loginUrl: "http://api.minidope.com/api/v1.0/login",
       contactUrl: "http://api.minidope.com/api/v1.0/get_contact",
