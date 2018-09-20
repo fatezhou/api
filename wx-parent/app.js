@@ -1,6 +1,6 @@
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -8,38 +8,38 @@ App({
 
     // 登录
     wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.info(res);
-        if (res.code) {
-          var self = this;
-          wx.request({
-            url: this.globalData.minodopeApi.loginUrl,
-            data: {
-              code: res.code,
-              appid: this.globalData.appId
-            },
-            success: function (e) {
-              console.info("app.js.login");
-              console.info(e.data.data);
-              if (e.data.data.openId) {
-                self.globalData.openid = e.data.data.openId;
-              }
-              if (e.data.data.unionId) {
-                self.globalData.unionid = e.data.data.unionId;
-              }
-              if (e.data.data.token) {
-                self.globalData.token = e.data.data.token;
-              }
-            },
-            fail: function (e) {
-              console.info(e);
-            },
-            method: "POST"
-          })
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          console.info(res);
+          if (res.code) {
+            var self = this;
+            wx.request({
+              url: this.globalData.minodopeApi.loginUrl,
+              data: {
+                code: res.code,
+                appid: this.globalData.appId
+              },
+              success: function(e) {
+                console.info("app.js.login");
+                console.info(e.data.data);
+                if (e.data.data.openId) {
+                  self.globalData.openid = e.data.data.openId;
+                }
+                if (e.data.data.unionId) {
+                  self.globalData.unionid = e.data.data.unionId;
+                }
+                if (e.data.data.token) {
+                  self.globalData.token = e.data.data.token;
+                }
+              },
+              fail: function(e) {
+                console.info(e);
+              },
+              method: "POST"
+            })
+          }
         }
-      }
-    }),
+      }),
 
       // 获取用户信息
       wx.getSetting({
@@ -76,7 +76,7 @@ App({
       contactUrl: "http://api.minidope.com/api/v1.0/get_contact",
       recordSizeUrl: "http://api.minidope.com/api/v1.0/get_child_growth_record_count",
     },
-    // showAllStudents: true,
+    getFamily: 'http://api.minidope.com/api/v1.0/get_family',
 
     contact: {},
     teacherInfo: {},
