@@ -17,7 +17,7 @@ function CuteRouter(){
         return true;
     }
     this.Service = function(data, url, callback){
-        logger.debug("CuteRouter.Service, url:%s", url, "apiFunction:" + this.apiFunction);
+        logger.debug("CuteRouter.Service, url:%s", url, "apiFunction:" + this.apiFunction, "data:", data);
         var baseApi = {};
         switch(this.apiFunction){            
             case "login":
