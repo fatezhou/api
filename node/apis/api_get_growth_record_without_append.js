@@ -34,64 +34,77 @@ function ApiGetGrowthRecordWithoutAppend(){
             var sqlFmt = "select text, author_id as authorId, \
             id as recordId, student_id as studentId, \
             picture_urls as pictures, author_type as authorType, create_time as dateTime from \
-            growth_record where ? and record_type = 1 ";
+            growth_record where record_type = 1 ";
+
+            var sqlCountFmt = "select count(*) as size from growth_record where record_type = 1 ";
+
             var sqlData = {};
-			var sql = [];
+            var sql = [];
+            var sqlCount = [];
 			if(data.studentId){
-				sqlData.student_id = ("student_id = " + data.studentId);
-				sql.push(data.studentId);
-				
-				sqlFmt = "select text, author_id as authorId, \
-                    id as recordId, student_id as studentId, \
-                    picture_urls as pictures, author_type as authorType, create_time as dateTime from \
-                    growth_record where student_id = ? and ? and record_type = 1 ";//order by create_time desc";
-			}else{				
-				sqlData.student_id = true;
-            }
+				sql.push(data.studentId);				
+                sqlFmt += "and student_id = ? "
+                sqlCountFmt += "and student_id = ? ";
+                sqlCount.push(data.studentId);
+			}
             
             if(data.recordId){
-                sqlFmt += "and id < ?";
+                sqlFmt += "and id < ? ";
+                sqlCountFmt += "and id < ? ";
                 sql.push(data.recordId);
+                sqlCount.push(data.recordId);
             }
 
             if(!data.pageSize){
                 data.pageSize = 10;
             }
 
-            sqlFmt += "order by create_time desc limit " + data.pageSize;
             
-            
-            if(data.authorId){
-				sql.push(data.authorId);
-                sqlData.author_id = ("author_id = " + data.authorId);
-            }else{
-				sql.push(true);
-                sqlData.author_id = true;
-            }
-			
-			console.info(sqlData);
+            if(data.authorId && data.authorType){
+                sqlFmt += "and author_id = ? and author_type = ? ";
+                sql.push(data.authorId);
+                sql.push(data.authorType);
 
-            db.Query(sqlFmt, sql, function(e){
-				console.info(e);
-                if(e.error){
-                    callback(response.BadSQL());
-                }else{
-					e = JSON.stringify(e);
-					e = JSON.parse(e);
-					
-					
-                    for(var i in e){
-						try{
-							e[i].pictureUrls = JSON.parse(e[i].pictures).urls;	
-						}catch(err){							
-							e[i].pictureUrls = [];
-						}                        
-                        delete e[i]["pictrues"];
+                sqlCountFmt += " and author_id = ? and author_type = ? ";
+                sqlCount.push(data.authorId);
+                sqlCount.push(data.authorType);
+            }            
+            
+            sqlFmt += "order by create_time desc limit " + data.pageSize;            
+
+            db.Query(sqlCountFmt, sqlCount, function(eCount){
+                console.info(eCount);
+                eCount = JSON.stringify(eCount);
+                eCount = JSON.parse(eCount);
+
+                var res = {};
+                res.size = eCount[0].size;
+
+                db.Query(sqlFmt, sql, function(e){
+                    console.info(e);
+                    if(e.error){
+                        callback(response.BadSQL());
+                    }else{
+                        e = JSON.stringify(e);
+                        e = JSON.parse(e);
+                        
+                        
+                        for(var i in e){
+                            try{
+                                e[i].pictureUrls = JSON.parse(e[i].pictures).urls;	
+                            }catch(err){							
+                                e[i].pictureUrls = [];
+                            }                        
+                            delete e[i]["pictrues"];
+                        }
+    
+                        callback(response.Succ({records:e, size: eCount[0].size}));
                     }
-
-                    callback(response.Succ({records:e}));
-                }
+                })
             })
+
+
+            
         }    
 
         GetGrowthRecordHeader();
