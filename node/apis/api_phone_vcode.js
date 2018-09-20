@@ -20,7 +20,7 @@ function ApiPhoneVcode(){
 		logger.debug(param);
     
         https.Post(url, param, function(e){
-			logger.debug(typeof(e));
+			logger.debug("PhoneVcode");
 			logger.debug(e);
 			try{
 				e = JSON.parse(e);
