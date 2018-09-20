@@ -31,6 +31,32 @@ App({
                 if (e.data.data.token) {
                   self.globalData.token = e.data.data.token;
                 }
+
+                // 通过uid获取教师信息
+                wx.request({
+                  url: self.globalData.getTeacherInfo,
+                  method: 'POST',
+                  data: {
+                    unionid: self.globalData.unionid,
+                    openid: self.globalData.openid,
+                  },
+                  success: function(res) {
+                    console.info(res)
+
+                    if (res.data.code === 0) {
+                      if (res.data.data.teacherInfo.teacherId) {
+                        self.globalData.teacherInfo = res.data.data.teacherInfo
+                        self.globalData.userId = res.data.data.teacherInfo.teacherId
+                      }else{
+                        wx.navigateTo({
+                          url: '../unBound/index',
+                        })
+                      }
+                    }
+                  },
+                })
+
+
               },
               fail: function(e) {
                 console.info(e);
@@ -71,26 +97,27 @@ App({
     token: "",
     appId: "wxc3cdca6978c3b5ba",
     oneGrowthRecordWithAppendUrl: "http://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
+    bindPhone:'http://api.minidope.com/api/v1.0/bindPhone',
     minodopeApi: {
       loginUrl: "http://api.minidope.com/api/v1.0/login",
       contactUrl: "http://api.minidope.com/api/v1.0/get_contact",
       recordSizeUrl: "http://api.minidope.com/api/v1.0/get_child_growth_record_count",
     },
-    phoneVcode:"http://api.minidope.com/api/v1.0/phone-vcode",
-    getTeacherInfo:"http://api.minidope.com/api/v1.0/get_teacher_info",
-    putNewRecord:'http://api.minidope.com/api/v1.0/put_new_record',
-    getCdnToken:'http://api.minidope.com/api/v1.0/get_cdn_token',
-    putMemberFav:"http://api.minidope.com/api/v1.0/put_member_fav",
-    getGrowthRecordsWithoutAppend:"http://api.minidope.com/api/v1.0/get_growth_records_without_append",
-    getTeachers:"http://api.minidope.com/api/v1.0/get_teachers",
-    getFamily:'http://api.minidope.com/api/v1.0/get_family',
-    putRecordLike:'http://api.minidope.com/api/v1.0/put_record_like',
-    
+    phoneVcode: "http://api.minidope.com/api/v1.0/phone-vcode",
+    getTeacherInfo: "http://api.minidope.com/api/v1.0/get_teacher_info",
+    putNewRecord: 'http://api.minidope.com/api/v1.0/put_new_record',
+    getCdnToken: 'http://api.minidope.com/api/v1.0/get_cdn_token',
+    putMemberFav: "http://api.minidope.com/api/v1.0/put_member_fav",
+    getGrowthRecordsWithoutAppend: "http://api.minidope.com/api/v1.0/get_growth_records_without_append",
+    getTeachers: "http://api.minidope.com/api/v1.0/get_teachers",
+    getFamily: 'http://api.minidope.com/api/v1.0/get_family',
+    putRecordLike: 'http://api.minidope.com/api/v1.0/put_record_like',
+
 
     contact: {},
     teacherInfo: {},
     allTeacherInfo: null,
-    qiniup:'https://up-z2.qiniup.com',
+    qiniup: 'https://up-z2.qiniup.com',
     stararr: [],
   }
 })

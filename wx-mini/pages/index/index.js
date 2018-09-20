@@ -49,6 +49,7 @@ Page({
 
 
   },
+
   getContact: function() {
     var self = this;
     var that = this;
@@ -133,9 +134,9 @@ Page({
     // var requestData = {
     //   "unionid": "oO_8zy0yAhxBcEwEnPahvblLIGe1",
     //   "openid": "oO_8zy0yAhxBcEwEnPahvblLIGe1",
-      //"studentId": gData.studentId,
-      //"authorId": gData.userId,//可选, 只要特定老师发的
-      //"authorType": gData.userType,//保留参数, 用来标记是老师还是家长
+    //"studentId": gData.studentId,
+    //"authorId": gData.userId,//可选, 只要特定老师发的
+    //"authorType": gData.userType,//保留参数, 用来标记是老师还是家长
     // };
 
     // if (gData.showAllStudents == false) {

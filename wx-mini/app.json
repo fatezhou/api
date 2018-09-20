@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/unBound/index",
     "pages/index/index",
+    "pages/unBound/index",
     "pages/index/detail",
     "pages/index/perInfo",
     "pages/my/my",

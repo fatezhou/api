@@ -96,10 +96,11 @@ Page({
     const code = that.data.code
     const phone = that.data.phone
     const token = app.globalData.token
-
+    console.info(app.globalData.unionid)
+    console.info(app.globalData.openid)
     if (phone && code) {
       wx.request({
-        url: app.globalData.getTeacherInfo,
+        url: app.globalData.bindPhone,
         method: 'POST',
         data: {
           unionid: app.globalData.unionid,
@@ -111,39 +112,52 @@ Page({
         },
         success: function(res) {
           console.info(res)
-          // if (res.data.data.teacherInfo.teacherId) {
-          //   app.globalData.teacherInfo = res.data.data.teacherInfo
-          //   app.globalData.userId = res.data.data.teacherInfo.teacherId
-          //   wx.switchTab({
-          //     url: '../index/index',
-          //   })
-          // } else {
-          //   wx.showModal({
-          //     content: '该手机号未在线下登记',
-          //     showCancel: false,
-          //     success: function(res) {
-          //       if (res.confirm) {
-          //         console.log('确定')
-          //       }
-          //     }
-          //   })
-          // }
           if (res.data.code === 0) {
-            app.globalData.teacherInfo = res.data.data.teacherInfo
-            app.globalData.userId = res.data.data.teacherInfo.teacherId
-            wx.switchTab({
-              url: '../index/index',
-            })
-          } else {
-            wx.showModal({
-              content: '验证码错误',
-              showCancel: false,
-              success: function(res) {
-                if (res.confirm) {
-                  console.log('确定')
+            if (res.data.data.text == "绑定成功") {
+              // 通过uid获取教师信息
+              wx.request({
+                url: app.globalData.getTeacherInfo,
+                method: 'POST',
+                data: {
+                  unionid: app.globalData.unionid,
+                  openid: app.globalData.openid,
+                },
+                success: function(res) {
+                  console.info(res)
+
+                  if (res.data.code === 0) {
+                    if (res.data.data.teacherInfo.teacherId) {
+                      app.globalData.teacherInfo = res.data.data.teacherInfo
+                      app.globalData.userId = res.data.data.teacherInfo.teacherId
+
+                      wx.switchTab({
+                        url: '../index/index',
+                      })
+                    }
+                  }
+                },
+              })
+            } else if (res.data.data.text == "验证码不正确") {
+              wx.showModal({
+                content: '验证码不正确',
+                showCancel: false,
+                success: function(res) {
+                  if (res.confirm) {
+                    console.log('确定')
+                  }
                 }
-              }
-            });
+              })
+            } else if (res.data.data.text == "该手机号未在线下登记") {
+              wx.showModal({
+                content: '该手机号未在线下登记',
+                showCancel: false,
+                success: function(res) {
+                  if (res.confirm) {
+                    console.log('确定')
+                  }
+                }
+              })
+            }
           }
         },
       })
