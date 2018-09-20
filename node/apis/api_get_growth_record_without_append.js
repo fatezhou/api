@@ -34,7 +34,7 @@ function ApiGetGrowthRecordWithoutAppend(){
             var sqlFmt = "select text, author_id as authorId, \
             id as recordId, student_id as studentId, \
             picture_urls as pictures, author_type as authorType, create_time as dateTime from \
-            growth_record where ? and record_type = 1 order by create_time desc";
+            growth_record where ? and record_type = 1 ";
             var sqlData = {};
 			var sql = [];
 			if(data.studentId){
@@ -44,11 +44,22 @@ function ApiGetGrowthRecordWithoutAppend(){
 				sqlFmt = "select text, author_id as authorId, \
                     id as recordId, student_id as studentId, \
                     picture_urls as pictures, author_type as authorType, create_time as dateTime from \
-                    growth_record where student_id = ? and ? and record_type = 1 order by create_time desc";
-			}else{
-				
+                    growth_record where student_id = ? and ? and record_type = 1 ";//order by create_time desc";
+			}else{				
 				sqlData.student_id = true;
-			}
+            }
+            
+            if(data.recordId){
+                sqlFmt += "and id < ?";
+                sql.push(data.recordId);
+            }
+
+            if(!data.pageSize){
+                data.pageSize = 10;
+            }
+
+            sqlFmt += "order by create_time desc limit " + data.pageSize;
+            
             
             if(data.authorId){
 				sql.push(data.authorId);
