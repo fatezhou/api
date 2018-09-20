@@ -1,4 +1,5 @@
 // pages/growthRecord/growthRecord.js
+const app = getApp();
 Page({
 
   /**
@@ -71,6 +72,35 @@ Page({
       current: e.detail.current
     })
   },
+
+  // gets:function(){
+  //   var gData = app.globalData
+  //   wx.request({
+  //     url: gData.getFamily  ,
+  //     data: {
+  //       "unionid": app.globalData.unionid,
+  //       "openid": app.globalData.openid,
+  //     },
+  //     header: {},
+  //     method: 'post',
+  //     dataType: 'json',
+  //     responseType: 'text',
+  //     success: function (res) {
+  //       app.globalData.allGrowthRecords = res.data.data.records
+  //       console.log(app.globalData.allGrowthRecords)
+  //       for (var i in res.data.data.records) {
+  //         res.data.data.records[i].name = "加载中...";
+  //       }
+  //       that.setData({
+  //         recordsList: res.data.data.records,
+  //         recordSize: res.data.data.records.length
+  //       });
+  //       that.getContact();
+  //     },
+  //     fail: function (res) { },
+  //     complete: function (res) { },
+  //   })
+  // },
   /**
    * 生命周期函数--监听页面加载
    */
