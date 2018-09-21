@@ -18,31 +18,5 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "儿童学院",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "color": "#98A5A5",
-    "selectedColor": "#172951",
-    "borderStyle": "white",
-    "backgroundColor": "#fff",
-    "list": [
-      {
-        "selectedIconPath": "image/icnotification.png",
-        "iconPath": "image/icbook.png",
-        "pagePath": "pages/index/index",
-        "text": "学员记录"
-      },
-      {
-        "selectedIconPath": "image/iccontact2.png",
-        "iconPath": "image/iccontact.png",
-        "pagePath": "pages/member/member",
-        "text": "学员"
-      },
-      {
-        "selectedIconPath": "image/icaccount2.png",
-        "iconPath": "image/icaccount.png",
-        "pagePath": "pages/my/my",
-        "text": "我的"
-      }
-    ]
   }
 }

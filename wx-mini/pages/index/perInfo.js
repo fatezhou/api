@@ -12,15 +12,21 @@ Page({
     allGrowthRecords: '',
     studentId: '',
     recordSize: 0,
+    recordsList: '',
+
+    appendList: '',
+    listNumber: '',
+    likenumber: '',
+    recordId: '',
+    recordWithAppend: '',
+    recordWithAppends: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if (options.perTeacherRecords) {
-      perTeacherRecords = true
-    }
+
     studentId = options.studentId
 
     this.setData({
@@ -40,7 +46,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      recordWithAppends: []
+    })
+    // if (app.globalData.perTeacherRecords == true) {
+    // perTeacherRecords = true
+    // } else {
+    perTeacherRecords = false
+    // }
     this.getGrowthRecords()
+
   },
 
   /**
@@ -69,8 +84,8 @@ Page({
     var that = this;
 
     var contact = app.globalData.allStudent
-    console.info(self.data.recordsList)
-    console.info('----------====')
+    // console.info(self.data.recordsList)
+    // console.info('----------====')
     for (var i in contact) {
       for (var j in self.data.recordsList) {
         if (contact[i].studentId == self.data.recordsList[j].studentId) {
@@ -91,14 +106,69 @@ Page({
       studentId: studentId,
 
     })
-    // },
-    //   fail: function(res) {},
-    //   complete: function(res) {},
-    // })
+
+
+    var recordsList = self.data.recordsList
+
+    for (var i = 0; i < recordsList.length; i++) {
+      var self = this;
+      var gData = app.globalData;
+      var recordIds = recordsList[i].recordId
+      wx.request({
+        url: gData.oneGrowthRecordWithAppendUrl,
+        data: {
+          unionid: gData.unionid,
+          openid: gData.openid,
+          recordId: recordIds
+        },
+        method: 'post',
+        dataType: 'json',
+        responseType: 'text',
+        success: function(e) {
+
+          if (e.data.code == 0) {
+            self.data.recordWithAppend = e.data.data.record
+            // self.data.appendList = e.data.data.record.append;
+            // self.data.recordId = e.data.data.record.recordId
+            // self.data.likenumber = e.data.data.record.like;
+            // self.setData({
+            //   recordWithAppend: self.data.recordWithAppend
+            // });
+            // console.info(self.data.recordWithAppend)
+          }
+          // console.info(self.data.appendList)
+          var allTeacherInfo = app.globalData.allTeacherInfo
+          for (var i = 0; i < self.data.recordWithAppend.append.length; i++) {
+            for (var j = 0; j < allTeacherInfo.length; j++) {
+              if (self.data.recordWithAppend.append[i].authorId === allTeacherInfo[j].teacherId) {
+                self.data.recordWithAppend.append[i].authorName = allTeacherInfo[j].nickname
+              }
+            }
+          }
+          console.info(self.data.recordWithAppend)
+          var recordWithAppends = self.data.recordWithAppends.concat(self.data.recordWithAppend)
+          // recordWithAppend[0].appendList = 
+          self.setData({
+            recordWithAppend: self.data.recordWithAppend,
+            recordWithAppends: recordWithAppends
+            // appendList: self.data.appendList,
+            // listNumber: self.data.appendList.length,
+            // likenumber: self.data.likenumber
+          })
+
+        },
+
+      })
+    }
+    setTimeout(function() {
+      console.info(self.data.recordWithAppends)
+    }, 2000)
+
   },
 
   getGrowthRecords: function() {
     var that = this;
+    // console.info(perTeacherRecords)
     if (perTeacherRecords) {
       var data = {
         "unionid": app.globalData.unionid,
@@ -125,15 +195,15 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        console.info(res)
+        // console.info(res)
         perGrowthRecords = res.data.data.records
-        console.log(perGrowthRecords)
+        // console.log(perGrowthRecords)
         for (var i in res.data.data.records) {
-          res.data.data.records[i].name = "加载中...";
+          res.data.data.records[i].name = " ";
         }
         that.setData({
           recordsList: res.data.data.records,
-
+          // recordSize: res.data.data.records.length
         });
         that.getContact();
       },

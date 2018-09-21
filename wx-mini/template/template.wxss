@@ -1,0 +1,22 @@
+.tabsIcon{
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/* .tabItem{
+  width: 33.33%;
+  padding: 10rpx 0 0 0;
+  text-align: center;
+  overflow: hidden;
+} */
+
+.tabItem{
+  width: 33.3%;
+  padding: 10rpx 0 0 0;
+  text-align: center;
+  overflow: hidden;
+
+  /* display:flex;
+  /* justify-content: space-between; */
+  /* align-items: center */ 
+}

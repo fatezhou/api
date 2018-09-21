@@ -1,8 +1,11 @@
 //index.js
 //获取应用实例
 const app = getApp()
+var template = require('../../template/template.js')
+var http = require('../../utils/http.js')
 var recordId;
 var contact;
+var getrecordsList;
 Page({
   data: {
     motto: 'Hello World',
@@ -12,14 +15,13 @@ Page({
     studentId: 2,
     recordSize: 0,
     name: "",
+    qqq: '',
+    // userId: '',
   },
   //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
+
   onLoad: function() {
+    template.tabbar("tabBar", 0, this)
     console.info(app.globalData);
     if (app.globalData.userInfo) {
       this.setData({
@@ -48,131 +50,36 @@ Page({
       })
     }
 
-
   },
 
-  getContact: function() {
-    var self = this;
-    var that = this;
-    var gData = app.globalData;
-    var url = gData.minodopeApi.contactUrl;
-    wx.request({
-      url: url,
-      data: {
-        unionid: gData.unionid,
-        openid: gData.openid,
-        authorId: gData.userId, //可选, 只要特定老师发的
-        authorType: gData.userType, //保留参数, 用来标记是老师还是家长
-      },
-      header: {},
-      method: 'POST',
-      dataType: 'json',
-      responseType: 'text',
-      success: function(res) {
-        // console.info(res)
-        // console.info('---')
-        contact = res.data.data.contact[1].member;
-        app.globalData.allStudent = contact
-        for (var i in contact) {
-          for (var j in self.data.recordsList) {
-            if (contact[i].studentId == self.data.recordsList[j].studentId) {
-              self.data.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
-              // break;
-            }
-          }
-        }
-        self.setData({
-          recordsList: self.data.recordsList
-        });
-        app.globalData.contact = self.data.recordsList;
-        
-      },
-      fail: function(res) {},
-      complete: function(res) {},
-    })
-  },
 
   getContactFromGData: function() {
     var self = this;
-    var that = this;
-    var gData = app.globalData;
 
-    for (var i in contact) {
-      for (var j in self.data.recordsList) {
-        if (contact[i].studentId == self.data.recordsList[j].studentId) {
-          self.data.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
+    for (var i in app.globalData.allStudent) {
+      for (var j in getrecordsList) {
+        if (app.globalData.allStudent[i].studentId == getrecordsList[j].studentId) {
+          getrecordsList[j].name = (app.globalData.allStudent[i].nickname == "" ? app.globalData.allStudent[i].name : app.globalData.allStudent[i].nickname);
         }
       }
     }
+
+    app.globalData.recordsList = app.globalData.recordsList.concat(getrecordsList)
+    console.log(app.globalData.recordsList)
     self.setData({
-      recordsList: self.data.recordsList
+      recordsList: app.globalData.recordsList,
     });
   },
 
-  getGrowthRecords: function() {
-    // console.info(app.globalData.unionid)
-    // console.info(app.globalData.openid)
-    var that = this;
-    // var gData = getApp().globalData;
-    // var requestData = {
-    //   "unionid": "oO_8zy0yAhxBcEwEnPahvblLIGe1",
-    //   "openid": "oO_8zy0yAhxBcEwEnPahvblLIGe1",
-    //   //"studentId": gData.studentId,
-    //   //"authorId": gData.userId,//可选, 只要特定老师发的
-    //   //"authorType": gData.userType,//保留参数, 用来标记是老师还是家长
-    // };
-    wx.request({
-      url: app.globalData.getGrowthRecordsWithoutAppend,
-      data: {
-        "unionid": app.globalData.unionid,
-        "openid": app.globalData.openid,
-      },
-      header: {},
-      method: 'post',
-      dataType: 'json',
-      responseType: 'text',
-      success: function(res) {
-        console.info(res)
-        recordId = res.data.data.records.pop().recordId
-
-        app.globalData.allGrowthRecords = res.data.data.records
-        console.log(app.globalData.allGrowthRecords)
-        for (var i in res.data.data.records) {
-          res.data.data.records[i].name = "加载中...";
-        }
-        that.setData({
-          recordsList: res.data.data.records,
-          recordSize: res.data.data.size
-        });
-        that.getContact();
-      },
-      fail: function(res) {},
-      complete: function(res) {},
-    })
-  },
-
   onShow: function() {
-
-
-    // var that = this;
-    // var gData = getApp().globalData;
-    // var requestData = {
-    //   "unionid": "oO_8zy0yAhxBcEwEnPahvblLIGe1",
-    //   "openid": "oO_8zy0yAhxBcEwEnPahvblLIGe1",
-    //"studentId": gData.studentId,
-    //"authorId": gData.userId,//可选, 只要特定老师发的
-    //"authorType": gData.userType,//保留参数, 用来标记是老师还是家长
-    // };
-
-    // if (gData.showAllStudents == false) {
-
-    //   this.setData({
-    //     studentId: gData.studentId
-    //   });
-    //   requestData.studentId = gData.studentId;
-    // }
-
-    this.getGrowthRecords()
+    var that = this
+    http.login(function(res) {
+      recordId = res.slice(res.length - 1)[0].recordId
+      that.setData({
+        recordsList: res,
+        recordSize: app.globalData.indexSize
+      });
+    })
 
     // 获取所有教师信息
     if (!app.globalData.allTeacherInfo) {
@@ -194,7 +101,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    this.getGrowthRecords()
+    var that = this
+    http.login(function(res) {
+      recordId = res.slice(res.length - 1)[0].recordId
+      that.setData({
+        recordsList: res
+      });
+    })
   },
 
   /**
@@ -209,23 +122,19 @@ Page({
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
         "recordId": recordId,
+        "authorId": app.globalData.userId,
+        "authorType": app.globalData.userType,
       },
       header: {},
       method: 'post',
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        recordId = res.data.data.records.pop().recordId
-        console.info(res)
-        app.globalData.allGrowthRecords = app.globalData.allGrowthRecords.concat(res.data.data.records) 
-        console.log(app.globalData.allGrowthRecords)
-        for (var i in app.globalData.allGrowthRecords) {
-
-          app.globalData.allGrowthRecords[i].name = "加载中...";
+        recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
+        getrecordsList = res.data.data.records
+        for (var i in getrecordsList) {
+          getrecordsList[i].name = " ";
         }
-        that.setData({
-          recordsList: app.globalData.allGrowthRecords,
-        });
         that.getContactFromGData();
       },
       fail: function(res) {},
@@ -245,5 +154,3 @@ Page({
 
   }
 })
-
-// 下拉刷新

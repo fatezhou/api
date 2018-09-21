@@ -116,6 +116,7 @@ Page({
             },
             success: function(res) {
               console.info(res)
+           
               that.show()
               return
             }
@@ -150,6 +151,7 @@ Page({
     wx.navigateTo({
       url: '../index/perInfo?studentId=' + this.data.studentId,
     })
+    app.globalData.perTeacherRecords = false
   },
   getRecordSize: function() {
     var that = this
@@ -159,7 +161,7 @@ Page({
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
         "authorId": app.globalData.userId,
-        "authorType": 1, //1: teacher, 2: parent",
+        "authorType": app.globalData.userType, //1: teacher, 2: parent",
         "studentId": that.data.studentId
       },
       method: "post",
@@ -217,6 +219,8 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(e) {
+        console.info(e)
+        console.info('dsadasdasd===')
         if (e.data.code == 0) {
           self.data.appendList = e.data.data.record.append;
           self.data.likenumber = e.data.data.record.like;

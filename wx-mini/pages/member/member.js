@@ -1,6 +1,6 @@
 // pages/member/member.js
 const app = getApp();
-
+var template = require('../../template/template.js')
 Page({
 
   /**
@@ -9,6 +9,7 @@ Page({
   data: {
     memberList: [],
     star: null,
+    stararr:[],
   },
   member: function(e) {
     var index = e.currentTarget.dataset.index;
@@ -33,7 +34,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    template.tabbar("tabBar", 1, this)
   },
 
   /**
@@ -47,45 +48,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // console.info("member.js");
     var that = this;
-    var gData = app.globalData;
-    var url = gData.minodopeApi.contactUrl;
-    wx.request({
-      url: url,
-      data: {
-        unionid: gData.unionid,
-        openid: gData.openid,
-        authorId: gData.userId, //可选, 只要特定老师发的
-        authorType: gData.userType, //保留参数, 用来标记是老师还是家长
-      },
-      header: {},
-      method: 'POST',
-      dataType: 'json',
-      responseType: 'text',
-      success: function(res) {
-        console.log(res)
-        var memberList = res.data.data.contact[1].member
-        that.setData({
-          memberList: res.data.data.contact[1].member,
-        })
-
-        var stararr = res.data.data.contact[0].member
-
-        for (var i = 0; i < memberList.length; i++) {
-          for (var j = 0; j < stararr.length; j++) {
-            if (memberList[i].studentId == stararr[j].studentId) {
-              memberList[i].star = true
-              that.setData({
-                memberList: memberList
-              })
-            }
-          }
-        }
-      },
-      fail: function(res) {},
-      complete: function(res) {},
+    var memberList = app.globalData.allStudent
+    that.setData({
+      memberList: memberList,
     })
+
+    var stararr = app.globalData.stararr
+    console.info(stararr)
+    for (var i = 0; i < memberList.length; i++) {
+      memberList[i].star = false
+      for (var j = 0; j < stararr.length; j++) {
+        if (memberList[i].studentId == stararr[j].studentId) {
+          memberList[i].star = true
+          that.setData({
+            memberList: memberList,
+            stararr: stararr
+          })
+        }
+      }
+    }
   },
 
   /**

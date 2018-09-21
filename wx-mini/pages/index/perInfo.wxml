@@ -12,18 +12,20 @@
 </view>
 
 <view class='listDetail'>
-  <view class='forlD'>
-    <navigator wx:for="{{allGrowthRecords}}" wx:for-item="item" wx:key='index' id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true'>
+  <view class='forlD' wx:for="{{allGrowthRecords}}" wx:for-item="item" wx:key='index'>
+    <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true'>
       <block wx:if="{{studentId == item.studentId}}">
-        <view class='toplD'>
-          <view class='tlDleft'>
-            <image src='./../../image/ph.png' mode='widthFix'></image>
-            <text class='phName'>{{item.name}}</text>
-          </view>
-          <view class='tlDright'>
-            <text>{{item.dateTime}}</text>
-          </view>
+        <view>
+          <view class='toplD'>
+            <view class='tlDleft'>
+              <image src='./../../image/ph.png' mode='widthFix'></image>
+              <text class='phName'>{{item.name}}</text>
+            </view>
+            <view class='tlDright'>
+              <text>{{item.dateTime}}</text>
+            </view>
 
+          </view>
         </view>
         <view class='words'>
           {{item.text}}
@@ -35,63 +37,74 @@
           <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
           <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
         </view>
-        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 3}}">
-          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
+        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length >= 3}}">
+          <block wx:for="{{item.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex'>
+            <image src='{{imgitem}}' mode='widthFix'></image>
+          </block>
         </view>
-        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 4}}">
-          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
-        </view>
-        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 5}}">
-          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
-        </view>
-        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 6}}">
-          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[5]}}' mode='widthFix'></image>
-        </view>
-        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 7}}">
-          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[5]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[6]}}' mode='widthFix'></image>
-        </view>
-        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 8}}">
-          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[5]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[6]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[7]}}' mode='widthFix'></image>
-        </view>
-        <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 9}}">
-          <image src='{{item.pictureUrls[0]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[1]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[2]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[3]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[4]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[5]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[6]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[7]}}' mode='widthFix'></image>
-          <image src='{{item.pictureUrls[8]}}' mode='widthFix'></image>
-        </view>
+
       </block>
+
+      <block wx:for='{{recordWithAppends}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' style='background:#FFF;font-size:30rpx;' wx:if="{{itemWithAppend.recordId == item.recordId}}">
+        <block wx:for='{{itemWithAppend.append}}' wx:for-item='itemappend' wx:key='indexappend' wx:if="{{index <= 1}}">
+          <view style="border-top:1rpx solid #eee;">
+            <view style="opacity:0;font-size:20rpx">1</view>
+            <image src='../../image/head02.png' mode='widthFix' style="width: 48rpx;float: left;border-radius: 100%;"></image>
+            <text class='phName'>{{itemappend.authorName}}</text>
+          </view>
+          <view class='tlDright'>
+            <text>{{itemappend.dateTime}}</text>
+          </view>
+
+          <!-- <view style='width:600rpx;margin-left:90rpx;'> -->
+
+          <view class='words' style="margin-top:100rpx;">
+            {{itemappend.text}}
+          </view>
+
+          <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;'>
+
+            <view class='picList th1' wx:if="{{itemappend.pictures.length == 1}}">
+              <image src='{{itemappend.pictures[0]}}' mode='widthFix' data-showBigImg="{{itemappend.pictures[0]}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+            </view>
+            <view class='picList th2' wx:if="{{itemappend.pictures.length == 2}}">
+              <image src='{{itemappend.pictures[0]}}' mode='widthFix' data-showBigImg="{{itemappend.pictures[0]}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+              <image src='{{itemappend.pictures[1]}}' mode='widthFix' data-showBigImg="{{itemappend.pictures[1]}}" data-showswiper="{{itemappend.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
+            </view>
+            <view class='picList th3' wx:if="{{itemappend.pictures.length >= 3}}">
+              <block wx:for="{{itemappend.pictures}}" wx:for-item="imgitem" wx:key='imgindex'>
+                <image src='{{imgitem}}' mode='widthFix' data-showBigImg="{{imgitem}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+              </block>
+            </view>
+
+            <view style="margin-top:20rpx;">
+            <!-- 点赞 -->
+              <!-- <image wx:if="{{itemappend.like.teacher}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
+              <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
+                <block wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
+                  <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allTeacheritem.nickname}} </text>
+                </block>
+              </block> -->
+              <!-- <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
+          <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
+            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}} </text>
+          </block>
+        </block> -->
+            </view>
+            <view style="display:flex;justify-content: space-between;align-items:center;margin-top:20rpx;padding-bottom:50rpx">
+              <view></view>
+              <view style='display:flex;justify-content: space-between;align-items:center;'>
+                <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
+                <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{itemappend.authorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hindname=true&callName={{itemappend.authorName}}">
+                  <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
+                </navigator>
+              </view>
+            </view>
+          </view>
+          <!-- </view> -->
+        </block>
+      </block>
+
     </navigator>
   </view>
 </view>

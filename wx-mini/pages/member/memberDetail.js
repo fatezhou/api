@@ -25,13 +25,15 @@ Page({
     //   url: '../index/perInfo',
     // });
     wx.navigateTo({
-      url: '../index/perInfo?studentId=' + this.data.studentId + '&perTeacherRecords=true',
+      url: '../index/perInfo?studentId=' + this.data.studentId,
     })
+    app.globalData.perTeacherRecords = true
   },
 
   // 星标
   putMemberFav: function(e) {
     var that = this;
+    // app.globalData.haveputMemberFav = true
     console.info(that.data.studentId)
     console.info(app.globalData.teacherInfo.teacherId)
     var statu = e.detail.value
@@ -53,6 +55,7 @@ Page({
           that.setData({
             star: true
           })
+          that.getstar()
         },
       })
     } else {
@@ -73,11 +76,31 @@ Page({
           that.setData({
             star: false
           })
+          that.getstar()
         },
       })
     }
 
   },
+
+  getstar: function() {
+    wx.request({
+      url: app.globalData.minodopeApi.contactUrl,
+      data: {
+        unionid: app.globalData.unionid,
+        openid: app.globalData.openid,
+        authorId: app.globalData.userId, //可选, 只要特定老师发的
+        authorType: app.globalData.userType, //保留参数, 用来标记是老师还是家长
+      },
+      method: 'POST',
+      dataType: 'json',
+      success: function(res) {
+        // 有星标的
+        app.globalData.stararr = res.data.data.contact[0].member;
+      },
+    })
+  },
+
   // 跳转新建记录页面
   toAddRecard: function() {
     wx.navigateTo({
@@ -108,6 +131,7 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+
     console.info(options);
     this.data.nickName = options.nickName;
     this.data.name = options.name;
@@ -149,6 +173,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // app.globalData.haveputMemberFav = false
     // this.getRecordSize()
     var that = this;
     var gData = app.globalData;

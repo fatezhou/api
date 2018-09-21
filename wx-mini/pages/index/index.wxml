@@ -26,9 +26,7 @@
       <view class='words'>
         {{itemObject.text}}
       </view>
-      <!-- <view class='picList th3'>
-     <image style='width:160rpx;height:160rpx;' wx:for="{{itemObject.pictureUrls}}" wx:for-item="aaa" wx:key='index' src='{{aaa}}' mode='widthFix'></image>
-    </view> -->
+
       <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
         <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
       </view>
@@ -36,127 +34,15 @@
         <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
         <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
       </view>
-      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 3}}">
-        <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image>
-      </view>
-      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 4}}">
-        <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[3]}}' mode='widthFix'></image>
-      </view>
-      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 5}}">
-        <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[3]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[4]}}' mode='widthFix'></image>
-      </view>
-      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 6}}">
-        <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[3]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[4]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[5]}}' mode='widthFix'></image>
-      </view>
-      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 7}}">
-        <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[3]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[4]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[5]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[6]}}' mode='widthFix'></image>
-      </view>
-      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 8}}">
-        <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[3]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[4]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[5]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[6]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[7]}}' mode='widthFix'></image>
-      </view>
-      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 9}}">
-        <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[2]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[3]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[4]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[5]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[6]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[7]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[8]}}' mode='widthFix'></image>
+
+      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length >= 3}}">
+        <block wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex'>
+          <image src='{{imgitem}}' mode='widthFix'></image>
+        </block>
       </view>
 
     </navigator>
   </view>
-
-  <!-- <view wx:if="{{!recordsList}}">
-
-    <view class='forlD'>
-      <view class='toplD'>
-        <view class='tlDleft'>
-          <image src='./../../image/ph.png' mode='widthFix'></image>
-          <text class='phName'>小水滴</text>
-        </view>
-        <view class='tlDright'>
-          <text>x分钟</text>
-        </view>
-
-      </view>
-      <view class='words'>
-        那时，我还是个有着25年丰富旱鸭子经验的严重恐水星人；凭借着在不会游泳界的出色成就，我轻松地成为了当天最难搞的学员。
-      </view>
-      <view class='picList th2'>
-        <image src='./../../image/pic0.jpg' mode='widthFix'></image>
-        <image src='./../../image/pic0.jpg' mode='widthFix'></image>
-      </view>
-    </view>
-
-    <view class='forlD'>
-      <view class='toplD'>
-        <view class='tlDleft'>
-          <image src='./../../image/ph.png' mode='widthFix'></image>
-          <text class='phName'>小水滴</text>
-        </view>
-        <view class='tlDright'>
-          <text>x分钟</text>
-        </view>
-
-      </view>
-      <view class='words'>
-        那时，我还是个有着25年丰富旱鸭子经验的严重恐水星人；凭借着在不会游泳界的出色成就，我轻松地成为了当天最难搞的学员。
-      </view>
-      <view class='picList th1'>
-        <image src='./../../image/pic0.jpg' mode='widthFix'></image>
-      </view>
-    </view>
-
-    <view class='forlD'>
-      <view class='toplD'>
-        <view class='tlDleft'>
-          <image src='./../../image/ph.png' mode='widthFix'></image>
-          <text class='phName'>小水滴</text>
-        </view>
-        <view class='tlDright'>
-          <text>x分钟</text>
-        </view>
-
-      </view>
-      <view class='words'>
-        那时，我还是个有着25年丰富旱鸭子经验的严重恐水星人；凭借着在不会游泳界的出色成就，我轻松地成为了当天最难搞的学员。
-      </view>
-      <view class='picList th0'>
-      </view>
-    </view>
-
-  </view> -->
-
 
 </view>
 <!-- <view class='fixed'>
@@ -164,3 +50,6 @@
   <image src='./../../image/edit.png' mode='widthFix'></image>
  </navigator>
 </view> -->
+
+<import src="../../template/template.wxml" />
+<template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

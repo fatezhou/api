@@ -54,61 +54,10 @@
         <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
         <image src='{{item.pictures[1]}}' mode='widthFix' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
       </view>
-      <view class='picList th3' wx:if="{{item.pictures.length == 3}}">
-        <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[1]}}' mode='widthFix' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[2]}}' mode='widthFix' data-showBigImg="{{item.pictures[2]}}" data-showswiper="{{item.pictures}}" data-imgid="2" bindtap='showBigImg'></image>
-      </view>
-      <view class='picList th3' wx:if="{{item.pictures.length == 4}}">
-        <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[1]}}' mode='widthFix' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[2]}}' mode='widthFix' data-showBigImg="{{item.pictures[2]}}" data-showswiper="{{item.pictures}}" data-imgid="2" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[3]}}' mode='widthFix' data-showBigImg="{{item.pictures[3]}}" data-showswiper="{{item.pictures}}" data-imgid="3" bindtap='showBigImg'></image>
-      </view>
-      <view class='picList th3' wx:if="{{item.pictures.length == 5}}">
-        <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[1]}}' mode='widthFix' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[2]}}' mode='widthFix' data-showBigImg="{{item.pictures[2]}}" data-showswiper="{{item.pictures}}" data-imgid="2" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[3]}}' mode='widthFix' data-showBigImg="{{item.pictures[3]}}" data-showswiper="{{item.pictures}}" data-imgid="3" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[4]}}' mode='widthFix' data-showBigImg="{{item.pictures[4]}}" data-showswiper="{{item.pictures}}" data-imgid="4" bindtap='showBigImg'></image>
-      </view>
-      <view class='picList th3' wx:if="{{item.pictures.length == 6}}">
-        <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[1]}}' mode='widthFix' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[2]}}' mode='widthFix' data-showBigImg="{{item.pictures[2]}}" data-showswiper="{{item.pictures}}" data-imgid="2" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[3]}}' mode='widthFix' data-showBigImg="{{item.pictures[3]}}" data-showswiper="{{item.pictures}}" data-imgid="3" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[4]}}' mode='widthFix' data-showBigImg="{{item.pictures[4]}}" data-showswiper="{{item.pictures}}" data-imgid="4" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[5]}}' mode='widthFix' data-showBigImg="{{item.pictures[5]}}" data-showswiper="{{item.pictures}}" data-imgid="5" bindtap='showBigImg'></image>
-      </view>
-      <view class='picList th3' wx:if="{{item.pictures.length == 7}}">
-        <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[1]}}' mode='widthFix' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[2]}}' mode='widthFix' data-showBigImg="{{item.pictures[2]}}" data-showswiper="{{item.pictures}}" data-imgid="2" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[3]}}' mode='widthFix' data-showBigImg="{{item.pictures[3]}}" data-showswiper="{{item.pictures}}" data-imgid="3" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[4]}}' mode='widthFix' data-showBigImg="{{item.pictures[4]}}" data-showswiper="{{item.pictures}}" data-imgid="4" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[5]}}' mode='widthFix' data-showBigImg="{{item.pictures[5]}}" data-showswiper="{{item.pictures}}" data-imgid="5" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[6]}}' mode='widthFix' data-showBigImg="{{item.pictures[6]}}" data-showswiper="{{item.pictures}}" data-imgid="6" bindtap='showBigImg'></image>
-      </view>
-      <view class='picList th3' wx:if="{{item.pictures.length == 8}}">
-        <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[1]}}' mode='widthFix' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[2]}}' mode='widthFix' data-showBigImg="{{item.pictures[2]}}" data-showswiper="{{item.pictures}}" data-imgid="2" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[3]}}' mode='widthFix' data-showBigImg="{{item.pictures[3]}}" data-showswiper="{{item.pictures}}" data-imgid="3" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[4]}}' mode='widthFix' data-showBigImg="{{item.pictures[4]}}" data-showswiper="{{item.pictures}}" data-imgid="4" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[5]}}' mode='widthFix' data-showBigImg="{{item.pictures[5]}}" data-showswiper="{{item.pictures}}" data-imgid="5" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[6]}}' mode='widthFix' data-showBigImg="{{item.pictures[6]}}" data-showswiper="{{item.pictures}}" data-imgid="6" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[7]}}' mode='widthFix' data-showBigImg="{{item.pictures[7]}}" data-showswiper="{{item.pictures}}" data-imgid="7" bindtap='showBigImg'></image>
-      </view>
-      <view class='picList th3' wx:if="{{item.pictures.length == 9}}">
-        <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[1]}}' mode='widthFix' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[2]}}' mode='widthFix' data-showBigImg="{{item.pictures[2]}}" data-showswiper="{{item.pictures}}" data-imgid="2" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[3]}}' mode='widthFix' data-showBigImg="{{item.pictures[3]}}" data-showswiper="{{item.pictures}}" data-imgid="3" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[4]}}' mode='widthFix' data-showBigImg="{{item.pictures[4]}}" data-showswiper="{{item.pictures}}" data-imgid="4" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[5]}}' mode='widthFix' data-showBigImg="{{item.pictures[5]}}" data-showswiper="{{item.pictures}}" data-imgid="5" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[6]}}' mode='widthFix' data-showBigImg="{{item.pictures[6]}}" data-showswiper="{{item.pictures}}" data-imgid="6" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[7]}}' mode='widthFix' data-showBigImg="{{item.pictures[7]}}" data-showswiper="{{item.pictures}}" data-imgid="7" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[8]}}' mode='widthFix' data-showBigImg="{{item.pictures[8]}}" data-showswiper="{{item.pictures}}" data-imgid="8" bindtap='showBigImg'></image>
+      <view class='picList th3' wx:if="{{item.pictures.length >= 3}}">
+        <block wx:for="{{item.pictures}}" wx:for-item="imgitem" wx:key='imgindex'>
+          <image src='{{imgitem}}' mode='widthFix' data-showBigImg="{{imgitem}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+        </block>
       </view>
 
       <view style="margin-top:20rpx;">

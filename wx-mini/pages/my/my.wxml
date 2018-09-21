@@ -44,3 +44,5 @@
 <navigator url='meInforErro'>
 	<view style='font-size:24rpx;color:#617190;width:750rpx;text-align:center;margin-top:30rpx;'>信息有误？</view>
 </navigator>
+<import src="../../template/template.wxml" />
+<template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />
