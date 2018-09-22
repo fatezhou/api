@@ -11,7 +11,8 @@
     "pages/my/meInforCha",
     "pages/member/memberDetail",
     "pages/index/newMess",
-    "pages/member/parents"
+    "pages/member/parents",
+    "pages/pull/chooseStudent"
   ],
   "window": {
     "backgroundTextStyle": "light",

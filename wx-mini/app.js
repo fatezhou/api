@@ -61,6 +61,6 @@ App({
 
     recordsList: '', //首页学员记录（特定老师）
     indexSize: '',
-
+    chooseStudent: '',
   }
 })

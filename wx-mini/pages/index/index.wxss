@@ -19,6 +19,6 @@ page{background: #F2F4F7;}
 .th3 image{width: 162rpx;}
 .th2 image{width: 220rpx;}
 .th1 image{width: 320rpx;}
-.fixed{position: fixed;right: 30rpx;bottom: 24rpx;}
+.fixed{position: fixed;right: 30rpx;bottom: 124rpx;}
 .fixed navigator{display: inline-block}
 .fixed navigator image{width: 96rpx;}

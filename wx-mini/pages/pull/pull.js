@@ -28,7 +28,8 @@ Page({
     hindname: false,
 
     calltext: null,
-    placeholder:'填写内容(12-500字)'
+    placeholder: '填写内容(12-500字)',
+    choosestudent: false
   },
   charChange: function(e) {
     this.setData({
@@ -50,7 +51,20 @@ Page({
       })
       return
     }
-    // console.log(this.data.imgs)
+    if (this.data.name == '请选择学员') {
+      wx.showToast({
+        title: '请选择学员',
+        icon: 'loading',
+        image: '',
+        duration: 1000,
+        mask: true,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+      return
+    }
+
     var that = this;
     var gData = app.globalData;
     console.info(that.data);
@@ -143,6 +157,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
+    if (options.choosestudent == 'true') {
+      this.setData({
+        name: '请选择学员',
+        choosestudent: true
+      })
+    }
+
     if (options.type == "append") {
       wx.setNavigationBarTitle({
         title: '评论'
@@ -185,6 +207,15 @@ Page({
         placeholder: '回复' + ' ' + options.callName + ' '
       })
       // console.info(calltext)
+    }
+  },
+
+  onShow: function() {
+    if (app.globalData.chooseStudent) {
+      this.setData({
+        name: app.globalData.chooseStudent.name,
+        studentId: app.globalData.chooseStudent.studentId,
+      })
     }
   },
 

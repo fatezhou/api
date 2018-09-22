@@ -22,10 +22,21 @@
 
 </view>
 <view class='choose' wx:if="{{!hindname}}">
-  <text>学员</text>
-  <view class='cRight'>
-    <image src='./../../image/ph.png' mode='widthFix'></image>
-    <text class='phName'>{{name}}</text>
-  </view>
+  <block wx:if="{{choosestudent}}">
+    <navigator url="chooseStudent">
+      <text>学员</text>
+      <view class='cRight'>
+        <image src='./../../image/ph.png' mode='widthFix'></image>
+        <text class='phName'>{{name}}</text>
+      </view>
+    </navigator>
+  </block>
+  <block wx:else>
+    <text>学员</text>
+    <view class='cRight'>
+      <image src='./../../image/ph.png' mode='widthFix'></image>
+      <text class='phName'>{{name}}</text>
+    </view>
+  </block>
 </view>
 <button bindtap='submit' class="weui-btn mini-btn">提交</button>

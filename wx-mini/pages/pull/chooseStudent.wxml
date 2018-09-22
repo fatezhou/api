@@ -1,4 +1,4 @@
-<!--pages/member/member.wxml-->
+<!--pages/pull/chooseStudent.wxml-->
 <view style='height:27rpx;'></view>
 <view class='leadW'>星标</view>
 <view class='memberListBG'>
@@ -37,5 +37,3 @@
     </view>
   </view>
 </view>
-<import src="../../template/template.wxml" />
-<template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

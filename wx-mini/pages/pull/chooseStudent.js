@@ -1,6 +1,6 @@
-// pages/member/member.js
+// pages/pull/chooseStudent.js
 const app = getApp();
-var template = require('../../template/template.js')
+
 Page({
 
   /**
@@ -9,52 +9,62 @@ Page({
   data: {
     memberList: [],
     star: null,
-    stararr:[],
+    stararr: [],
   },
   member: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.memberList[index];
     console.info("member.member");
     console.info(item);
-    var url = 'memberDetail?name=' + item.name;
-    url += "&studentId=" + item.studentId;
-    url += "&cardCode=" + item.cardCode;
-    url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
-    url += "&birthday=" + item.birthday;
-    url += "&freeze=" + item.freeze;
-    console.info(url);
-    wx.navigateTo({
-      url: url,
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
+    app.globalData.chooseStudent = item
+    wx.navigateBack({
+
     })
+    // var url = 'memberDetail?name=' + item.name;
+    // url += "&studentId=" + item.studentId;
+    // url += "&cardCode=" + item.cardCode;
+    // url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
+    // url += "&birthday=" + item.birthday;
+    // url += "&freeze=" + item.freeze;
+    // url += "&choosestudent=false";
+    // console.info(url);
+    // wx.navigateBack({
+    //   url: url,
+    //   success: function (res) { },
+    //   fail: function (res) { },
+    //   complete: function (res) { },
+    // })
   },
 
-  memberstar: function (e) {
+  memberstar: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.stararr[index];
     console.info("member.member");
     console.info(item);
-    var url = 'memberDetail?name=' + item.name;
-    url += "&studentId=" + item.studentId;
-    url += "&cardCode=" + item.cardCode;
-    url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
-    url += "&birthday=" + item.birthday;
-    url += "&freeze=" + item.freeze;
-    console.info(url);
-    wx.navigateTo({
-      url: url,
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+    app.globalData.chooseStudent = item
+    wx.navigateBack({
+      
     })
+    // var url = 'memberDetail?name=' + item.name;
+    // url += "&studentId=" + item.studentId;
+    // url += "&cardCode=" + item.cardCode;
+    // url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
+    // url += "&birthday=" + item.birthday;
+    // url += "&freeze=" + item.freeze;
+    // url += "&choosestudent=false";
+    // console.info(url);
+    // wx.navigateBack({
+    //   url: url,
+    //   success: function (res) { },
+    //   fail: function (res) { },
+    //   complete: function (res) { },
+    // })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    template.tabbar("tabBar", 1, this)
+ 
   },
 
   /**
@@ -68,6 +78,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    app.globalData.chooseStudent = ''
     var that = this;
     var memberList = app.globalData.allStudent
     that.setData({
@@ -88,7 +99,6 @@ Page({
         }
       }
     }
-    console.info(this.data.stararr)
   },
 
   /**

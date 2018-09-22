@@ -45,11 +45,11 @@
   </view>
 
 </view>
-<!-- <view class='fixed'>
- <navigator url='./../pull/pull?studentId={{studentId}}'>
+<view class='fixed'>
+ <navigator url='./../pull/pull?choosestudent=true'>
   <image src='./../../image/edit.png' mode='widthFix'></image>
  </navigator>
-</view> -->
+</view>
 
 <import src="../../template/template.wxml" />
 <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

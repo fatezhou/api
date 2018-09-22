@@ -72,6 +72,7 @@ Page({
   },
 
   onShow: function() {
+    app.globalData.chooseStudent = ''
     var that = this
     http.login(function(res) {
       recordId = res.slice(res.length - 1)[0].recordId
