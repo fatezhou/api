@@ -52,3 +52,6 @@
   <view>1.0.0</view>
 </view>
 <!-- </navigator> -->
+
+<import src="../../template/template.wxml" />
+<template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

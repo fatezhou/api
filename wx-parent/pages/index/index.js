@@ -1,7 +1,8 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+var template = require('../../template/template.js')
+var http = require('../../utils/http.js')
 Page({
   data: {
     motto: 'Hello World',
@@ -16,6 +17,7 @@ Page({
     })
   },
   onLoad: function () {
+    template.tabbar("tabBar", 0, this)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

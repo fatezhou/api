@@ -1,5 +1,10 @@
 // pages/growthRecord/growthRecord.js
 const app = getApp();
+var template = require('../../template/template.js')
+var http = require('../../utils/http.js')
+var recordId;
+var getrecordsList;
+
 Page({
 
   /**
@@ -22,90 +27,32 @@ Page({
       sex: 1,
       recardCount: 16259
     }, ],
+
     current: 0,
 
-    appendList: [{
-        ILike: 0,
-        authorId: 4,
-        authorName: "小铭",
-        authorType: 1,
-        dateTime: "2018-09-18 21:15:18",
-        pictures: ["https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918211757_0.jpg", "https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918211800_1.jpg", "https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918211804_2.jpg", "https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918211807_3.jpg", "https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918211810_3.jpg"],
-        recordId: 159,
-        studentId: 43,
-      text: "那时，我还是个有着25年丰富旱鸭子经验的严重恐水星人；凭借着在不会游泳界的出色成就，我轻松地成为了当天最难搞的学员。",
-      },
-      {
-        ILike: 0,
-        authorId: 4,
-        authorName: "小铭",
-        authorType: 1,
-        dateTime: "2018-09-18 21:15:18",
-        pictures: ["https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918211757_0.jpg"],
-        recordId: 159,
-        studentId: 43,
-        text: "上课啦",
-      },
-      {
-        ILike: 0,
-        authorId: 4,
-        authorName: "小铭",
-        authorType: 1,
-        dateTime: "2018-09-18 21:15:18",
-        pictures: ["https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918211757_0.jpg"],
-        recordId: 159,
-        studentId: 43,
-        text: "好饿好饿的毛毛虫",
-      }
-    ],
+    recordsList: '',
+    recordSize: '',
   },
 
-  showBigImg: function (e) {
+  showBigImg: function(e) {
     wx.previewImage({
       current: e.currentTarget.dataset.showbigimg,
-      urls: e.currentTarget.dataset.showswiper
+      urls: e.currentTarget.dataset.showpicurls
     })
   },
 
+  // 选择学员
   swiper: function(e) {
     this.setData({
       current: e.detail.current
     })
   },
 
-  // gets:function(){
-  //   var gData = app.globalData
-  //   wx.request({
-  //     url: gData.getFamily  ,
-  //     data: {
-  //       "unionid": app.globalData.unionid,
-  //       "openid": app.globalData.openid,
-  //     },
-  //     header: {},
-  //     method: 'post',
-  //     dataType: 'json',
-  //     responseType: 'text',
-  //     success: function (res) {
-  //       app.globalData.allGrowthRecords = res.data.data.records
-  //       console.log(app.globalData.allGrowthRecords)
-  //       for (var i in res.data.data.records) {
-  //         res.data.data.records[i].name = "加载中...";
-  //       }
-  //       that.setData({
-  //         recordsList: res.data.data.records,
-  //         recordSize: res.data.data.records.length
-  //       });
-  //       that.getContact();
-  //     },
-  //     fail: function (res) { },
-  //     complete: function (res) { },
-  //   })
-  // },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    template.tabbar("tabBar", 1, this)
   },
 
   /**
@@ -119,7 +66,61 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    var that = this
+    http.login(function(res) {
+      console.info(res)
+      recordId = res.slice(res.length - 1)[0].recordId
 
+      that.getAppend()
+
+    })
+
+  },
+
+  getAppend: function() {
+    var that = this
+    for (var i = 0; i < app.globalData.recordsList.length; i++) {
+      var recordId = app.globalData.recordsList[i].recordId
+      wx.request({
+        url: app.globalData.minodopeApi.getOneGrowthRecordWithAppendByRecordId,
+        data: {
+          "unionid": app.globalData.unionid,
+          "openid": app.globalData.openid,
+          "recordId": recordId,
+        },
+        header: {},
+        method: 'post',
+        dataType: 'json',
+        responseType: 'text',
+        success: function(res) {
+
+          for (var x = 0; x < app.globalData.recordsList.length; x++) {
+
+            if (app.globalData.recordsList[x].recordId == res.data.data.record.recordId) {
+              app.globalData.recordsList[x].append = res.data.data.record.append
+            }
+            if (app.globalData.recordsList[x].append) {
+              for (var y = 0; y < app.globalData.allTeacherInfo.length; y++) {
+                for (var z = 0; z < app.globalData.recordsList[x].append.length; z++) {
+                  if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allTeacherInfo[y].teacherId) {
+                    app.globalData.recordsList[x].append[z].name = app.globalData.allTeacherInfo[y].nickname
+                  }
+                }
+              }
+            }
+
+          }
+
+          that.setData({
+            recordsList: app.globalData.recordsList,
+            recordSize: app.globalData.indexSize
+          });
+
+        },
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+    }
   },
 
   /**
@@ -140,13 +141,66 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    var that = this
+    http.login(function(res) {
+      console.info(res)
+      recordId = res.slice(res.length - 1)[0].recordId
 
+      that.getAppend()
+    })
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    console.info(recordId)
+    console.info(111)
+    var that = this;
+
+    wx.request({
+      url: app.globalData.minodopeApi.getGrowthRecordsWithoutAppend,
+      data: {
+        "unionid": app.globalData.unionid,
+        "openid": app.globalData.openid,
+        "recordId": recordId,
+        // 目前写死的
+        "studentId": 41,
+      },
+      header: {},
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        console.info(res)
+        recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
+        getrecordsList = res.data.data.records
+        for (var i in getrecordsList) {
+          getrecordsList[i].name = " ";
+        }
+
+        that.getContactFromGData();
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+
+  },
+
+  getContactFromGData: function() {
+    var that = this;
+
+    for (var i in app.globalData.allTeacherInfo) {
+      for (var j in getrecordsList) {
+        if (app.globalData.allTeacherInfo[i].teacherId == getrecordsList[j].authorId) {
+          getrecordsList[j].name = (app.globalData.allTeacherInfo[i].nickname == "" ? app.globalData.allTeacherInfo[i].name : app.globalData.allTeacherInfo[i].nickname);
+        }
+      }
+    }
+
+    app.globalData.recordsList = app.globalData.recordsList.concat(getrecordsList)
+
+    that.getAppend()
 
   },
 

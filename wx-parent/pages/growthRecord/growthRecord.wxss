@@ -1,6 +1,6 @@
 /* pages/growthRecord/growthRecord.wxss */
 page{background: #F2F4F7;}
-.counts{height: 30rpx;font-size: 30rpx;line-height: 30rpx;padding: 30rpx 0;}
+.counts{font-size: 30rpx;margin-top: 20rpx}
 .countsLeft{margin-left: 30rpx;float: left;color:#98A5A5;}
 .countsRight{margin-right: 30rpx;float: right;}
 .crNews{display: inline-block;position: relative}
