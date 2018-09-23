@@ -40,10 +40,13 @@
 
 <!-- 记录list -->
 <view wx:for='{{recordsList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;margin-bottom:20rpx;width:750rpx;position:relative'>
-  <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
-    <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
-  </navigator>
-  <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  <view>
+    <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
+      <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+    </navigator>
+    <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  </view>
+
   <view style='width:600rpx;margin-left:20rpx;'>
 
     <view style='display:flex;justify-content: space-between;align-items:center;'>
@@ -100,10 +103,13 @@
 
     <!-- 评论 -->
     <view wx:for='{{item.append}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' wx:if="{{index <= 1}}" style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-top:1rpx solid #e5e5ea;margin-top:20rpx;width:750rpx;margin-left:-110rpx;'>
-      <navigator url="teacher?teacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
-        <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
-      </navigator>
-      <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+      <view>
+        <navigator url="teacher?teacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
+          <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+        </navigator>
+        <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+      </view>
+
       <view style='width:600rpx;margin-left:20rpx;'>
 
 
