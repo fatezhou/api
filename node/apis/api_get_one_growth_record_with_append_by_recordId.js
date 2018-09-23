@@ -84,7 +84,7 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
                             if(e[i].author_type == 1){
                                 res.record.append[j].like.teacher.push(e[i].author_id);
                             }else if(e[i].author_type == 2){                                
-                                res.record.append[i].like.parent.push(e[i].author_id);
+                                res.record.append[j].like.parent.push(e[i].author_id);
                             }
                         }
                     }

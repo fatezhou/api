@@ -6,6 +6,9 @@ function ApiPutRecordLike(){
         var db = tools.GetDataBase();
         var response = tools.GetResponse();
         var sqlFmt = "";
+        var logger = tools.GetLogger();
+        logger.debug("ApiPutRecordLike");
+        logger.debug(data);
         if(data.cancel){
             sqlFmt = "delete from growth_record_like where record_id=? and author_id=? and author_type=?";
             db.Query(sqlFmt, [data.recordId, data.authorId, data.authorType], function(e){
