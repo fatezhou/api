@@ -26,7 +26,26 @@ App({
   globalData: {
     userInfo: null,
     userId: '',
-    studentId: [41, 85],
+    studentId: [41, 44, 43],
+    studentList: [{
+      pic: '../../image/head.png',
+      name: '曹语荞',
+      sex: 0,
+      recardCount: 162,
+      studentId: 41,
+    }, {
+      pic: '../../image/head02.png',
+      name: '李司羽',
+      sex: 1,
+      recardCount: 115,
+      studentId: 44,
+    }, {
+      pic: '../../image/head.png',
+      name: '李淇锭',
+      sex: 1,
+      recardCount: 16259,
+      studentId: 43,
+    }, ],
     userType: 2,
     unionid: "",
     openid: "",
@@ -40,6 +59,7 @@ App({
       // 改为获取家长信息
       getParentInfo: "https://api.minidope.com/api/v1.0/get_teacher_info",
       getOneGrowthRecordWithAppendByRecordId: "http://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
+      putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
     },
 
     allTeacherInfo: null,

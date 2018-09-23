@@ -11,30 +11,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showswiper: [{
-      pic: '../../image/head.png',
-      name: '小葡萄',
-      sex: 0,
-      recardCount: 162,
-      studentId: 41,
-    }, {
-      pic: '../../image/head02.png',
-      name: '小苹果',
-      sex: 1,
-      recardCount: 115,
-      studentId: 44,
-    }, {
-      pic: '../../image/head.png',
-      name: '小蜜桃',
-      sex: 1,
-      recardCount: 16259,
-      studentId: 43,
-    }, ],
+    showswiper: [],
 
     current: 0,
 
     recordsList: '',
     recordSize: '',
+    allTeacherInfo: '',
   },
 
   showBigImg: function(e) {
@@ -46,11 +29,15 @@ Page({
 
   // 选择学员
   swiper: function(e) {
-    var that = this
     this.setData({
       current: e.detail.current
     })
-    var studentId = this.data.showswiper[e.detail.current].studentId
+    this.changestudent(e.detail.current)
+  },
+
+  changestudent: function(index) {
+    var that = this
+    var studentId = this.data.showswiper[index].studentId
     http.getGrowthRecordsWithoutAppend(studentId, function(res) {
       if (res == 0) {
 
@@ -60,6 +47,68 @@ Page({
 
           that.getAppend()
         })
+      }
+    })
+  },
+
+  like: function(e) {
+    var gData = app.globalData
+    var that = this
+    console.info(e)
+    var recordId = e.currentTarget.dataset.recordid
+    var authorId = e.currentTarget.dataset.authorid
+    var orgAuthorType = e.currentTarget.dataset.orgauthortype
+    var parentRecordId = e.currentTarget.dataset.parentrecordid
+    console.info('like')
+
+    console.info(gData.unionid),
+      console.info(gData.openid),
+      console.info(4), //自己的id
+      console.info(1), //1: teacher, 2: parent",
+      console.info(recordId), //评论的id
+      console.info(parentRecordId), //记录的id
+      console.info(authorId), //评论者id
+      console.info(orgAuthorType) //评论者类型
+    console.info('like')
+    wx.request({
+      url: gData.minodopeApi.putRecordLike,
+      method: 'post',
+      data: {
+        "unionid": gData.unionid,
+        "openid": gData.openid,
+        "authorId": gData.userId, //自己的id
+        "authorType": gData.userType, //1: teacher, 2: parent",
+        "recordId": recordId, //评论的id
+        "parentRecordId": parentRecordId, //记录的id
+        "orgAuthorId": authorId, //评论者id
+        "orgAuthorType": orgAuthorType //评论者类型
+      },
+      success: function(res) {
+        console.info(res)
+        if (res.data.code == 4) {
+          wx.request({
+            url: gData.minodopeApi.putRecordLike,
+            method: 'post',
+            data: {
+              "unionid": gData.unionid,
+              "openid": gData.openid,
+              "authorId": gData.userId, //自己的id
+              "authorType": gData.userType, //1: teacher, 2: parent",
+              "recordId": recordId,
+              "parentRecordId": parentRecordId,
+              'cancel': true,
+              "orgAuthorId": authorId,
+              "orgAuthorType": orgAuthorType
+            },
+            success: function(res) {
+              console.info(res)
+
+              that.changestudent(that.data.current)
+              return
+            }
+          })
+        }
+        that.changestudent(that.data.current)
       }
     })
   },
@@ -88,6 +137,9 @@ Page({
 
         http.getParentInfo(function(res) {
           if (res == 0) {
+            that.setData({
+              showswiper: app.globalData.studentList
+            })
             var studentId = app.globalData.studentId[0]
             http.getGrowthRecordsWithoutAppend(studentId, function(res) {
               if (res == 0) {
@@ -95,6 +147,12 @@ Page({
                 http.getTeachers(function(res) {
                   console.info(res)
                   recordId = res.slice(res.length - 1)[0].recordId
+
+                  that.setData({
+                    allTeacherInfo: app.globalData.allTeacherInfo
+                  })
+                  console.info('get')
+                  console.info(app.globalData.allTeacherInfo)
 
                   that.getAppend()
                 })
@@ -123,7 +181,8 @@ Page({
         dataType: 'json',
         responseType: 'text',
         success: function(res) {
-
+          console.info(res)
+          console.info('append')
           for (var x = 0; x < app.globalData.recordsList.length; x++) {
 
             if (app.globalData.recordsList[x].recordId == res.data.data.record.recordId) {
@@ -140,7 +199,8 @@ Page({
             }
 
           }
-
+          console.info(app.globalData.recordsList)
+          console.info('recordsList')
           that.setData({
             recordsList: app.globalData.recordsList,
             recordSize: app.globalData.indexSize
@@ -173,10 +233,34 @@ Page({
   onPullDownRefresh: function() {
     var that = this
     http.login(function(res) {
-      console.info(res)
-      recordId = res.slice(res.length - 1)[0].recordId
+      if (res == 0) {
 
-      that.getAppend()
+        http.getParentInfo(function(res) {
+          if (res == 0) {
+            that.setData({
+              showswiper: app.globalData.studentList
+            })
+            var studentId = app.globalData.studentId[0]
+            http.getGrowthRecordsWithoutAppend(studentId, function(res) {
+              if (res == 0) {
+
+                http.getTeachers(function(res) {
+                  console.info(res)
+                  recordId = res.slice(res.length - 1)[0].recordId
+
+                  that.setData({
+                    allTeacherInfo: app.globalData.allTeacherInfo
+                  })
+                  console.info('get')
+                  console.info(app.globalData.allTeacherInfo)
+
+                  that.getAppend()
+                })
+              }
+            })
+          }
+        })
+      }
     })
   },
 
