@@ -1,6 +1,6 @@
 <!--pages/growthRecord/growthRecord.wxml-->
 <image src="../../image/bg.png" style="position:relative;z-index:-1;width:750rpx;height:400rpx" mode="cover"></image>
-<view class='counts'>
+<view class='counts' style="height:375rpx">
   <navigator url='newMess' style="margin-top:-400rpx;position:relative;">
     <view class='countsRight'>
       <view class='crNews'>
@@ -20,7 +20,7 @@
             <view style="display:flex;flex-direction:column;align-items:center;color:#fff;">
               <text>{{item.name}}</text>
               <image src="{{item.sex == 0 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style="position:absolute;width:30rpx;margin-left:80rpx;" mode="widthFix" />
-              <view style="margin:20rpx;font-size:24rpx;color:#ccc">{{item.recardCount}} 条记录</view>
+              <view style="margin:20rpx;font-size:24rpx;color:#ccc">{{recordSize}} 条记录</view>
             </view>
           </block>
           <block wx:else>
@@ -39,16 +39,18 @@
 </view>
 
 <!-- 记录list -->
-<view wx:for='{{recordsList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;margin-bottom:20rpx'>
-  <navigator url="teacher">
+<view wx:for='{{recordsList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;margin-bottom:20rpx;width:750rpx;position:relative'>
+  <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
     <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
   </navigator>
+  <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
   <view style='width:600rpx;margin-left:20rpx;'>
 
     <view style='display:flex;justify-content: space-between;align-items:center;'>
-      <navigator url="teacher">
+      <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
         <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
       </navigator>
+      <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
       <view>
         <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix'></image>
         <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=false" style="display:inline-block">
@@ -98,16 +100,18 @@
 
     <!-- 评论 -->
     <view wx:for='{{item.append}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' wx:if="{{index <= 1}}" style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-top:1rpx solid #e5e5ea;margin-top:20rpx;width:750rpx;margin-left:-110rpx;'>
-      <navigator url="teacher">
+      <navigator url="teacher?teacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
         <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
       </navigator>
+      <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
       <view style='width:600rpx;margin-left:20rpx;'>
 
 
         <view style='display:flex;justify-content: space-between;align-items:center;'>
-          <navigator url="teacher">
+          <navigator url="teacher?teacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
             <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{itemWithAppend.name}}</view>
           </navigator>
+          <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{itemWithAppend.name}}</view>
           <view>
             <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
               data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
