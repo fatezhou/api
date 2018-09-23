@@ -15,17 +15,20 @@ Page({
       pic: '../../image/head.png',
       name: '小葡萄',
       sex: 0,
-      recardCount: 162
+      recardCount: 162,
+      studentId: 41,
     }, {
       pic: '../../image/head02.png',
       name: '小苹果',
       sex: 1,
-      recardCount: 115
+      recardCount: 115,
+      studentId: 44,
     }, {
       pic: '../../image/head.png',
       name: '小蜜桃',
       sex: 1,
-      recardCount: 16259
+      recardCount: 16259,
+      studentId: 43,
     }, ],
 
     current: 0,
@@ -43,8 +46,21 @@ Page({
 
   // 选择学员
   swiper: function(e) {
+    var that = this
     this.setData({
       current: e.detail.current
+    })
+    var studentId = this.data.showswiper[e.detail.current].studentId
+    http.getGrowthRecordsWithoutAppend(studentId, function(res) {
+      if (res == 0) {
+
+        http.getTeachers(function(res) {
+          console.info(res)
+          recordId = res.slice(res.length - 1)[0].recordId
+
+          that.getAppend()
+        })
+      }
     })
   },
 
@@ -68,11 +84,25 @@ Page({
   onShow: function() {
     var that = this
     http.login(function(res) {
-      console.info(res)
-      recordId = res.slice(res.length - 1)[0].recordId
+      if (res == 0) {
 
-      that.getAppend()
+        http.getParentInfo(function(res) {
+          if (res == 0) {
+            var studentId = app.globalData.studentId[0]
+            http.getGrowthRecordsWithoutAppend(studentId, function(res) {
+              if (res == 0) {
 
+                http.getTeachers(function(res) {
+                  console.info(res)
+                  recordId = res.slice(res.length - 1)[0].recordId
+
+                  that.getAppend()
+                })
+              }
+            })
+          }
+        })
+      }
     })
 
   },

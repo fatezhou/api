@@ -26,6 +26,7 @@ App({
   globalData: {
     userInfo: null,
     userId: '',
+    studentId: [41, 85],
     userType: 2,
     unionid: "",
     openid: "",
@@ -42,8 +43,8 @@ App({
     },
 
     allTeacherInfo: null,
-    recordsList:'',
+    recordsList: '',
     // 记录条数
-    indexSize:'',
+    indexSize: '',
   }
 })
