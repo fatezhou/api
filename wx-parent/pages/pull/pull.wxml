@@ -1,0 +1,42 @@
+<!-- 图片上传 -->
+<view class='uploadimg'>
+
+  <form class='all'>
+    <textarea name="evaContent" maxlength="500" value="{{evaContent}}" class="weui-textarea" placeholder="{{placeholder}}" bindinput="charChange" />
+  </form>
+  <view class='uploadimgBox'>
+    <view class='addImg' wx:if="{{canChoose}}" bindtap='chooseImageTap'>
+      <view class='add'>
+        <image src='./../../../image/add.png' mode='widthFix'></image>
+      </view>
+    </view>
+    <view class='addImg' wx:else bindtap='noChoose'>
+      <view class='add'>
+        <image src='./../../../image/add.png' mode='widthFix'></image>
+      </view>
+    </view>
+    <block wx:for="{{imgs}}" wx:key='asd' wx:if="{{3>=imgs.length>0}}">
+      <image class='addpic' mode='cover' data-index='{{index}}' src="{{item}}"></image>
+    </block>
+  </view>
+
+</view>
+<view class='choose' wx:if="{{!hindname}}">
+  <block wx:if="{{choosestudent}}">
+    <navigator url="chooseStudent">
+      <text>学员</text>
+      <view class='cRight'>
+        <image src='./../../image/ph.png' mode='widthFix'></image>
+        <text class='phName'>{{name}}</text>
+      </view>
+    </navigator>
+  </block>
+  <block wx:else>
+    <text>学员</text>
+    <view class='cRight'>
+      <image src='./../../image/ph.png' mode='widthFix'></image>
+      <text class='phName'>{{name}}</text>
+    </view>
+  </block>
+</view>
+<button bindtap='submit' class="weui-btn mini-btn">提交</button>

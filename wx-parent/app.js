@@ -46,7 +46,8 @@ App({
       recardCount: 16259,
       studentId: 43,
     }, ],
-    userType: 2,
+    // 教师端1 ,家长端2 测试用记得改
+    userType: 1,
     unionid: "",
     openid: "",
     token: "",
@@ -60,11 +61,16 @@ App({
       getParentInfo: "https://api.minidope.com/api/v1.0/get_teacher_info",
       getOneGrowthRecordWithAppendByRecordId: "http://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
       putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
+      getCdnToken: 'https://api.minidope.com/api/v1.0/get_cdn_token',
+      putNewRecord: 'https://api.minidope.com/api/v1.0/put_new_record',
     },
+    qiniup: 'https://up-z2.qiniup.com',
 
     allTeacherInfo: null,
     recordsList: '',
     // 记录条数
     indexSize: '',
+    detailonShow: false,
+    recordId: '',
   }
 })

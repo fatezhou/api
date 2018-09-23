@@ -7,7 +7,8 @@
     "pages/my/my",
     "pages/my/vipCard",
     "pages/my/vipDetail",
-    "pages/my/StoredCard"
+    "pages/my/StoredCard",
+    "pages/pull/pull"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -4,7 +4,7 @@ var template = require('../../template/template.js')
 var http = require('../../utils/http.js')
 var recordId;
 var getrecordsList;
-
+var studentId;
 Page({
 
   /**
@@ -37,7 +37,7 @@ Page({
 
   changestudent: function(index) {
     var that = this
-    var studentId = this.data.showswiper[index].studentId
+    studentId = this.data.showswiper[index].studentId
     http.getGrowthRecordsWithoutAppend(studentId, function(res) {
       if (res == 0) {
 
@@ -140,7 +140,7 @@ Page({
             that.setData({
               showswiper: app.globalData.studentList
             })
-            var studentId = app.globalData.studentId[0]
+            studentId = app.globalData.studentId[0]
             http.getGrowthRecordsWithoutAppend(studentId, function(res) {
               if (res == 0) {
 
@@ -167,8 +167,11 @@ Page({
 
   getAppend: function() {
     var that = this
+    console.info('recordsList----')
+    console.info(app.globalData.recordsList)
     for (var i = 0; i < app.globalData.recordsList.length; i++) {
       var recordId = app.globalData.recordsList[i].recordId
+      console.info(recordId)
       wx.request({
         url: app.globalData.minodopeApi.getOneGrowthRecordWithAppendByRecordId,
         data: {
@@ -207,8 +210,13 @@ Page({
           });
 
         },
-        fail: function(res) {},
-        complete: function(res) {},
+        fail: function(res) {
+
+          console.info('fail: '+res)
+        },
+        complete: function(res) {
+          console.info(res)
+        },
       })
     }
   },
@@ -278,8 +286,7 @@ Page({
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
         "recordId": recordId,
-        // 目前写死的
-        "studentId": 41,
+        "studentId": studentId,
       },
       header: {},
       method: 'post',
