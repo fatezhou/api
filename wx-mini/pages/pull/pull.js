@@ -337,7 +337,16 @@ Page({
   },
   noChoose: function() {
     var that = this;
-    that.alert("最多只能上传6张哦~")
+    wx.showToast({
+      title: '最多只能上传6张哦~',
+      icon: 'loading',
+      image: '',
+      duration: 1000,
+      mask: true,
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
   },
   // 选取图片
   chooseWxImage: function(type) {
