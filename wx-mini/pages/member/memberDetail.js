@@ -16,6 +16,7 @@ Page({
 
     star: null,
     nowStar: false,
+    Img:'',
   },
   goMoreRecords: function(e) {
     // getApp().globalData.studentId = this.data.studentId;
@@ -160,6 +161,35 @@ Page({
         })
       }
     })
+
+  },
+
+  showLatelyImg: function() {
+    var gData = app.globalData
+    var that = this
+    wx.request({
+      url: gData.getPrePics,
+      data: {
+        unionid: gData.unionid,
+        openid: gData.openid,
+        studentId:this.data.studentId,
+      },
+      header: {},
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        console.log(res.data.data.records)
+        var haveImgRecords = res.data.data.records
+        var Img = []
+        for (var i = 0; i < haveImgRecords.length;i++){
+          Img = Img.concat(haveImgRecords[i].picture)
+        }
+        that.setData({
+          Img: Img
+        })
+      },
+    })
   },
 
   /**
@@ -207,7 +237,7 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
-
+    this.showLatelyImg()
   },
 
   /**

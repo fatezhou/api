@@ -56,9 +56,12 @@
     <view style='width:160rpx;height:160rpx;background:#f2f4f7;text-align:center;' bindtap='toAddRecard'>
       <image src='../../image/add.png' style='width:60rpx;height:60rpx;margin-top:50rpx;'></image>
     </view>
+    <block wx:for="{{Img}}" wx:for-item='item' wx:key="index" wx:if='{{index < 3}}'>
+      <image src="{{item}}" style='width:160rpx;height:160rpx;'></image>
+    </block>
+    <!-- <image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image>
     <image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image>
-    <image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image>
-    <image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image>
+    <image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image> -->
   </view>
 </view>
 
