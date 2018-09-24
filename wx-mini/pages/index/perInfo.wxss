@@ -1,12 +1,12 @@
 /* pages/index/perInfo.wxss */
 page{background: #F2F4F7;}
-.counts{height: 30rpx;font-size: 30rpx;line-height: 30rpx;padding: 30rpx 0;background: #fff;}
+.counts{font-size: 30rpx;padding: 30rpx 0;}
 .countsLeft{margin-left: 30rpx;float: left;color:#98A5A5;}
 .countsRight{margin-right: 30rpx;float: right;}
 .crNews{display: inline-block;position: relative}
 .crNews image{width: 30rpx;position: relative;top: 5rpx;}
 .crNews::after{content: '';width: 18rpx;height: 18rpx;display: block;background: #FF3B30;border-radius: 100%;position: absolute;right: -8rpx;top: -4rpx;}
-.newsList{display: inline-block;color:#172951;margin-left: 30rpx;}
+.newsList{display: inline-block;color:#fff;margin-left: 30rpx;}
 .listDetail{margin: 18rpx 0;}
 .forlD{background: #fff;padding: 0 30rpx 0 30rpx;margin: 0 0 18rpx;}
 .toplD{padding: 18rpx 0;height: 48rpx;}
@@ -17,9 +17,9 @@ page{background: #F2F4F7;}
 .words{font-size: 30rpx;color: #292E38;margin: 30rpx 0 0 0;padding:0 0 38rpx}
 .picList{}
 .picList image{margin: 0 18rpx 30rpx 0rpx;}
-.th3 image{width: 162rpx;}
-.th2 image{width: 220rpx;}
-.th1 image{width: 320rpx;}
+.th3 image{width: 162rpx;height:162rpx}
+.th2 image{width: 220rpx;height:220rpx}
+.th1 image{width: 320rpx;height: 320rpx}
 .fixed{position: fixed;right: 30rpx;bottom: 24rpx;}
 .fixed navigator{display: inline-block}
 .fixed navigator image{width: 96rpx;}

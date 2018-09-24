@@ -16,7 +16,8 @@ Page({
 
     star: null,
     nowStar: false,
-    Img:'',
+    Img: '',
+    sex: '',
   },
   goMoreRecords: function(e) {
     // getApp().globalData.studentId = this.data.studentId;
@@ -26,7 +27,7 @@ Page({
     //   url: '../index/perInfo',
     // });
     wx.navigateTo({
-      url: '../index/perInfo?studentId=' + this.data.studentId,
+      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + this.data.nickName + '&sex=' + this.data.sex,
     })
     app.globalData.perTeacherRecords = true
   },
@@ -134,6 +135,8 @@ Page({
     var that = this
 
     console.info(options);
+    console.info('2222')
+    this.data.sex = parseInt(options.sex);
     this.data.nickName = options.nickName;
     this.data.name = options.name;
     this.data.cardCode = options.cardCode;
@@ -143,24 +146,24 @@ Page({
     this.setData(this.data);
     // this.getRecordSize();
 
-    wx.request({
-      url: app.globalData.getChildGrowthRecordCount,
-      data: {
-        "unionid": app.globalData.unionid,
-        "openid": app.globalData.openid,
-        "authorId": app.globalData.userId,
-        "authorType": 1, //1: teacher, 2: parent",
-        "studentId": options.studentId
-      },
-      method: "post",
-      success: function(res) {
-        app.globalData.studentRecordCount = res.data.data.count
-        console.info(res.data.data.count)
-        that.setData({
-          recordSize: "" + res.data.data.count + "条成长记录"
-        })
-      }
-    })
+    // wx.request({
+    //   url: app.globalData.getChildGrowthRecordCount,
+    //   data: {
+    //     "unionid": app.globalData.unionid,
+    //     "openid": app.globalData.openid,
+    //     "authorId": app.globalData.userId,
+    //     "authorType": 1, //1: teacher, 2: parent",
+    //     "studentId": options.studentId
+    //   },
+    //   method: "post",
+    //   success: function(res) {
+    //     app.globalData.studentRecordCount = res.data.data.count
+    //     console.info(res.data.data.count)
+    //     that.setData({
+    //       recordSize: "" + res.data.data.count + "条成长记录"
+    //     })
+    //   }
+    // })
 
   },
 
@@ -172,7 +175,7 @@ Page({
       data: {
         unionid: gData.unionid,
         openid: gData.openid,
-        studentId:this.data.studentId,
+        studentId: this.data.studentId,
       },
       header: {},
       method: 'POST',
@@ -182,7 +185,7 @@ Page({
         console.log(res.data.data.records)
         var haveImgRecords = res.data.data.records
         var Img = []
-        for (var i = 0; i < haveImgRecords.length;i++){
+        for (var i = 0; i < haveImgRecords.length; i++) {
           Img = Img.concat(haveImgRecords[i].picture)
         }
         that.setData({
@@ -203,6 +206,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
     // app.globalData.haveputMemberFav = false
     // this.getRecordSize()
     var that = this;
@@ -237,6 +241,26 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
+
+    wx.request({
+      url: app.globalData.getChildGrowthRecordCount,
+      data: {
+        "unionid": app.globalData.unionid,
+        "openid": app.globalData.openid,
+        "authorId": app.globalData.userId,
+        "authorType": 1, //1: teacher, 2: parent",
+        "studentId": this.data.studentId
+      },
+      method: "post",
+      success: function(res) {
+        app.globalData.studentRecordCount = res.data.data.count
+        console.info(res.data.data.count)
+        that.setData({
+          recordSize: "" + res.data.data.count + "条成长记录"
+        })
+      }
+    })
+
     this.showLatelyImg()
   },
 

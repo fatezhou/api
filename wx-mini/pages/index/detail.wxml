@@ -4,13 +4,13 @@
   <view style='font-size:24rpx;color:#8f8e94;margin-top:60rpx;'>
     <view wx:for="{{imgUrl}}" wx:for-item="item" wx:key='index' style="display: inline-block;lign-items:center;">
       <view class='picList th1' wx:if="{{imgUrllength == 1}}">
-        <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' mode='widthFix' bindtap='showBigImg'></image>
+        <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg'></image>
       </view>
       <view class='picList th2' wx:if="{{imgUrllength == 2}}">
-        <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' mode='widthFix' bindtap='showBigImg'></image>
+        <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg'></image>
       </view>
       <view class='picList th3' wx:if="{{imgUrllength >= 3}}">
-        <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' mode='widthFix' bindtap='showBigImg'></image>
+        <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg'></image>
       </view>
     </view>
     <view style="display:flex;lign-items:center;justify-content: space-between;">
@@ -48,15 +48,15 @@
     <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:60rpx;'>
 
       <view class='picList th1' wx:if="{{item.pictures.length == 1}}">
-        <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+        <image src='{{item.pictures[0]}}' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
       </view>
       <view class='picList th2' wx:if="{{item.pictures.length == 2}}">
-        <image src='{{item.pictures[0]}}' mode='widthFix' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
-        <image src='{{item.pictures[1]}}' mode='widthFix' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
+        <image src='{{item.pictures[0]}}' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+        <image src='{{item.pictures[1]}}' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
       </view>
       <view class='picList th3' wx:if="{{item.pictures.length >= 3}}">
         <block wx:for="{{item.pictures}}" wx:for-item="imgitem" wx:key='imgindex'>
-          <image src='{{imgitem}}' mode='widthFix' data-showBigImg="{{imgitem}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+          <image src='{{imgitem}}' data-showBigImg="{{imgitem}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
         </block>
       </view>
 

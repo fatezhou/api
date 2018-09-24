@@ -48,7 +48,7 @@ App({
     getFamily: 'https://api.minidope.com/api/v1.0/get_family',
     putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
     getChildGrowthRecordCount: 'https://api.minidope.com/api/v1.0/get_child_growth_record_count',
-    getPrePics:'https://api.minidope.com/api/v1.0/get_pre_pics',
+    getPrePics: 'https://api.minidope.com/api/v1.0/get_pre_pics',
 
     studentRecordCount: '',
     contact: {},
@@ -63,5 +63,9 @@ App({
     recordsList: '', //首页学员记录（特定老师）
     indexSize: '',
     chooseStudent: '',
+
+    recordId: null,
+    memberListLength: null,
+    stararrLength: null,
   }
 })

@@ -11,6 +11,8 @@ Page({
   data: {
     allGrowthRecords: '',
     studentId: '',
+    studentName:'',
+    sex:'',
     recordSize: 0,
     recordsList: '',
 
@@ -34,6 +36,8 @@ Page({
 
     this.setData({
       studentId: studentId,
+      studentName: options.studentName,
+      sex:options.sex,
       recordSize: app.globalData.studentRecordCount
     })
   },

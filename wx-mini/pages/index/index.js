@@ -50,6 +50,16 @@ Page({
       })
     }
 
+    app.globalData.chooseStudent = ''
+    var that = this
+    http.login(function(res) {
+      recordId = res.slice(res.length - 1)[0].recordId
+
+      that.setData({
+        recordsList: res,
+        recordSize: app.globalData.indexSize
+      });
+    })
   },
 
 
@@ -75,11 +85,17 @@ Page({
     app.globalData.chooseStudent = ''
     var that = this
     http.login(function(res) {
-      recordId = res.slice(res.length - 1)[0].recordId
-      that.setData({
-        recordsList: res,
-        recordSize: app.globalData.indexSize
-      });
+      if (!app.globalData.recordId || app.globalData.recordId != res[0].recordId) {
+        console.info(1)
+        app.globalData.recordId = res[0].recordId
+        recordId = res.slice(res.length - 1)[0].recordId
+
+        that.setData({
+          recordsList: res,
+          recordSize: app.globalData.indexSize
+        });
+      }
+
     })
 
     // 获取所有教师信息

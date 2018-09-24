@@ -338,7 +338,7 @@ Page({
   noChoose: function() {
     var that = this;
     wx.showToast({
-      title: '最多只能上传6张哦~',
+      title: '最多只能上传9张哦~',
       icon: 'loading',
       image: '',
       duration: 1000,
@@ -394,8 +394,8 @@ Page({
             }
           })
         };
-        if (imgs.length > 3) {
-          for (var i = 0; i < 3; i++) {
+        if (imgs.length > 9) {
+          for (var i = 0; i < 9; i++) {
             imgsLimit.push(imgs[i]);
           }
           that.setData({
@@ -408,7 +408,7 @@ Page({
             tempFilePaths: tempFilePaths,
           });
         }
-        if (imgsPaths.length >= 6) {
+        if (imgsPaths.length >= 9) {
           that.setData({
             canChoose: false,
           });

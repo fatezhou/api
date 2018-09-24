@@ -28,16 +28,16 @@
       </view>
 
       <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
-        <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
+        <image src='{{itemObject.pictureUrls[0]}}'></image>
       </view>
       <view class='picList th2' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 2}}">
-        <image src='{{itemObject.pictureUrls[0]}}' mode='widthFix'></image>
-        <image src='{{itemObject.pictureUrls[1]}}' mode='widthFix'></image>
+        <image src='{{itemObject.pictureUrls[0]}}'></image>
+        <image src='{{itemObject.pictureUrls[1]}}'></image>
       </view>
 
       <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length >= 3}}">
         <block wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex'>
-          <image src='{{imgitem}}' mode='widthFix'></image>
+          <image src='{{imgitem}}'></image>
         </block>
       </view>
 
