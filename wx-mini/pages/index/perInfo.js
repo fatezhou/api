@@ -20,6 +20,9 @@ Page({
     recordId: '',
     recordWithAppend: '',
     recordWithAppends: [],
+
+    orgAuthorType: 0,
+    allTeacherInfo: '',
   },
 
   /**
@@ -150,7 +153,8 @@ Page({
           // recordWithAppend[0].appendList = 
           self.setData({
             recordWithAppend: self.data.recordWithAppend,
-            recordWithAppends: recordWithAppends
+            recordWithAppends: recordWithAppends,
+            allTeacherInfo: allTeacherInfo
             // appendList: self.data.appendList,
             // listNumber: self.data.appendList.length,
             // likenumber: self.data.likenumber
@@ -209,6 +213,114 @@ Page({
       },
       fail: function(res) {},
       complete: function(res) {},
+    })
+  },
+
+  like: function(e) {
+    console.info('recordWithAppends')
+    console.info(this.data.recordWithAppends)
+    var gData = app.globalData
+    var that = this
+    console.info(e)
+    var recordId = e.currentTarget.dataset.recordid
+    var authorId = e.currentTarget.dataset.authorid
+    var orgAuthorType = e.currentTarget.dataset.orgauthortype
+    var parentRecordId = e.currentTarget.dataset.parentrecordid
+    console.info('like')
+    console.info(gData.unionid),
+      console.info(gData.openid),
+      console.info(4), //自己的id
+      console.info(1), //1: teacher, 2: parent",
+      console.info(recordId), //评论的id
+      console.info(parentRecordId), //记录的id
+      console.info(authorId), //评论者id
+      console.info(orgAuthorType) //评论者类型
+
+
+
+    for (var i = 0; i < this.data.recordWithAppends.length; i++) {
+      if (this.data.recordWithAppends[i].recordId == parentRecordId) {
+        for (var j = 0; j < this.data.recordWithAppends[i].append.length; j++) {
+          if (this.data.recordWithAppends[i].append[j].recordId == recordId) {
+
+            if (this.data.recordWithAppends[i].append[j].like) {
+              if (this.data.recordWithAppends[i].append[j].like.teacher.length > 0) {
+                for (var k = 0; k < this.data.recordWithAppends[i].append[j].like.teacher.length; k++) {
+                  if (this.data.recordWithAppends[i].append[j].like.teacher[k] == gData.userId) {
+
+                    this.data.recordWithAppends[i].append[j].like.teacher.splice(k, 1)
+                    that.setData({
+                      recordWithAppends: this.data.recordWithAppends
+                    })
+                  }
+
+                }
+              }else{
+                this.data.recordWithAppends[i].append[j].like.teacher[0] = gData.userId
+
+                that.setData({
+                  recordWithAppends: this.data.recordWithAppends
+                })
+              }
+
+            } else {
+              var like = []
+              var teacher = []
+              this.data.recordWithAppends[i].append[j].like = {}
+              this.data.recordWithAppends[i].append[j].like.teacher = []
+   
+              this.data.recordWithAppends[i].append[j].like.teacher[0] = gData.userId
+
+              that.setData({
+                recordWithAppends: this.data.recordWithAppends
+              })
+            }
+          }
+        }
+      }
+    }
+
+
+    wx.request({
+      url: gData.putRecordLike,
+      method: 'post',
+      data: {
+        "unionid": gData.unionid,
+        "openid": gData.openid,
+        "authorId": gData.userId, //自己的id
+        "authorType": gData.userType, //1: teacher, 2: parent",
+        "recordId": recordId, //评论的id
+        "parentRecordId": parentRecordId, //记录的id
+        "orgAuthorId": authorId, //评论者id
+        "orgAuthorType": orgAuthorType //评论者类型
+      },
+      success: function(res) {
+        console.info(res)
+        if (res.data.code == 4) {
+          wx.request({
+            url: gData.putRecordLike,
+            method: 'post',
+            data: {
+              "unionid": gData.unionid,
+              "openid": gData.openid,
+              "authorId": gData.userId, //自己的id
+              "authorType": gData.userType, //1: teacher, 2: parent",
+              "recordId": recordId,
+              "parentRecordId": parentRecordId,
+              'cancel': true,
+              "orgAuthorId": authorId,
+              "orgAuthorType": orgAuthorType
+            },
+            success: function(res) {
+              console.info(res)
+
+              // that.changestudent(that.data.current)
+              return
+            }
+          })
+        }
+        // that.changestudent(that.data.current)
+      }
     })
   },
 

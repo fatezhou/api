@@ -61,7 +61,7 @@
       </view>
 
       <view style="margin-top:20rpx;">
-        <image wx:if="{{item.like.teacher}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
+        <image wx:if="{{item.like.teacher.length > 0 }}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
         <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
           <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
             <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allTeacheritem.nickname}} </text>

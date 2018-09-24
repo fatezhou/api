@@ -84,6 +84,54 @@ Page({
     console.info(e)
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
+    console.info(this.data.appendList)
+    console.info(' this.data.appendList')
+    // for (var i = 0; i < this.data.appendList.length; i++) {
+      // if (this.data.appendList[i].recordId == that.data.recordId) {
+        for (var j = 0; j < this.data.appendList.length; j++) {
+          if (this.data.appendList[j].recordId == recordId) {
+
+            if (this.data.appendList[j].like) {
+              if (this.data.appendList[j].like.teacher.length > 0) {
+                for (var k = 0; k < this.data.appendList[j].like.teacher.length; k++) {
+                  if (this.data.appendList[j].like.teacher[k] == gData.userId) {
+
+                    this.data.appendList[j].like.teacher.splice(k, 1)
+                    that.setData({
+                      appendList: this.data.appendList
+                    })
+                  }
+
+                }
+              } else {
+                this.data.appendList[j].like.teacher[0] = gData.userId
+
+                that.setData({
+                  appendList: this.data.appendList
+                })
+              }
+
+            } else {
+              var like = []
+              var teacher = []
+              this.data.appendList[j].like = {}
+              this.data.appendList[j].like.teacher = []
+
+              this.data.appendList[j].like.teacher[0] = gData.userId
+
+              that.setData({
+                appendList: this.data.appendList
+              })
+            }
+          }
+        }
+      // }
+    // }
+
+    console.info(this.data.appendList)
+    console.info(1)
+
+
     wx.request({
       url: gData.putRecordLike,
       method: 'post',
@@ -117,12 +165,12 @@ Page({
             success: function(res) {
               console.info(res)
            
-              that.show()
+              // that.show()
               return
             }
           })
         }
-        that.show()
+        // that.show()
       }
     })
   },
