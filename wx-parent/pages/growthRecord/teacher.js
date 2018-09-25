@@ -8,12 +8,19 @@ Page({
   data: {
     teachernickname: '',
     teachername: '',
+    Imgpath: '',
+    avatarUrl:'',
+    phone: '',
+    sex: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      Imgpath: app.globalData.Imgpath
+    })
     console.info(options.teacherid)
     console.info(app.globalData.allTeacherInfo)
     for (var i = 0; i < app.globalData.allTeacherInfo.length; i++) {
@@ -21,6 +28,9 @@ Page({
         this.setData({
           teachername: app.globalData.allTeacherInfo[i].name,
           teachernickname: app.globalData.allTeacherInfo[i].nickname,
+          avatarUrl: app.globalData.allTeacherInfo[i].avatarUrl,
+          phone: app.globalData.allTeacherInfo[i].phone,
+          sex: app.globalData.allTeacherInfo[i].sex,
         })
       }
     }

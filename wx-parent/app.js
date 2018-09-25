@@ -65,6 +65,8 @@ App({
       putNewRecord: 'https://api.minidope.com/api/v1.0/put_new_record',
     },
     qiniup: 'https://up-z2.qiniup.com',
+    headImg: 'https://ouat-file.buzaishudian.com/images/wx-mini/teacher/ui/default-avatar.png',
+    Imgpath: '',
 
     allTeacherInfo: null,
     recordsList: '',

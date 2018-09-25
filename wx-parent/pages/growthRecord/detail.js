@@ -15,13 +15,15 @@ Page({
     appendList: '',
     recordSize: '',
     allTeacherInfo: '',
-    recordId: ''
+    recordId: '',
+
+    userId: '',
   },
 
   showBigImg: function(e) {
     wx.previewImage({
       current: e.currentTarget.dataset.showbigimg,
-      urls: e.currentTarget.dataset.showswiper
+      urls: e.currentTarget.dataset.showpicurls
     })
   },
 
@@ -33,6 +35,63 @@ Page({
     var authorId = e.currentTarget.dataset.authorid
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
     var parentRecordId = e.currentTarget.dataset.parentrecordid
+
+    // for (var r = 0; r < this.data.recordsList.length; r++) {
+    //   if (this.data.recordsList[r].recordId == parentRecordId) {
+    for (var j = 0; j < this.data.appendList.length; j++) {
+      if (this.data.appendList[j].recordId == recordId) {
+
+        if (this.data.appendList[j].like) {
+          if (this.data.appendList[j].like.teacher.length > 0) {
+            for (var k = 0; k < this.data.appendList[j].like.teacher.length; k++) {
+              // 已经点赞了 就取消
+              if (this.data.appendList[j].like.teacher[k] == gData.userId) {
+
+                this.data.appendList[j].like.teacher.splice(k, 1)
+                that.setData({
+                  appendList: this.data.appendList
+                })
+                console.info(this.data.appendList)
+                console.info('splice')
+              } else if ((k + 1) == this.data.appendList[j].like.teacher.length) {
+                console.info(k + 1)
+
+                this.data.appendList[j].like.teacher.push(gData.userId)
+
+                that.setData({
+                  appendList: this.data.appendList
+                })
+                break;
+                console.info(this.data.appendList)
+                console.info('this.data.appendList[j].like.teacher----------')
+              }
+
+            }
+          } else {
+            this.data.appendList[j].like.teacher[0] = gData.userId
+
+            that.setData({
+              appendList: this.data.appendList
+            })
+          }
+
+        } else {
+          var like = []
+          var teacher = []
+          this.data.appendList[j].like = {}
+          this.data.appendList[j].like.teacher = []
+
+          this.data.appendList[j].like.teacher[0] = gData.userId
+
+          that.setData({
+            appendList: this.data.appendList
+          })
+        }
+      }
+    }
+    //   }
+    // }
+
     console.info('like')
 
     console.info(gData.unionid),
@@ -94,7 +153,8 @@ Page({
     var recordId = options.recordId
     app.globalData.recordId = recordId
     this.setData({
-      recordId: recordId
+      recordId: recordId,
+      userId: app.globalData.userId,
     })
     for (var i = 0; i < app.globalData.recordsList.length; i++) {
       if (recordId == app.globalData.recordsList[i].recordId) {
@@ -104,7 +164,7 @@ Page({
         this.setData({
           recordsList: recordsList,
           appendList: recordsList[0].append,
-          allTeacherInfo: app.globalData.allTeacherInfo
+          allTeacherInfo: app.globalData.allTeacherInfo,
         })
         return
       }

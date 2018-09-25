@@ -17,9 +17,9 @@ page{background: #F2F4F7;}
 .words{font-size: 30rpx;color: #292E38;margin: 30rpx 0;}
 .picList{}
 .picList image{margin: 0 18rpx 0 0rpx;}
-.th3 image{width: 162rpx;}
-.th2 image{width: 220rpx;}
-.th1 image{width: 320rpx;}
+.th3 image{width: 162rpx;height: 162rpx;}
+.th2 image{width: 220rpx;height: 220rpx;}
+.th1 image{width: 320rpx;height: 320rpx;}
 .fixed{position: fixed;right: 30rpx;bottom: 24rpx;}
 .fixed navigator{display: inline-block}
 .fixed navigator image{width: 96rpx;}

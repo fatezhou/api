@@ -36,6 +36,16 @@ function login(callback) {
   })
 };
 
+function getHeadImg(callback) {
+  wx.getImageInfo({
+    src: app.globalData.headImg,
+    success: function(res) {
+      app.globalData.Imgpath = res.path
+      return callback(res.path)
+    }
+  })
+}
+
 function getParentInfo(callback) {
   // 通过uid获取教师信息  改为获取家长信息
   wx.request({
@@ -89,6 +99,7 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
       // console.log(app.globalData.allGrowthRecords)
       for (var i in res.data.data.records) {
         res.data.data.records[i].name = " ";
+        res.data.data.records[i].avatarUrl = " ";
       }
       // 分布加载第一式
       app.globalData.recordsList = res.data.data.records
@@ -119,6 +130,7 @@ function getTeachers(callback) {
         for (var j in app.globalData.recordsList) {
           if (contact[i].teacherId == app.globalData.recordsList[j].authorId) {
             app.globalData.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
+            app.globalData.recordsList[j].avatarUrl = contact[i].avatarUrl
           }
         }
       }
@@ -132,6 +144,7 @@ function getTeachers(callback) {
 
 module.exports = {
   login: login,
+  getHeadImg: getHeadImg,
   getParentInfo: getParentInfo,
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
   getTeachers: getTeachers,
