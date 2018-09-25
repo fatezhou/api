@@ -16,7 +16,7 @@
       </view>
     </view>
     <block wx:for="{{imgs}}" wx:key='asd' wx:if="{{9>=imgs.length>0}}">
-      <image class='addpic' mode='cover' data-index='{{index}}' src="{{item}}"></image>
+      <image class='addpic' mode='aspectFill' data-index='{{index}}' src="{{item}}"></image>
     </block>
   </view>
 
