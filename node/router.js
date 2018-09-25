@@ -104,6 +104,10 @@ function CuteRouter(){
                 var ApiGetFamily = require("./apis/api_get_family.js");
                 baseApi = new ApiGetFamily;
                 break;
+            case "get_pre_pics":
+                var ApiGetPrePics = require("./apis/api_get_pre_pics.js");
+                baseApi = new ApiGetPrePics;
+                break;
             default:
                 callback({code:4, data:{}, error:"api错误"});
                 return;

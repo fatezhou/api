@@ -626,9 +626,33 @@ response
 	"error": "成功"
 }
 
-
-
-
+------------------------------------------------
+#获取三张预览照骗
+url: https://api.minidope.com/api/v1.0/get_pre_pics
+method: post
+param:
+{
+"openid":xxxxx,
+"unionid":xxxx,
+"studentId":41
+}
+response:
+{
+	"code": 0,
+	"data": {
+		"records": [{
+			"recordId": 202,
+			"picture": ["https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180922232001_0.ico", "https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180922232006_1.ico", "https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180922232010_2.ico", "https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180922232014_3.ico"]
+		}, {
+			"recordId": 188,
+			"picture": ["https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180921162723_0.jpg"]
+		}, {
+			"recordId": 113,
+			"picture": ["https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918171233_0.jpg", "https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918171233_1.jpg", "https://ouat-file.buzaishudian.com/images/wx-mini/teacher/t_4_20180918171233_2.jpg"]
+		}]
+	},
+	"error": "成功"
+}
 
 
 
