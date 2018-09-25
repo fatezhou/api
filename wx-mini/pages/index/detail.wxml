@@ -26,7 +26,11 @@
 
 <view style='height:88rpx;background:#fff;display:flex;align-items:center;justify-content: space-between;' bindtap='goMoreRecords' wx:if="{{!hideBtn}}">
   <view style='display:flex;align-items:center;'>
-    <image src='../../image/head.png' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image>
+    <!-- <image src='{{avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image> -->
+
+    <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image>
+    <image wx:else src='{{avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image>
+
     <view>
       <view style='font-size:30rpx;'>{{name}}</view>
       <!--view style='font-size:24rpx;color:#8e8e93'>赵小麦</view-->
@@ -41,7 +45,11 @@
 <view class='leadW' style='margin-top:20rpx;'>讨论</view>
 
 <view wx:for='{{appendList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;'>
-  <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+
+  <!-- <image src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
+  <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  <image wx:else src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+
   <view style='width:600rpx;margin-left:20rpx;'>
     <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.authorName}}</view>
     <view>{{item.text}}</view>

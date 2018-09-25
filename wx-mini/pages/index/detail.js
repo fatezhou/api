@@ -34,13 +34,16 @@ Page({
 
     likenumber: '',
     userId: '',
-
+    Imgpath:'',
+    avatarUrl:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.data.Imgpath = app.globalData.Imgpath
+    this.data.avatarUrl = options.avatarUrl
     this.data.userId = app.globalData.userId
     this.data.allTeacherInfo = app.globalData.allTeacherInfo
     this.data.recordId = options.recordId;
@@ -225,7 +228,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + name + '&sex=' + sex,
+      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + name + '&sex=' + sex + '& avatarUrl=' + this.data.avatarUrl,
     })
     app.globalData.perTeacherRecords = false
   },
@@ -308,6 +311,7 @@ Page({
           for (var j = 0; j < allTeacherInfo.length; j++) {
             if (self.data.appendList[i].authorId === allTeacherInfo[j].teacherId) {
               self.data.appendList[i].authorName = allTeacherInfo[j].nickname
+              self.data.appendList[i].avatarUrl = allTeacherInfo[j].avatarUrl
             }
           }
         }

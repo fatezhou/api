@@ -11,7 +11,8 @@
   </navigator>
 
   <view style="position:relative;display:flex;flex-direction: column;align-items: center;width:750rpx">
-    <image src="./../../image/ph.png" mode="widthFix" style="width:120rpx;margin:20rpx 40rpx; border-radius: 50%" />
+    <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode="widthFix" style="width:120rpx;margin:20rpx 40rpx; border-radius: 50%"></image>
+    <image wx:else src="{{avatarUrl}}" mode="widthFix" style="width:120rpx;margin:20rpx 40rpx; border-radius: 50%" />
     <view style="display:flex;flex-direction:column;align-items:center;color:#fff;">
       <text>{{studentName}}</text>
       <image src="{{sex == 2 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style="position:absolute;width:30rpx;margin-left:80rpx;" mode="widthFix" />
@@ -30,7 +31,9 @@
         <view>
           <view class='toplD'>
             <view class='tlDleft'>
-              <image src='./../../image/ph.png' mode='widthFix'></image>
+              <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode="widthFix"></image>
+              <image wx:else src='{{avatarUrl}}' mode='widthFix'></image>
+
               <text class='phName'>{{item.name}}</text>
             </view>
             <view class='tlDright'>
@@ -62,7 +65,10 @@
         <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true'>
           <view style="border-top:1rpx solid #eee;">
             <view style="opacity:0;font-size:20rpx">1</view>
-            <image src='../../image/head02.png' mode='widthFix' style="width: 48rpx;float: left;border-radius: 100%;"></image>
+            <!-- <image src='../../image/head02.png' mode='widthFix' style="width: 48rpx;float: left;border-radius: 100%;"></image> -->
+            <image wx:if="{{itemappend.avatarUrl == ''}}" src='{{Imgpath}}' mode="widthFix" style="width: 48rpx;float: left;border-radius: 100%;"></image>
+            <image wx:else src="{{itemappend.avatarUrl}}" mode="widthFix" style="width: 48rpx;float: left;border-radius: 100%;" />
+
             <text class='phName'>{{itemappend.authorName}}</text>
           </view>
           <view class='tlDright'>
@@ -117,7 +123,8 @@
               <block wx:else>
                 <!-- 点赞数据没有你 -->
                 <block wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikes' wx:if="{{teacherLikes != userId}}">
-                  <image wx:if="{{index+1 == itemappend.like.teacher.length}}" src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}" data-parentRecordId="{{item.recordId}}"></image>
+                  <image wx:if="{{index+1 == itemappend.like.teacher.length}}" src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}"
+                    data-parentRecordId="{{item.recordId}}"></image>
 
                 </block>
                 <!-- 点赞数据有你 -->

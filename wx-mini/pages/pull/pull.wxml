@@ -26,7 +26,8 @@
     <navigator url="chooseStudent">
       <text>学员</text>
       <view class='cRight'>
-        <image src='./../../image/ph.png' mode='widthFix'></image>
+        <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+        <image wx:else src='{{avatarUrl}}' mode='widthFix'></image>
         <text class='phName'>{{name}}</text>
       </view>
     </navigator>
@@ -34,7 +35,8 @@
   <block wx:else>
     <text>学员</text>
     <view class='cRight'>
-      <image src='./../../image/ph.png' mode='widthFix'></image>
+      <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+      <image wx:else src='{{avatarUrl}}' mode='widthFix'></image>
       <text class='phName'>{{name}}</text>
     </view>
   </block>

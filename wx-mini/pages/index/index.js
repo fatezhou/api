@@ -16,7 +16,7 @@ Page({
     recordSize: 0,
     name: "",
     qqq: '',
-    // userId: '',
+    Imgpath: '',
   },
   //事件处理函数
 
@@ -59,6 +59,17 @@ Page({
         recordsList: res,
         recordSize: app.globalData.indexSize
       });
+    })
+
+    wx.getImageInfo({
+      src: app.globalData.headImg,
+      success:function(res){
+        console.info(res)
+        app.globalData.Imgpath = res.path
+        that.setData({
+          Imgpath:res.path
+        })
+      }
     })
   },
 

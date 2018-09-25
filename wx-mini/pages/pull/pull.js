@@ -29,7 +29,11 @@ Page({
 
     calltext: null,
     placeholder: '填写内容(12-500字)',
-    choosestudent: false
+    choosestudent: false,
+
+
+    Imgpath: '',
+    avatarUrl: '',
   },
   charChange: function(e) {
     this.setData({
@@ -157,6 +161,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.info(options)
+    this.setData({
+      Imgpath: app.globalData.Imgpath,
+    })
+    if (options.avatarUrl){
+      this.setData({
+        avatarUrl: options.avatarUrl
+      })
+    }
 
     if (options.choosestudent == 'true') {
       this.setData({
@@ -215,6 +228,7 @@ Page({
       this.setData({
         name: app.globalData.chooseStudent.name,
         studentId: app.globalData.chooseStudent.studentId,
+        avatarUrl: app.globalData.chooseStudent.avatarUrl,
       })
     }
   },

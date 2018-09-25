@@ -7,7 +7,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    Imgpath: '',
+    avatarUrl: '',
+    nickname:'',
+    name:'',
+    sex:'',
+    phone:'',
   },
   xiugai: function() {
     wx.navigateTo({
@@ -31,6 +36,9 @@ Page({
       nickname: app.globalData.teacherInfo.nickname,
       position: this.data.position,
       avatarUrl: app.globalData.teacherInfo.avatarUrl,
+      Imgpath: app.globalData.Imgpath,
+      phone: app.globalData.teacherInfo.phone,
+      sex: app.globalData.teacherInfo.sex
     })
   },
 

@@ -26,7 +26,9 @@ Page({
     orgAuthorType: 0,
     allTeacherInfo: '',
 
-    userId:''
+    userId:'',
+    Imgpath: '',
+    avatarUrl: '',
   },
 
   /**
@@ -41,7 +43,9 @@ Page({
       studentName: options.studentName,
       sex: options.sex,
       recordSize: app.globalData.studentRecordCount,
-      userId: app.globalData.userId
+      userId: app.globalData.userId,
+      Imgpath: app.globalData.Imgpath,
+      avatarUrl: options.avatarUrl
     })
   },
 
@@ -152,6 +156,7 @@ Page({
             for (var j = 0; j < allTeacherInfo.length; j++) {
               if (self.data.recordWithAppend.append[i].authorId === allTeacherInfo[j].teacherId) {
                 self.data.recordWithAppend.append[i].authorName = allTeacherInfo[j].nickname
+                self.data.recordWithAppend.append[i].avatarUrl = allTeacherInfo[j].avatarUrl
               }
             }
           }

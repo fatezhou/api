@@ -18,6 +18,8 @@ Page({
     nowStar: false,
     Img: '',
     sex: '',
+    Imgpath: '',
+    avatarUrl: '',
   },
   goMoreRecords: function(e) {
     // getApp().globalData.studentId = this.data.studentId;
@@ -27,7 +29,7 @@ Page({
     //   url: '../index/perInfo',
     // });
     wx.navigateTo({
-      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + this.data.nickName + '&sex=' + this.data.sex,
+      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + this.data.nickName + '&sex=' + this.data.sex + '&avatarUrl=' + this.data.avatarUrl,
     })
     app.globalData.perTeacherRecords = true
   },
@@ -106,7 +108,7 @@ Page({
   // 跳转新建记录页面
   toAddRecard: function() {
     wx.navigateTo({
-      url: '../pull/pull?name=' + this.data.name + '&studentId=' + this.data.studentId,
+      url: '../pull/pull?name=' + this.data.name + '&studentId=' + this.data.studentId + '&avatarUrl=' + this.data.avatarUrl,
     })
   },
 
@@ -137,6 +139,8 @@ Page({
     console.info(options);
     console.info('2222')
     this.data.sex = parseInt(options.sex);
+    this.data.Imgpath = app.globalData.Imgpath;
+    this.data.avatarUrl = options.avatarUrl;
     this.data.nickName = options.nickName;
     this.data.name = options.name;
     this.data.cardCode = options.cardCode;

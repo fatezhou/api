@@ -64,6 +64,7 @@ function login(callback) {
                     console.log(app.globalData.allGrowthRecords)
                     for (var i in res.data.data.records) {
                       res.data.data.records[i].name = " ";
+                      res.data.data.records[i].avatarUrl = '';
                     }
                     // 分布加载第一式
                     app.globalData.recordsList = res.data.data.records
@@ -89,6 +90,7 @@ function login(callback) {
                           for (var j in app.globalData.recordsList) {
                             if (contact[i].studentId == app.globalData.recordsList[j].studentId) {
                               app.globalData.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
+                              app.globalData.recordsList[j].avatarUrl = contact[i].avatarUrl;
                             }
                           }
                         }

@@ -10,6 +10,9 @@ Page({
     memberList: [],
     star: null,
     stararr: [],
+
+    Imgpath: '',
+    avatarUrl: '',
   },
   member: function(e) {
     var index = e.currentTarget.dataset.index;
@@ -24,6 +27,7 @@ Page({
     url += "&birthday=" + item.birthday;
     url += "&freeze=" + item.freeze;
     url += "&sex=" + item.sex;
+    url += "&avatarUrl=" + item.avatarUrl;
     console.info(url);
     wx.navigateTo({
       url: url,
@@ -45,6 +49,7 @@ Page({
     url += "&birthday=" + item.birthday;
     url += "&freeze=" + item.freeze;
     url += "&sex=" + item.sex;
+    url += "&avatarUrl=" + item.avatarUrl;
     console.info(url);
     wx.navigateTo({
       url: url,
@@ -72,7 +77,8 @@ Page({
           memberList[i].star = true
           that.setData({
             memberList: memberList,
-            stararr: stararr
+            stararr: stararr,
+            Imgpath: app.globalData.Imgpath
           })
         }
       }
@@ -110,7 +116,8 @@ Page({
             memberList[i].star = true
             that.setData({
               memberList: memberList,
-              stararr: stararr
+              stararr: stararr,
+              Imgpath: app.globalData.Imgpath
             })
           }
         }

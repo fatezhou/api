@@ -12,10 +12,11 @@
 
 <view class='listDetail'>
   <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index'>
-    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}'>
+    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}'>
       <view class='toplD'>
         <view class='tlDleft'>
-          <image src='./../../image/ph.png' mode='widthFix'></image>
+          <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+          <image wx:else src='{{itemObject.avatarUrl}}' mode='widthFix'></image>
           <text class='phName'>{{itemObject.name}}</text>
         </view>
         <view class='tlDright'>

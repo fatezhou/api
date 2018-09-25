@@ -3,7 +3,11 @@
 <view class='leadW'>星标</view>
 <view class='memberListBG'>
   <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{stararr}}" wx:key='index' bindtap='memberstar' data-index='{{index}}'>
-    <image src='../../image/head.png' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    <!-- <image src='../../image/head.png' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image> -->
+
+    <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+
     <view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>
       <view>
         <view style='font-size:32rpx'>{{item.name}}</view>
@@ -23,7 +27,11 @@
 <view class='leadW'>通讯录</view>
 <view class='memberListBG'>
   <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{memberList}}" wx:key='index' bindtap='member' data-index='{{index}}'>
-    <image src='../../image/head.png' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    <!-- <image src='../../image/head.png' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image> -->
+
+    <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    
     <view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>
       <view>
         <view style='font-size:32rpx'>{{item.name}}</view>
