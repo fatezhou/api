@@ -340,7 +340,16 @@ Page({
   },
   noChoose: function() {
     var that = this;
-    that.alert("最多只能上传6张哦~")
+    wx.showToast({
+      title: '最多只能上传9张哦~',
+      icon: 'loading',
+      image: '',
+      duration: 1000,
+      mask: true,
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
   },
   // 选取图片
   chooseWxImage: function(type) {
@@ -388,8 +397,8 @@ Page({
             }
           })
         };
-        if (imgs.length > 3) {
-          for (var i = 0; i < 3; i++) {
+        if (imgs.length > 9) {
+          for (var i = 0; i < 9; i++) {
             imgsLimit.push(imgs[i]);
           }
           that.setData({
@@ -402,7 +411,7 @@ Page({
             tempFilePaths: tempFilePaths,
           });
         }
-        if (imgsPaths.length >= 6) {
+        if (imgsPaths.length >= 9) {
           that.setData({
             canChoose: false,
           });
