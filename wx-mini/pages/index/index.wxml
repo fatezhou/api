@@ -28,16 +28,16 @@
       </view>
 
       <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
-        <image src='{{itemObject.pictureUrls[0]}}'></image>
+        <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
       </view>
       <view class='picList th2' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 2}}">
-        <image src='{{itemObject.pictureUrls[0]}}'></image>
-        <image src='{{itemObject.pictureUrls[1]}}'></image>
+        <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
+        <image src='{{itemObject.pictureUrls[1]}}' mode="aspectFill"></image>
       </view>
 
       <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length >= 3}}">
         <block wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex'>
-          <image src='{{imgitem}}'></image>
+          <image src='{{imgitem}}' mode="aspectFill"></image>
         </block>
       </view>
 
@@ -46,9 +46,9 @@
 
 </view>
 <view class='fixed'>
- <navigator url='./../pull/pull?choosestudent=true'>
-  <image src='./../../image/edit.png' mode='widthFix'></image>
- </navigator>
+  <navigator url='./../pull/pull?choosestudent=true'>
+    <image src='./../../image/edit.png' mode='widthFix'></image>
+  </navigator>
 </view>
 
 <import src="../../template/template.wxml" />

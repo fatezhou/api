@@ -11,8 +11,8 @@ Page({
   data: {
     allGrowthRecords: '',
     studentId: '',
-    studentName:'',
-    sex:'',
+    studentName: '',
+    sex: '',
     recordSize: 0,
     recordsList: '',
 
@@ -37,7 +37,7 @@ Page({
     this.setData({
       studentId: studentId,
       studentName: options.studentName,
-      sex:options.sex,
+      sex: options.sex,
       recordSize: app.globalData.studentRecordCount
     })
   },
@@ -258,8 +258,23 @@ Page({
                     })
                   }
 
+
+                  // 3333
+                  else if ((k + 1) == this.data.recordWithAppends[i].append[j].like.teacher.length) {
+                    console.info(k + 1)
+
+                    this.data.recordWithAppends[i].append[j].like.teacher.push(gData.userId)
+
+                    that.setData({
+                      appendList: this.data.recordWithAppends[i].append
+                    })
+                    break;
+                    console.info(this.data.recordWithAppends[i].append)
+                    console.info('this.data.appendList[j].like.teacher----------')
+                  }
+                  // 2222
                 }
-              }else{
+              } else {
                 this.data.recordWithAppends[i].append[j].like.teacher[0] = gData.userId
 
                 that.setData({
@@ -272,7 +287,7 @@ Page({
               var teacher = []
               this.data.recordWithAppends[i].append[j].like = {}
               this.data.recordWithAppends[i].append[j].like.teacher = []
-   
+
               this.data.recordWithAppends[i].append[j].like.teacher[0] = gData.userId
 
               that.setData({

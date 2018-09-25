@@ -124,6 +124,8 @@ Page({
       that.setData({
         recordsList: res
       });
+      wx.stopPullDownRefresh()
+
     })
   },
 

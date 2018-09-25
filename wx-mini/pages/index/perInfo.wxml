@@ -43,15 +43,15 @@
           {{item.text}}
         </view>
         <view class='picList th1' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 1}}">
-          <image src='{{item.pictureUrls[0]}}'></image>
+          <image src='{{item.pictureUrls[0]}}' mode="aspectFill"></image>
         </view>
         <view class='picList th2' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length == 2}}">
-          <image src='{{item.pictureUrls[0]}}'></image>
-          <image src='{{item.pictureUrls[1]}}'></image>
+          <image src='{{item.pictureUrls[0]}}' mode="aspectFill"></image>
+          <image src='{{item.pictureUrls[1]}}' mode="aspectFill"></image>
         </view>
         <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length >= 3}}">
           <block wx:for="{{item.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex'>
-            <image src='{{imgitem}}'></image>
+            <image src='{{imgitem}}' mode="aspectFill"></image>
           </block>
         </view>
 
@@ -78,15 +78,15 @@
         <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;'>
 
           <view class='picList th1' wx:if="{{itemappend.pictures.length == 1}}">
-            <image src='{{itemappend.pictures[0]}}' data-showBigImg="{{itemappend.pictures[0]}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+            <image src='{{itemappend.pictures[0]}}' mode="aspectFill" data-showBigImg="{{itemappend.pictures[0]}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
           </view>
           <view class='picList th2' wx:if="{{itemappend.pictures.length == 2}}">
-            <image src='{{itemappend.pictures[0]}}' data-showBigImg="{{itemappend.pictures[0]}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
-            <image src='{{itemappend.pictures[1]}}' data-showBigImg="{{itemappend.pictures[1]}}" data-showswiper="{{itemappend.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
+            <image src='{{itemappend.pictures[0]}}' mode="aspectFill" data-showBigImg="{{itemappend.pictures[0]}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+            <image src='{{itemappend.pictures[1]}}' mode="aspectFill" data-showBigImg="{{itemappend.pictures[1]}}" data-showswiper="{{itemappend.pictures}}" data-imgid="1" bindtap='showBigImg'></image>
           </view>
           <view class='picList th3' wx:if="{{itemappend.pictures.length >= 3}}">
             <block wx:for="{{itemappend.pictures}}" wx:for-item="imgitem" wx:key='imgindex'>
-              <image src='{{imgitem}}'  data-showBigImg="{{imgitem}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+              <image src='{{imgitem}}' mode="aspectFill"  data-showBigImg="{{imgitem}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
             </block>
           </view>
           <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true'>
@@ -108,7 +108,26 @@
           <view style="display:flex;justify-content: space-between;align-items:center;margin-top:20rpx;padding-bottom:50rpx">
             <view></view>
             <view style='display:flex;justify-content: space-between;align-items:center;'>
-              <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-parentRecordId="{{item.recordId}}" data-orgAuthorType="{{itemappend.authorType}}"></image>
+              <!-- <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-parentRecordId="{{item.recordId}}" data-orgAuthorType="{{itemappend.authorType}}"></image> -->
+              <!-- 没有点赞数据 -->
+          <block wx:if="{{!item.like.teacher || item.like.teacher.length == 0}}">
+            <image src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
+          </block>
+          <!-- 有点赞数据 -->
+          <block wx:else>
+            <!-- 点赞数据没有你 -->
+            <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikes' wx:if="{{teacherLikes != userId}}">
+              <image wx:if="{{index+1 == item.like.teacher.length}}" src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
+
+            </block>
+            <!-- 点赞数据有你 -->
+            <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLike' wx:key='teacherLike' wx:if="{{teacherLike == userId}}">
+              <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
+            </block>
+
+          </block>
+
+
               <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{itemappend.authorId}}&orgAuthorType={{itemappend.authorType}}&studentId={{itemappend.studentId}}&hindname=true&callName={{itemappend.authorName}}">
                 <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
               </navigator>

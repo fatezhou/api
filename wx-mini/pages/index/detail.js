@@ -33,15 +33,17 @@ Page({
     allteacherInfo: [],
 
     likenumber: '',
+    userId: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.data.userId = app.globalData.userId
     this.data.allTeacherInfo = app.globalData.allTeacherInfo
     this.data.recordId = options.recordId;
-    console.info(options);
+    // console.info(options);
     this.data.mainText = options.mainText;
     this.data.studentId = options.studentId;
     this.data.orgAuthorId = options.orgAuthorId;
@@ -50,10 +52,10 @@ Page({
     this.data.name = options.name;
     this.data.dateTime = options.dateTime;
     this.setData(this.data);
-    console.info(app.globalData.oneGrowthRecordWithAppendUrl);
+    // console.info(app.globalData.oneGrowthRecordWithAppendUrl);
     this.getRecordSize();
-    console.info(app.globalData.contact)
-    console.info('------------------')
+    // console.info(app.globalData.contact)
+    // console.info('------------------')
     for (var i = 0; i < app.globalData.contact.length; i++) {
       if (app.globalData.contact[i].recordId == options.recordId) {
         this.setData({
@@ -61,7 +63,7 @@ Page({
         })
       }
     }
-    console.info(this.data.imgUrl)
+    // console.info(this.data.imgUrl)
     this.setData({
       imgUrllength: this.data.imgUrl.length
     })
@@ -81,55 +83,69 @@ Page({
   like: function(e) {
     var gData = app.globalData
     var that = this
-    console.info(e)
+    // console.info(e)
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
-    console.info(this.data.appendList)
-    console.info(' this.data.appendList')
+    // console.info(this.data.appendList)
+    // console.info(' this.data.appendList')
     // for (var i = 0; i < this.data.appendList.length; i++) {
-      // if (this.data.appendList[i].recordId == that.data.recordId) {
-        for (var j = 0; j < this.data.appendList.length; j++) {
-          if (this.data.appendList[j].recordId == recordId) {
+    // if (this.data.appendList[i].recordId == that.data.recordId) {
+    for (var j = 0; j < this.data.appendList.length; j++) {
+      if (this.data.appendList[j].recordId == recordId) {
 
-            if (this.data.appendList[j].like) {
-              if (this.data.appendList[j].like.teacher.length > 0) {
-                for (var k = 0; k < this.data.appendList[j].like.teacher.length; k++) {
-                  if (this.data.appendList[j].like.teacher[k] == gData.userId) {
+        if (this.data.appendList[j].like) {
+          if (this.data.appendList[j].like.teacher.length > 0) {
+            for (var k = 0; k < this.data.appendList[j].like.teacher.length; k++) {
+              // 已经点赞了 就取消
+              if (this.data.appendList[j].like.teacher[k] == gData.userId) {
 
-                    this.data.appendList[j].like.teacher.splice(k, 1)
-                    that.setData({
-                      appendList: this.data.appendList
-                    })
-                  }
+                this.data.appendList[j].like.teacher.splice(k, 1)
+                that.setData({
+                  appendList: this.data.appendList
+                })
+                console.info(this.data.appendList)
+                console.info('splice')
+              } else if ((k + 1) == this.data.appendList[j].like.teacher.length) {
+                console.info(k+1)
 
-                }
-              } else {
-                this.data.appendList[j].like.teacher[0] = gData.userId
+                this.data.appendList[j].like.teacher.push(gData.userId)
 
                 that.setData({
                   appendList: this.data.appendList
                 })
+                break;
+                console.info(this.data.appendList)
+                console.info('this.data.appendList[j].like.teacher----------')
               }
 
-            } else {
-              var like = []
-              var teacher = []
-              this.data.appendList[j].like = {}
-              this.data.appendList[j].like.teacher = []
-
-              this.data.appendList[j].like.teacher[0] = gData.userId
-
-              that.setData({
-                appendList: this.data.appendList
-              })
             }
+          } else {
+            this.data.appendList[j].like.teacher[0] = gData.userId
+
+            that.setData({
+              appendList: this.data.appendList
+            })
           }
+
+        } else {
+          var like = []
+          var teacher = []
+          this.data.appendList[j].like = {}
+          this.data.appendList[j].like.teacher = []
+
+          this.data.appendList[j].like.teacher[0] = gData.userId
+
+          that.setData({
+            appendList: this.data.appendList
+          })
         }
-      // }
+      }
+    }
+    // }
     // }
 
-    console.info(this.data.appendList)
-    console.info(1)
+    // console.info(this.data.appendList)
+    // console.info(1)
 
 
     wx.request({
@@ -146,7 +162,7 @@ Page({
         "orgAuthorType": 1
       },
       success: function(res) {
-        console.info(res)
+        // console.info(res)
         if (res.data.code == 4) {
           wx.request({
             url: gData.putRecordLike,
@@ -163,8 +179,8 @@ Page({
               // "orgAuthorType": 1
             },
             success: function(res) {
-              console.info(res)
-           
+              // console.info(res)
+
               // that.show()
               return
             }
@@ -213,9 +229,9 @@ Page({
         "studentId": that.data.studentId
       },
       method: "post",
-      success: function (res) {
+      success: function(res) {
         app.globalData.studentRecordCount = res.data.data.count
-        console.info(res.data.data.count)
+        // console.info(res.data.data.count)
         that.setData({
           recordSize: "" + res.data.data.count + "条成长记录"
         })
@@ -267,14 +283,14 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(e) {
-        console.info(e)
-        console.info('dsadasdasd===')
+        // console.info(e)
+        // console.info('dsadasdasd===')
         if (e.data.code == 0) {
           self.data.appendList = e.data.data.record.append;
           self.data.likenumber = e.data.data.record.like;
           self.setData(self.data);
         }
-        console.info(self.data.appendList)
+        // console.info(self.data.appendList)
         var allTeacherInfo = app.globalData.allTeacherInfo
         for (var i = 0; i < self.data.appendList.length; i++) {
           for (var j = 0; j < allTeacherInfo.length; j++) {
@@ -288,13 +304,13 @@ Page({
           listNumber: self.data.appendList.length,
           likenumber: self.data.likenumber
         })
-        console.info(self.data.appendList)
+        // console.info(self.data.appendList)
       },
       fail: function(e) {
 
       },
       complete: function(e) {
-        console.info(e);
+        // console.info(e);
       }
     })
   },

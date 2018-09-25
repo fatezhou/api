@@ -77,6 +77,7 @@ Page({
         }
       }
     }
+    console.info(memberList)
     console.info(this.data.stararr)
   },
 
