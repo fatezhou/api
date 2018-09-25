@@ -33,7 +33,8 @@ Page({
     allteacherInfo: [],
 
     likenumber: '',
-    userId: ''
+    userId: '',
+
   },
 
   /**
@@ -51,6 +52,7 @@ Page({
     this.data.recordId = options.recordId;
     this.data.name = options.name;
     this.data.dateTime = options.dateTime;
+
     this.setData(this.data);
     // console.info(app.globalData.oneGrowthRecordWithAppendUrl);
     this.getRecordSize();
@@ -106,7 +108,7 @@ Page({
                 console.info(this.data.appendList)
                 console.info('splice')
               } else if ((k + 1) == this.data.appendList[j].like.teacher.length) {
-                console.info(k+1)
+                console.info(k + 1)
 
                 this.data.appendList[j].like.teacher.push(gData.userId)
 
@@ -211,9 +213,19 @@ Page({
     // wx.switchTab({
     //   url: '../index/index',
     // });
+    console.info(app.globalData.allStudent)
+    var sex = null;
+    var name = null;
+
+    for (var i = 0; i < app.globalData.allStudent.length; i++) {
+      if (app.globalData.allStudent[i].studentId == this.data.studentId) {
+        sex = app.globalData.allStudent[i].sex
+        name = app.globalData.allStudent[i].name
+      }
+    }
 
     wx.navigateTo({
-      url: '../index/perInfo?studentId=' + this.data.studentId,
+      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + name + '&sex=' + sex,
     })
     app.globalData.perTeacherRecords = false
   },
@@ -290,7 +302,7 @@ Page({
           self.data.likenumber = e.data.data.record.like;
           self.setData(self.data);
         }
-        // console.info(self.data.appendList)
+        console.info(self.data.appendList)
         var allTeacherInfo = app.globalData.allTeacherInfo
         for (var i = 0; i < self.data.appendList.length; i++) {
           for (var j = 0; j < allTeacherInfo.length; j++) {

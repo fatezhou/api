@@ -25,20 +25,23 @@ Page({
 
     orgAuthorType: 0,
     allTeacherInfo: '',
+
+    userId:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    
     studentId = options.studentId
-
+    
     this.setData({
       studentId: studentId,
       studentName: options.studentName,
       sex: options.sex,
-      recordSize: app.globalData.studentRecordCount
+      recordSize: app.globalData.studentRecordCount,
+      userId: app.globalData.userId
     })
   },
 
@@ -266,10 +269,10 @@ Page({
                     this.data.recordWithAppends[i].append[j].like.teacher.push(gData.userId)
 
                     that.setData({
-                      appendList: this.data.recordWithAppends[i].append
+                      recordWithAppends: this.data.recordWithAppends
                     })
                     break;
-                    console.info(this.data.recordWithAppends[i].append)
+                    console.info(this.data.recordWithAppends)
                     console.info('this.data.appendList[j].like.teacher----------')
                   }
                   // 2222
