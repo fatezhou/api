@@ -31,8 +31,8 @@
         <view>
           <view class='toplD'>
             <view class='tlDleft'>
-              <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode="widthFix"></image>
-              <image wx:else src='{{avatarUrl}}' mode='widthFix'></image>
+              <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}'></image>
+              <image wx:else src='{{avatarUrl}}'></image>
 
               <text class='phName'>{{item.name}}</text>
             </view>

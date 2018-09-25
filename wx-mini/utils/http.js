@@ -12,8 +12,8 @@ function login(callback) {
             appid: app.globalData.appId
           },
           success: function(e) {
-            console.info("app.js.login");
-            console.info(e.data.data);
+            // console.info("app.js.login");
+            // console.info(e.data.data);
             if (e.data.data.openId) {
               app.globalData.openid = e.data.data.openId;
             }
@@ -23,6 +23,19 @@ function login(callback) {
             if (e.data.data.token) {
               app.globalData.token = e.data.data.token;
             }
+            if (!app.globalData.Imgpath){
+              wx.getImageInfo({
+                src: app.globalData.headImg,
+                success: function (res) {
+                  // console.info(res)
+                  app.globalData.Imgpath = res.path
+                  // that.setData({
+                  //   Imgpath: app.globalData.Imgpath
+                  // })
+                }
+              })
+            }
+           
 
             // 通过uid获取教师信息
             wx.request({
@@ -33,7 +46,7 @@ function login(callback) {
                 openid: app.globalData.openid,
               },
               success: function(res) {
-                console.info(res)
+                // console.info(res)
 
                 if (res.data.code === 0) {
                   if (res.data.data.teacherInfo.teacherId) {
@@ -58,10 +71,10 @@ function login(callback) {
                   dataType: 'json',
                   responseType: 'text',
                   success: function(res) {
-                    console.info(res)
+                    // console.info(res)
                    
                     app.globalData.allGrowthRecords = res.data.data.records
-                    console.log(app.globalData.allGrowthRecords)
+                    // console.log(app.globalData.allGrowthRecords)
                     for (var i in res.data.data.records) {
                       res.data.data.records[i].name = " ";
                       res.data.data.records[i].avatarUrl = '';
@@ -115,7 +128,7 @@ function login(callback) {
             })
           },
           fail: function(e) {
-            console.info(e);
+            // console.info(e);
           },
           method: "POST"
         })

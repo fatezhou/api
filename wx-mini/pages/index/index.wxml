@@ -15,8 +15,8 @@
     <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}'>
       <view class='toplD'>
         <view class='tlDleft'>
-          <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
-          <image wx:else src='{{itemObject.avatarUrl}}' mode='widthFix'></image>
+          <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
+          <image wx:else src='{{itemObject.avatarUrl}}'></image>
           <text class='phName'>{{itemObject.name}}</text>
         </view>
         <view class='tlDright'>
@@ -51,6 +51,6 @@
     <image src='./../../image/edit.png' mode='widthFix'></image>
   </navigator>
 </view>
-
+<view style="position:relative;height:250rpx;opacity: 0;">1</view>
 <import src="../../template/template.wxml" />
 <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

@@ -39,5 +39,6 @@
     </view>
   </view>
 </view>
+<view style="position:relative;height:250rpx;opacity: 0;">1</view>
 <import src="../../template/template.wxml" />
 <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

@@ -22,7 +22,7 @@ Page({
 
   onLoad: function() {
     template.tabbar("tabBar", 0, this)
-    console.info(app.globalData);
+    // console.info(app.globalData);
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -57,20 +57,11 @@ Page({
 
       that.setData({
         recordsList: res,
-        recordSize: app.globalData.indexSize
+        recordSize: app.globalData.indexSize,
+        Imgpath: app.globalData.Imgpath,
       });
     })
 
-    wx.getImageInfo({
-      src: app.globalData.headImg,
-      success:function(res){
-        console.info(res)
-        app.globalData.Imgpath = res.path
-        that.setData({
-          Imgpath:res.path
-        })
-      }
-    })
   },
 
 
@@ -81,12 +72,14 @@ Page({
       for (var j in getrecordsList) {
         if (app.globalData.allStudent[i].studentId == getrecordsList[j].studentId) {
           getrecordsList[j].name = (app.globalData.allStudent[i].nickname == "" ? app.globalData.allStudent[i].name : app.globalData.allStudent[i].nickname);
+          getrecordsList[j].avatarUrl = app.globalData.allStudent[i].avatarUrl;
+          
         }
       }
     }
 
     app.globalData.recordsList = app.globalData.recordsList.concat(getrecordsList)
-    console.log(app.globalData.recordsList)
+    // console.log(app.globalData.recordsList)
     self.setData({
       recordsList: app.globalData.recordsList,
     });
@@ -95,15 +88,17 @@ Page({
   onShow: function() {
     app.globalData.chooseStudent = ''
     var that = this
+
     http.login(function(res) {
       if (!app.globalData.recordId || app.globalData.recordId != res[0].recordId) {
-        console.info(1)
+        // console.info(1)
         app.globalData.recordId = res[0].recordId
         recordId = res.slice(res.length - 1)[0].recordId
 
         that.setData({
           recordsList: res,
-          recordSize: app.globalData.indexSize
+          recordSize: app.globalData.indexSize,
+          Imgpath: app.globalData.Imgpath,
         });
       }
 
@@ -119,7 +114,7 @@ Page({
         },
         success: function(res) {
           app.globalData.allTeacherInfo = res.data.data.teachers
-          console.info(app.globalData.allTeacherInfo)
+          // console.info(app.globalData.allTeacherInfo)
         }
       })
     }
@@ -144,7 +139,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    console.info(recordId)
+    // console.info(recordId)
     var that = this;
     wx.request({
       url: app.globalData.getGrowthRecordsWithoutAppend,
@@ -163,7 +158,8 @@ Page({
         recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
         getrecordsList = res.data.data.records
         for (var i in getrecordsList) {
-          getrecordsList[i].name = " ";
+          getrecordsList[i].name = "";
+          getrecordsList[i].avatarUrl = '';
         }
         that.getContactFromGData();
       },
@@ -173,7 +169,7 @@ Page({
   },
 
   getUserInfo: function(e) {
-    console.log(e)
+    // console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
