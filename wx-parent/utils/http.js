@@ -93,7 +93,7 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
     dataType: 'json',
     responseType: 'text',
     success: function(res) {
-      // console.info(res)
+      console.info(res)
 
       app.globalData.allGrowthRecords = res.data.data.records
       // console.log(app.globalData.allGrowthRecords)

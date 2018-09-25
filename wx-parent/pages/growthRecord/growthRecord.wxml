@@ -61,7 +61,7 @@
       </navigator>
       <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
       <view>
-        <!-- <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix'></image>
+        <!-- <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-orgAuthorType="{{item.authorType}}"></image>
         <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=false" style="display:inline-block">
           <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
         </navigator> -->

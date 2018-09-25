@@ -128,21 +128,17 @@ Page({
 
     }
 
+    console.info('like')
 
-
-
-
-    // console.info('like')
-
-    // console.info(gData.unionid),
-    //   console.info(gData.openid),
-    //   console.info(4), //自己的id
-    //   console.info(1), //1: teacher, 2: parent",
-    //   console.info(recordId), //评论的id
-    //   console.info(parentRecordId), //记录的id
-    //   console.info(authorId), //评论者id
-    //   console.info(orgAuthorType) //评论者类型
-    // console.info('like')
+    console.info(gData.unionid),
+      console.info(gData.openid),
+      console.info(4), //自己的id
+      console.info(1), //1: teacher, 2: parent",
+      console.info(recordId), //评论的id
+      console.info(parentRecordId), //记录的id
+      console.info(authorId), //评论者id
+      console.info(orgAuthorType) //评论者类型
+    console.info('like')
     wx.request({
       url: gData.minodopeApi.putRecordLike,
       method: 'post',
@@ -157,7 +153,7 @@ Page({
         "orgAuthorType": orgAuthorType //评论者类型
       },
       success: function(res) {
-        // console.info(res)
+        console.info(res)
         if (res.data.code == 4) {
           wx.request({
             url: gData.minodopeApi.putRecordLike,
@@ -191,50 +187,6 @@ Page({
    */
   onLoad: function(options) {
     template.tabbar("tabBar", 1, this)
-    // var that = this
-    // http.login(function(res) {
-    //   if (res == 0) {
-    //     if (!app.globalData.Imgpath) {
-    //       http.getHeadImg(function(res) {
-    //         that.setData({
-    //           Imgpath: res
-    //         })
-    //       })
-    //     } else {
-    //       that.setData({
-    //         Imgpath: app.globalData.Imgpath
-    //       })
-    //     }
-
-    //     http.getParentInfo(function(res) {
-    //       if (res == 0) {
-    //         that.setData({
-    //           showswiper: app.globalData.studentList,
-    //           userId: app.globalData.userId
-    //         })
-    //         studentId = app.globalData.studentId[0]
-    //         http.getGrowthRecordsWithoutAppend(studentId, function(res) {
-    //           if (res == 0) {
-
-    //             http.getTeachers(function(res) {
-    //               console.info(res)
-    //               recordId = res.slice(res.length - 1)[0].recordId
-
-    //               that.setData({
-    //                 allTeacherInfo: app.globalData.allTeacherInfo,
-    //                 recordId: recordId
-    //               })
-    //               console.info('get')
-    //               console.info(app.globalData.allTeacherInfo)
-
-    //               that.getAppend()
-    //             })
-    //           }
-    //         })
-    //       }
-    //     })
-    //   }
-    // })
   },
 
   /**
