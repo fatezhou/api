@@ -69,5 +69,7 @@ App({
     recordId: null,
     memberListLength: null,
     stararrLength: null,
+
+    likes:[],
   }
 })

@@ -130,7 +130,10 @@ Page({
                       app.globalData.teacherInfo = res.data.data.teacherInfo
                       app.globalData.userId = res.data.data.teacherInfo.teacherId
 
-                      wx.switchTab({
+                      // wx.switchTab({
+                      //   url: '../index/index',
+                      // })
+                      wx.redirectTo({
                         url: '../index/index',
                       })
                     }

@@ -139,18 +139,12 @@ Page({
         dataType: 'json',
         responseType: 'text',
         success: function(e) {
-
+          console.info(e.data.data.record)
+          console.info('e.data.data.record')
           if (e.data.code == 0) {
             self.data.recordWithAppend = e.data.data.record
-            // self.data.appendList = e.data.data.record.append;
-            // self.data.recordId = e.data.data.record.recordId
-            // self.data.likenumber = e.data.data.record.like;
-            // self.setData({
-            //   recordWithAppend: self.data.recordWithAppend
-            // });
-            // console.info(self.data.recordWithAppend)
           }
-          // console.info(self.data.appendList)
+    
           var allTeacherInfo = app.globalData.allTeacherInfo
           for (var i = 0; i < self.data.recordWithAppend.append.length; i++) {
             for (var j = 0; j < allTeacherInfo.length; j++) {
@@ -160,17 +154,16 @@ Page({
               }
             }
           }
-          console.info(self.data.recordWithAppend)
+
           var recordWithAppends = self.data.recordWithAppends.concat(self.data.recordWithAppend)
-          // recordWithAppend[0].appendList = 
+    
           self.setData({
             recordWithAppend: self.data.recordWithAppend,
             recordWithAppends: recordWithAppends,
             allTeacherInfo: allTeacherInfo
-            // appendList: self.data.appendList,
-            // listNumber: self.data.appendList.length,
-            // likenumber: self.data.likenumber
           })
+          console.info(recordWithAppends)
+          console.info('recordWithAppends')
 
         },
 
@@ -237,7 +230,8 @@ Page({
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
-    var parentRecordId = e.currentTarget.dataset.parentrecordid
+    var parentRecordId =  parseInt(e.currentTarget.dataset.parentrecordid)
+   
     console.info('like')
     console.info(gData.unionid),
       console.info(gData.openid),
@@ -302,6 +296,65 @@ Page({
                 recordWithAppends: this.data.recordWithAppends
               })
             }
+          }
+        }
+      }
+    }
+
+    // recordWithAppends
+    if (parentRecordId == 0) {
+      for (var j = 0; j < this.data.recordWithAppends.length; j++) {
+        if (this.data.recordWithAppends[j].recordId == recordId) {
+
+          if (this.data.recordWithAppends[j].likes) {
+            if (this.data.recordWithAppends[j].likes.teacher.length > 0) {
+              for (var k = 0; k < this.data.recordWithAppends[j].likes.teacher.length; k++) {
+                // 已经点赞了 就取消
+                if (this.data.recordWithAppends[j].likes.teacher[k] == gData.userId) {
+
+                  this.data.recordWithAppends[j].likes.teacher.splice(k, 1)
+                  that.setData({
+                    recordWithAppends: this.data.recordWithAppends
+                  })
+                  app.globalData.recordWithAppends = this.data.recordWithAppends
+                  // console.info(this.data.recordsList)
+                  // console.info('splice')
+                } else if ((k + 1) == this.data.recordWithAppends[j].likes.teacher.length) {
+                  // console.info(k + 1)
+
+                  this.data.recordWithAppends[j].likes.teacher.push(gData.userId)
+
+                  that.setData({
+                    recordWithAppends: this.data.recordWithAppends
+                  })
+                  app.globalData.recordWithAppends = this.data.recordWithAppends
+                  break;
+                  // console.info(this.data.recordsList)
+                  // console.info('this.data.appendList[j].like.teacher----------')
+                }
+
+              }
+            } else {
+              this.data.recordWithAppends[j].likes.teacher[0] = gData.userId
+
+              that.setData({
+                recordWithAppends: this.data.recordWithAppends
+              })
+              app.globalData.recordWithAppends = this.data.recordWithAppends
+            }
+
+          } else {
+            var likes = []
+            var teacher = []
+            this.data.recordWithAppends[j].likes = {}
+            this.data.recordWithAppends[j].likes.teacher = []
+
+            this.data.recordWithAppends[j].likes.teacher[0] = gData.userId
+
+            that.setData({
+              recordWithAppends: this.data.recordWithAppends
+            })
+            app.globalData.recordWithAppends = this.data.recordWithAppends
           }
         }
       }

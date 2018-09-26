@@ -67,22 +67,30 @@ Page({
     var that = this;
     var memberList = app.globalData.allStudent
     app.globalData.memberListLength = memberList.length
-    app.globalData.stararrLength = app.globalData.stararr.length
-    var stararr = app.globalData.stararr
-    console.info(stararr)
-    for (var i = 0; i < memberList.length; i++) {
-      memberList[i].star = false
-      for (var j = 0; j < stararr.length; j++) {
-        if (memberList[i].studentId == stararr[j].studentId) {
-          memberList[i].star = true
-          that.setData({
-            memberList: memberList,
-            stararr: stararr,
-            Imgpath: app.globalData.Imgpath
-          })
+    if(app.globalData.stararr.length >0){
+      app.globalData.stararrLength = app.globalData.stararr.length
+      var stararr = app.globalData.stararr
+      console.info(stararr)
+      for (var i = 0; i < memberList.length; i++) {
+        memberList[i].star = false
+        for (var j = 0; j < stararr.length; j++) {
+          if (memberList[i].studentId == stararr[j].studentId) {
+            memberList[i].star = true
+            that.setData({
+              memberList: memberList,
+              stararr: stararr,
+              Imgpath: app.globalData.Imgpath
+            })
+          }
         }
       }
+    }else{
+      that.setData({
+        memberList: memberList,
+        Imgpath: app.globalData.Imgpath
+      })
     }
+    
     console.info(memberList)
     console.info(this.data.stararr)
   },

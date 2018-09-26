@@ -34,8 +34,8 @@ Page({
 
     likenumber: '',
     userId: '',
-    Imgpath:'',
-    avatarUrl:'',
+    Imgpath: '',
+    avatarUrl: '',
   },
 
   /**
@@ -219,16 +219,17 @@ Page({
     console.info(app.globalData.allStudent)
     var sex = null;
     var name = null;
-
+    var avatarUrl = null;
     for (var i = 0; i < app.globalData.allStudent.length; i++) {
       if (app.globalData.allStudent[i].studentId == this.data.studentId) {
         sex = app.globalData.allStudent[i].sex
         name = app.globalData.allStudent[i].name
+        avatarUrl = app.globalData.allStudent[i].avatarUrl
       }
     }
 
     wx.navigateTo({
-      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + name + '&sex=' + sex + '& avatarUrl=' + this.data.avatarUrl,
+      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + name + '&sex=' + sex + '&avatarUrl=' + avatarUrl,
     })
     app.globalData.perTeacherRecords = false
   },
@@ -303,6 +304,8 @@ Page({
         if (e.data.code == 0) {
           self.data.appendList = e.data.data.record.append;
           self.data.likenumber = e.data.data.record.like;
+          // app.globalData.likes = e.data.data.record.likes
+          // console.info()
           self.setData(self.data);
         }
         console.info(self.data.appendList)
