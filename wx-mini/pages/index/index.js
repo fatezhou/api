@@ -155,6 +155,8 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
+        console.info(res)
+        console.info('getGrowthRecordsWithoutAppend')
         recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
         getrecordsList = res.data.data.records
         for (var i in getrecordsList) {
