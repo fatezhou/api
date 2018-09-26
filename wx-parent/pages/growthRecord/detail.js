@@ -18,6 +18,7 @@ Page({
     recordId: '',
 
     userId: '',
+    Imgpath:'',
   },
 
   showBigImg: function(e) {
@@ -155,6 +156,7 @@ Page({
     this.setData({
       recordId: recordId,
       userId: app.globalData.userId,
+      Imgpath: app.globalData.Imgpath
     })
     for (var i = 0; i < app.globalData.recordsList.length; i++) {
       if (recordId == app.globalData.recordsList[i].recordId) {
@@ -203,6 +205,7 @@ Page({
           for (var j = 0; j < app.globalData.allTeacherInfo.length; j++) {
             if (app.globalData.allTeacherInfo[j].teacherId == self.data.appendList[i].authorId) {
               self.data.appendList[i].name = app.globalData.allTeacherInfo[j].nickname
+              self.data.appendList[i].avatarUrl = app.globalData.allTeacherInfo[j].avatarUrl
             }
           }
         }

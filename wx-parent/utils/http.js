@@ -57,7 +57,8 @@ function getParentInfo(callback) {
       openid: app.globalData.openid,
     },
     success: function(res) {
-      // console.info(res)
+      console.info(res)
+      console.info('getParentInfo')
 
       if (res.data.code === 0) {
         // 家长信息保存本地
@@ -94,7 +95,7 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
     responseType: 'text',
     success: function(res) {
       console.info(res)
-
+      console.info('getGrowthRecordsWithoutAppend')
       app.globalData.allGrowthRecords = res.data.data.records
       // console.log(app.globalData.allGrowthRecords)
       for (var i in res.data.data.records) {

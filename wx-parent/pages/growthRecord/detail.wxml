@@ -2,10 +2,20 @@
 <!-- 记录list -->
 <view wx:for='{{recordsList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;margin-bottom:20rpx'>
   <view>
-    <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
+    <!-- <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
       <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
     </navigator>
-    <image src='../../image/head02.png' wx:else style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+    <image src='../../image/head02.png' wx:else style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
+    <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
+      <!-- <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
+      <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+      <image wx:else src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+    </navigator>
+    <!-- 家长头像不能跳转教师详情 -->
+    <block wx:else>
+      <image wx:if="{{itemWithAppend.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+      <image wx:else src='{{itemWithAppend.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+    </block>
   </view>
 
   <view style='width:600rpx;margin-left:20rpx;'>
@@ -63,10 +73,20 @@
     <!-- 评论 -->
     <view wx:for='{{appendList}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-top:1rpx solid #e5e5ea;margin-top:20rpx;width:750rpx;margin-left:-110rpx;'>
       <view>
-        <navigator url="teacherteacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
+        <!-- <navigator url="teacherteacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
           <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
         </navigator>
-        <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+        <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
+        <navigator url="teacher?teacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
+          <!-- <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
+          <image wx:if="{{itemWithAppend.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+          <image wx:else src='{{itemWithAppend.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+        </navigator>
+        <block wx:else>
+          <image wx:if="{{itemWithAppend.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+          <image wx:else src='{{itemWithAppend.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+        </block>
+        <!-- <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
       </view>
       <view style='width:600rpx;margin-left:20rpx;'>
 
@@ -80,9 +100,10 @@
             <!-- <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
               data-orgAuthorType="{{itemWithAppend.authorType}}"></image> -->
 
-<!-- 没有点赞数据 -->
+            <!-- 没有点赞数据 -->
             <block wx:if="{{!itemWithAppend.like.teacher || itemWithAppend.like.teacher.length == 0}}">
-              <image src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}" data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
+              <image src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
+                data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
             </block>
             <!-- 有点赞数据 -->
             <block wx:else>
@@ -94,7 +115,8 @@
               </block>
               <!-- 点赞数据有你 -->
               <block wx:for="{{itemWithAppend.like.teacher}}" wx:for-item='teacherLike' wx:key='teacherLike' wx:if="{{teacherLike == userId}}">
-                <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}" data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
+                <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
+                  data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
               </block>
             </block>
 

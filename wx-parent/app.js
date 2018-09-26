@@ -28,19 +28,22 @@ App({
     userId: '',
     studentId: [41, 44, 43],
     studentList: [{
-      pic: '../../image/head.png',
+      pic: '',
+      // ../../ image / head.png
       name: '曹语荞',
       sex: 0,
       recardCount: 162,
       studentId: 41,
     }, {
-      pic: '../../image/head02.png',
+      pic: '',
+      // ../../ image / head02.png
       name: '李司羽',
       sex: 1,
       recardCount: 115,
       studentId: 44,
     }, {
-      pic: '../../image/head.png',
+      pic: '',
+      // ../../ image / head.png
       name: '李淇锭',
       sex: 1,
       recardCount: 16259,

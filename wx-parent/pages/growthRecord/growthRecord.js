@@ -67,7 +67,7 @@ Page({
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
-    var parentRecordId = e.currentTarget.dataset.parentrecordid
+    var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
 
     // console.info(this.data.recordsList)
     // console.info('this.data.recordsList.append')
@@ -227,7 +227,7 @@ Page({
               if (res == 0) {
 
                 http.getTeachers(function(res) {
-                  if (!that.data.recordId) {
+                  // if (!that.data.recordId) {
                     // console.info(res)
                     recordId = res.slice(res.length - 1)[0].recordId
 
@@ -239,7 +239,7 @@ Page({
                     // console.info(app.globalData.allTeacherInfo)
 
                     that.getAppend()
-                  }
+                  // }
                 })
               }
             })
@@ -269,12 +269,14 @@ Page({
         dataType: 'json',
         responseType: 'text',
         success: function(res) {
-          // console.info(res)
-          // console.info('append')
+          console.info(res)
+          console.info('append')
           for (var x = 0; x < app.globalData.recordsList.length; x++) {
 
             if (app.globalData.recordsList[x].recordId == res.data.data.record.recordId) {
               app.globalData.recordsList[x].append = res.data.data.record.append
+              app.globalData.recordsList[x].like = res.data.data.record.like
+              app.globalData.recordsList[x].likes = res.data.data.record.likes
             }
             if (app.globalData.recordsList[x].append) {
               for (var y = 0; y < app.globalData.allTeacherInfo.length; y++) {
@@ -288,8 +290,8 @@ Page({
             }
 
           }
-          // console.info(app.globalData.recordsList)
-          // console.info('recordsList')
+          console.info(app.globalData.recordsList)
+          console.info('recordsList')
           that.setData({
             recordsList: app.globalData.recordsList,
             recordSize: app.globalData.indexSize
