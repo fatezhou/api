@@ -35,7 +35,7 @@ Page({
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
-    var parentRecordId = e.currentTarget.dataset.parentrecordid
+    var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
 
     // for (var r = 0; r < this.data.recordsList.length; r++) {
     //   if (this.data.recordsList[r].recordId == parentRecordId) {
@@ -87,6 +87,61 @@ Page({
           that.setData({
             appendList: this.data.appendList
           })
+        }
+      }
+    }
+
+
+    if (parentRecordId == 0) {
+      for (var j = 0; j < this.data.recordsList.length; j++) {
+        if (this.data.recordsList[j].recordId == recordId) {
+
+          if (this.data.recordsList[j].likes) {
+            if (this.data.recordsList[j].likes.teacher.length > 0) {
+              for (var k = 0; k < this.data.recordsList[j].likes.teacher.length; k++) {
+                // 已经点赞了 就取消
+                if (this.data.recordsList[j].likes.teacher[k] == gData.userId) {
+
+                  this.data.recordsList[j].likes.teacher.splice(k, 1)
+                  that.setData({
+                    recordsList: this.data.recordsList
+                  })
+                  // console.info(this.data.recordsList)
+                  // console.info('splice')
+                } else if ((k + 1) == this.data.recordsList[j].likes.teacher.length) {
+                  // console.info(k + 1)
+
+                  this.data.recordsList[j].likes.teacher.push(gData.userId)
+
+                  that.setData({
+                    recordsList: this.data.recordsList
+                  })
+                  break;
+                  // console.info(this.data.recordsList)
+                  // console.info('this.data.appendList[j].like.teacher----------')
+                }
+
+              }
+            } else {
+              this.data.recordsList[j].likes.teacher[0] = gData.userId
+
+              that.setData({
+                recordsList: this.data.recordsList
+              })
+            }
+
+          } else {
+            var likes = []
+            var teacher = []
+            this.data.recordsList[j].likes = {}
+            this.data.recordsList[j].likes.teacher = []
+
+            this.data.recordsList[j].likes.teacher[0] = gData.userId
+
+            that.setData({
+              recordsList: this.data.recordsList
+            })
+          }
         }
       }
     }

@@ -13,8 +13,8 @@
     </navigator>
     <!-- 家长头像不能跳转教师详情 -->
     <block wx:else>
-      <image wx:if="{{itemWithAppend.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
-      <image wx:else src='{{itemWithAppend.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+      <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+      <image wx:else src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
     </block>
   </view>
 
@@ -28,7 +28,25 @@
       </navigator>
       <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
       <view>
-        <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix'></image>
+        <!-- <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix'></image> -->
+         <!-- 没有点赞数据 -->
+        <block wx:if="{{!item.likes.teacher || item.likes.teacher.length == 0}}">
+          <image src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0" data-orgAuthorType="{{item.authorType}}"></image>
+        </block>
+        <!-- 有点赞数据 -->
+        <block wx:else>
+          <!-- 点赞数据没有你 -->
+          <block wx:for="{{item.likes.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikes' wx:if="{{teacherLikes != userId}}">
+            <image wx:if="{{index+1 == item.likes.teacher.length}}" src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0"
+              data-orgAuthorType="{{item.authorType}}"></image>
+
+          </block>
+          <!-- 点赞数据有你 -->
+          <block wx:for="{{item.likes.teacher}}" wx:for-item='teacherLike' wx:key='teacherLike' wx:if="{{teacherLike == userId}}">
+            <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0" data-orgAuthorType="{{item.authorType}}"></image>
+          </block>
+        </block>
+
         <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=false" style="display:inline-block">
           <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
         </navigator>
@@ -59,6 +77,15 @@
         <image src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
         小名，大名
       </view> -->
+      <view style="margin-top:20rpx;">
+        <image wx:if="{{item.likes.teacher.length > 0}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
+        <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
+          <block wx:for="{{item.likes.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
+            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allTeacheritem.nickname}} </text>
+          </block>
+        </block>
+      </view>
+
       <view style="display:flex;justify-content: space-between;align-items:center;margin-top:20rpx;">
         <view> {{item.dateTime}} </view>
         <!-- <view style='display:flex;justify-content: space-between;align-items:center;'>

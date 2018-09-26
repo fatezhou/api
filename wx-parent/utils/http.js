@@ -125,6 +125,7 @@ function getTeachers(callback) {
     success: function(res) {
       var contact = res.data.data.teachers;
       console.info(contact)
+      console.info('getTeachers')
       // 获取所有教师信息
       app.globalData.allTeacherInfo = contact
       for (var i in contact) {

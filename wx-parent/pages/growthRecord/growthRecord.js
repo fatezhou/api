@@ -86,6 +86,7 @@ Page({
                     that.setData({
                       recordsList: this.data.recordsList
                     })
+                    app.globalData.recordsList = this.data.recordsList
                     // console.info(this.data.recordsList)
                     // console.info('splice')
                   } else if ((k + 1) == this.data.recordsList[r].append[j].like.teacher.length) {
@@ -96,6 +97,7 @@ Page({
                     that.setData({
                       recordsList: this.data.recordsList
                     })
+                    app.globalData.recordsList = this.data.recordsList
                     break;
                     // console.info(this.data.recordsList)
                     // console.info('this.data.appendList[j].like.teacher----------')
@@ -108,6 +110,8 @@ Page({
                 that.setData({
                   recordsList: this.data.recordsList
                 })
+                app.globalData.recordsList = this.data.recordsList
+                
               }
 
             } else {
@@ -121,11 +125,70 @@ Page({
               that.setData({
                 recordsList: this.data.recordsList
               })
+              app.globalData.recordsList = this.data.recordsList
             }
           }
         }
       }
 
+    }
+
+    if (parentRecordId == 0) {
+      for (var j = 0; j < this.data.recordsList.length; j++) {
+        if (this.data.recordsList[j].recordId == recordId) {
+
+          if (this.data.recordsList[j].likes) {
+            if (this.data.recordsList[j].likes.teacher.length > 0) {
+              for (var k = 0; k < this.data.recordsList[j].likes.teacher.length; k++) {
+                // 已经点赞了 就取消
+                if (this.data.recordsList[j].likes.teacher[k] == gData.userId) {
+
+                  this.data.recordsList[j].likes.teacher.splice(k, 1)
+                  that.setData({
+                    recordsList: this.data.recordsList
+                  })
+                  app.globalData.recordsList = this.data.recordsList
+                  // console.info(this.data.recordsList)
+                  // console.info('splice')
+                } else if ((k + 1) == this.data.recordsList[j].likes.teacher.length) {
+                  // console.info(k + 1)
+
+                  this.data.recordsList[j].likes.teacher.push(gData.userId)
+
+                  that.setData({
+                    recordsList: this.data.recordsList
+                  })
+                  app.globalData.recordsList = this.data.recordsList
+                  break;
+                  // console.info(this.data.recordsList)
+                  // console.info('this.data.appendList[j].like.teacher----------')
+                }
+
+              }
+            } else {
+              this.data.recordsList[j].likes.teacher[0] = gData.userId
+
+              that.setData({
+                recordsList: this.data.recordsList
+              })
+              app.globalData.recordsList = this.data.recordsList
+            }
+
+          } else {
+            var likes = []
+            var teacher = []
+            this.data.recordsList[j].likes = {}
+            this.data.recordsList[j].likes.teacher = []
+
+            this.data.recordsList[j].likes.teacher[0] = gData.userId
+
+            that.setData({
+              recordsList: this.data.recordsList
+            })
+            app.globalData.recordsList = this.data.recordsList
+          }
+        }
+      }
     }
 
     console.info('like')
@@ -228,17 +291,17 @@ Page({
 
                 http.getTeachers(function(res) {
                   // if (!that.data.recordId) {
-                    // console.info(res)
-                    recordId = res.slice(res.length - 1)[0].recordId
+                  // console.info(res)
+                  recordId = res.slice(res.length - 1)[0].recordId
 
-                    that.setData({
-                      allTeacherInfo: app.globalData.allTeacherInfo,
-                      recordId: recordId
-                    })
-                    // console.info('get')
-                    // console.info(app.globalData.allTeacherInfo)
+                  that.setData({
+                    allTeacherInfo: app.globalData.allTeacherInfo,
+                    recordId: recordId
+                  })
+                  // console.info('get')
+                  // console.info(app.globalData.allTeacherInfo)
 
-                    that.getAppend()
+                  that.getAppend()
                   // }
                 })
               }
