@@ -42,6 +42,10 @@
 
 </view>
 
+<view wx:if="{{!recordsList}}" style="display: flex;flex-direction: column;align-items: center;top:60%;position:fixed;width:750rpx;font-size:28rpx">
+  <image src="./../../image/icbook.png" style="height:66rpx;width:66rpx;margin-bottom:20rpx"></image>
+  无记录
+</view>
 <!-- 记录list -->
 <view wx:for='{{recordsList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;margin-bottom:20rpx;width:750rpx;position:relative'>
   <view>
@@ -96,7 +100,9 @@
 
 
     <navigator url="detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}">
-      <view>{{item.text}}</view>
+      <view>
+        <text>{{item.text}}</text>
+      </view>
     </navigator>
 
 
@@ -195,7 +201,9 @@
 
 
         <navigator url="detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}">
-          <view>{{itemWithAppend.text}}</view>
+          <view>
+            <text>{{itemWithAppend.text}}</text>
+          </view>
         </navigator>
 
         <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:60rpx;'>

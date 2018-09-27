@@ -56,6 +56,11 @@ Page({
             that.getAppend()
           }
         })
+      }else{
+        that.setData({
+          recordsList: '',
+          recordSize: 0
+        });
       }
     })
   },
@@ -344,9 +349,11 @@ Page({
             if (app.globalData.recordsList[x].append) {
               for (var y = 0; y < app.globalData.allTeacherInfo.length; y++) {
                 for (var z = 0; z < app.globalData.recordsList[x].append.length; z++) {
+                  app.globalData.recordsList[x].append[z].text = decodeURIComponent(app.globalData.recordsList[x].append[z].text)
                   if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allTeacherInfo[y].teacherId) {
                     app.globalData.recordsList[x].append[z].name = app.globalData.allTeacherInfo[y].nickname
                     app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allTeacherInfo[y].avatarUrl
+                    
                   }
                 }
               }
@@ -399,7 +406,7 @@ Page({
             that.setData({
               showswiper: app.globalData.studentList
             })
-            var studentId = app.globalData.studentId[0]
+            // var studentId = studentId
             http.getGrowthRecordsWithoutAppend(studentId, function(res) {
               if (res == 0) {
 

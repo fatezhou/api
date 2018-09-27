@@ -7,12 +7,12 @@
   <view class='uploadimgBox'>
     <view class='addImg' wx:if="{{canChoose}}" bindtap='chooseImageTap'>
       <view class='add'>
-        <image src='./../../../image/add.png' mode='widthFix'></image>
+        <image src='./../../image/add.png' mode='widthFix'></image>
       </view>
     </view>
     <view class='addImg' wx:else bindtap='noChoose'>
       <view class='add'>
-        <image src='./../../../image/add.png' mode='widthFix'></image>
+        <image src='./../../image/add.png' mode='widthFix'></image>
       </view>
     </view>
     <block wx:for="{{imgs}}" wx:key='asd' wx:if="{{9>=imgs.length>0}}">

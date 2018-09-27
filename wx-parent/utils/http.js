@@ -94,19 +94,25 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
     dataType: 'json',
     responseType: 'text',
     success: function(res) {
-      console.info(res)
-      console.info('getGrowthRecordsWithoutAppend')
-      app.globalData.allGrowthRecords = res.data.data.records
-      // console.log(app.globalData.allGrowthRecords)
-      for (var i in res.data.data.records) {
-        res.data.data.records[i].name = " ";
-        res.data.data.records[i].avatarUrl = " ";
-      }
-      // 分布加载第一式
-      app.globalData.recordsList = res.data.data.records
-      app.globalData.indexSize = res.data.data.size
+      if(res.data.data.records.length != 0){
+        console.info(res)
+        console.info('getGrowthRecordsWithoutAppend')
+        app.globalData.allGrowthRecords = res.data.data.records
+        // console.log(app.globalData.allGrowthRecords)
+        for (var i in res.data.data.records) {
+          res.data.data.records[i].name = " ";
+          res.data.data.records[i].avatarUrl = " ";
+          res.data.data.records[i].text = decodeURIComponent(res.data.data.records[i].text)
+        }
+        // 分布加载第一式
+        app.globalData.recordsList = res.data.data.records
+        app.globalData.indexSize = res.data.data.size
 
-      return callback(0)
+        return callback(0)
+      }else{
+        return callback(1)
+      }
+
 
     },
     fail: function(res) {},
