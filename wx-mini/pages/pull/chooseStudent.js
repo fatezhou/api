@@ -13,6 +13,23 @@ Page({
 
     Imgpath: '',
     avatarUrl: '',
+
+    perStudent: [],
+  },
+  searchName: function (e) {
+    var searchValue = e.detail.value
+    this.data.perStudent = []
+    for (var i = 0; i < app.globalData.allStudent.length; i++) {
+      console.info(app.globalData.allStudent[i].name.indexOf(searchValue))
+      if (app.globalData.allStudent[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
+        console.info(app.globalData.allStudent[i].name)
+        this.data.perStudent.push(app.globalData.allStudent[i])
+      }
+    }
+
+    this.setData({
+      perStudent: this.data.perStudent
+    })
   },
   member: function(e) {
     var index = e.currentTarget.dataset.index;
