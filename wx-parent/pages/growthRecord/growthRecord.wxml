@@ -3,10 +3,10 @@
 <view class='counts' style="height:375rpx">
   <navigator url='newMess' style="margin-top:-400rpx;position:relative;">
     <view class='countsRight'>
-      <view class='crNews'>
+      <!-- <view class='crNews'>
         <image src='./../../image/icnotification.png' mode='widthFix'></image>
       </view>
-      <view class='newsList'>xx条消息</view>
+      <view class='newsList'>xx条消息</view> -->
     </view>
   </navigator>
 
@@ -64,7 +64,7 @@
         <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
       </navigator>
       <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
-      <view>
+      <view style="display:inline-block">
 
         <!-- 没有点赞数据 -->
         <block wx:if="{{!item.likes.teacher || item.likes.teacher.length == 0}}">
