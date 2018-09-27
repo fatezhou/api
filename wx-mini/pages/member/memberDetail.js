@@ -20,6 +20,8 @@ Page({
     sex: '',
     Imgpath: '',
     avatarUrl: '',
+
+    recordList: '',
   },
   goMoreRecords: function(e) {
     // getApp().globalData.studentId = this.data.studentId;
@@ -171,39 +173,66 @@ Page({
 
   },
 
+  // showLatelyImg: function() {
+  //   var gData = app.globalData
+  //   var that = this
+  //   wx.request({
+  //     url: gData.getPrePics,
+  //     data: {
+  //       unionid: gData.unionid,
+  //       openid: gData.openid,
+  //       studentId: this.data.studentId,
+  //     },
+  //     header: {},
+  //     method: 'POST',
+  //     dataType: 'json',
+  //     responseType: 'text',
+  //     success: function(res) {
+  //       // console.log(res.data.data.records)
+  //       // console.info('res.data.data.records')
+  //       console.info(app.globalData.contact)
+  //       var haveImgRecords = res.data.data.records
+  //       var Img = []
+  //       for (var i = 0; i < haveImgRecords.length; i++) {
+  //         Img = Img.concat(haveImgRecords[i].picture)
+  //       }
+  //       that.setData({
+  //         Img: Img
+  //       })
+  //     },
+  //   })
+  // },
+
   showLatelyImg: function() {
-    var gData = app.globalData
     var that = this
+    var data = {
+      "unionid": app.globalData.unionid,
+      "openid": app.globalData.openid,
+      "studentId": this.data.studentId,
+      "pageSize": 3,
+    }
     wx.request({
-      url: gData.getPrePics,
-      data: {
-        unionid: gData.unionid,
-        openid: gData.openid,
-        studentId: this.data.studentId,
-      },
+      url: app.globalData.getGrowthRecordsWithoutAppend,
+      data: data,
       header: {},
-      method: 'POST',
+      method: 'post',
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        // console.log(res.data.data.records)
-        // console.info('res.data.data.records')
-        console.info(app.globalData.contact)
-        var haveImgRecords = res.data.data.records
-        var Img = []
-        for (var i = 0; i < haveImgRecords.length; i++) {
-          Img = Img.concat(haveImgRecords[i].picture)
+        console.info(res)
+        var recordList = res.data.data.records
+        for (var i = 0; i < res.data.data.records.length; i++) {
+          recordList[i].text = decodeURIComponent(res.data.data.records[i].text)
         }
+        console.info(recordList)
         that.setData({
-          Img: Img
+          recordList: recordList
         })
       },
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
-
-  // showLatelyImg: function () {
-
-  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

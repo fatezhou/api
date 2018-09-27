@@ -60,12 +60,15 @@
     <view style='width:160rpx;height:160rpx;background:#f2f4f7;text-align:center;' bindtap='toAddRecard'>
       <image src='../../image/add.png' style='width:60rpx;height:60rpx;margin-top:50rpx;'></image>
     </view>
-    <block wx:for="{{Img}}" wx:for-item='item' wx:key="index" wx:if='{{index < 3}}'>
+    <!-- <block wx:for="{{Img}}" wx:for-item='item' wx:key="index" wx:if='{{index < 3}}'>
       <image src="{{item}}" style='width:160rpx;height:160rpx;'></image>
+    </block> -->
+    <block wx:for="{{recordList}}" wx:for-item='item' wx:key="index">
+      <image wx:if="{{item.pictureUrls[0]}}" src="{{item.pictureUrls[0]}}" style='width:160rpx;height:160rpx;'></image>
+      <text class="words" wx:else style='width:160rpx;height:160rpx;'>{{item.text}}</text>
+
     </block>
-    <!-- <image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image>
-    <image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image>
-    <image src='../../image/pic0.jpg' style='width:160rpx;height:160rpx;'></image> -->
+
   </view>
 </view>
 

@@ -1,1 +1,2 @@
 /* pages/member/memberDetail.wxss */
+.words{font-size: 32rpx;color: #292E38;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;text-overflow: ellipsis;word-break: break-all;}
