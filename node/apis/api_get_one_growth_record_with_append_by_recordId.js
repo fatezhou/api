@@ -64,9 +64,9 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
             logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetAppendTextILike.begin");
             var sqlFmt = "\
             select a.author_id, a.author_type, a.record_id \
-            from growth_record_like a where a.parent_record_id = ?\
+            from growth_record_like a where a.parent_record_id = ? or a.record_id = ?\
             ORDER BY record_id, author_type";
-            db.Query(sqlFmt, [data.recordId], function(e){
+            db.Query(sqlFmt, [data.recordId, data.recordId], function(e){
                 logger.debug("ApiGetOneGrowthRecordWithAppendByRecordId.GetAppendTextILike.finish");
                 if(e.error){
                     callback(response.BadSQL());
@@ -86,6 +86,17 @@ function ApiGetOneGrowthRecordWithAppendByRecordId(){
                             }else if(e[i].author_type == 2){                                
                                 res.record.append[j].like.parent.push(e[i].author_id);
                             }
+                        }
+                    }
+                    if(res.record.recordId == e[i].record_id){
+                        if(!res.record.likes){
+                            res.record.likes = {teacher:[], parent:[]};
+                        }
+
+                        if(e[i].author_type == 1){
+                            res.record.likes.teacher.push(e[i].author_id);
+                        }else if(e[i].author_type == 2){                                
+                            res.record.likes.parent.push(e[i].author_id);
                         }
                     }
                 }
