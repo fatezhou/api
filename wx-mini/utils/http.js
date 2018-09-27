@@ -81,6 +81,10 @@ function login(callback) {
                       res.data.data.records[i].avatarUrl = '';
                     }
                     // 分布加载第一式
+                    for (var t = 0; t < res.data.data.records.length; t++) {
+                      res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
+                    }
+                    console.info(res.data.data.records)
                     app.globalData.recordsList = res.data.data.records
                     app.globalData.indexSize = res.data.data.size
 

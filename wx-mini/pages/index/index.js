@@ -54,6 +54,9 @@ Page({
     var that = this
     http.login(function(res) {
       recordId = res.slice(res.length - 1)[0].recordId
+      for (var t = 0; t < res.length; t++) {
+        res[t].text = decodeURIComponent(res[t].text)
+      }
 
       that.setData({
         recordsList: res,
@@ -73,7 +76,7 @@ Page({
         if (app.globalData.allStudent[i].studentId == getrecordsList[j].studentId) {
           getrecordsList[j].name = (app.globalData.allStudent[i].nickname == "" ? app.globalData.allStudent[i].name : app.globalData.allStudent[i].nickname);
           getrecordsList[j].avatarUrl = app.globalData.allStudent[i].avatarUrl;
-          
+
         }
       }
     }
@@ -94,6 +97,9 @@ Page({
         // console.info(1)
         app.globalData.recordId = res[0].recordId
         recordId = res.slice(res.length - 1)[0].recordId
+        // for (var t = 0; t < res.length; t++) {
+        //   res[t].text = decodeURIComponent(res[t].text)
+        // }
 
         that.setData({
           recordsList: res,
@@ -127,6 +133,9 @@ Page({
     var that = this
     http.login(function(res) {
       recordId = res.slice(res.length - 1)[0].recordId
+      // for (var t = 0; t < res.length; t++) {
+      //   res[t].text = decodeURIComponent(res[t].text)
+      // }
       that.setData({
         recordsList: res
       });
@@ -158,6 +167,9 @@ Page({
         console.info(res)
         console.info('getGrowthRecordsWithoutAppend')
         recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
+        for (var t = 0; t < res.data.data.records.length; t++) {
+          res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
+        }
         getrecordsList = res.data.data.records
         for (var i in getrecordsList) {
           getrecordsList[i].name = "";

@@ -302,6 +302,9 @@ Page({
         // console.info(e)
         // console.info('dsadasdasd===')
         if (e.data.code == 0) {
+          for (var t = 0; t < e.data.data.record.append.length; t++) {
+            e.data.data.record.append[t].text = decodeURIComponent(e.data.data.record.append[t].text)
+          }
           self.data.appendList = e.data.data.record.append;
           self.data.likenumber = e.data.data.record.like;
           // app.globalData.likes = e.data.data.record.likes

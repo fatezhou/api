@@ -26,7 +26,7 @@ Page({
     orgAuthorType: 0,
     allTeacherInfo: '',
 
-    userId:'',
+    userId: '',
     Imgpath: '',
     avatarUrl: '',
   },
@@ -35,9 +35,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+
     studentId = options.studentId
-    
+
     this.setData({
       studentId: studentId,
       studentName: options.studentName,
@@ -91,6 +91,7 @@ Page({
    */
   onPullDownRefresh: function() {
     this.getGrowthRecords()
+    wx.stopPullDownRefresh()
   },
 
   getContact: function() {
@@ -142,9 +143,12 @@ Page({
           console.info(e.data.data.record)
           console.info('e.data.data.record')
           if (e.data.code == 0) {
+            for (var t = 0; t < e.data.data.record.length; t++) {
+              e.data.data.record[t].text = decodeURIComponent(e.data.data.record[t].text)
+            }
             self.data.recordWithAppend = e.data.data.record
           }
-    
+
           var allTeacherInfo = app.globalData.allTeacherInfo
           for (var i = 0; i < self.data.recordWithAppend.append.length; i++) {
             for (var j = 0; j < allTeacherInfo.length; j++) {
@@ -156,7 +160,7 @@ Page({
           }
 
           var recordWithAppends = self.data.recordWithAppends.concat(self.data.recordWithAppend)
-    
+
           self.setData({
             recordWithAppend: self.data.recordWithAppend,
             recordWithAppends: recordWithAppends,
@@ -205,6 +209,9 @@ Page({
       responseType: 'text',
       success: function(res) {
         // console.info(res)
+        for (var t = 0; t < res.data.data.records.length; t++) {
+          res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
+        }
         perGrowthRecords = res.data.data.records
         // console.log(perGrowthRecords)
         for (var i in res.data.data.records) {
@@ -230,8 +237,8 @@ Page({
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
-    var parentRecordId =  parseInt(e.currentTarget.dataset.parentrecordid)
-   
+    var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
+
     console.info('like')
     console.info(gData.unionid),
       console.info(gData.openid),

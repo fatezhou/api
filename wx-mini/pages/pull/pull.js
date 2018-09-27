@@ -36,8 +36,10 @@ Page({
     avatarUrl: '',
   },
   charChange: function(e) {
+    var text = encodeURIComponent(e.detail.value)
+    
     this.setData({
-      text: e.detail.value
+      text: text
     })
   },
   submit: function() {
@@ -45,7 +47,7 @@ Page({
     if (this.data.text == undefined || this.data.tempFilePaths == {}) {
       wx.showToast({
         title: '您还没输入内容呢',
-        icon: 'loading',
+        icon: 'none',
         image: '',
         duration: 1000,
         mask: true,
@@ -58,7 +60,7 @@ Page({
     if (this.data.name == '请选择学员') {
       wx.showToast({
         title: '请选择学员',
-        icon: 'loading',
+        icon: 'none',
         image: '',
         duration: 1000,
         mask: true,
