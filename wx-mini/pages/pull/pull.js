@@ -36,8 +36,9 @@ Page({
     avatarUrl: '',
   },
   charChange: function(e) {
+    // console.info(e.detail)
     var text = encodeURIComponent(e.detail.value)
-    
+    // console.info(text)
     this.setData({
       text: text
     })
@@ -145,9 +146,14 @@ Page({
           duration: 1000,
           mask: true,
           success: function(res) {
-            wx.navigateBack({
-              delta: 1,
-            })
+            setTimeout(function(){
+              wx.navigateBack({
+                delta:1
+              })
+            },1000)
+            // wx.navigateBack({
+            //   delta: 1,
+            // })
           },
           fail: function(res) {},
           complete: function(res) {},

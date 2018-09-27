@@ -23,10 +23,10 @@ function login(callback) {
             if (e.data.data.token) {
               app.globalData.token = e.data.data.token;
             }
-            if (!app.globalData.Imgpath){
+            if (!app.globalData.Imgpath) {
               wx.getImageInfo({
                 src: app.globalData.headImg,
-                success: function (res) {
+                success: function(res) {
                   // console.info(res)
                   app.globalData.Imgpath = res.path
                   // that.setData({
@@ -35,7 +35,7 @@ function login(callback) {
                 }
               })
             }
-           
+
 
             // 通过uid获取教师信息
             wx.request({
@@ -73,17 +73,23 @@ function login(callback) {
                   success: function(res) {
                     console.info(res)
                     console.info('getGrowthRecordsWithoutAppend')
-                   
+
                     app.globalData.allGrowthRecords = res.data.data.records
                     // console.log(app.globalData.allGrowthRecords)
                     for (var i in res.data.data.records) {
                       res.data.data.records[i].name = " ";
                       res.data.data.records[i].avatarUrl = '';
+                      res.data.data.records[i].text = decodeURIComponent(res.data.data.records[i].text)
+                      res.data.data.records[i].isfold = true
+                      if (res.data.data.records[i].text.length > 100) {
+                        res.data.data.records[i].showTextBtn = true
+                      }
                     }
                     // 分布加载第一式
-                    for (var t = 0; t < res.data.data.records.length; t++) {
-                      res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
-                    }
+                    // for (var t = 0; t < res.data.data.records.length; t++) {
+                    //   res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
+                    // }
+                    
                     console.info(res.data.data.records)
                     app.globalData.recordsList = res.data.data.records
                     app.globalData.indexSize = res.data.data.size

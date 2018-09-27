@@ -19,6 +19,19 @@ Page({
     Imgpath: '',
   },
   //事件处理函数
+  showmore: function(e) {
+    console.info(e)
+    for (var o = 0; 0 < this.data.recordsList.length; o++) {
+      if (this.data.recordsList[o].recordId == e.currentTarget.dataset.recordid) {
+        this.data.recordsList[o].isfold = !this.data.recordsList[o].isfold
+        this.setData({
+          recordsList: this.data.recordsList
+        })
+        break
+      }
+    }
+
+  },
 
   onLoad: function() {
     template.tabbar("tabBar", 0, this)
@@ -56,6 +69,10 @@ Page({
       recordId = res.slice(res.length - 1)[0].recordId
       for (var t = 0; t < res.length; t++) {
         res[t].text = decodeURIComponent(res[t].text)
+        res[t].isfold = true
+        if (res[t].text.length > 100) {
+          res[t].showTextBtn = true
+        }
       }
 
       that.setData({
@@ -169,6 +186,10 @@ Page({
         recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
         for (var t = 0; t < res.data.data.records.length; t++) {
           res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
+          res.data.data.records[t].isfold = true
+          if (res.data.data.records[t].text.length > 100) {
+            res.data.data.records[t].showTextBtn = true
+          }
         }
         getrecordsList = res.data.data.records
         for (var i in getrecordsList) {

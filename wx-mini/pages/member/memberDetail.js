@@ -186,7 +186,9 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        console.log(res.data.data.records)
+        // console.log(res.data.data.records)
+        // console.info('res.data.data.records')
+        console.info(app.globalData.contact)
         var haveImgRecords = res.data.data.records
         var Img = []
         for (var i = 0; i < haveImgRecords.length; i++) {
@@ -199,6 +201,9 @@ Page({
     })
   },
 
+  // showLatelyImg: function () {
+
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

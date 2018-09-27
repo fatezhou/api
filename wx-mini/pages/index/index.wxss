@@ -13,7 +13,9 @@ page{background: #F2F4F7;}
 .tlDleft image{width: 48rpx;height:48rpx;float: left;border-radius: 100%;}
 .phName{margin: 0 0 0 6rpx;line-height: 48rpx;font-size: 24rpx;color: #292E38;display:block;font-weight: bold;float: left;}
 .tlDright{display: inline-block;float: right;line-height: 48rpx;color:#98A5A5;font-size: 24rpx;}
-.words{font-size: 30rpx;color: #292E38;margin: 30rpx 0 0 0;padding:0 0 38rpx}
+.words{font-size: 30rpx;color: #292E38;margin: 30rpx 0 0 0;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;text-overflow: ellipsis;word-break: break-all;}
+.hide {display: -webkit-box;}
+.show {display: block;}
 .picList{}
 .picList image{margin: 0 18rpx 30rpx 0rpx;}
 .th3 image{width: 162rpx;height:162rpx}

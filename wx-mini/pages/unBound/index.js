@@ -73,9 +73,17 @@ Page({
         success: function(res) {
           console.log(res)
           if (res.data.code === 0) {
-            wx.showToast({
-              title: '已发送',
-            })
+            if (res.data.data.text == "请在微信公众号中打开页面") {
+              wx.showToast({
+                title: '该手机号后台未登记',
+                icon: 'none'
+              })
+            } else {
+              wx.showToast({
+                title: '已发送',
+              })
+            }
+
           } else {
             wx.showModal({
               content: res.data.message,
@@ -114,6 +122,11 @@ Page({
           console.info(res)
           if (res.data.code === 0) {
             if (res.data.data.text == "绑定成功") {
+              wx.showToast({
+                title: '绑定成功',
+                icon: "success",
+              })
+
               // 通过uid获取教师信息
               wx.request({
                 url: app.globalData.getTeacherInfo,
@@ -133,9 +146,12 @@ Page({
                       // wx.switchTab({
                       //   url: '../index/index',
                       // })
-                      wx.redirectTo({
-                        url: '../index/index',
-                      })
+                      setTimeout(function() {
+                        wx.redirectTo({
+                          url: '../index/index',
+                        })
+                      }, 1000)
+
                     }
                   }
                 },

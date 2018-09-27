@@ -31,6 +31,21 @@ Page({
     avatarUrl: '',
   },
 
+  showmore: function(e) {
+    
+    for (var o = 0; 0 < this.data.allGrowthRecords.length; o++) {
+      if (this.data.allGrowthRecords[o].recordId == e.currentTarget.dataset.recordid) {
+        this.data.allGrowthRecords[o].isfold = !this.data.allGrowthRecords[o].isfold
+        this.setData({
+          allGrowthRecords: this.data.allGrowthRecords
+        })
+        console.info(this.data.allGrowthRecords[o])
+        console.info(this.data.allGrowthRecords[o].isfold)
+        break
+      }
+    }
+    console.info(e.currentTarget.dataset.recordid)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -145,6 +160,10 @@ Page({
           if (e.data.code == 0) {
             for (var t = 0; t < e.data.data.record.length; t++) {
               e.data.data.record[t].text = decodeURIComponent(e.data.data.record[t].text)
+              e.data.data.record[t].isfold = true
+              if (e.data.data.record[t].text.length > 100) {
+                e.data.data.record[t].showTextBtn = true
+              }
             }
             self.data.recordWithAppend = e.data.data.record
           }
@@ -211,6 +230,12 @@ Page({
         // console.info(res)
         for (var t = 0; t < res.data.data.records.length; t++) {
           res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
+       
+          res.data.data.records[t].isfold = true
+          if (res.data.data.records[t].text.length > 100) {
+            res.data.data.records[t].showTextBtn = true
+          }
+          console.info(res)
         }
         perGrowthRecords = res.data.data.records
         // console.log(perGrowthRecords)
