@@ -103,6 +103,11 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
           res.data.data.records[i].name = " ";
           res.data.data.records[i].avatarUrl = " ";
           res.data.data.records[i].text = decodeURIComponent(res.data.data.records[i].text)
+
+          res.data.data.records[i].isfold = true
+          if (res.data.data.records[i].text.length > 100) {
+            res.data.data.records[i].showTextBtn = true
+          }
         }
         // 分布加载第一式
         app.globalData.recordsList = res.data.data.records

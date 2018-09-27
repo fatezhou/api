@@ -24,6 +24,19 @@ Page({
     recordId: '',
   },
 
+  showmore: function(e) {
+    console.info(e)
+    for (var o = 0; 0 < this.data.recordsList.length; o++) {
+      if (this.data.recordsList[o].recordId == e.currentTarget.dataset.recordid) {
+        this.data.recordsList[o].isfold = !this.data.recordsList[o].isfold
+        this.setData({
+          recordsList: this.data.recordsList
+        })
+        break
+      }
+    }
+  },
+
   showBigImg: function(e) {
     wx.previewImage({
       current: e.currentTarget.dataset.showbigimg,
@@ -56,7 +69,7 @@ Page({
             that.getAppend()
           }
         })
-      }else{
+      } else {
         that.setData({
           recordsList: '',
           recordSize: 0
@@ -116,7 +129,7 @@ Page({
                   recordsList: this.data.recordsList
                 })
                 app.globalData.recordsList = this.data.recordsList
-                
+
               }
 
             } else {
@@ -345,6 +358,11 @@ Page({
               app.globalData.recordsList[x].append = res.data.data.record.append
               app.globalData.recordsList[x].like = res.data.data.record.like
               app.globalData.recordsList[x].likes = res.data.data.record.likes
+
+              app.globalData.recordsList[x].isfold = true
+              if (app.globalData.recordsList[x].text.length > 100) {
+                app.globalData.recordsList[x].showTextBtn = true
+              }
             }
             if (app.globalData.recordsList[x].append) {
               for (var y = 0; y < app.globalData.allTeacherInfo.length; y++) {
@@ -353,7 +371,11 @@ Page({
                   if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allTeacherInfo[y].teacherId) {
                     app.globalData.recordsList[x].append[z].name = app.globalData.allTeacherInfo[y].nickname
                     app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allTeacherInfo[y].avatarUrl
-                    
+                    // app.globalData.recordsList[x].append[z].isfold = true
+                    // if (app.globalData.recordsList[x].append[z].text.length > 100) {
+                    //   app.globalData.recordsList[x].append[z].showTextBtn = true
+                    // }
+
                   }
                 }
               }

@@ -100,10 +100,16 @@
 
 
     <navigator url="detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}">
-      <view>
+      <view class="words {{item.isfold ? 'hide' : 'show'}}">
         <text>{{item.text}}</text>
       </view>
     </navigator>
+
+    <view wx:if="{{item.isfold && item.showTextBtn}}" bindtap='showmore' data-recordId='{{item.recordId}}' style="position:absolute;padding:10rpx 0 0;font-size:24rpx;display:inline-block;right:110rpx;">全文</view>
+    <view wx:elif="{{item.showTextBtn}}" bindtap='showmore' data-recordId='{{item.recordId}}' style="position:absolute;padding:10rpx 0 0;font-size:24rpx;display:inline-block;right:110rpx;">收起</view>
+    <!-- </block> -->
+    <!-- <block wx:else> -->
+    <!-- <view bindtap='showmore' data-recordId='{{item.recordId}}' style="opacity:0;height:100rpx">666</view> -->
 
 
     <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:60rpx;'>
@@ -201,7 +207,7 @@
 
 
         <navigator url="detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}">
-          <view>
+          <view class="words {{itemWithAppend.isfold ? 'hide' : 'show'}}">
             <text>{{itemWithAppend.text}}</text>
           </view>
         </navigator>
