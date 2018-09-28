@@ -140,7 +140,7 @@ Page({
       success: function(res) {
         console.log(res);
         wx.showToast({
-          title: '上传成功',
+          title: '发送成功',
           icon: 'success',
           image: '',
           duration: 1000,

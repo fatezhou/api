@@ -30,7 +30,20 @@ Page({
     this.setData({
       perStudent: this.data.perStudent
     })
+    console.info(this.data.perStudent)
   },
+
+  searchList:function(e){
+    var index = e.currentTarget.dataset.index;
+    var item = this.data.perStudent[index];
+    console.info("member.member");
+    console.info(item);
+    app.globalData.chooseStudent = item
+    wx.navigateBack({
+
+    })
+  },
+
   member: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.memberList[index];

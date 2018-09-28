@@ -5,7 +5,7 @@
   <!-- <view style="padding: 0 30rpx 20rpx 30rpx;width:600rpx"> -->
     <input bindinput='searchName' style="padding: 20rpx 30rpx;" placeholder="搜索" placeholder-style="font-size:32rpx"></input>
   <!-- </view> -->
-  <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{perStudent}}" wx:key='index' bindtap='memberstar' data-index='{{index}}'>
+  <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{perStudent}}" wx:key='index' bindtap='searchList' data-index='{{index}}'>
     <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
     <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
     <view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>

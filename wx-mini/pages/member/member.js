@@ -32,6 +32,30 @@ Page({
       perStudent: this.data.perStudent
     })
   },
+
+  searchList: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var item = this.data.perStudent[index];
+    console.info("member.member");
+    console.info(item);
+    console.info(3333)
+    var url = 'memberDetail?name=' + item.name;
+    url += "&studentId=" + item.studentId;
+    url += "&cardCode=" + item.cardCode;
+    url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
+    url += "&birthday=" + item.birthday;
+    url += "&freeze=" + item.freeze;
+    url += "&sex=" + item.sex;
+    url += "&avatarUrl=" + item.avatarUrl;
+    console.info(url);
+    wx.navigateTo({
+      url: url,
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+
   member: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.memberList[index];
