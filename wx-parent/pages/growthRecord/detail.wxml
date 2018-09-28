@@ -6,7 +6,7 @@
       <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
     </navigator>
     <image src='../../image/head02.png' wx:else style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
-    <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
+    <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}" hover-class="none">
       <!-- <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
       <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
       <image wx:else src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
@@ -23,7 +23,7 @@
       <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
     </navigator> -->
     <view style='display:flex;justify-content: space-between;align-items:center;'>
-      <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
+      <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}" hover-class="none">
         <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
       </navigator>
       <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
@@ -47,7 +47,7 @@
           </block>
         </block>
 
-        <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=false" style="display:inline-block">
+        <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=false" style="display:inline-block" hover-class="none">
           <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
         </navigator>
       </view>
@@ -104,7 +104,7 @@
           <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
         </navigator>
         <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
-        <navigator url="teacher?teacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
+        <navigator url="teacher?teacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}" hover-class="none">
           <!-- <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
           <image wx:if="{{itemWithAppend.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
           <image wx:else src='{{itemWithAppend.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
@@ -119,7 +119,7 @@
 
 
         <view style='display:flex;justify-content: space-between;align-items:center;'>
-          <navigator url="teacherteacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
+          <navigator url="teacherteacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}" hover-class="none">
             <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{itemWithAppend.name}}</view>
           </navigator>
           <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{itemWithAppend.name}}</view>
@@ -148,7 +148,7 @@
             </block>
 
 
-            <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{itemWithAppend.authorId}}&orgAuthorType={{itemWithAppend.authorType}}&studentId={{itemWithAppend.studentId}}&hindname=false&callName={{itemWithAppend.name}}" style="display:inline-block">
+            <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{itemWithAppend.authorId}}&orgAuthorType={{itemWithAppend.authorType}}&studentId={{itemWithAppend.studentId}}&hindname=false&callName={{itemWithAppend.name}}" style="display:inline-block" hover-class="none">
               <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
             </navigator>
           </view>
