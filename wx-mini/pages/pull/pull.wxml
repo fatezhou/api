@@ -23,7 +23,7 @@
 </view>
 <view class='choose' wx:if="{{!hindname}}">
   <block wx:if="{{choosestudent}}">
-    <navigator url="chooseStudent">
+    <navigator url="chooseStudent" hover-class="none">
       <text>学员</text>
       <view class='cRight'>
         <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>

@@ -23,7 +23,7 @@
 </view>
 
 
-<view wx:if="{{!recordsList}}" style="display: flex;flex-direction: column;align-items: center;top:60%;position:fixed;width:750rpx;font-size:28rpx">
+<view wx:if="{{norecord}}" style="display: flex;flex-direction: column;align-items: center;top:60%;position:fixed;width:750rpx;font-size:28rpx">
   <image src="./../../image/icbook.png" style="height:66rpx;width:66rpx;margin-bottom:20rpx"></image>
   无记录
 </view>
@@ -31,7 +31,7 @@
   <view class='forlD' wx:for="{{allGrowthRecords}}" wx:for-item="item" wx:key='index'>
 
     <view wx:if="{{studentId == item.studentId}}">
-      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}'>
+      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}' hover-class="none">
         <view>
           <view class='toplD'>
             <view class='tlDleft'>
@@ -59,7 +59,7 @@
       <view wx:else>
         <view wx:if="{{item.isfold}}" bindtap='showmore' data-recordId='{{item.recordId}}' style="opacity:0">666</view>
       </view>
-      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}'>
+      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}' hover-class="none">
 
 
         <view style="margin-left:84rpx">
@@ -123,7 +123,7 @@
           </view>
         </view>
 
-        <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=true">
+        <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=true" hover-class="none">
           <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
         </navigator>
 
@@ -133,7 +133,7 @@
 
     <view wx:for='{{recordWithAppends}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' style='background:#FFF;font-size:30rpx;' wx:if="{{itemWithAppend.recordId == item.recordId}}">
       <view wx:for='{{itemWithAppend.append}}' wx:for-item='itemappend' wx:key='indexappend' wx:if="{{index <= 1}}">
-        <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true'>
+        <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true' hover-class="none">
           <view style="border-top:1rpx solid #eee;">
             <view style="opacity:0;font-size:20rpx">1</view>
             <!-- <image src='../../image/head02.png' mode='widthFix' style="width: 48rpx;float: left;border-radius: 100%;"></image> -->
@@ -164,7 +164,7 @@
               <image wx:for="{{itemappend.pictures}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill" data-showBigImg="{{imgitem}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
             <!-- </block> -->
           </view>
-          <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true'>
+          <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true' hover-class="none">
             <view style="margin-top:20rpx;">
               <!-- 点赞 -->
               <view wx:if="{{itemappend.like}}">
@@ -210,7 +210,7 @@
               </view>
 
 
-              <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{itemappend.authorId}}&orgAuthorType={{itemappend.authorType}}&studentId={{itemappend.studentId}}&hindname=true&callName={{itemappend.authorName}}">
+              <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{itemappend.authorId}}&orgAuthorType={{itemappend.authorType}}&studentId={{itemappend.studentId}}&hindname=true&callName={{itemappend.authorName}}" hover-class="none">
                 <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
               </navigator>
             </view>

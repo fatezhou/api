@@ -71,6 +71,9 @@ function login(callback) {
                   dataType: 'json',
                   responseType: 'text',
                   success: function(res) {
+                    if(res.data.data.records.length == 0){
+                      app.globalData.norecord = true
+                    }
                     console.info(res)
                     console.info('getGrowthRecordsWithoutAppend')
 

@@ -17,6 +17,8 @@ Page({
     name: "",
     qqq: '',
     Imgpath: '',
+
+    norecord: '',
   },
   //事件处理函数
   showmore: function(e) {
@@ -110,6 +112,11 @@ Page({
     var that = this
 
     http.login(function(res) {
+
+      that.setData({
+        norecord: app.globalData.norecord
+      })
+
       if (!app.globalData.recordId || app.globalData.recordId != res[0].recordId) {
         // console.info(1)
         app.globalData.recordId = res[0].recordId

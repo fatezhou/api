@@ -39,7 +39,7 @@
     <view>有效期</view>
     <view class='nameColor'>2019-3-1</view>
   </view>
-  <navigator url="parents?studentId={{studentId}}">
+  <navigator url="parents?studentId={{studentId}}" hover-class="none">
     <view class='MyInformationg' style='border:none;'>
       <view>更多</view>
 

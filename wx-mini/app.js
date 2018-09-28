@@ -71,5 +71,7 @@ App({
     stararrLength: null,
 
     likes:[],
+
+    norecord:'',
   }
 })

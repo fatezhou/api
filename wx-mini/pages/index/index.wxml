@@ -9,13 +9,13 @@
     </view>
   </navigator> -->
 </view>
-<view wx:if="{{!recordsList}}" style="display:flex;flex-direction:column;align-items:center;top:40%;position:fixed;width:750rpx;font-size:28rpx">
+<view wx:if="{{norecord}}" style="display:flex;flex-direction:column;align-items:center;top:40%;position:fixed;width:750rpx;font-size:28rpx">
   <image src="./../../image/icbook.png" style="height:66rpx;width:66rpx;margin-bottom:20rpx"></image>
   无记录
 </view>
 <view class='listDetail' wx:else>
   <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index'>
-    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}'>
+    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none">
       <view class='toplD'>
         <view class='tlDleft'>
           <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
@@ -38,7 +38,7 @@
     <!-- </block> -->
 
 
-    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}'>
+    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none">
       <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
         <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
       </view>
@@ -58,7 +58,7 @@
 
 </view>
 <view class='fixed'>
-  <navigator url='./../pull/pull?choosestudent=true'>
+  <navigator url='./../pull/pull?choosestudent=true' hover-class="none">
     <image src='./../../image/edit.png' mode='widthFix'></image>
   </navigator>
 </view>

@@ -29,10 +29,12 @@ Page({
     userId: '',
     Imgpath: '',
     avatarUrl: '',
+
+    norecord: '',
   },
 
   showmore: function(e) {
-    
+
     for (var o = 0; 0 < this.data.allGrowthRecords.length; o++) {
       if (this.data.allGrowthRecords[o].recordId == e.currentTarget.dataset.recordid) {
         this.data.allGrowthRecords[o].isfold = !this.data.allGrowthRecords[o].isfold
@@ -50,7 +52,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+  
     studentId = options.studentId
 
     this.setData({
@@ -227,10 +229,15 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
+        if (res.data.data.records.length == 0){
+          that.setData({
+            norecord:true
+          })
+        }
         // console.info(res)
         for (var t = 0; t < res.data.data.records.length; t++) {
           res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
-       
+
           res.data.data.records[t].isfold = true
           if (res.data.data.records[t].text.length > 100) {
             res.data.data.records[t].showTextBtn = true
