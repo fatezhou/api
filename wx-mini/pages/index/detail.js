@@ -167,6 +167,7 @@ Page({
         "orgAuthorType": 1
       },
       success: function(res) {
+        
         // console.info(res)
         if (res.data.code == 4) {
           wx.request({
@@ -178,7 +179,7 @@ Page({
               "authorId": gData.userId, //自己的id
               "authorType": 1, //1: teacher, 2: parent",
               "recordId": recordId,
-              "parentRecordId": that.data.recordId,
+              "parentRecordId": parseInt(that.data.recordId),
               'cancel': true
               // "orgAuthorId": authorId,
               // "orgAuthorType": 1
@@ -299,8 +300,8 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(e) {
-        // console.info(e)
-        // console.info('dsadasdasd===')
+        console.info(e)
+        console.info('dsadasdasd===')
         if (e.data.code == 0) {
           for (var t = 0; t < e.data.data.record.append.length; t++) {
             e.data.data.record.append[t].text = decodeURIComponent(e.data.data.record.append[t].text)

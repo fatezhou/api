@@ -87,18 +87,18 @@
 
           <!-- 没有点赞数据 -->
           <block wx:if="{{!item.like.teacher || item.like.teacher.length == 0}}">
-            <image src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
+            <image src='../../image/nonice.png' style='width:30rpx;margin-right:40rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
           </block>
           <!-- 有点赞数据 -->
           <block wx:else>
             <!-- 点赞数据没有你 -->
             <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikes' wx:if="{{teacherLikes != userId}}">
-              <image wx:if="{{index+1 == item.like.teacher.length}}" src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
+              <image wx:if="{{index+1 == item.like.teacher.length}}" src='../../image/nonice.png' style='width:30rpx;margin-right:40rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
 
             </block>
             <!-- 点赞数据有你 -->
             <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLike' wx:key='teacherLike' wx:if="{{teacherLike == userId}}">
-              <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
+              <image src='../../image/nice.png' style='width:30rpx;margin-right:40rpx;' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"></image>
             </block>
 
           </block>

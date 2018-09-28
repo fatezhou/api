@@ -37,15 +37,15 @@ Page({
   },
   charChange: function(e) {
     // console.info(e.detail)
-    var text = encodeURIComponent(e.detail.value)
-    // console.info(text)
+    var texts = encodeURIComponent(e.detail.value)
+    console.info(texts)
     this.setData({
-      text: text
+      calltext: texts
     })
   },
   submit: function() {
 
-    if (this.data.text == undefined || this.data.tempFilePaths == {}) {
+    if (this.data.calltext == undefined || this.data.tempFilePaths == {}) {
       wx.showToast({
         title: '您还没输入内容呢',
         icon: 'none',
@@ -105,16 +105,16 @@ Page({
     for (var i in this.data.prepareToUpload) {
       pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
     }
-    var text = null;
-    if (this.data.calltext) {
-      text = this.data.calltext + that.data.text
-      console.info(11111)
-      console.info(text)
-    } else {
-      text = that.data.text
-      console.info(22222)
-      console.info(text)
-    }
+    // var text = null;
+    // if (this.data.calltext) {
+    //   text = this.data.calltext + that.data.text
+    //   console.info(11111)
+    //   console.info(text)
+    // } else {
+    //   text = that.data.text
+    //   console.info(22222)
+    //   console.info(text)
+    // }
 
     console.info(pictureUrls)
     console.info('------------')
@@ -124,7 +124,7 @@ Page({
         "unionid": gData.unionid,
         "openid": gData.openid,
         "authorType": gData.userType, //1 teacher, 2 parent
-        "text": text,
+        "text": that.data.calltext,
         "authorId": gData.teacherInfo.teacherId,
         "studentId": that.data.studentId, //如果是评论的话, 则此项可以不用填,
         "pictureUrls": pictureUrls,
