@@ -41,12 +41,12 @@ Page({
         this.setData({
           allGrowthRecords: this.data.allGrowthRecords
         })
-        console.info(this.data.allGrowthRecords[o])
-        console.info(this.data.allGrowthRecords[o].isfold)
+        // console.info(this.data.allGrowthRecords[o])
+        // console.info(this.data.allGrowthRecords[o].isfold)
         break
       }
     }
-    console.info(e.currentTarget.dataset.recordid)
+    // console.info(e.currentTarget.dataset.recordid)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -123,6 +123,7 @@ Page({
         if (contact[i].studentId == self.data.recordsList[j].studentId) {
           self.data.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
 
+          // self.data.recordsList[j].text = decodeURIComponent(self.data.recordsList[j].text)
         }
       }
     }
@@ -157,8 +158,8 @@ Page({
         dataType: 'json',
         responseType: 'text',
         success: function(e) {
-          console.info(e.data.data.record)
-          console.info('e.data.data.record')
+          // console.info(e.data.data.record)
+          // console.info('e.data.data.record')
           if (e.data.code == 0) {
             for (var t = 0; t < e.data.data.record.length; t++) {
               e.data.data.record[t].text = decodeURIComponent(e.data.data.record[t].text)
@@ -176,6 +177,7 @@ Page({
               if (self.data.recordWithAppend.append[i].authorId === allTeacherInfo[j].teacherId) {
                 self.data.recordWithAppend.append[i].authorName = allTeacherInfo[j].nickname
                 self.data.recordWithAppend.append[i].avatarUrl = allTeacherInfo[j].avatarUrl
+                self.data.recordWithAppend.append[i].text = decodeURIComponent(self.data.recordWithAppend.append[i].text)
               }
             }
           }
@@ -195,7 +197,7 @@ Page({
       })
     }
     setTimeout(function() {
-      console.info(self.data.recordWithAppends)
+      // console.info(self.data.recordWithAppends)
     }, 2000)
 
   },
@@ -242,7 +244,7 @@ Page({
           if (res.data.data.records[t].text.length > 100) {
             res.data.data.records[t].showTextBtn = true
           }
-          console.info(res)
+          // console.info(res)
         }
         perGrowthRecords = res.data.data.records
         // console.log(perGrowthRecords)
@@ -261,25 +263,25 @@ Page({
   },
 
   like: function(e) {
-    console.info('recordWithAppends')
-    console.info(this.data.recordWithAppends)
+    // console.info('recordWithAppends')
+    // console.info(this.data.recordWithAppends)
     var gData = app.globalData
     var that = this
-    console.info(e)
+    // console.info(e)
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
     var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
 
-    console.info('like')
-    console.info(gData.unionid),
-      console.info(gData.openid),
-      console.info(4), //自己的id
-      console.info(1), //1: teacher, 2: parent",
-      console.info(recordId), //评论的id
-      console.info(parentRecordId), //记录的id
-      console.info(authorId), //评论者id
-      console.info(orgAuthorType) //评论者类型
+    // console.info('like')
+    // console.info(gData.unionid),
+    //   console.info(gData.openid),
+    //   console.info(4), //自己的id
+    //   console.info(1), //1: teacher, 2: parent",
+    //   console.info(recordId), //评论的id
+    //   console.info(parentRecordId), //记录的id
+    //   console.info(authorId), //评论者id
+    //   console.info(orgAuthorType) //评论者类型
 
 
 
@@ -302,7 +304,7 @@ Page({
 
                   // 3333
                   else if ((k + 1) == this.data.recordWithAppends[i].append[j].like.teacher.length) {
-                    console.info(k + 1)
+                    // console.info(k + 1)
 
                     this.data.recordWithAppends[i].append[j].like.teacher.push(gData.userId)
 
@@ -310,8 +312,8 @@ Page({
                       recordWithAppends: this.data.recordWithAppends
                     })
                     break;
-                    console.info(this.data.recordWithAppends)
-                    console.info('this.data.appendList[j].like.teacher----------')
+                    // console.info(this.data.recordWithAppends)
+                    // console.info('this.data.appendList[j].like.teacher----------')
                   }
                   // 2222
                 }
@@ -414,7 +416,7 @@ Page({
         "orgAuthorType": orgAuthorType //评论者类型
       },
       success: function(res) {
-        console.info(res)
+        // console.info(res)
         if (res.data.code == 4) {
           wx.request({
             url: gData.putRecordLike,
@@ -431,7 +433,7 @@ Page({
               "orgAuthorType": orgAuthorType
             },
             success: function(res) {
-              console.info(res)
+              // console.info(res)
 
               // that.changestudent(that.data.current)
               return

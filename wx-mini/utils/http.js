@@ -46,7 +46,8 @@ function login(callback) {
                 openid: app.globalData.openid,
               },
               success: function(res) {
-                // console.info(res)
+                console.info(res)
+                console.info('教师信息')
 
                 if (res.data.code === 0) {
                   if (res.data.data.teacherInfo.teacherId) {

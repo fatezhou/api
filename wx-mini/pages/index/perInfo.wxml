@@ -38,7 +38,7 @@
               <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}'></image>
               <image wx:else src='{{avatarUrl}}'></image>
 
-              <text class='phName'>{{item.name}}</text>
+              <text wx:for="{{allTeacherInfo}}" wx:for-item='teacheriteminfo' wx:key='teacherindexinfo' wx:if="{{item.authorId == teacheriteminfo.teacherId}}" class='phName'>{{teacheriteminfo.nickname}}</text>
             </view>
             <!-- <view class='tlDright'>
               <text>{{item.dateTime}}</text>
@@ -50,7 +50,9 @@
         <!-- <view class='words'>
           {{item.text}}
         </view> -->
-        <view class="words {{item.isfold ? 'hide' : 'show'}}"><text>{{item.text}}</text></view>
+        <view class="words {{item.isfold ? 'hide' : 'show'}}">
+          <text>{{item.text}}</text>
+        </view>
       </navigator>
       <view wx:if="{{item.showTextBtn}}">
         <view wx:if="{{item.isfold}}" bindtap='showmore' data-recordId='{{item.recordId}}' style="position:absolute;display:inline-block;right:60rpx;padding:10rpx 0 0;font-size:24rpx">全文</view>
@@ -72,7 +74,7 @@
           </view>
           <view class='picList th3' wx:if="{{item.pictureUrls !=[] && item.pictureUrls.length >= 3}}">
             <!-- <block wx:for="{{item.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex'> -->
-              <image wx:for="{{item.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill"></image>
+            <image wx:for="{{item.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill"></image>
             <!-- </block> -->
           </view>
         </view>
@@ -84,9 +86,9 @@
       <!-- 点赞 -->
       <view wx:for="{{recordWithAppends}}" wx:for-item='likesitem' wx:key='likesindex' wx:if="{{item.recordId == likesitem.recordId}}">
         <image wx:if="{{likesitem.likes.teacher.length > 0}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
-        <view wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
+        <view wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex' style="display:inline-block">
           <view wx:for="{{likesitem.likes.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
-            <text style="font-size:24rpx;color:#98A5A5;" wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allTeacheritem.nickname}} </text>
+            <text style="font-size:24rpx;color:#98A5A5;" wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">   {{allTeacheritem.nickname}}，</text>
           </view>
         </view>
       </view>
@@ -96,7 +98,7 @@
           </block>
         </block> -->
     </view>
-    <view style="display:flex;justify-content: space-between;align-items:center;margin:20rpx 0 0 84rpx;padding-bottom:50rpx;margin-top:100rpx">
+    <view style="display:flex;justify-content: space-between;align-items:center;margin:20rpx 0 0 84rpx;padding-bottom:50rpx;margin-top:20rpx">
       <view style="font-size: 24rpx;color:#98A5A5;">
         <text>{{item.dateTime}}</text>
       </view>
@@ -148,7 +150,9 @@
 
           <!-- <view style='width:600rpx;margin-left:90rpx;'> -->
 
-          <view class='words' style="margin-top:60rpx;margin-left:-16rpx"><text>{{itemappend.text}}</text></view>
+          <view class='words' style="margin-top:60rpx;margin-left:-16rpx">
+            <text>{{itemappend.text}}</text>
+          </view>
         </navigator>
         <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;margin-left:68rpx'>
 
@@ -161,7 +165,7 @@
           </view>
           <view class='picList th3' wx:if="{{itemappend.pictures.length >= 3}}">
             <!-- <view wx:for="{{itemappend.pictures}}" wx:for-item="imgitem" wx:key='imgindex'> -->
-              <image wx:for="{{itemappend.pictures}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill" data-showBigImg="{{imgitem}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
+            <image wx:for="{{itemappend.pictures}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill" data-showBigImg="{{imgitem}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
             <!-- </block> -->
           </view>
           <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true' hover-class="none">
@@ -169,9 +173,9 @@
               <!-- 点赞 -->
               <view wx:if="{{itemappend.like}}">
                 <image wx:if="{{itemappend.like.teacher.length > 0}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
-                <view wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
+                <view wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex' style="display:inline-block">
                   <view wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
-                    <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allTeacheritem.nickname}} </text>
+                    <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allTeacheritem.nickname}}， </text>
                   </view>
                 </view>
               </view>
@@ -197,13 +201,15 @@
               <!-- 有点赞数据 -->
               <view wx:else>
                 <!-- 点赞数据没有你 -->
-                <view wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikes' wx:if="{{teacherLikes != userId}}">
-                  <image wx:if="{{index+1 == itemappend.like.teacher.length}}" src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}"
-                    data-parentRecordId="{{item.recordId}}"></image>
+                <view wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikesine' wx:if="{{teacherLikes != userId}}">
+                  <view wx:if="{{index + 1 == itemappend.like.teacher.length}}">
+                    <image src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}" data-parentRecordId="{{item.recordId}}"></image>
+                  </view>
+
 
                 </view>
                 <!-- 点赞数据有你 -->
-                <view wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLike' wx:key='teacherLike' wx:if="{{teacherLike == userId}}">
+                <view wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLike' wx:key='teacherLikeine' wx:if="{{teacherLike == userId}}">
                   <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}" data-parentRecordId="{{item.recordId}}"></image>
                 </view>
 

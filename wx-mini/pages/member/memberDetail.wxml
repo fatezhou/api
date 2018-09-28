@@ -56,21 +56,32 @@
       <image src='../../image/RightIcon.png' style='width:20rpx;' mode='widthFix'></image>
     </view>
   </view>
-  <view style='padding:30rpx;width:690rpx;display:flex;justify-content:space-around;'>
-    <view style='width:160rpx;height:160rpx;background:#f2f4f7;text-align:center;' bindtap='toAddRecard'>
+
+
+
+  <view style='padding:30rpx;width:690rpx;display:flex;'>
+    <view style='width:160rpx;height:160rpx;background:#f2f4f7;text-align:center;margin-right:10rpx' bindtap='toAddRecard'>
       <image src='../../image/add.png' style='width:60rpx;height:60rpx;margin-top:50rpx;'></image>
     </view>
     <!-- <block wx:for="{{Img}}" wx:for-item='item' wx:key="index" wx:if='{{index < 3}}'>
       <image src="{{item}}" style='width:160rpx;height:160rpx;'></image>
     </block> -->
     <view wx:for="{{recordList}}" wx:for-item='item' wx:key="index">
-      <image wx:if="{{item.pictureUrls[0]}}" src="{{item.pictureUrls[0]}}" style='width:160rpx;height:160rpx;'></image>
-      <view wx:else style="width:160rpx;height:160rpx;margin-top:35rpx"><text class="words">{{item.text}}</text></view>
+      <image wx:if="{{item.pictureUrls[0]}}" src="{{item.pictureUrls[0]}}" style='width:160rpx;height:160rpx;margin-right:10rpx'></image>
+      <view wx:else style="width:160rpx;height:160rpx;margin-top:35rpx;margin-right:10rpx">
+        <text class="words">{{item.text}}</text>
+      </view>
       <!-- <view style='position:absolute;height:50rpx;margin-top:-50rpx;background-color:#fff;color:#fff;width:160rpx'>e</view> -->
     </view>
-
-
   </view>
+
+  <!-- <view style='padding:30rpx;width:690rpx;display:flex;' wx:else>
+    <view style='width:160rpx;height:160rpx;background:#f2f4f7;text-align:center;' bindtap='toAddRecard'>
+      <image src='../../image/add.png' style='width:60rpx;height:60rpx;margin-top:50rpx;'></image>
+    </view>
+  </view> -->
+
+
 </view>
 
 <view style='padding-left:30rpx;margin-top:30rpx;background:#fff;font-size:32rpx;'>

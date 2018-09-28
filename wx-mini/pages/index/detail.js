@@ -162,7 +162,7 @@ Page({
         "authorId": gData.userId, //自己的id
         "authorType": 1, //1: teacher, 2: parent",
         "recordId": recordId,
-        "parentRecordId": that.data.recordId,
+        "parentRecordId": parseInt(that.data.recordId),
         "orgAuthorId": authorId,
         "orgAuthorType": 1
       },

@@ -279,20 +279,21 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
-
+    console.info(app.globalData.userId)
     wx.request({
       url: app.globalData.getChildGrowthRecordCount,
       data: {
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
-        "authorId": app.globalData.userId,
+        // "authorId": app.globalData.userId,
         "authorType": 1, //1: teacher, 2: parent",
         "studentId": this.data.studentId
       },
       method: "post",
       success: function(res) {
         app.globalData.studentRecordCount = res.data.data.count
-        console.info(res.data.data.count)
+        console.info(res)
+        console.info('成长记录')
         that.setData({
           recordSize: "" + res.data.data.count + "条成长记录"
         })
