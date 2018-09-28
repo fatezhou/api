@@ -53,7 +53,7 @@
       </view>
 
     </view>
-    <view>{{item.text}}</view>
+    <view><text>{{item.text}}</text></view>
 
 
 
@@ -157,7 +157,7 @@
 
 
 
-        <view>{{itemWithAppend.text}}</view>
+        <view><text>{{itemWithAppend.text}}</text></view>
 
 
         <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:60rpx;'>

@@ -61,7 +61,7 @@
     <!-- <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
   </view>
 
-  <view style='width:600rpx;margin-left:20rpx;'>
+  <view style='width:600rpx;margin-left:20rpx;margin-top:10rpx'>
 
     <view style='display:flex;justify-content: space-between;align-items:center;'>
       <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">

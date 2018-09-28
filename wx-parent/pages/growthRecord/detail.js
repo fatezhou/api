@@ -261,6 +261,8 @@ Page({
             if (app.globalData.allTeacherInfo[j].teacherId == self.data.appendList[i].authorId) {
               self.data.appendList[i].name = app.globalData.allTeacherInfo[j].nickname
               self.data.appendList[i].avatarUrl = app.globalData.allTeacherInfo[j].avatarUrl
+              self.data.appendList[i].text = decodeURIComponent(self.data.appendList[i].text)
+              
             }
           }
         }

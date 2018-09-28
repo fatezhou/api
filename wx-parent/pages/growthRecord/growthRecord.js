@@ -483,6 +483,7 @@ Page({
         for (var i in getrecordsList) {
           getrecordsList[i].name = " ";
           getrecordsList[i].avatarUrl = " ";
+          getrecordsList[i].text = decodeURIComponent(getrecordsList[i].text)
         }
 
         that.getContactFromGData();
