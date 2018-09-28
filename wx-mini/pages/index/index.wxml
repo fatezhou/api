@@ -15,7 +15,7 @@
 </view>
 <view class='listDetail' wx:else>
   <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index'>
-    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none">
+    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none" style="padding-bottom:40rpx">
       <view class='toplD'>
         <view class='tlDleft'>
           <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
@@ -27,18 +27,18 @@
         </view>
 
       </view>
-      <view class="words {{itemObject.isfold ? 'hide' : 'show'}}"><text>{{itemObject.text}}</text></view>
-    </navigator>
+      <view class="words {{itemObject.isfold ? 'hide' : 'show'}}" style="margin-bottom:20rpx"><text>{{itemObject.text}}</text></view>
+    <!-- </navigator> -->
     <!-- <block wx:if="{{itemObject.showTextBtn}}"> -->
       <view wx:if="{{itemObject.isfold && itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:absolute;padding:10rpx 0 0;font-size:24rpx;display:inline-block;right:60rpx;">全文</view>
       <view wx:elif="{{itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:absolute;padding:10rpx 0 0;font-size:24rpx;display:inline-block;right:60rpx;">收起</view>
     <!-- </block> -->
     <!-- <block wx:else> -->
-      <view bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="opacity:0;height:100rpx">666</view>
+      <!-- <view bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="opacity:0;height:100rpx">666</view> -->
     <!-- </block> -->
 
-
-    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none">
+<!-- 
+    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none"> -->
       <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
         <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
       </view>

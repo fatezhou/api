@@ -1,7 +1,7 @@
 <!--pages/index/detail.wxml-->
 <view style='padding:30rpx;background:#fff;margin-top:20rpx;'>
   <view style='font-size:30rpx;word-break: break-all;'><text>{{mainText}}</text></view>
-  <view style='font-size:24rpx;color:#8f8e94;margin-top:60rpx;'>
+  <view style='font-size:24rpx;color:#8f8e94;margin-top:20rpx;'>
     <view wx:for="{{imgUrl}}" wx:for-item="item" wx:key='index' style="display: inline-block;lign-items:center;">
       <view class='picList th1' wx:if="{{imgUrllength == 1}}">
         <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg' mode="aspectFill"></image>
@@ -53,7 +53,7 @@
   <view style='width:600rpx;margin-left:20rpx;'>
     <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.authorName}}</view>
     <view style="word-break: break-all;"><text>{{item.text}}</text></view>
-    <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:60rpx;'>
+    <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:20rpx;'>
 
       <view class='picList th1' wx:if="{{item.pictures.length == 1}}">
         <image src='{{item.pictures[0]}}' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg' mode="aspectFill"></image>
