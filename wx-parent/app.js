@@ -26,14 +26,14 @@ App({
   globalData: {
     userInfo: null,
     userId: '',
-    studentId: [41, 44, 43],
+    studentId: [115, 44, 43],
     studentList: [{
       pic: '',
       // ../../ image / head.png
       name: '曹语荞',
       sex: 0,
       recardCount: 162,
-      studentId: 41,
+      studentId: 141,
     }, {
       pic: '',
       // ../../ image / head02.png

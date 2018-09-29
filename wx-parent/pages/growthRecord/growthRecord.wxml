@@ -152,7 +152,7 @@
     </view>
 
     <!-- 评论 -->
-    <view wx:for='{{item.append}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' wx:if="{{index <= 1}}" style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-top:1rpx solid #e5e5ea;margin-top:20rpx;width:750rpx;margin-left:-110rpx;'>
+    <view wx:for='{{item.append}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' wx:if="{{index <= 1}}" style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-top:1rpx solid #e5e5ea;margin-top:20rpx;width:690rpx;margin-left:-110rpx;'>
       <view>
         <navigator url="teacher?teacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}" hover-class="none" >
           <!-- <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
