@@ -74,6 +74,8 @@ function login(callback) {
                   success: function(res) {
                     if(res.data.data.records.length == 0){
                       app.globalData.norecord = true
+                    }else{
+                      app.globalData.norecord = false
                     }
                     console.info(res)
                     console.info('getGrowthRecordsWithoutAppend')
