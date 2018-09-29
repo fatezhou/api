@@ -150,8 +150,8 @@
 
           <!-- <view style='width:600rpx;margin-left:90rpx;'> -->
 
-          <view class='words' style="margin-top:60rpx;margin-left:-16rpx;margin-bottom:20rpx">
-            <text style='margin-left:-64rpx'>{{itemappend.text}}</text>
+          <view class='words' style="margin-top:80rpx;margin-bottom:20rpx">
+            <text>{{itemappend.text}}</text>
           </view>
         </navigator>
         <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;margin-left:68rpx'>

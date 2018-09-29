@@ -36,12 +36,10 @@ Page({
     avatarUrl: '',
   },
   charChange: function(e) {
-    // console.info(e.detail)
-    var texts = encodeURIComponent(e.detail.value)
-    console.info(texts)
     this.setData({
-      calltext: texts
+      calltext: encodeURIComponent(e.detail.value)
     })
+    console.info(e.detail.value)
   },
   submit: function() {
 
@@ -99,6 +97,13 @@ Page({
   },
 
   addRecard() {
+    wx.showToast({
+      title: '发送中...',
+      icon: 'success',
+      image: '',
+      duration: 1000,
+      mask: true,
+    })
     var gData = app.globalData;
     var that = this;
     var pictureUrls = [];
@@ -146,17 +151,12 @@ Page({
           duration: 1000,
           mask: true,
           success: function(res) {
-            setTimeout(function(){
+            setTimeout(function() {
               wx.navigateBack({
-                delta:1
+                delta: 1
               })
-            },1000)
-            // wx.navigateBack({
-            //   delta: 1,
-            // })
+            }, 1000)
           },
-          fail: function(res) {},
-          complete: function(res) {},
         })
       },
       fail: function(res) {
@@ -173,7 +173,7 @@ Page({
     this.setData({
       Imgpath: app.globalData.Imgpath,
     })
-    if (options.avatarUrl){
+    if (options.avatarUrl) {
       this.setData({
         avatarUrl: options.avatarUrl
       })
@@ -365,9 +365,9 @@ Page({
       image: '',
       duration: 1000,
       mask: true,
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
   // 选取图片

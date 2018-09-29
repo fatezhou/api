@@ -107,13 +107,20 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    this.setData({
+      allGrowthRecords: '',
+      recordsList: '',
+      appendList: '',
+      recordWithAppend: '',
+      recordWithAppends: [],
+    })
     this.getGrowthRecords()
     wx.stopPullDownRefresh()
   },
 
   getContact: function() {
     var self = this;
-    var that = this;
+    // var that = this;
 
     var contact = app.globalData.allStudent
     // console.info(self.data.recordsList)
@@ -134,19 +141,19 @@ Page({
 
 
 
-    that.setData({
+    self.setData({
       allGrowthRecords: app.globalData.contact,
       studentId: studentId,
 
     })
 
 
-    var recordsList = self.data.recordsList
+    // var recordsList = self.data.recordsList
 
-    for (var i = 0; i < recordsList.length; i++) {
+    for (var i = 0; i < app.globalData.contact.length; i++) {
       var self = this;
       var gData = app.globalData;
-      var recordIds = recordsList[i].recordId
+      var recordIds = app.globalData.contact[i].recordId
       wx.request({
         url: gData.oneGrowthRecordWithAppendUrl,
         data: {
@@ -196,9 +203,9 @@ Page({
 
       })
     }
-    setTimeout(function() {
+    // setTimeout(function() {
       // console.info(self.data.recordWithAppends)
-    }, 2000)
+    // }, 2000)
 
   },
 
@@ -246,7 +253,7 @@ Page({
           }
           // console.info(res)
         }
-        perGrowthRecords = res.data.data.records
+        // perGrowthRecords = res.data.data.records
         // console.log(perGrowthRecords)
         for (var i in res.data.data.records) {
           res.data.data.records[i].name = " ";
@@ -436,7 +443,7 @@ Page({
               // console.info(res)
 
               // that.changestudent(that.data.current)
-              return
+              // return
             }
           })
         }

@@ -15,7 +15,7 @@ Page({
     studentId: 0,
     orgAuthorId: 0,
     orgAuthorType: 0,
-    name: "加载中",
+    name: " ",
     recordSize: "正在查询记录个数",
 
     imgUrl: [],
@@ -32,7 +32,7 @@ Page({
     canShowBigImg: false,
     allteacherInfo: [],
 
-    likenumber: '',
+    likenumber: 0,
     userId: '',
     Imgpath: '',
     avatarUrl: '',
@@ -43,7 +43,10 @@ Page({
    */
   onLoad: function(options) {
     this.data.Imgpath = app.globalData.Imgpath
-    this.data.avatarUrl = options.avatarUrl
+    if (options.avatarUrl){
+      this.data.avatarUrl = options.avatarUrl
+    }
+    
     this.data.userId = app.globalData.userId
     this.data.allTeacherInfo = app.globalData.allTeacherInfo
     this.data.recordId = options.recordId;
@@ -188,7 +191,7 @@ Page({
               // console.info(res)
 
               // that.show()
-              return
+              // return
             }
           })
         }
@@ -307,7 +310,12 @@ Page({
             e.data.data.record.append[t].text = decodeURIComponent(e.data.data.record.append[t].text)
           }
           self.data.appendList = e.data.data.record.append;
-          self.data.likenumber = e.data.data.record.like;
+          if (e.data.data.record.likes){
+            self.data.likenumber = e.data.data.record.likes.teacher.length + e.data.data.record.likes.parent.length;
+          }else{
+            self.data.likenumber = 0
+          }
+          
           // app.globalData.likes = e.data.data.record.likes
           // console.info()
           self.setData(self.data);
