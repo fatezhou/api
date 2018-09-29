@@ -35,6 +35,11 @@ function CuteTool(){
           });
         return log4js.getLogger('info');;
     }
+    this.GetMongo = function(){
+        var Mongo = require("./mongoCtrl.js");
+        var res = new Mongo;
+        return res;
+    }
 }
 
 module.exports = CuteTool;
