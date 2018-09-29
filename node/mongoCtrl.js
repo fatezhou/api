@@ -2,10 +2,12 @@ var MongoClient = require('mongodb');
 var url = "mongodb://localhost:27017";
 
 function Mongo(){    
+    var dbconnector = null;
     this.Query = function(obj, callback, mongoUrl, table){
         if(!mongoUrl){
             mongoUrl = url;
         }
+
         MongoClient.connect(mongoUrl, {useNewUrlParser:true}, function(err, db){
             if(err){
                 callback({error:true, msg:"connect error"});
@@ -31,24 +33,30 @@ function Mongo(){
             mongoUrl = url;
         }
 
-        MongoClient.connect(mongoUrl, {useNewUrlParser:true}, function(err, db){
-            if(err){
-                callback({error:true, msg:err});
-            }else{
-                var dbo = db.db("bz");
-                if(!table){
-                    table = "clientState";
-                }
-                dbo.collection(table).insertOne(obj, function(err, res){
-                    if(err){
-                        callback({error:true, msg:err});
-                    }else{
-                        db.close();
-                        callback({error:false, msg:"ok"});                        
+        
+        if(!dbconnector){
+            MongoClient.connect(mongoUrl, {useNewUrlParser:true}, function(err, db){
+                dbconnector = db;
+                if(err){
+                    callback({error:true, msg:err});
+                }else{
+                    var dbo = db.db("bz");
+                    if(!table){
+                        table = "clientState";
                     }
-                })
-            }
-        })
+                    dbo.collection(table).insertOne(obj, function(err, res){
+                        if(err){
+                            callback({error:true, msg:err});
+                        }else{
+                            //db.close();
+                            callback({error:false, msg:"ok"});                        
+                        }
+                    })
+                }
+            })
+        }
+
+        
     };
 
     this.Update = function(conditionObj, commitObj, callback, mongoUrl, table){
@@ -64,12 +72,13 @@ function Mongo(){
                 if(!table){
                     table = "clientState";
                 }
-                dbo.collection(table).updateMany(conditionObj, commitObj, function(err, res){
+                console.info(mongoUrl, table);
+                dbo.collection(table).updateMany(conditionObj, {$set: commitObj}, function(err, res){
                     if(err){
-                        callback({error:true, msg:err});
+                        callback({error:true, count:0, msg:err});
                     }else{
                         db.close();
-                        callback({error:false, count:res.result.nModified});                        
+                        callback({error:false, count:res.result});                        
                     }
                 })
             }
@@ -101,18 +110,18 @@ function Mongo(){
     }
 }
 
-var mgdb = new Mongo;
-mgdb.Insert({id:1, state:"online"}, function(e){
-    console.info(e);
-})
-
-// mgdb.Query({id:1}, function(e){
+// var mgdb = new Mongo;
+// mgdb.Insert({id:1, state:"online"}, function(e){
 //     console.info(e);
 // })
 
-mgdb.Update({id:1}, {$set:{state:"online", text:"e"}}, function(e){
-    console.info(e);
-});
+// // mgdb.Query({id:1}, function(e){
+// //     console.info(e);
+// // })
+
+// mgdb.Update({id:1}, {$set:{state:"online", text:"e"}}, function(e){
+//     console.info(e);
+// });
 
 // mgdb.Delete({id:1}, function(e){
 //     console.info(e);

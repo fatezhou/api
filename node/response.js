@@ -21,6 +21,12 @@ function CuteResponse(){
     this.BadSQL = function(){
         return {code:4, data:{}, error:"sql error"};
     }
+    this.BadMongo = function(){
+        return {code:5, data:{}, error:"mongo error"};
+    }
+    this.BadParam = function(){
+        return {code:6, data:{}, error:"param error"};
+    }
     this.Succ = function(succData){
         return {code:0, data:succData, error:"成功"}
     }
