@@ -1,4 +1,9 @@
 <!--index.wxml-->
+<form bindsubmit="formSubmit_collect" report-submit="true">
+<!--原有业务代码 --> 
+<button formType="submit" hover-class="none" class='invisibleclass'>消息提醒测试模块</button>
 
+<!--原有业务代码 --> 
+</form>
 <import src="../../template/template.wxml" />
 <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

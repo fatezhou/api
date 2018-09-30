@@ -16,14 +16,14 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function() {
     template.tabbar("tabBar", 0, this)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -45,6 +45,27 @@ Page({
       })
     }
   },
+
+  formSubmit_collect: function(e) {
+    console.info(e)
+    let formId = e.detail.formId;
+    console.info(formId)
+    wx.request({
+      url: 'https://api.minidope.com/api/v1/put_form_id',
+      data: {
+        "authorId": 1,
+        "authorType": 2,
+        "formId": formId,
+        "openId": app.globalData.openid,
+        "unionId": app.globalData.unionid
+      },
+      method: 'post',
+      success: function(res) {
+        console.info(res)
+      }
+    })
+  },
+
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
