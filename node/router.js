@@ -108,6 +108,14 @@ function CuteRouter(){
                 var ApiGetPrePics = require("./apis/api_get_pre_pics.js");
                 baseApi = new ApiGetPrePics;
                 break;
+            case "put_form_id":
+                var ApiPutFormId = require("./apis/api_put_form_id.js");
+                baseApi = new ApiPutFormId;
+                break;
+            case "heart_beat":
+                var ApiHeartBeat = require("./apis/api_heart_beat.js");
+                baseApi = new ApiHeartBeat;
+                break;
             default:
                 callback({code:4, data:{}, error:"api错误"});
                 return;
