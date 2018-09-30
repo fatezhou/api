@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/unBound/index",
     "pages/growthRecord/growthRecord",
     "pages/growthRecord/detail",
     "pages/growthRecord/teacher",

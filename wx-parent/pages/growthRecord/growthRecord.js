@@ -391,12 +391,16 @@ Page({
               }
             }
             if (app.globalData.recordsList[x].append) {
+             
               // 代码改动区域  authorType:1:teacher 2:parent --> 循环内  allTeacherInfo 换成 allUserInfo
               for (var y = 0; y < app.globalData.allUserInfo.length; y++) {
                 for (var z = 0; z < app.globalData.recordsList[x].append.length; z++) {
                   app.globalData.recordsList[x].append[z].text = decodeURIComponent(app.globalData.recordsList[x].append[z].text)
                   if (app.globalData.recordsList[x].append[z].authorType == 1) {
                     if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allUserInfo[y].teacherId) {
+                      console.info(app.globalData.allUserInfo[y].teacherId)
+                      console.info(app.globalData.recordsList[x].append[z].authorId)
+                      console.info(app.globalData.allUserInfo[y])
                       app.globalData.recordsList[x].append[z].name = app.globalData.allUserInfo[y].nickname
                       app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allUserInfo[y].avatarUrl
                       // app.globalData.recordsList[x].append[z].isfold = true
@@ -405,7 +409,12 @@ Page({
                       // }
                     }
                   } else if (app.globalData.recordsList[x].append[z].authorType == 2) {
+                    console.info(app.globalData.allUserInfo[y])
+                    console.info(app.globalData.recordsList[x].append[z])
                     if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allUserInfo[y].parentId) {
+                      console.info(app.globalData.allUserInfo[y].parentId)
+                      console.info(app.globalData.recordsList[x].append[z].authorId)
+                      console.info(app.globalData.allUserInfo)
                       app.globalData.recordsList[x].append[z].name = app.globalData.allUserInfo[y].name
                       app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allUserInfo[y].avatarUrl
                       // app.globalData.recordsList[x].append[z].isfold = true
@@ -418,6 +427,7 @@ Page({
                   // <-- 代码改动区域
                 }
               }
+              console.info(app.globalData.recordsList[x].append)
             }
 
           }
@@ -568,7 +578,7 @@ Page({
           }
         } else if (getrecordsList[j].authorType == 2) {
           if (app.globalData.allUserInfo[i].parentId == getrecordsList[j].authorId) {
-            getrecordsList[j].name = (app.globalData.allUserInfo[i].nickname == "" ? app.globalData.allUserInfo[i].name : app.globalData.allUserInfo[i].nickname);
+            getrecordsList[j].name = app.globalData.allUserInfo[i].name;
             getrecordsList[j].avatarUrl = app.globalData.allUserInfo[i].avatarUrl;
           }
         }

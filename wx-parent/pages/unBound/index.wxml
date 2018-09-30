@@ -1,0 +1,22 @@
+<!--pages/unBound/index.wxml-->
+<view>
+  <form bindsubmit='phoneBound'>
+    <view class='phoneNumber bg_f'>
+      <view>
+        手机号码
+      </view>
+      <input type='number' placeholder='输入手机号码' name='phone' bindinput='getPhone'/>
+    </view>
+    <view class='verification bg_f'>
+      <view class='verificationCode'>
+        验证码
+      </view>
+      <input placeholder='验证码' name='code' bindinput='getCode'/>
+      <button class='send' disabled='{{codeDisabled}}' bindtap='send'>
+        {{codeContent}}
+      </button>
+    </view>
+    
+    <button form-type='submit' class='mt_5' bindtap='phoneBound'>确定</button>
+  </form>
+</view>
