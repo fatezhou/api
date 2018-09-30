@@ -48,6 +48,8 @@ function getHeadImg(callback) {
 
 function getParentInfo(callback) {
   // 通过uid获取教师信息  改为获取家长信息
+  console.info(app.globalData.unionid)
+  console.info(app.globalData.openid)
   wx.request({
     // 改为获取家长info
     url: app.globalData.minodopeApi.getParentInfo,
@@ -55,6 +57,9 @@ function getParentInfo(callback) {
     data: {
       unionid: app.globalData.unionid,
       openid: app.globalData.openid,
+      // startPage: 0,//起始页码，从第几页开始获取记录，例如：从头一页开始获取，那么 startPage=0
+      // pageSize: 10,//每页包含记录数，例如：一次要请求 2 页，每页包含 10 条记录，那么 pageSize=10
+      // pages: 10    //要获取多少页，例如：一次请求 2 页，pages=2，如果每页包含 10 条记录，总共获取了 20 条记录
     },
     success: function(res) {
       console.info(res)
@@ -94,7 +99,7 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
     dataType: 'json',
     responseType: 'text',
     success: function(res) {
-      if(res.data.data.records.length != 0){
+      if (res.data.data.records.length != 0) {
         console.info(res)
         console.info('getGrowthRecordsWithoutAppend')
         app.globalData.allGrowthRecords = res.data.data.records
@@ -114,7 +119,7 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
         app.globalData.indexSize = res.data.data.size
 
         return callback(0)
-      }else{
+      } else {
         return callback(1)
       }
 
@@ -153,7 +158,32 @@ function getTeachers(callback) {
     fail: function(res) {},
     complete: function(res) {},
   })
-}
+};
+
+// 获取所有家长  --> 新增代码
+function getParents(callback) {
+  wx.request({
+    url: app.globalData.minodopeApi.getParentsInfo,
+    method: 'POST',
+    data: {
+      unionid: app.globalData.unionid,
+      openid: app.globalData.openid,
+    },
+    success: function (res) {
+      console.info(res)
+      console.info('getParents')
+
+      if (res.data.code == 0) {
+        // 所有家长信息保存本地
+        if (res.data.data.records) {
+          app.globalData.allParentInfo = res.data.data.records
+        }
+      }
+      return callback(0)
+    },
+  })
+};
+//  <-- 新增代码
 
 module.exports = {
   login: login,
@@ -161,4 +191,7 @@ module.exports = {
   getParentInfo: getParentInfo,
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
   getTeachers: getTeachers,
+  //  -->  新增代码
+  getParents: getParents,
+  // <-- 新增代码
 }

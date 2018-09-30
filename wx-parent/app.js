@@ -50,7 +50,7 @@ App({
       studentId: 43,
     }, ],
     // 教师端1 ,家长端2 测试用记得改
-    userType: 1,
+    userType: 2,
     unionid: "",
     openid: "",
     token: "",
@@ -66,16 +66,29 @@ App({
       putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
       getCdnToken: 'https://api.minidope.com/api/v1.0/get_cdn_token',
       putNewRecord: 'https://api.minidope.com/api/v1.0/put_new_record',
+
+      // 获得全部家长信息  --> 新增代码
+      getParentsInfo: "https://api.minidope.com/api/v1.0/get_parents_info",
+      //  <-- 新增代码
     },
     qiniup: 'https://up-z2.qiniup.com',
     headImg: 'https://ouat-file.buzaishudian.com/images/wx-mini/teacher/ui/default-avatar.png',
     Imgpath: '',
 
     allTeacherInfo: null,
+    // 所有家长信息  --> 新增代码
+    allParentInfo: null,
+    // 所有用户信息  包括所有家长和教师的信息  id区别: 'teacherId' 和 'parentId'
+    // 记录和评论里面id的区别方式 : authorid可能一样 区别方式是authorType 1:'teacher' 2:'parent'
+    allUserInfo:null,
+    //  <-- 新增代码
     recordsList: '',
     // 记录条数
     indexSize: '',
     detailonShow: false,
     recordId: '',
+
+
+    teachersInfo: null,
   }
 })

@@ -14,11 +14,13 @@ Page({
     recordsList: '',
     appendList: '',
     recordSize: '',
-    allTeacherInfo: '',
+    // 字段更换
+    // allTeacherInfo: '',
+    allUserInfo: '',
     recordId: '',
 
     userId: '',
-    Imgpath:'',
+    Imgpath: '',
   },
 
   showBigImg: function(e) {
@@ -41,23 +43,23 @@ Page({
     //   if (this.data.recordsList[r].recordId == parentRecordId) {
     for (var j = 0; j < this.data.appendList.length; j++) {
       if (this.data.appendList[j].recordId == recordId) {
-
+        // 代码改动区域   --起始--   -->  teacher 改为 parent
         if (this.data.appendList[j].like) {
-          if (this.data.appendList[j].like.teacher.length > 0) {
-            for (var k = 0; k < this.data.appendList[j].like.teacher.length; k++) {
+          if (this.data.appendList[j].like.parent.length > 0) {
+            for (var k = 0; k < this.data.appendList[j].like.parent.length; k++) {
               // 已经点赞了 就取消
-              if (this.data.appendList[j].like.teacher[k] == gData.userId) {
+              if (this.data.appendList[j].like.parent[k] == gData.userId) {
 
-                this.data.appendList[j].like.teacher.splice(k, 1)
+                this.data.appendList[j].like.parent.splice(k, 1)
                 that.setData({
                   appendList: this.data.appendList
                 })
                 console.info(this.data.appendList)
                 console.info('splice')
-              } else if ((k + 1) == this.data.appendList[j].like.teacher.length) {
+              } else if ((k + 1) == this.data.appendList[j].like.parent.length) {
                 console.info(k + 1)
 
-                this.data.appendList[j].like.teacher.push(gData.userId)
+                this.data.appendList[j].like.parent.push(gData.userId)
 
                 that.setData({
                   appendList: this.data.appendList
@@ -69,7 +71,7 @@ Page({
 
             }
           } else {
-            this.data.appendList[j].like.teacher[0] = gData.userId
+            this.data.appendList[j].like.parent[0] = gData.userId
 
             that.setData({
               appendList: this.data.appendList
@@ -78,11 +80,11 @@ Page({
 
         } else {
           var like = []
-          var teacher = []
+          var parent = []
           this.data.appendList[j].like = {}
-          this.data.appendList[j].like.teacher = []
+          this.data.appendList[j].like.parent = []
 
-          this.data.appendList[j].like.teacher[0] = gData.userId
+          this.data.appendList[j].like.parent[0] = gData.userId
 
           that.setData({
             appendList: this.data.appendList
@@ -97,21 +99,21 @@ Page({
         if (this.data.recordsList[j].recordId == recordId) {
 
           if (this.data.recordsList[j].likes) {
-            if (this.data.recordsList[j].likes.teacher.length > 0) {
-              for (var k = 0; k < this.data.recordsList[j].likes.teacher.length; k++) {
+            if (this.data.recordsList[j].likes.parent.length > 0) {
+              for (var k = 0; k < this.data.recordsList[j].likes.parent.length; k++) {
                 // 已经点赞了 就取消
-                if (this.data.recordsList[j].likes.teacher[k] == gData.userId) {
+                if (this.data.recordsList[j].likes.parent[k] == gData.userId) {
 
-                  this.data.recordsList[j].likes.teacher.splice(k, 1)
+                  this.data.recordsList[j].likes.parent.splice(k, 1)
                   that.setData({
                     recordsList: this.data.recordsList
                   })
                   // console.info(this.data.recordsList)
                   // console.info('splice')
-                } else if ((k + 1) == this.data.recordsList[j].likes.teacher.length) {
+                } else if ((k + 1) == this.data.recordsList[j].likes.parent.length) {
                   // console.info(k + 1)
 
-                  this.data.recordsList[j].likes.teacher.push(gData.userId)
+                  this.data.recordsList[j].likes.parent.push(gData.userId)
 
                   that.setData({
                     recordsList: this.data.recordsList
@@ -123,7 +125,7 @@ Page({
 
               }
             } else {
-              this.data.recordsList[j].likes.teacher[0] = gData.userId
+              this.data.recordsList[j].likes.parent[0] = gData.userId
 
               that.setData({
                 recordsList: this.data.recordsList
@@ -132,11 +134,11 @@ Page({
 
           } else {
             var likes = []
-            var teacher = []
+            var parent = []
             this.data.recordsList[j].likes = {}
-            this.data.recordsList[j].likes.teacher = []
+            this.data.recordsList[j].likes.parent = []
 
-            this.data.recordsList[j].likes.teacher[0] = gData.userId
+            this.data.recordsList[j].likes.parent[0] = gData.userId
 
             that.setData({
               recordsList: this.data.recordsList
@@ -145,6 +147,8 @@ Page({
         }
       }
     }
+
+    // 代码改动区域   --终止--   -->
     //   }
     // }
 
@@ -221,7 +225,10 @@ Page({
         this.setData({
           recordsList: recordsList,
           appendList: recordsList[0].append,
-          allTeacherInfo: app.globalData.allTeacherInfo,
+          // 代码改动区域  --起始-- 
+          // allTeacherInfo: app.globalData.allTeacherInfo,
+          allUserInfo: pp.globalData.allUserInfo,
+          // 代码改动区域  --终止-- 
         })
         return
       }
@@ -254,18 +261,30 @@ Page({
         console.info(e)
         self.data.appendList = e.data.data.record.append
         console.info(self.data.appendList)
-        console.info(app.globalData.allTeacherInfo)
+        // 代码改动区域  --起始--   allTeacherInfo  改为  allUserInfo 根据authorType插对应表数据
+        console.info(app.globalData.allUserInfo)
         console.info(111)
         for (var i = 0; i < self.data.appendList.length; i++) {
-          for (var j = 0; j < app.globalData.allTeacherInfo.length; j++) {
-            if (app.globalData.allTeacherInfo[j].teacherId == self.data.appendList[i].authorId) {
-              self.data.appendList[i].name = app.globalData.allTeacherInfo[j].nickname
-              self.data.appendList[i].avatarUrl = app.globalData.allTeacherInfo[j].avatarUrl
-              self.data.appendList[i].text = decodeURIComponent(self.data.appendList[i].text)
-              
+          for (var j = 0; j < app.globalData.allUserInfo.length; j++) {
+            if (self.data.appendList[i].authorType == 1){
+              if (app.globalData.allUserInfo[j].teacherId == self.data.appendList[i].authorId) {
+                self.data.appendList[i].name = app.globalData.allUserInfo[j].nickname
+                self.data.appendList[i].avatarUrl = app.globalData.allUserInfo[j].avatarUrl
+                self.data.appendList[i].text = decodeURIComponent(self.data.appendList[i].text)
+
+              }
+            } else if (self.data.appendList[i].authorType == 2){
+              if (app.globalData.allUserInfo[j].parentId == self.data.appendList[i].authorId) {
+                self.data.appendList[i].name = app.globalData.allUserInfo[j].name
+                self.data.appendList[i].avatarUrl = app.globalData.allUserInfo[j].avatarUrl
+                self.data.appendList[i].text = decodeURIComponent(self.data.appendList[i].text)
+
+              }
             }
+            
           }
         }
+        // 代码改动区域  --终止--
         self.setData({
           appendList: self.data.appendList
         })

@@ -17,7 +17,10 @@ Page({
 
     recordsList: '',
     recordSize: '',
-    allTeacherInfo: '',
+    // --> 代码改动区域 
+    // allTeacherInfo: '',
+    allUserInfo: '',
+    // <-- 代码改动区域
 
     userId: '',
     Imgpath: '',
@@ -95,22 +98,22 @@ Page({
           if (this.data.recordsList[r].append[j].recordId == recordId) {
 
             if (this.data.recordsList[r].append[j].like) {
-              if (this.data.recordsList[r].append[j].like.teacher.length > 0) {
-                for (var k = 0; k < this.data.recordsList[r].append[j].like.teacher.length; k++) {
+              if (this.data.recordsList[r].append[j].like.parent.length > 0) {
+                for (var k = 0; k < this.data.recordsList[r].append[j].like.parent.length; k++) {
                   // 已经点赞了 就取消
-                  if (this.data.recordsList[r].append[j].like.teacher[k] == gData.userId) {
+                  if (this.data.recordsList[r].append[j].like.previewImage[k] == gData.userId) {
 
-                    this.data.recordsList[r].append[j].like.teacher.splice(k, 1)
+                    this.data.recordsList[r].append[j].like.parent.splice(k, 1)
                     that.setData({
                       recordsList: this.data.recordsList
                     })
                     app.globalData.recordsList = this.data.recordsList
                     // console.info(this.data.recordsList)
                     // console.info('splice')
-                  } else if ((k + 1) == this.data.recordsList[r].append[j].like.teacher.length) {
+                  } else if ((k + 1) == this.data.recordsList[r].append[j].like.parent.length) {
                     // console.info(k + 1)
 
-                    this.data.recordsList[r].append[j].like.teacher.push(gData.userId)
+                    this.data.recordsList[r].append[j].like.parent.push(gData.userId)
 
                     that.setData({
                       recordsList: this.data.recordsList
@@ -123,7 +126,7 @@ Page({
 
                 }
               } else {
-                this.data.recordsList[r].append[j].like.teacher[0] = gData.userId
+                this.data.recordsList[r].append[j].like.parent[0] = gData.userId
 
                 that.setData({
                   recordsList: this.data.recordsList
@@ -134,11 +137,11 @@ Page({
 
             } else {
               var like = []
-              var teacher = []
+              var parent = []
               this.data.recordsList[r].append[j].like = {}
-              this.data.recordsList[r].append[j].like.teacher = []
+              this.data.recordsList[r].append[j].like.parent = []
 
-              this.data.recordsList[r].append[j].like.teacher[0] = gData.userId
+              this.data.recordsList[r].append[j].like.parent[0] = gData.userId
 
               that.setData({
                 recordsList: this.data.recordsList
@@ -156,22 +159,22 @@ Page({
         if (this.data.recordsList[j].recordId == recordId) {
 
           if (this.data.recordsList[j].likes) {
-            if (this.data.recordsList[j].likes.teacher.length > 0) {
-              for (var k = 0; k < this.data.recordsList[j].likes.teacher.length; k++) {
+            if (this.data.recordsList[j].likes.parent.length > 0) {
+              for (var k = 0; k < this.data.recordsList[j].likes.parent.length; k++) {
                 // 已经点赞了 就取消
-                if (this.data.recordsList[j].likes.teacher[k] == gData.userId) {
+                if (this.data.recordsList[j].likes.parent[k] == gData.userId) {
 
-                  this.data.recordsList[j].likes.teacher.splice(k, 1)
+                  this.data.recordsList[j].likes.parent.splice(k, 1)
                   that.setData({
                     recordsList: this.data.recordsList
                   })
                   app.globalData.recordsList = this.data.recordsList
                   // console.info(this.data.recordsList)
                   // console.info('splice')
-                } else if ((k + 1) == this.data.recordsList[j].likes.teacher.length) {
+                } else if ((k + 1) == this.data.recordsList[j].likes.parent.length) {
                   // console.info(k + 1)
 
-                  this.data.recordsList[j].likes.teacher.push(gData.userId)
+                  this.data.recordsList[j].likes.parent.push(gData.userId)
 
                   that.setData({
                     recordsList: this.data.recordsList
@@ -184,7 +187,7 @@ Page({
 
               }
             } else {
-              this.data.recordsList[j].likes.teacher[0] = gData.userId
+              this.data.recordsList[j].likes.parent[0] = gData.userId
 
               that.setData({
                 recordsList: this.data.recordsList
@@ -194,11 +197,11 @@ Page({
 
           } else {
             var likes = []
-            var teacher = []
+            var parent = []
             this.data.recordsList[j].likes = {}
-            this.data.recordsList[j].likes.teacher = []
+            this.data.recordsList[j].likes.parent = []
 
-            this.data.recordsList[j].likes.teacher[0] = gData.userId
+            this.data.recordsList[j].likes.parent[0] = gData.userId
 
             that.setData({
               recordsList: this.data.recordsList
@@ -213,8 +216,8 @@ Page({
 
     console.info(gData.unionid),
       console.info(gData.openid),
-      console.info(4), //自己的id
-      console.info(1), //1: teacher, 2: parent",
+      console.info(gData.userId), //自己的id
+      console.info(gData.userType), //1: teacher, 2: parent",
       console.info(recordId), //评论的id
       console.info(parentRecordId), //记录的id
       console.info(authorId), //评论者id
@@ -307,21 +310,44 @@ Page({
             http.getGrowthRecordsWithoutAppend(studentId, function(res) {
               if (res == 0) {
 
-                http.getTeachers(function(res) {
-                  // if (!that.data.recordId) {
-                  // console.info(res)
-                  recordId = res.slice(res.length - 1)[0].recordId
+                // http.getTeachers(function(res) {
+                //   // if (!that.data.recordId) {
+                //   // console.info(res)
+                //   recordId = res.slice(res.length - 1)[0].recordId
 
-                  that.setData({
-                    allTeacherInfo: app.globalData.allTeacherInfo,
-                    recordId: recordId
-                  })
-                  // console.info('get')
-                  // console.info(app.globalData.allTeacherInfo)
+                //   that.setData({
+                //     allTeacherInfo: app.globalData.allTeacherInfo,
+                //     recordId: recordId
+                //   })
+                //   // console.info('get')
+                //   // console.info(app.globalData.allTeacherInfo)
 
-                  that.getAppend()
-                  // }
+                //   that.getAppend()
+                //   // }
+                // })
+                // -- > 代码改动区域
+                http.getParents(function(res) {
+                  if (res == 0) {
+                    http.getTeachers(function(res) {
+
+                      recordId = res.slice(res.length - 1)[0].recordId
+                      // console.info(app.globalData.allTeacherInfo)
+                      // console.info(app.globalData.allParentInfo)
+                      // 整合 教师信息 和 家长信息
+                      app.globalData.allUserInfo = app.globalData.allTeacherInfo.concat(app.globalData.allParentInfo)
+                      console.info(app.globalData.allUserInfo)
+                      that.setData({
+                        // allTeacherInfo: app.globalData.allTeacherInfo,
+                        // allParentInfo: app.globalData.allParentInfo,
+                        allUserInfo: app.globalData.allUserInfo,
+                        recordId: recordId
+                      })
+                      that.getAppend()
+                    })
+                  }
                 })
+                // <-- 代码改动区域
+
               }
             })
           }
@@ -365,18 +391,31 @@ Page({
               }
             }
             if (app.globalData.recordsList[x].append) {
-              for (var y = 0; y < app.globalData.allTeacherInfo.length; y++) {
+              // 代码改动区域  authorType:1:teacher 2:parent --> 循环内  allTeacherInfo 换成 allUserInfo
+              for (var y = 0; y < app.globalData.allUserInfo.length; y++) {
                 for (var z = 0; z < app.globalData.recordsList[x].append.length; z++) {
                   app.globalData.recordsList[x].append[z].text = decodeURIComponent(app.globalData.recordsList[x].append[z].text)
-                  if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allTeacherInfo[y].teacherId) {
-                    app.globalData.recordsList[x].append[z].name = app.globalData.allTeacherInfo[y].nickname
-                    app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allTeacherInfo[y].avatarUrl
-                    // app.globalData.recordsList[x].append[z].isfold = true
-                    // if (app.globalData.recordsList[x].append[z].text.length > 100) {
-                    //   app.globalData.recordsList[x].append[z].showTextBtn = true
-                    // }
-
+                  if (app.globalData.recordsList[x].append[z].authorType == 1) {
+                    if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allUserInfo[y].teacherId) {
+                      app.globalData.recordsList[x].append[z].name = app.globalData.allUserInfo[y].nickname
+                      app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allUserInfo[y].avatarUrl
+                      // app.globalData.recordsList[x].append[z].isfold = true
+                      // if (app.globalData.recordsList[x].append[z].text.length > 100) {
+                      //   app.globalData.recordsList[x].append[z].showTextBtn = true
+                      // }
+                    }
+                  } else if (app.globalData.recordsList[x].append[z].authorType == 2) {
+                    if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allUserInfo[y].parentId) {
+                      app.globalData.recordsList[x].append[z].name = app.globalData.allUserInfo[y].name
+                      app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allUserInfo[y].avatarUrl
+                      // app.globalData.recordsList[x].append[z].isfold = true
+                      // if (app.globalData.recordsList[x].append[z].text.length > 100) {
+                      //   app.globalData.recordsList[x].append[z].showTextBtn = true
+                      // }
+                    }
                   }
+
+                  // <-- 代码改动区域
                 }
               }
             }
@@ -432,19 +471,42 @@ Page({
             http.getGrowthRecordsWithoutAppend(studentId, function(res) {
               if (res == 0) {
 
-                http.getTeachers(function(res) {
-                  // console.info(res)
-                  recordId = res.slice(res.length - 1)[0].recordId
+                // http.getTeachers(function(res) {
+                //   // console.info(res)
+                //   recordId = res.slice(res.length - 1)[0].recordId
 
-                  that.setData({
-                    allTeacherInfo: app.globalData.allTeacherInfo,
-                    recordId: recordId
-                  })
-                  // console.info('get')
-                  // console.info(app.globalData.allTeacherInfo)
+                //   that.setData({
+                //     allTeacherInfo: app.globalData.allTeacherInfo,
+                //     recordId: recordId
+                //   })
+                //   // console.info('get')
+                //   // console.info(app.globalData.allTeacherInfo)
 
-                  that.getAppend()
+                //   that.getAppend()
+                // })
+
+                // -- > 代码改动区域
+                http.getParents(function(res) {
+                  if (res == 0) {
+                    http.getTeachers(function(res) {
+
+                      recordId = res.slice(res.length - 1)[0].recordId
+                      // console.info(app.globalData.allTeacherInfo)
+                      // console.info(app.globalData.allParentInfo)
+                      // 整合 教师信息 和 家长信息
+                      app.globalData.allUserInfo = app.globalData.allTeacherInfo.concat(app.globalData.allParentInfo)
+                      console.info(app.globalData.allUserInfo)
+                      that.setData({
+                        // allTeacherInfo: app.globalData.allTeacherInfo,
+                        // allParentInfo: app.globalData.allParentInfo,
+                        allUserInfo: app.globalData.allUserInfo,
+                        recordId: recordId
+                      })
+                      that.getAppend()
+                    })
+                  }
                 })
+                // <-- 代码改动区域
               }
             })
           }
@@ -496,15 +558,24 @@ Page({
 
   getContactFromGData: function() {
     var that = this;
-
-    for (var i in app.globalData.allTeacherInfo) {
+    // 代码改动区域   allTeacherInfo 换成  allUserInfo -->
+    for (var i in app.globalData.allUserInfo) {
       for (var j in getrecordsList) {
-        if (app.globalData.allTeacherInfo[i].teacherId == getrecordsList[j].authorId) {
-          getrecordsList[j].name = (app.globalData.allTeacherInfo[i].nickname == "" ? app.globalData.allTeacherInfo[i].name : app.globalData.allTeacherInfo[i].nickname);
-          getrecordsList[j].avatarUrl = app.globalData.allTeacherInfo[i].avatarUrl;
+        if (getrecordsList[j].authorType == 1) {
+          if (app.globalData.allUserInfo[i].teacherId == getrecordsList[j].authorId) {
+            getrecordsList[j].name = (app.globalData.allUserInfo[i].nickname == "" ? app.globalData.allUserInfo[i].name : app.globalData.allUserInfo[i].nickname);
+            getrecordsList[j].avatarUrl = app.globalData.allUserInfo[i].avatarUrl;
+          }
+        } else if (getrecordsList[j].authorType == 2) {
+          if (app.globalData.allUserInfo[i].parentId == getrecordsList[j].authorId) {
+            getrecordsList[j].name = (app.globalData.allUserInfo[i].nickname == "" ? app.globalData.allUserInfo[i].name : app.globalData.allUserInfo[i].nickname);
+            getrecordsList[j].avatarUrl = app.globalData.allUserInfo[i].avatarUrl;
+          }
         }
+
       }
     }
+    //  <-- 代码改动区域
 
     app.globalData.recordsList = app.globalData.recordsList.concat(getrecordsList)
 
