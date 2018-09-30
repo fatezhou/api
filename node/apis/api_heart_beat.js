@@ -1,6 +1,5 @@
 var CuteTool = require("./../tools.js")
 
-console.info(new Date().getTime());
 function ApiHeartBeat(){
     var tools = new CuteTool;
     var mongo = tools.GetMongo();
@@ -37,7 +36,7 @@ function ApiHeartBeat(){
 
 module.exports = ApiHeartBeat;
 
-var api = new ApiHeartBeat;
-api.Service(1, {authorId:22, authorType:2}, function(e){
-    console.info(e);
-})
+// var api = new ApiHeartBeat;
+// api.Service(1, {authorId:22, authorType:2}, function(e){
+//     console.info(e);
+// })

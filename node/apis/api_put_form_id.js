@@ -8,7 +8,7 @@ function ApiPutFormId(){
     this.Service = function(version, data, callback){
         var sqlFmt = "insert into form_table (author_id, author_type, form_id, open_id, union_id)VALUES(?, ?, ?, ?, ?)";
         if(!data.authorId || !data.authorType || !data.formId || !data.openId || !data.unionId){
-            callback(response.BadApi());
+            callback(response.BadParam());
         }else{
             db.Query(sqlFmt, [data.authorId, data.authorType, data.formId, data.openId, data.unionId], function(e){
                 if(e.error){

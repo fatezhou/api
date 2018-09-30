@@ -5,9 +5,26 @@ var mongo = tools.GetMongo();
 
 
 function DoNotify(obj){
-    db.Query("select form_id from form_table where author_id=? and author_type=?", [obj.org_author_id, obj.org_author_type], function(e){
+    db.Query("select * from form_table where author_id=? and author_type=?", [obj.org_author_id, obj.org_author_type], function(e){
         if(!e.error){
             //send notify!
+            try{
+                e = JSON.stringify(e);
+                e = JSON.parse(e);
+            }
+            catch(err){
+                e = [];
+            }
+            for(var i in e){
+                var https = tools.GetHttps();
+                https.Post(
+                    url, 
+                    {},
+                    function(e){
+
+                    }
+                )
+            }
         }
     })
 }
@@ -56,5 +73,5 @@ if(process.argv.length > 2){
     port = parseInt(process.argv[2]);
 }
 http.createServer(function(req, res){
-    
+
 }).listen(port);
