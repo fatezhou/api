@@ -108,10 +108,10 @@ Page({
    */
   onPullDownRefresh: function() {
     this.setData({
-      allGrowthRecords: '',
-      recordsList: '',
-      appendList: '',
-      recordWithAppend: '',
+      // allGrowthRecords: '',
+      // recordsList: '',
+      // appendList: '',
+      // recordWithAppend: '',
       recordWithAppends: [],
     })
     this.getGrowthRecords()
