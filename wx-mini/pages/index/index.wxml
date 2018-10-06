@@ -8,6 +8,19 @@
       <view class='newsList'>xx条消息</view>
     </view>
   </navigator> -->
+  <form bindsubmit="formSubmit_collect" report-submit="true">
+    <!--原有业务代码 -->
+    <view class='countsRight'>
+      <view class='crNews'>
+        <image src='./../../image/icnotification.png' mode='widthFix'></image>
+      </view>
+      <!-- <view class='newsList'>xx条消息</view> -->
+      <button formType="submit" hover-class="none" class='invisibleclass'>新消息</button>
+    </view>
+
+
+    <!--原有业务代码 -->
+  </form>
 </view>
 <view wx:if="{{norecord}}" style="display:flex;flex-direction:column;align-items:center;top:40%;position:fixed;width:750rpx;font-size:28rpx">
   <image src="./../../image/icbook.png" style="height:66rpx;width:66rpx;margin-bottom:20rpx"></image>
@@ -15,7 +28,8 @@
 </view>
 <view class='listDetail' wx:else>
   <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index'>
-    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none" style="padding-bottom:40rpx">
+    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}'
+      hover-class="none" style="padding-bottom:40rpx">
       <view class='toplD'>
         <view class='tlDleft'>
           <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
@@ -27,17 +41,19 @@
         </view>
 
       </view>
-      <view class="words {{itemObject.isfold ? 'hide' : 'show'}}" style="margin-bottom:20rpx"><text>{{itemObject.text}}</text></view>
-    <!-- </navigator> -->
-    <!-- <block wx:if="{{itemObject.showTextBtn}}"> -->
+      <view class="words {{itemObject.isfold ? 'hide' : 'show'}}" style="margin-bottom:20rpx">
+        <text>{{itemObject.text}}</text>
+      </view>
+      <!-- </navigator> -->
+      <!-- <block wx:if="{{itemObject.showTextBtn}}"> -->
       <view wx:if="{{itemObject.isfold && itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:absolute;padding:10rpx 0 0;font-size:24rpx;display:inline-block;right:60rpx;">全文</view>
       <view wx:elif="{{itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:absolute;padding:10rpx 0 0;font-size:24rpx;display:inline-block;right:60rpx;">收起</view>
-    <!-- </block> -->
-    <!-- <block wx:else> -->
+      <!-- </block> -->
+      <!-- <block wx:else> -->
       <!-- <view bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="opacity:0;height:100rpx">666</view> -->
-    <!-- </block> -->
+      <!-- </block> -->
 
-<!-- 
+      <!-- 
     <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none"> -->
       <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
         <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
@@ -49,7 +65,7 @@
 
       <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length >= 3}}">
         <!-- <block > -->
-          <image wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill"></image>
+        <image wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill"></image>
         <!-- </block> -->
       </view>
 

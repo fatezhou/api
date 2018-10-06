@@ -35,6 +35,26 @@ Page({
 
   },
 
+  formSubmit_collect: function (e) {
+    console.info(e)
+    let formId = e.detail.formId;
+    console.info(formId)
+    wx.request({
+      url: app.globalData.putFormId,
+      data: {
+        "authorId": 1,
+        "authorType": 1,
+        "formId": formId,
+        "openId": app.globalData.openid,
+        "unionId": app.globalData.unionid
+      },
+      method: 'post',
+      success: function (res) {
+        console.info(res)
+      }
+    })
+  },
+
   onLoad: function() {
     template.tabbar("tabBar", 0, this)
     // console.info(app.globalData);
