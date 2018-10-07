@@ -22,6 +22,15 @@ function CuteConfig(){
 			dateStrings:true			
         };
     };
+    this.GetTeacherAppid = function(){
+        return "wxc3cdca6978c3b5ba";
+    };
+    this.GetTemplateId = function(){
+        return "5RrP5MixecP2lFPLATMazPRoQmBsiQ_wVy2a5H0Vd34";
+    };
+    this.GetParentAppid = function(){
+        return "";
+    };
     this.GetPort = function(){
         return this.cfg.port;
     };
@@ -54,6 +63,9 @@ function CuteConfig(){
     }
     this.GetFamilyUrl = function(){
         return "https://test.buzaishudian.com/api/family-info";
+    }
+    this.GetParentsUrl = function(){
+        return "https://test.buzaishudian.com/api/parents";
     }
 }
 

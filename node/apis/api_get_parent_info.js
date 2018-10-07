@@ -6,8 +6,9 @@ function ApiGetParentInfo(){
         var tool = new CuteTool;
         var https = tool.GetHttps();
         var response = tool.GetResponse();
+        var config = tool.GetConfig();
     
-        var url = "https://ouat.buzaishudian.com/api/parents";
+        var url = config.GetParentsUrl();
         url += "?pages=9999";//先这么写, 再优化
     
         https.Get(url, function(e){

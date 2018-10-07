@@ -8,6 +8,7 @@ function ApiGetProfile(){
         var cuteConfig = new CuteConfig;
         var strUrl = "" + cuteConfig.GetParentProfileInfoUrl() + "?openid=" + data.openid + "&unionid=" + data.unionid;
         function ResponseCallback(data){
+            data = JSON.parse(data);
             var res = {code:0, data:{profile:{}}};
             if(data.success)
                 res.data.profile = data.data;

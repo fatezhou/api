@@ -6,11 +6,11 @@ function ApiPutFormId(){
     var logger = tool.GetLogger();
     var response = tool.GetResponse();
     this.Service = function(version, data, callback){
-        var sqlFmt = "insert into form_table (author_id, author_type, form_id, open_id, union_id)VALUES(?, ?, ?, ?, ?)";
-        if(!data.authorId || !data.authorType || !data.formId || !data.openId || !data.unionId){
+        var sqlFmt = "insert into form_table (author_id, author_type, form_id, open_id, union_id, token)VALUES(?, ?, ?, ?, ?, ?)";
+        if(!data.authorId || !data.authorType || !data.formId || !data.openId || !data.unionId || !data.accesstoken){
             callback(response.BadParam());
         }else{
-            db.Query(sqlFmt, [data.authorId, data.authorType, data.formId, data.openId, data.unionId], function(e){
+            db.Query(sqlFmt, [data.authorId, data.authorType, data.formId, data.openId, data.unionId, data.accesstoken], function(e){
                 if(e.error){
                     callback(response.BadSQL());
                 }else{
