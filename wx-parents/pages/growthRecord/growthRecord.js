@@ -57,14 +57,17 @@ Page({
 
   changestudent: function(index) {
     var that = this
-    studentId = this.data.showswiper[index].studentId
+    studentId = this.data.showswiper[index].id
+   
     http.getGrowthRecordsWithoutAppend(studentId, function(res) {
       if (res == 0) {
-
+       
         http.getTeachers(function(res) {
           if (that.data.recordId != res[0].recordId) {
             // console.info(res)
+          
             recordId = res.slice(res.length - 1)[0].recordId
+          
             that.setData({
               recordId: recordId
             })
@@ -212,17 +215,17 @@ Page({
       }
     }
 
-    console.info('like')
+    // console.info('like')
 
-    console.info(gData.unionid),
-      console.info(gData.openid),
-      console.info(gData.userId), //自己的id
-      console.info(gData.userType), //1: teacher, 2: parent",
-      console.info(recordId), //评论的id
-      console.info(parentRecordId), //记录的id
-      console.info(authorId), //评论者id
-      console.info(orgAuthorType) //评论者类型
-    console.info('like')
+    // console.info(gData.unionid),
+    //   console.info(gData.openid),
+    //   console.info(gData.userId), //自己的id
+    //   console.info(gData.userType), //1: teacher, 2: parent",
+    //   console.info(recordId), //评论的id
+    //   console.info(parentRecordId), //记录的id
+    //   console.info(authorId), //评论者id
+    //   console.info(orgAuthorType) //评论者类型
+    // console.info('like')
     wx.request({
       url: gData.minodopeApi.putRecordLike,
       method: 'post',
@@ -237,7 +240,7 @@ Page({
         "orgAuthorType": orgAuthorType //评论者类型
       },
       success: function(res) {
-        console.info(res)
+        // console.info(res)
         if (res.data.code == 4) {
           wx.request({
             url: gData.minodopeApi.putRecordLike,
@@ -285,8 +288,10 @@ Page({
    */
   onShow: function() {
     var that = this
+
     // if (!this.data.recordId || this.data.recordId != res[0].recordId) {
     http.login(function(res) {
+      
       if (res == 0) {
         if (!app.globalData.Imgpath) {
           http.getHeadImg(function(res) {
@@ -306,7 +311,8 @@ Page({
               showswiper: app.globalData.studentList,
               userId: app.globalData.userId
             })
-            studentId = app.globalData.studentId[0]
+            studentId = app.globalData.studentList[0].id
+            // console.info(that.data.showswiper)
             http.getGrowthRecordsWithoutAppend(studentId, function(res) {
               if (res == 0) {
 
@@ -335,7 +341,7 @@ Page({
                       // console.info(app.globalData.allParentInfo)
                       // 整合 教师信息 和 家长信息
                       app.globalData.allUserInfo = app.globalData.allTeacherInfo.concat(app.globalData.allParentInfo)
-                      console.info(app.globalData.allUserInfo)
+                      // console.info(app.globalData.allUserInfo)
                       that.setData({
                         // allTeacherInfo: app.globalData.allTeacherInfo,
                         // allParentInfo: app.globalData.allParentInfo,
@@ -360,10 +366,13 @@ Page({
   getAppend: function() {
     var that = this
     // console.info('recordsList----')
-    // console.info(app.globalData.recordsList)
+    // console.info(app.globalData.recordsList.length)
+    
     for (var i = 0; i < app.globalData.recordsList.length; i++) {
+      
       var recordId = app.globalData.recordsList[i].recordId
-      // console.info(recordId)
+      console.info(recordId)
+      
       wx.request({
         url: app.globalData.minodopeApi.getOneGrowthRecordWithAppendByRecordId,
         data: {
@@ -378,6 +387,8 @@ Page({
         success: function(res) {
           console.info(res)
           console.info('append')
+          console.info(app.globalData.recordsList.length)
+          // app.globalData.recordsList = res.data.data.record
           for (var x = 0; x < app.globalData.recordsList.length; x++) {
 
             if (app.globalData.recordsList[x].recordId == res.data.data.record.recordId) {
@@ -398,9 +409,9 @@ Page({
                   app.globalData.recordsList[x].append[z].text = decodeURIComponent(app.globalData.recordsList[x].append[z].text)
                   if (app.globalData.recordsList[x].append[z].authorType == 1) {
                     if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allUserInfo[y].teacherId) {
-                      console.info(app.globalData.allUserInfo[y].teacherId)
-                      console.info(app.globalData.recordsList[x].append[z].authorId)
-                      console.info(app.globalData.allUserInfo[y])
+                      // console.info(app.globalData.allUserInfo[y].teacherId)
+                      // console.info(app.globalData.recordsList[x].append[z].authorId)
+                      // console.info(app.globalData.allUserInfo[y])
                       app.globalData.recordsList[x].append[z].name = app.globalData.allUserInfo[y].nickname
                       app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allUserInfo[y].avatarUrl
                       // app.globalData.recordsList[x].append[z].isfold = true
@@ -409,12 +420,14 @@ Page({
                       // }
                     }
                   } else if (app.globalData.recordsList[x].append[z].authorType == 2) {
-                    console.info(app.globalData.allUserInfo[y])
-                    console.info(app.globalData.recordsList[x].append[z])
+                    // console.info(app.globalData.allUserInfo[y])
+                    // console.info(app.globalData.recordsList[x].append[z])
+                    // console.info(app.globalData.allUserInfo[y].parentId)
                     if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allUserInfo[y].parentId) {
-                      console.info(app.globalData.allUserInfo[y].parentId)
-                      console.info(app.globalData.recordsList[x].append[z].authorId)
-                      console.info(app.globalData.allUserInfo)
+                      // console.info(app.globalData.allUserInfo[y].parentId)
+                      // console.info(app.globalData.recordsList[x].append[z].authorId)
+                      // console.info(app.globalData.allUserInfo)
+                      // console.info('-------------------------')
                       app.globalData.recordsList[x].append[z].name = app.globalData.allUserInfo[y].name
                       app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allUserInfo[y].avatarUrl
                       // app.globalData.recordsList[x].append[z].isfold = true
@@ -427,12 +440,12 @@ Page({
                   // <-- 代码改动区域
                 }
               }
-              console.info(app.globalData.recordsList[x].append)
+              // console.info(app.globalData.recordsList[x].append)
             }
 
           }
-          console.info(app.globalData.recordsList)
-          console.info('recordsList')
+          // console.info(app.globalData.recordsList)
+          // console.info('recordsList')
           that.setData({
             recordsList: app.globalData.recordsList,
             recordSize: app.globalData.indexSize

@@ -112,6 +112,7 @@ Page({
 
     console.info(pictureUrls)
     console.info('------------')
+    console.info(gData.userId)
     wx.request({
       url: app.globalData.minodopeApi.putNewRecord,
       data: {

@@ -1,9 +1,10 @@
 const app = getApp();
 
 function login(callback) {
+  
   wx.login({
     success: function(res) {
-      console.info(res)
+      // console.info(res)
       if (res.code) {
 
         wx.request({
@@ -13,9 +14,9 @@ function login(callback) {
             appid: app.globalData.appId
           },
           success: function(e) {
-            console.info("app.js.login");
-            console.info(e.data.data.openId)
-            console.info(e.data.data);
+            // console.info("app.js.login");
+            // console.info(e.data.data.openId)
+            // console.info(e.data.data);
             if (e.data.data.openId) {
               app.globalData.openid = e.data.data.openId;
             }
@@ -25,15 +26,19 @@ function login(callback) {
             if (e.data.data.token) {
               app.globalData.token = e.data.data.token;
             }
+            // console.info(app.globalData.openid)
           
             return callback(0)
           },
           fail: function(e) {
-            console.info(e);
+            // console.info(e);
           },
           method: "POST"
         })
       }
+    },
+    complete:function(res){
+      // console.info(res)
     }
   })
 };
@@ -50,8 +55,8 @@ function getHeadImg(callback) {
 
 function getParentInfo(callback) {
   // 通过uid获取教师信息  改为获取家长信息
-  console.info(app.globalData.unionid)
-  console.info(app.globalData.openid)
+  // console.info(app.globalData.unionid)
+  // console.info(app.globalData.openid)
   wx.request({
     // 改为获取家长info
     url: app.globalData.minodopeApi.getParentInfo,
@@ -59,19 +64,18 @@ function getParentInfo(callback) {
     data: {
       unionid: app.globalData.unionid,
       openid: app.globalData.openid,
-      // startPage: 0,//起始页码，从第几页开始获取记录，例如：从头一页开始获取，那么 startPage=0
-      // pageSize: 10,//每页包含记录数，例如：一次要请求 2 页，每页包含 10 条记录，那么 pageSize=10
-      // pages: 10    //要获取多少页，例如：一次请求 2 页，pages=2，如果每页包含 10 条记录，总共获取了 20 条记录
+      authorType: 2
     },
     success: function(res) {
-      console.info(res)
-      console.info('getParentInfo')
+      // console.info(res)
+      // console.info('getParentInfo')
 
       if (res.data.code === 0) {
         // 家长信息保存本地
-        if (res.data.data.teacherInfo.teacherId) {
-          app.globalData.teacherInfo = res.data.data.teacherInfo
-          app.globalData.userId = res.data.data.teacherInfo.teacherId
+        if (res.data.data.profile) {
+          app.globalData.parentInfo = res.data.data.profile
+          app.globalData.userId = res.data.data.profile.id
+          app.globalData.studentList = res.data.data.profile.students
         } else {
           wx.redirectTo({
             url: '../unBound/index',
@@ -102,8 +106,8 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
     responseType: 'text',
     success: function(res) {
       if (res.data.data.records.length != 0) {
-        console.info(res)
-        console.info('getGrowthRecordsWithoutAppend')
+        // console.info(res)
+        // console.info('getGrowthRecordsWithoutAppend')
         app.globalData.allGrowthRecords = res.data.data.records
         // console.log(app.globalData.allGrowthRecords)
         for (var i in res.data.data.records) {
@@ -119,7 +123,7 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
         // 分布加载第一式
         app.globalData.recordsList = res.data.data.records
         app.globalData.indexSize = res.data.data.size
-
+       
         return callback(0)
       } else {
         return callback(1)
@@ -142,8 +146,8 @@ function getTeachers(callback) {
     dataType: 'json',
     success: function(res) {
       var contact = res.data.data.teachers;
-      console.info(contact)
-      console.info('getTeachers')
+      // console.info(contact)
+      // console.info('getTeachers')
       // 获取所有教师信息
       app.globalData.allTeacherInfo = contact
       for (var i in contact) {
@@ -172,8 +176,8 @@ function getParents(callback) {
       openid: app.globalData.openid,
     },
     success: function (res) {
-      console.info(res)
-      console.info('getParents')
+      // console.info(res)
+      // console.info('getParents')
 
       if (res.data.code == 0) {
         // 所有家长信息保存本地

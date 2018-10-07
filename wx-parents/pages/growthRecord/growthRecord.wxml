@@ -16,19 +16,19 @@
       <!-- <block wx:for="{{showswiper}}" wx:for-item='item' wx:key='index'> -->
       <swiper-item wx:for="{{showswiper}}" wx:for-item='item' wx:key='index'>
         <view wx:if="{{index == current}}">
-          <image wx:if="{{item.pic == ''}}" src="{{Imgpath}}" mode="widthFix" style="width:120rpx;margin:20rpx 40rpx;border-radius:50%" />
-          <image wx:else src="{{item.pic}}" mode="widthFix" style="width:120rpx;margin:20rpx 40rpx；border-radius:50%" />
+          <image wx:if="{{item.avatarUrl == ''}}" src="{{Imgpath}}" mode="widthFix" style="width:120rpx;margin:20rpx 40rpx;border-radius:50%" />
+          <image wx:else src="{{item.avatarUrl}}" mode="widthFix" style="width:120rpx;margin:20rpx 40rpx；border-radius:50%" />
           <view style="display:flex;flex-direction:column;align-items:center;color:#fff;">
             <text>{{item.name}}</text>
-            <image src="{{item.sex == 0 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style="position:absolute;width:30rpx;margin-left:80rpx;" mode="widthFix" />
+            <image src="{{item.sex == 2 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style="position:absolute;width:30rpx;margin-left:80rpx;" mode="widthFix" />
             <view style="margin:20rpx;font-size:24rpx;color:#ccc">{{recordSize}} 条记录</view>
           </view>
         </view>
         <view wx:else>
           <!-- <image src="{{item.pic}}" mode="widthFix" style="width:90rpx;opacity:.4;margin:35rpx 50rpx" /> -->
 
-          <image wx:if="{{item.pic == ''}}" src="{{Imgpath}}" mode="widthFix" style="width:90rpx;opacity:.4;margin:35rpx 50rpx;border-radius:50%" />
-          <image wx:else src="{{item.pic}}" mode="widthFix" style="width:90rpx;opacity:.4;margin:35rpx 50rpx;border-radius:50%" />
+          <image wx:if="{{item.avatarUrl == ''}}" src="{{Imgpath}}" mode="widthFix" style="width:90rpx;opacity:.4;margin:35rpx 50rpx;border-radius:50%" />
+          <image wx:else src="{{item.avatarUrl}}" mode="widthFix" style="width:90rpx;opacity:.4;margin:35rpx 50rpx;border-radius:50%" />
           <!-- <view style="display:flex;flex-direction:column;align-items:center;color:#fff;opacity:.4;">
             {{item.name}}<image src="{{item.sex == 0 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style="position:absolute;width:30rpx;margin-left:20rpx;opacity:.4;" mode="widthFix"></image>
             </view> -->
