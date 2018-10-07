@@ -74,17 +74,18 @@ function DoNotify(obj){
                 PostMsgToWxClient({formId: e[i].form_id, openId: e[i].openId});
                 arrDeleteId.push(e[i].id);
             }
+            
+            var sqlFmt = "delete from form_table where id";
+            var ids = "";
+            for(var i in arrDeleteId){
+                ids += arrDeleteId[i] + ",";
+            }
+            ids += "0";
+            sqlFmt += "(" + ids + ")";
+            db.Query(sqlFmt, [], function(e){
+                console.info("remove form id");
+            });
         }
-    });
-    var sqlFmt = "delete from form_table where id";
-    var ids = "";
-    for(var i in arrDeleteId){
-        ids += arrDeleteId[i] + ",";
-    }
-    ids += "0";
-    sqlFmt += "(" + ids + ")";
-    db.Query(sqlFmt, [], function(e){
-        console.info("remove form id");
     });
 }
 
@@ -104,8 +105,7 @@ function CheckClientOnlineOrNot(obj){
 
 function GetNewMessageFromDb(){
     var sqlFmt = "select DISTINCT org_author_id, org_author_type from new_message where state = 0";
-    db.Query(sqlFmt, [], function(e){
-        
+    db.Query(sqlFmt, [], function(e){        
         if(!e.error){
             try{
                 e = JSON.stringify(e);
@@ -115,6 +115,11 @@ function GetNewMessageFromDb(){
             }
             for(var i in e){
                 CheckClientOnlineOrNot(e[i]);
+                sqlFmt = "update new_message set state = 1 where org_author_id = ? and org_author_type = ?";
+                var newDb = tools.GetDataBase();
+                newDb.Query(sqlFmt, [e[i].org_author_id, e[i].org_author_type], function(ee){
+
+                });              
             }
         }
     });
