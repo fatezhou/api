@@ -39,14 +39,16 @@ Page({
     console.info(e)
     let formId = e.detail.formId;
     console.info(formId)
+    console.info(app.globalData.token)
     wx.request({
       url: app.globalData.putFormId,
       data: {
-        "authorId": 1,
-        "authorType": 1,
+        "authorId": app.globalData.userId,
+        "authorType": app.globalData.userType,
         "formId": formId,
         "openId": app.globalData.openid,
-        "unionId": app.globalData.unionid
+        "unionId": app.globalData.unionid,
+        "accesstoken": app.globalData.token
       },
       method: 'post',
       success: function (res) {

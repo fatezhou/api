@@ -50,6 +50,7 @@ App({
     getChildGrowthRecordCount: 'https://api.minidope.com/api/v1.0/get_child_growth_record_count',
     getPrePics: 'https://api.minidope.com/api/v1.0/get_pre_pics',
     putFormId:'https://api.minidope.com/api/v1/put_form_id',
+    getNewMessage: 'https://api.minidope.com/api/v1/get_new_message',
     headImg:'https://ouat-file.buzaishudian.com/images/wx-mini/teacher/ui/default-avatar.png',
     Imgpath:'',
 

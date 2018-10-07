@@ -3,11 +3,16 @@
     <block wx:for="{{tabBar}}" wx:for-item="item" wx:key="tabBar">
       <view class="tabItem" style="width: 33.3%;padding: 10rpx 0 0 0;text-align: center;overflow: hidden;display:inline-block">
         <navigator open-type="redirect" hover-class='none' url="{{item.pagePath}}">
+
           <!-- <view>{{item.msg}}</view> -->
           <view>
-            <image class="tabsIcon" src='{{item.iconPath}}' style="width:32rpx;height:36rpx;"></image>
+            <button formType="submit" hover-class="none" style="margin-left:0">
+              <image class="tabsIcon" src='{{item.iconPath}}' style="width:32rpx;height:36rpx;"></image>
+            </button>
           </view>
-          <view class="{{item.current == 1 ? 'color189' :''}}">{{item.text}}{{isIpx}}</view>
+          <button formType="submit" hover-class="none">
+            <view class="{{item.current == 1 ? 'color189' :''}}">{{item.text}}{{isIpx}}</view>
+          </button>
         </navigator>
       </view>
     </block>
