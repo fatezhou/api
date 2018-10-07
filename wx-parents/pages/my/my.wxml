@@ -1,0 +1,57 @@
+<!--pages/my/my.wxml-->
+<view style='height:200rpx;background:#fff;margin-top:30rpx;font-size:28rpx;display:flex;justify-content: space-between;align-items: center'>
+  <view style='display:flex;'>
+    <view style='margin-left:30rpx;margin-right:24rpx;position:relative;'>
+      <image src='../../image/head02.png' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image>
+    </view>
+
+    <view style='display:flex;color:#292E38;align-items: center;font-weight:bold;margin-right:30rpx;' bindtap='xiugai'>
+      <view>麦爸</view>
+    </view>
+
+  </view>
+  <view style='display:flex;color:#189999;align-items: center;font-weight:bold;margin-right:30rpx;' bindtap='xiugai'>
+    <image src='../../image/pen.png' style='width:26rpx;height:26rpx;margin-right:10rpx;'></image>
+    <view>编辑个人资料</view>
+  </view>
+</view>
+
+<view style='background:#fff;font-size:32rpx;padding-left:30rpx;margin-top:30rpx;'>
+  <navigator url="vipCard">
+    <view class='MyInformationg'>
+      <view>
+        <image src='../../image/icaccount.png' style='width:26rpx;height:26rpx;margin-right:10rpx;'></image>
+        会籍信息
+      </view>
+      <view style='position:absolute;right:40rpx;color:#8F8E94;align-items: center;margin-right:30rpx;'>
+        2
+      </view>
+      <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
+    </view>
+  </navigator>
+
+  <navigator url="StoredCard">
+    <view class='MyInformationg' style='border:none;'>
+      <view>
+        <image src='../../image/icaccount.png' style='width:26rpx;height:26rpx;margin-right:10rpx;'></image>
+        储值卡
+      </view>
+      <view style='position:absolute;right:40rpx;color:#8F8E94;align-items: center;margin-right:30rpx;'>
+        9800 RMB
+      </view>
+      <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
+    </view>
+  </navigator>
+</view>
+
+
+
+<!-- <navigator url='meInforErro'> -->
+<view style='position:absolute;font-size:24rpx;color:#C7C7CC;width:750rpx;text-align:center;bottom:20rpx;display:flex;  flex-direction: column;align-items: center;'>
+  <view>飞阅国际教育</view>
+  <view>1.0.0</view>
+</view>
+<!-- </navigator> -->
+
+<import src="../../template/template.wxml" />
+<template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

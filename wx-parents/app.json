@@ -1,0 +1,20 @@
+{
+  "pages": [
+
+    "pages/growthRecord/growthRecord",
+    "pages/growthRecord/detail",
+    "pages/growthRecord/teacher",
+    "pages/index/index",
+    "pages/my/my",
+    "pages/my/vipCard",
+    "pages/my/vipDetail",
+    "pages/my/StoredCard",
+    "pages/pull/pull"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "儿童学院",
+    "navigationBarTextStyle": "black"
+  }
+}
