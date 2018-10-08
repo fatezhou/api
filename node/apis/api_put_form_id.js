@@ -10,7 +10,7 @@ function ApiPutFormId(){
         if(!data.authorId || !data.authorType || !data.formId || !data.openId || !data.unionId || !data.accesstoken){
             callback(response.BadParam());
         }else{
-            if(data.formId.indexOf("the mo") != -1){
+            if(data.formId.indexOf("the ") != -1){
                 callback(response.BadParam());
                 return;
             }
