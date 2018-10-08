@@ -17,9 +17,8 @@ var wx_secret = "eac688a46b0f56b4167f0fd71771fc67";
 "page": "pages/index/newMess",
 "data":{
                "keyword1":{"value":"新消息提醒"}
-            }
+       }
 }
-
  * 
  */
 
@@ -42,7 +41,7 @@ function PostMsgToWxClient(data){
                         touser: data.openId,
                         template_id: template_id,
                         form_id: data.formId,
-                        page: "pages/index/index",
+                        page: "pages/index/index?new_message=true",
                         data:{
                             keyword1 : {value : "新消息提醒"}
                         }
@@ -58,11 +57,11 @@ function PostMsgToWxClient(data){
 }
 
 
-function DoNotify(obj){
-    var arrDeleteId = [];
-    db.Query("select * from form_table where author_id=? and author_type=?", [obj.org_author_id, obj.org_author_type], function(e){
+function DoNotify(obj){    
+    db.Query("select * from form_table where author_id=? and author_type=? order by create_time limit 1", [obj.org_author_id, obj.org_author_type], function(e){
         if(!e.error){
             //send notify!
+            console.info("notify callback, e:", e);
             try{
                 e = JSON.stringify(e);
                 e = JSON.parse(e);
@@ -70,21 +69,14 @@ function DoNotify(obj){
             catch(err){
                 e = [];
             }
-            for(var i in e){
-                PostMsgToWxClient({formId: e[i].form_id, openId: e[i].openId});
-                arrDeleteId.push(e[i].id);
+
+            if(e && e.length > 0){
+                PostMsgToWxClient({formId: e[0].form_id, openId: e[0].openId});
+                var sqlFmt = "delete from form_table where id = ?";
+                db.Query(sqlFmt, [e[0].id], function(e){
+                    console.info("remove one used form_id");
+                })
             }
-            
-            var sqlFmt = "delete from form_table where id";
-            var ids = "";
-            for(var i in arrDeleteId){
-                ids += arrDeleteId[i] + ",";
-            }
-            ids += "0";
-            sqlFmt += "(" + ids + ")";
-            db.Query(sqlFmt, [], function(e){
-                console.info("remove form id");
-            });
         }
     });
 }
@@ -93,6 +85,7 @@ function DoNotify(obj){
 function CheckClientOnlineOrNot(obj){
     var author = {author_id:obj.org_author_id, author_type: obj.org_author_type};
     mongo.Query(author, function(e){
+        console.info("on mongo query callback");
         if(e.length > 0){
             if(e[0].online){
                 //do nothing
@@ -111,23 +104,45 @@ function GetNewMessageFromDb(){
                 e = JSON.stringify(e);
                 e = JSON.parse(e);
             }catch(err){
-
+                e = [];
             }
+            console.info("get distinct ok, size:", e.length);
             for(var i in e){
                 CheckClientOnlineOrNot(e[i]);
                 sqlFmt = "update new_message set state = 1 where org_author_id = ? and org_author_type = ?";
                 var newDb = tools.GetDataBase();
                 newDb.Query(sqlFmt, [e[i].org_author_id, e[i].org_author_type], function(ee){
-
-                });              
+                    console.info("update the new_message state, authorId:", e[i].org_author_id, ", type:", e[i].org_author_type);
+                });
             }
         }
     });
 }
 
+function GetAppSecFromDb(){
+    var db = tools.GetDataBase();
+    db.Query("select config_value from config_table where app_parent_sec = ?", ["app_parent_sec"], function(e){
+        if(!e.error){
+            try{
+                e = JSON.stringify(e);
+                e = JSON.parse(e);
+                if(e.length > 0){
+                    console.info("update the app_sec, " , e[0].config_value);
+                    wx_secret = e[0].config_value;
+                    GetNewMessageFromDb();
+                }                
+            }
+            catch(err){
+
+            }
+        }
+    })
+}
+
 function mainLoop(){
+    GetAppSecFromDb();
     setInterval(function(){
-        GetNewMessageFromDb();
+        GetAppSecFromDb();       
     }, 60000);
 }
 
