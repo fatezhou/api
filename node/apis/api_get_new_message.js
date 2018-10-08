@@ -18,9 +18,19 @@ function ApiGetNewMessage(){
             db.Query(sqlFmt, [data.authorId, data.authorType], function(e){
                 if(e.error){
                     callback(response.BadSQL());
-                }else{
+                }else{                    
+                    try{
+                        e = JSON.stringify(e);
+                        e = JSON.parse(e);
+                    }catch(err){
+                        e = [];
+                    }
                     for(var i in e){
-                        e[i].pictureUrls = JSON.parse(e[i].pictureUrls).urls;
+                        try{
+                            e[i].pictureUrls = JSON.parse(e[i].pictureUrls).urls;
+                        }catch(err){
+                            e[i].pictureUrls = [];
+                        }  
                     }
                     res.like = e;
                     GetNewAppend();
@@ -40,8 +50,18 @@ function ApiGetNewMessage(){
                 if(e.error){
                     callback(response.BadSQL());
                 }else{
+                    try{
+                        e = JSON.stringify(e);
+                        e = JSON.parse(e);
+                    }catch(err){
+                        e = [];
+                    }
                     for(var i in e){
-                        e[i].pictureUrls = JSON.parse(e[i].pictureUrls).urls;
+                        try{
+                            e[i].pictureUrls = JSON.parse(e[i].pictureUrls).urls;
+                        }catch(err){
+                            e[i].pictureUrls = [];
+                        }                        
                     }
                     res.append = e;
                     callback(response.Succ(res));

@@ -16,6 +16,7 @@ function ApiGetFamily(){
             https.Get(url, function(e){
                 var strJson = e.toString();
                 var res = JSON.parse(strJson);
+                console.info(res);
                 if(res.success){                    
                     callback(response.Succ({parents:res.data.parents}));
                 }else{
