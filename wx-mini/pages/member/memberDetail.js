@@ -40,11 +40,11 @@ Page({
   putMemberFav: function(e) {
     var that = this;
     // app.globalData.haveputMemberFav = true
-    console.info(that.data.studentId)
-    console.info(app.globalData.teacherInfo.teacherId)
+    // console.info(that.data.studentId)
+    // console.info(app.globalData.teacherInfo.teacherId)
     var statu = e.detail.value
     if (statu) {
-      console.info(statu)
+      // console.info(statu)
       wx.request({
         url: app.globalData.putMemberFav,
         data: {
@@ -57,7 +57,7 @@ Page({
         },
         method: 'post',
         success: function(res) {
-          console.log(res)
+          // console.log(res)
           that.setData({
             star: true
           })
@@ -65,7 +65,7 @@ Page({
         },
       })
     } else {
-      console.info(statu)
+      // console.info(statu)
       wx.request({
         url: app.globalData.putMemberFav,
         data: {
@@ -78,7 +78,7 @@ Page({
         },
         method: 'post',
         success: function(res) {
-          console.log(res)
+          // console.log(res)
           that.setData({
             star: false
           })
@@ -138,8 +138,8 @@ Page({
   onLoad: function(options) {
     var that = this
 
-    console.info(options);
-    console.info('2222')
+    // console.info(options);
+    // console.info('2222')
     this.data.sex = parseInt(options.sex);
     this.data.Imgpath = app.globalData.Imgpath;
     this.data.avatarUrl = options.avatarUrl;
@@ -219,12 +219,12 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        console.info(res)
+        // console.info(res)
         var recordList = res.data.data.records
         for (var i = 0; i < res.data.data.records.length; i++) {
           recordList[i].text = decodeURIComponent(res.data.data.records[i].text)
         }
-        console.info(recordList)
+        // console.info(recordList)
         that.setData({
           recordList: recordList
         })
@@ -263,7 +263,7 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        console.log(res)
+        // console.log(res)
 
         var stararr = res.data.data.contact[0].member
         for (var i = 0; i < stararr.length; i++) {
@@ -279,7 +279,7 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
-    console.info(app.globalData.userId)
+    // console.info(app.globalData.userId)
     wx.request({
       url: app.globalData.getChildGrowthRecordCount,
       data: {
@@ -292,8 +292,8 @@ Page({
       method: "post",
       success: function(res) {
         app.globalData.studentRecordCount = res.data.data.count
-        console.info(res)
-        console.info('成长记录')
+        // console.info(res)
+        // console.info('成长记录')
         that.setData({
           recordSize: "" + res.data.data.count + "条成长记录"
         })

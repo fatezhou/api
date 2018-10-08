@@ -16,7 +16,7 @@
           <image src='./../../image/icnotification.png' mode='widthFix'></image>
         </view>
         <!-- <view class='newsList'>xx条消息</view> -->
-        <button formType="submit" hover-class="none" class='invisibleclass'>新消息</button>
+        <button formType="submit" hover-class="none">新消息</button>
       </view>
     </navigator>
 
@@ -27,72 +27,73 @@
     无记录
   </view>
   <view class='listDetail' wx:else>
-    <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index'>
-      <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}'
-        hover-class="none" style="padding-bottom:40rpx">
-        <button formType="submit" hover-class="none" style="margin-left:0">
-          <view class='toplD'>
-            <view class='tlDleft'>
-              <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
-              <image wx:else src='{{itemObject.avatarUrl}}'></image>
+    <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index' style="padding-bottom:{{itemObject.showTextBtn ? '60rpx' : '40rpx'}}">
+      <!-- <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}'
+        hover-class="none" style="padding-bottom:40rpx"> -->
+      <button formType="submit" hover-class="none" style="margin-left:0;" bindtap='todetail' data-item="{{itemObject}}">
+        <view class='toplD'>
+          <view class='tlDleft'>
+            <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
+            <image wx:else src='{{itemObject.avatarUrl}}'></image>
 
-              <text class='phName'>{{itemObject.name}}</text>
-
-            </view>
-            <view class='tlDright'>
-              <text>{{itemObject.dateTime}}</text>
-            </view>
+            <text class='phName'>{{itemObject.name}}</text>
 
           </view>
+          <view class='tlDright'>
+            <text>{{itemObject.dateTime}}</text>
+          </view>
+
+        </view>
+      </button>
+      <view bindtap='todetail' data-item="{{itemObject}}" class="words {{itemObject.isfold ? 'hide' : 'show'}}" style="margin-bottom:20rpx;margin-left:10rpx">
+        <button formType="submit" hover-class="none" style="margin-left:0">
+          <text style="letter-spacing:1rpx;font-size: 28rpx;">{{itemObject.text}}</text>
         </button>
-        <view class="words {{itemObject.isfold ? 'hide' : 'show'}}" style="margin-bottom:20rpx">
-          <button formType="submit" hover-class="none" class='invisibleclass'>
-            <text>{{itemObject.text}}</text>
-          </button>
-        </view>
-        <!-- </navigator> -->
-        <!-- <block wx:if="{{itemObject.showTextBtn}}"> -->
-        <view wx:if="{{itemObject.isfold && itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:absolute;padding:10rpx 0 0;font-size:24rpx;display:inline-block;right:60rpx;">全文</view>
-        <view wx:elif="{{itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:absolute;padding:10rpx 0 0;font-size:24rpx;display:inline-block;right:60rpx;">收起</view>
-        <!-- </block> -->
-        <!-- <block wx:else> -->
-        <!-- <view bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="opacity:0;height:100rpx">666</view> -->
-        <!-- </block> -->
+      </view>
+      <!-- </navigator> -->
+      <!-- <block wx:if="{{itemObject.showTextBtn}}"> -->
+      <view wx:if="{{itemObject.isfold && itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:relative;font-size:24rpx;float:right;margin-right:10rpx;color:#aaa">全文</view>
+      <view wx:elif="{{itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:relative;font-size:24rpx;float:right;margin-right:10rpx;color:#aaa">收起</view>
+      <!-- </block> -->
+      <!-- <block wx:else> -->
+      <!-- <view bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="opacity:0;height:100rpx">666</view> -->
+      <!-- </block> -->
 
-        <!-- 
+      <!-- 
     <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none"> -->
-        <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
-          <button formType="submit" hover-class="none" style="margin-left:0">
-            <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
-          </button>
-        </view>
-        <view class='picList th2' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 2}}">
-          <button formType="submit" hover-class="none" style="margin-left:0">
-            <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
-            <image src='{{itemObject.pictureUrls[1]}}' mode="aspectFill"></image>
-          </button>
-        </view>
+      <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
+        <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
+          <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
+        </button>
+      </view>
+      <view class='picList th2' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 2}}">
+        <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
+          <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
+          <image src='{{itemObject.pictureUrls[1]}}' mode="aspectFill"></image>
+        </button>
+      </view>
 
-        <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length >= 3}}">
-          <button formType="submit" hover-class="none" style="margin-left:0">
-            <!-- <block > -->
-            <image wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill"></image>
-          </button>
-          <!-- </block> -->
-        </view>
+      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length >= 3}}">
+        <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
+          <!-- <block > -->
+          <image wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill"></image>
+        </button>
+        <!-- </block> -->
+      </view>
 
-      </navigator>
+      <!-- </navigator> -->
     </view>
 
   </view>
+  <view style="position:relative;height:250rpx;opacity: 0;">1</view>
   <view class='fixed'>
     <navigator url='./../pull/pull?choosestudent=true' hover-class="none">
-      <button formType="submit" hover-class="none" style="background-color:#F2F4F7">
+      <button formType="submit" hover-class="none" style="background-color:transparent">
         <image src='./../../image/edit.png' mode='widthFix'></image>
       </button>
     </navigator>
   </view>
-  <view style="position:relative;height:250rpx;opacity: 0;">1</view>
+
 
   <import src="../../template/template.wxml" />
   <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

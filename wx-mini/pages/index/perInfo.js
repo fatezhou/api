@@ -25,7 +25,7 @@ Page({
 
     orgAuthorType: 0,
     allTeacherInfo: '',
-
+    allParentInfo: '',
     userId: '',
     Imgpath: '',
     avatarUrl: '',
@@ -54,7 +54,6 @@ Page({
   onLoad: function(options) {
   
     studentId = options.studentId
-
     this.setData({
       studentId: studentId,
       studentName: options.studentName,
@@ -129,8 +128,9 @@ Page({
       for (var j in self.data.recordsList) {
         if (contact[i].studentId == self.data.recordsList[j].studentId) {
           self.data.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
-
+         
           // self.data.recordsList[j].text = decodeURIComponent(self.data.recordsList[j].text)
+          // console.info(self.data.recordsList[j].text)
         }
       }
     }
@@ -168,25 +168,38 @@ Page({
           // console.info(e.data.data.record)
           // console.info('e.data.data.record')
           if (e.data.code == 0) {
-            for (var t = 0; t < e.data.data.record.length; t++) {
-              e.data.data.record[t].text = decodeURIComponent(e.data.data.record[t].text)
-              e.data.data.record[t].isfold = true
-              if (e.data.data.record[t].text.length > 100) {
-                e.data.data.record[t].showTextBtn = true
+            for (var t = 0; t < e.data.data.record.append.length; t++) {
+              e.data.data.record.append[t].text = decodeURIComponent(e.data.data.record.append[t].text)
+              e.data.data.record.append[t].isfold = true
+              if (e.data.data.record.append[t].text.length > 100) {
+                e.data.data.record.append[t].showTextBtn = true
               }
             }
             self.data.recordWithAppend = e.data.data.record
           }
 
           var allTeacherInfo = app.globalData.allTeacherInfo
+        
+          var allParentInfo = app.globalData.allParentInfo
           for (var i = 0; i < self.data.recordWithAppend.append.length; i++) {
-            for (var j = 0; j < allTeacherInfo.length; j++) {
-              if (self.data.recordWithAppend.append[i].authorId === allTeacherInfo[j].teacherId) {
-                self.data.recordWithAppend.append[i].authorName = allTeacherInfo[j].nickname
-                self.data.recordWithAppend.append[i].avatarUrl = allTeacherInfo[j].avatarUrl
-                self.data.recordWithAppend.append[i].text = decodeURIComponent(self.data.recordWithAppend.append[i].text)
+            if (self.data.recordWithAppend.append[i].authorType == 1) {
+              for (var j = 0; j < allTeacherInfo.length; j++) {
+                if (self.data.recordWithAppend.append[i].authorId == allTeacherInfo[j].teacherId) {
+                  self.data.recordWithAppend.append[i].authorName = allTeacherInfo[j].nickname
+                  self.data.recordWithAppend.append[i].avatarUrl = allTeacherInfo[j].avatarUrl
+                  self.data.recordWithAppend.append[i].text = decodeURIComponent(self.data.recordWithAppend.append[i].text)
+                }
+              }
+            }else{
+              for (var j = 0; j < allParentInfo.length; j++) {
+                if (self.data.recordWithAppend.append[i].authorId == allParentInfo[j].parentId) {
+                  self.data.recordWithAppend.append[i].authorName = allParentInfo[j].name
+                  self.data.recordWithAppend.append[i].avatarUrl = allParentInfo[j].avatarUrl
+                  self.data.recordWithAppend.append[i].text = decodeURIComponent(self.data.recordWithAppend.append[i].text)
+                }
               }
             }
+            
           }
 
           var recordWithAppends = self.data.recordWithAppends.concat(self.data.recordWithAppend)
@@ -194,10 +207,11 @@ Page({
           self.setData({
             recordWithAppend: self.data.recordWithAppend,
             recordWithAppends: recordWithAppends,
-            allTeacherInfo: allTeacherInfo
+            allTeacherInfo: allTeacherInfo,
+            allParentInfo: allParentInfo
           })
-          console.info(recordWithAppends)
-          console.info('recordWithAppends')
+          // console.info(recordWithAppends)
+          // console.info('recordWithAppends')
 
         },
 

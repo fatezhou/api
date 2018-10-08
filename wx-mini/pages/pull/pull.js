@@ -28,6 +28,7 @@ Page({
     hindname: false,
 
     calltext: null,
+    addtext: null,
     placeholder: '填写内容(12-500字)',
     choosestudent: false,
 
@@ -36,14 +37,22 @@ Page({
     avatarUrl: '',
   },
   charChange: function(e) {
+    if (this.data.calltext) {
+      var text = this.data.calltext + e.detail.value
+    } else {
+      var text = e.detail.value
+    }
+
+    console.info(text)
+    text = encodeURIComponent(text)
     this.setData({
-      calltext: encodeURIComponent(e.detail.value)
+      addtext: text
     })
-    console.info(e.detail.value)
+
   },
   submit: function() {
 
-    if (this.data.calltext == undefined || this.data.tempFilePaths == {}) {
+    if (this.data.addtext == undefined || this.data.tempFilePaths == {}) {
       wx.showToast({
         title: '您还没输入内容呢',
         icon: 'none',
@@ -129,7 +138,7 @@ Page({
         "unionid": gData.unionid,
         "openid": gData.openid,
         "authorType": gData.userType, //1 teacher, 2 parent
-        "text": that.data.calltext,
+        "text": that.data.addtext,
         "authorId": gData.teacherInfo.teacherId,
         "studentId": that.data.studentId, //如果是评论的话, 则此项可以不用填,
         "pictureUrls": pictureUrls,

@@ -20,9 +20,16 @@ Page({
 
     norecord: '',
   },
+
+  todetail: function(e) {
+    var item = e.currentTarget.dataset.item
+    wx.navigateTo({
+      url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.name + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.avatarUrl,
+    })
+  },
   //事件处理函数
   showmore: function(e) {
-    console.info(e)
+    // console.info(e)
     for (var o = 0; 0 < this.data.recordsList.length; o++) {
       if (this.data.recordsList[o].recordId == e.currentTarget.dataset.recordid) {
         this.data.recordsList[o].isfold = !this.data.recordsList[o].isfold
@@ -36,10 +43,10 @@ Page({
   },
 
   formSubmit_collect: function(e) {
-    console.info(e)
+    // console.info(e)
     let formId = e.detail.formId;
-    console.info(formId)
-    console.info(app.globalData.token)
+    // console.info(formId)
+    // console.info(app.globalData.token)
     wx.request({
       url: app.globalData.putFormId,
       data: {
@@ -52,13 +59,14 @@ Page({
       },
       method: 'post',
       success: function(res) {
-        console.info(res)
+        // console.info(res)
       }
     })
   },
 
   onLoad: function() {
     template.tabbar("tabBar", 0, this)
+
     // console.info(app.globalData);
     if (app.globalData.userInfo) {
       this.setData({
@@ -111,7 +119,7 @@ Page({
 
   getContactFromGData: function() {
     var self = this;
-
+    console.info(app.globalData.allStudent)
     for (var i in app.globalData.allStudent) {
       for (var j in getrecordsList) {
         if (app.globalData.allStudent[i].studentId == getrecordsList[j].studentId) {
@@ -166,7 +174,7 @@ Page({
         },
         success: function(res) {
           app.globalData.allTeacherInfo = res.data.data.teachers
-          // console.info(app.globalData.allTeacherInfo)
+          console.info(app.globalData.allTeacherInfo)
         }
       })
     }
@@ -181,7 +189,7 @@ Page({
         },
         success: function(res) {
           if (res.data.code == 0) {
-            console.info(res.data.data.records)
+            // console.info(res.data.data.records)
             app.globalData.allParentInfo = res.data.data.records
           }
         },
@@ -211,7 +219,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    // console.info(recordId)
+    console.info(recordId)
     var that = this;
     wx.request({
       url: app.globalData.getGrowthRecordsWithoutAppend,
@@ -229,20 +237,24 @@ Page({
       success: function(res) {
         console.info(res)
         console.info('getGrowthRecordsWithoutAppend')
-        recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
-        for (var t = 0; t < res.data.data.records.length; t++) {
-          res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
-          res.data.data.records[t].isfold = true
-          if (res.data.data.records[t].text.length > 100) {
-            res.data.data.records[t].showTextBtn = true
+        if (res.data.data.records.length != 0) {
+
+          recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
+          for (var t = 0; t < res.data.data.records.length; t++) {
+            res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
+            res.data.data.records[t].isfold = true
+            if (res.data.data.records[t].text.length > 100) {
+              res.data.data.records[t].showTextBtn = true
+            }
           }
+          getrecordsList = res.data.data.records
+          for (var i in getrecordsList) {
+            getrecordsList[i].name = "";
+            getrecordsList[i].avatarUrl = '';
+          }
+          that.getContactFromGData();
         }
-        getrecordsList = res.data.data.records
-        for (var i in getrecordsList) {
-          getrecordsList[i].name = "";
-          getrecordsList[i].avatarUrl = '';
-        }
-        that.getContactFromGData();
+
       },
       fail: function(res) {},
       complete: function(res) {},

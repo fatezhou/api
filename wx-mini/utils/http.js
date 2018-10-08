@@ -13,7 +13,7 @@ function login(callback) {
           },
           success: function(e) {
             // console.info("app.js.login");
-            console.info(e.data.data);
+            // console.info(e.data.data);
             if (e.data.data.openId) {
               app.globalData.openid = e.data.data.openId;
             }
@@ -46,8 +46,8 @@ function login(callback) {
                 openid: app.globalData.openid,
               },
               success: function(res) {
-                console.info(res)
-                console.info('教师信息')
+                // console.info(res)
+                // console.info('教师信息')
 
                 if (res.data.code === 0) {
                   if (res.data.data.teacherInfo.teacherId) {
@@ -78,8 +78,8 @@ function login(callback) {
                     }else{
                       app.globalData.norecord = false
                     }
-                    console.info(res)
-                    console.info('getGrowthRecordsWithoutAppend')
+                    // console.info(res)
+                    // console.info('getGrowthRecordsWithoutAppend')
 
                     app.globalData.allGrowthRecords = res.data.data.records
                     // console.log(app.globalData.allGrowthRecords)
@@ -97,7 +97,7 @@ function login(callback) {
                     //   res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
                     // }
                     
-                    console.info(res.data.data.records)
+                    // console.info(res.data.data.records)
                     app.globalData.recordsList = res.data.data.records
                     app.globalData.indexSize = res.data.data.size
 

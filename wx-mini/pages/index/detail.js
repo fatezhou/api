@@ -31,6 +31,7 @@ Page({
     bigImgUrl: '',
     canShowBigImg: false,
     allteacherInfo: [],
+    allParentInfo: [],
 
     likenumber: 0,
     userId: '',
@@ -42,13 +43,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 默认头像
     this.data.Imgpath = app.globalData.Imgpath
-    if (options.avatarUrl){
+
+    if (options.avatarUrl) {
       this.data.avatarUrl = options.avatarUrl
     }
-    
+
     this.data.userId = app.globalData.userId
     this.data.allTeacherInfo = app.globalData.allTeacherInfo
+    // 家长信息
+    this.data.allParentInfo = app.globalData.allParentInfo
     this.data.recordId = options.recordId;
     // console.info(options);
     this.data.mainText = options.mainText;
@@ -111,10 +116,10 @@ Page({
                 that.setData({
                   appendList: this.data.appendList
                 })
-                console.info(this.data.appendList)
-                console.info('splice')
+                // console.info(this.data.appendList)
+                // console.info('splice')
               } else if ((k + 1) == this.data.appendList[j].like.teacher.length) {
-                console.info(k + 1)
+                // console.info(k + 1)
 
                 this.data.appendList[j].like.teacher.push(gData.userId)
 
@@ -122,8 +127,8 @@ Page({
                   appendList: this.data.appendList
                 })
                 break;
-                console.info(this.data.appendList)
-                console.info('this.data.appendList[j].like.teacher----------')
+                // console.info(this.data.appendList)
+                // console.info('this.data.appendList[j].like.teacher----------')
               }
 
             }
@@ -170,7 +175,7 @@ Page({
         "orgAuthorType": 1
       },
       success: function(res) {
-        
+
         // console.info(res)
         if (res.data.code == 4) {
           wx.request({
@@ -220,7 +225,7 @@ Page({
     // wx.switchTab({
     //   url: '../index/index',
     // });
-    console.info(app.globalData.allStudent)
+    // console.info(app.globalData.allStudent)
     var sex = null;
     var name = null;
     var avatarUrl = null;
@@ -303,32 +308,46 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(e) {
-        console.info(e)
-        console.info('dsadasdasd===')
+        // console.info(e)
+        // console.info('dsadasdasd===')
         if (e.data.code == 0) {
           for (var t = 0; t < e.data.data.record.append.length; t++) {
             e.data.data.record.append[t].text = decodeURIComponent(e.data.data.record.append[t].text)
           }
           self.data.appendList = e.data.data.record.append;
-          if (e.data.data.record.likes){
+          if (e.data.data.record.likes) {
             self.data.likenumber = e.data.data.record.likes.teacher.length + e.data.data.record.likes.parent.length;
-          }else{
+          } else {
             self.data.likenumber = 0
           }
-          
+
           // app.globalData.likes = e.data.data.record.likes
           // console.info()
           self.setData(self.data);
         }
-        console.info(self.data.appendList)
+        // console.info(self.data.appendList)
+        // 教师信息
         var allTeacherInfo = app.globalData.allTeacherInfo
+        // 家长信息
+        var allParentInfo = app.globalData.allParentInfo
         for (var i = 0; i < self.data.appendList.length; i++) {
-          for (var j = 0; j < allTeacherInfo.length; j++) {
-            if (self.data.appendList[i].authorId === allTeacherInfo[j].teacherId) {
-              self.data.appendList[i].authorName = allTeacherInfo[j].nickname
-              self.data.appendList[i].avatarUrl = allTeacherInfo[j].avatarUrl
+          console.info(self.data.appendList)
+          if (self.data.appendList[i].authorType == 1) {
+            for (var j = 0; j < allTeacherInfo.length; j++) {
+              if (self.data.appendList[i].authorId == allTeacherInfo[j].teacherId) {
+                self.data.appendList[i].authorName = allTeacherInfo[j].nickname
+                self.data.appendList[i].avatarUrl = allTeacherInfo[j].avatarUrl
+              }
+            }
+          } else {
+            for (var j = 0; j < allParentInfo.length; j++) {
+              if (self.data.appendList[i].authorId == allParentInfo[j].parentId) {
+                self.data.appendList[i].authorName = allParentInfo[j].name
+                self.data.appendList[i].avatarUrl = allParentInfo[j].avatarUrl
+              }
             }
           }
+
         }
         self.setData({
           appendList: self.data.appendList,
