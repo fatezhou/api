@@ -64,6 +64,9 @@ function ApiGetNewMessage(){
                         }                        
                     }
                     res.append = e;
+                    db.Query("delete from new_message where org_author_id=? and org_author_type=?", [data.authorId, data.authorType], function(e){
+
+                    });
                     callback(response.Succ(res));
                 }
             });
