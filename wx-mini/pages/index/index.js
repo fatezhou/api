@@ -19,6 +19,7 @@ Page({
     Imgpath: '',
 
     norecord: '',
+    isIpx:'',
   },
 
   todetail: function(e) {
@@ -64,8 +65,30 @@ Page({
     })
   },
 
-  onLoad: function() {
+  onLoad: function(options) {
+    if (app.globalData.isIpx){
+      this.setData({
+        isIpx: app.globalData.isIpx
+      })
+    }
     template.tabbar("tabBar", 0, this)
+    if (options.new_message) {
+      console.info(options.new_message)
+    }
+    // wx.request({
+    //   url: app.globalData.getNewMessage,
+    //   data:{
+    //     "unionid":app.globalData.,
+    //     "openid": "xxxxxxx",
+    //     "authorId": 1,//自己的id
+    //     "authorType": 1//自己的type
+    //   },
+    //   method:'post',
+    //   success:function(res){
+    //     console.info(res)
+    //   }
+    // })
+
 
     // console.info(app.globalData);
     if (app.globalData.userInfo) {

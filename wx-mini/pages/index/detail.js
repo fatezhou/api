@@ -249,7 +249,7 @@ Page({
       data: {
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
-        "authorId": app.globalData.userId,
+        // "authorId": app.globalData.userId,
         "authorType": app.globalData.userType, //1: teacher, 2: parent",
         "studentId": that.data.studentId
       },

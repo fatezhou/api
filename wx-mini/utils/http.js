@@ -53,7 +53,7 @@ function login(callback) {
                   if (res.data.data.teacherInfo.teacherId) {
                     app.globalData.teacherInfo = res.data.data.teacherInfo
                     app.globalData.userId = res.data.data.teacherInfo.teacherId
-                    // app.globalData.userId = 12
+                    // app.globalData.userId = 4
                   } else {
                     wx.redirectTo({
                       url: '../unBound/index',

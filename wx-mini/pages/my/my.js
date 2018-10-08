@@ -13,6 +13,7 @@ Page({
     name:'',
     sex:'',
     phone:'',
+    isIpx:'',
   },
   xiugai: function() {
     wx.navigateTo({
@@ -26,6 +27,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if (app.globalData.isIpx) {
+      this.setData({
+        isIpx: app.globalData.isIpx
+      })
+    }
     template.tabbar("tabBar", 2, this)
     if (app.globalData.teacherInfo.teacherId) {
       this.data.position = '教师'

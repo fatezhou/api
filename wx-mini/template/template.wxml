@@ -10,9 +10,10 @@
               <image class="tabsIcon" src='{{item.iconPath}}' style="width:32rpx;height:36rpx;"></image>
             </button>
           </view>
-          <button formType="submit" hover-class="none">
-            <view class="{{item.current == 1 ? 'color189' :''}}">{{item.text}}{{isIpx}}</view>
-          </button>
+
+          <view class="{{item.current == 0 ? 'color189' :''}}">
+            <button formType="submit" hover-class="none">{{item.text}}{{isIpx}}</button>
+          </view>
         </navigator>
       </view>
     </block>
@@ -20,15 +21,21 @@
 </template>
 
 <template name="ipxTabBar">
-  <view class="ipxTabBar">
+  <view class="ipxTabBar" style="position:fixed;bottom:0;width:750rpx;background-color:#fff;font-size:24rpx">
     <block wx:for="{{tabBar}}" wx:for-item="item" wx:key="tabBar">
-      <view class="tabItem" style="width: 33.3%;padding: 10rpx 0 0 0;text-align: center;overflow: hidden;display:inline-block">
+      <view class="tabItem" style="width: 33.3%;padding: 20rpx 0 0 0;text-align: center;overflow: hidden;display:inline-block">
         <navigator open-type="redirect" hover-class='none' url="{{item.pagePath}}">
           <!-- <view>{{item.msg}}</view> -->
           <view>
-            <image class="tabsIcon" src='{{item.iconPath}}' style="width:32rpx;height:36rpx;"></image>
+            <button formType="submit" hover-class="none" style="margin-left:0">
+              <image class="tabsIcon" src='{{item.iconPath}}' style="width:40rpx;height:40rpx;"></image>
+            </button>
           </view>
-          <view class="{{item.current == 1 ? 'color189' :''}}">{{item.text}}{{isIpx}}</view>
+
+          <view class="{{item.current == 0 ? 'color189' :''}}">
+            <button formType="submit" hover-class="none">{{item.text}}{{isIpx}}</button>
+          </view>
+
         </navigator>
       </view>
     </block>

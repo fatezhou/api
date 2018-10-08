@@ -1,7 +1,16 @@
 //app.js
 App({
   onLaunch: function() {
-
+    var that = this
+    wx.getSystemInfo({
+      success: function (res) {
+        if(res.model == "iPhone X"){
+          that.globalData.isIpx = true
+        }else{
+          that.globalData.isIpx = false
+        }     
+      }
+    })
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -103,5 +112,6 @@ App({
     likes: [],
 
     norecord: '',
+    isIpx:false,
   }
 })
