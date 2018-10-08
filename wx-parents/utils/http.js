@@ -67,16 +67,15 @@ function getParentInfo(callback) {
       authorType: 2
     },
     success: function(res) {
-      console.info(res)
-      console.info('getParentInfo')
+      // console.info(res)
+      // console.info('getParentInfo')
 
-      if (res.data.code == 0) {
+      if (res.data.code === 0) {
         // 家长信息保存本地
         if (res.data.data.profile) {
           app.globalData.parentInfo = res.data.data.profile
           app.globalData.userId = res.data.data.profile.id
           app.globalData.studentList = res.data.data.profile.students
-          console.info(app.globalData.userId)
         } else {
           wx.redirectTo({
             url: '../unBound/index',

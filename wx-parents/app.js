@@ -25,9 +25,10 @@ App({
   },
   globalData: {
     userInfo: null,
-    userId: '',
+    userId: 221,
     // studentId: [115, 44, 43],
-    studentList: [{
+    studentList: [
+      {
       avatarUrl: '',
       // ../../ image / head.png
       name: '曹语荞',
@@ -40,7 +41,7 @@ App({
       name: '李司羽',
       sex: 1,
       recardCount: 115,
-      id: 44,
+      id: 141,
     }, {
       avatarUrl: '',
       // ../../ image / head.png
@@ -48,7 +49,8 @@ App({
       sex: 1,
       recardCount: 16259,
         id: 143,
-    }, ],
+    }, 
+    ],
     // 教师端1 ,家长端2 测试用记得改
     userType: 2,
     unionid: "",
