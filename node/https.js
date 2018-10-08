@@ -17,7 +17,6 @@ function CuteHttps(){
     };
     this.Post = function(url, data, callback){
         var urlObject = require("url").parse(url, true);
-        console.info(urlObject);
 		var res_data = "";
         var req = https.request({
             host: urlObject.host,
@@ -27,6 +26,7 @@ function CuteHttps(){
 				'Content-Type' : 'application/json'
 			}
         }, function(res){
+            console.info(res);
             res.setEncoding("utf8");
             res.on('data', function(chuck){
 				res_data += chuck.toString();
