@@ -13,7 +13,7 @@ function login(callback) {
           },
           success: function(e) {
             // console.info("app.js.login");
-            // console.info(e.data.data);
+            console.info(e.data.data);
             if (e.data.data.openId) {
               app.globalData.openid = e.data.data.openId;
             }
@@ -53,6 +53,7 @@ function login(callback) {
                   if (res.data.data.teacherInfo.teacherId) {
                     app.globalData.teacherInfo = res.data.data.teacherInfo
                     app.globalData.userId = res.data.data.teacherInfo.teacherId
+                    // app.globalData.userId = 12
                   } else {
                     wx.redirectTo({
                       url: '../unBound/index',

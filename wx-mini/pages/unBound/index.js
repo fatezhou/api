@@ -73,17 +73,16 @@ Page({
         success: function(res) {
           console.log(res)
           if (res.data.code === 0) {
-            if (res.data.data.text == "请在微信公众号中打开页面") {
-              wx.showToast({
-                title: '该手机号后台未登记',
-                icon: 'none'
-              })
-            } else {
+            if (res.data.data.text == "验证码发送成功") {
               wx.showToast({
                 title: '已发送',
               })
+            }else{
+              wx.showModal({
+                content: res.data.data.text,
+                showCancel: false,
+              })
             }
-
           } else {
             wx.showModal({
               content: res.data.message,

@@ -18,6 +18,7 @@ Page({
   },
 
   getFamily: function(studentId) {
+    console.info(studentId)
     var gData = app.globalData
     var that = this;
     wx.request({

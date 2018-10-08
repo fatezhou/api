@@ -227,7 +227,7 @@ Page({
           appendList: recordsList[0].append,
           // 代码改动区域  --起始-- 
           // allTeacherInfo: app.globalData.allTeacherInfo,
-          allUserInfo: pp.globalData.allUserInfo,
+          allUserInfo: app.globalData.allUserInfo,
           // 代码改动区域  --终止-- 
         })
         return

@@ -35,7 +35,7 @@ Page({
 
   },
 
-  formSubmit_collect: function (e) {
+  formSubmit_collect: function(e) {
     console.info(e)
     let formId = e.detail.formId;
     console.info(formId)
@@ -51,7 +51,7 @@ Page({
         "accesstoken": app.globalData.token
       },
       method: 'post',
-      success: function (res) {
+      success: function(res) {
         console.info(res)
       }
     })
@@ -168,6 +168,23 @@ Page({
           app.globalData.allTeacherInfo = res.data.data.teachers
           // console.info(app.globalData.allTeacherInfo)
         }
+      })
+    }
+    // 所有家长信息
+    if (!app.globalData.allParentInfo) {
+      wx.request({
+        url: app.globalData.getParentsInfo,
+        method: 'POST',
+        data: {
+          unionid: app.globalData.unionid,
+          openid: app.globalData.openid,
+        },
+        success: function(res) {
+          if (res.data.code == 0) {
+            console.info(res.data.data.records)
+            app.globalData.allParentInfo = res.data.data.records
+          }
+        },
       })
     }
   },

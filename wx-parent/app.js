@@ -54,14 +54,14 @@ App({
     unionid: "",
     openid: "",
     token: "",
-    appId: "wxc3cdca6978c3b5ba",
+    appId: "wxf4ff3923fa71c9a3",
     minodopeApi: {
       loginUrl: "http://api.minidope.com/api/v1.0/login",
       contactUrl: "http://api.minidope.com/api/v1.0/get_contact",
       getGrowthRecordsWithoutAppend: "https://api.minidope.com/api/v1.0/get_growth_records_without_append",
       getTeachers: "https://api.minidope.com/api/v1.0/get_teachers",
       // 改为获取家长信息
-      getParentInfo: "https://api.minidope.com/api/v1.0/get_teacher_info",
+      getParentInfo: "https://api.minidope.com/api/parent_info",
       getOneGrowthRecordWithAppendByRecordId: "http://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
       putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
       getCdnToken: 'https://api.minidope.com/api/v1.0/get_cdn_token',

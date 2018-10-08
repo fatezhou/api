@@ -58,21 +58,50 @@ Page({
   changestudent: function(index) {
     var that = this
     studentId = this.data.showswiper[index].id
-   
+    console.info(studentId)
+    console.info('studentId')
     http.getGrowthRecordsWithoutAppend(studentId, function(res) {
       if (res == 0) {
        
         http.getTeachers(function(res) {
-          if (that.data.recordId != res[0].recordId) {
+          if (that.data.recordId != res[0].recordId || that.data.recordId != '') {
             // console.info(res)
-          
+
             recordId = res.slice(res.length - 1)[0].recordId
-          
+            console.info(recordId)
+            console.info('recordId')
             that.setData({
               recordId: recordId
             })
 
-            that.getAppend()
+            // -- > 代码改动区域
+            if (!app.globalData.allUserInfo) {
+              http.getParents(function(res) {
+                if (res == 0) {
+                  http.getTeachers(function(res) {
+
+                    // recordId = res.slice(-1)[0].recordId
+           
+                    // 整合 教师信息 和 家长信息
+                    app.globalData.allUserInfo = app.globalData.allTeacherInfo.concat(app.globalData.allParentInfo)
+                   
+                    that.setData({
+                      // allTeacherInfo: app.globalData.allTeacherInfo,
+                      // allParentInfo: app.globalData.allParentInfo,
+                      allUserInfo: app.globalData.allUserInfo,
+                      // recordId: recordId
+                    })
+                    that.getAppend()
+                  })
+                }
+              })
+            } else {
+              that.getAppend()
+            }
+
+            // <-- 代码改动区域
+
+
           }
         })
       } else {
@@ -93,8 +122,8 @@ Page({
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
     var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
 
-    // console.info(this.data.recordsList)
-    // console.info('this.data.recordsList.append')
+    console.info(this.data.recordsList)
+    console.info('this.data.recordsList.append')
     for (var r = 0; r < this.data.recordsList.length; r++) {
       if (this.data.recordsList[r].recordId == parentRecordId) {
         for (var j = 0; j < this.data.recordsList[r].append.length; j++) {
@@ -104,8 +133,11 @@ Page({
               if (this.data.recordsList[r].append[j].like.parent.length > 0) {
                 for (var k = 0; k < this.data.recordsList[r].append[j].like.parent.length; k++) {
                   // 已经点赞了 就取消
-                  if (this.data.recordsList[r].append[j].like.previewImage[k] == gData.userId) {
-
+                  // 改动位置 删除 previewImage  -->
+                  console.info(this.data.recordsList[r].append[j].like[k])
+                  console.info('cccccc')
+                  if (this.data.recordsList[r].append[j].like.parent[k] == gData.userId) {
+                    // <-- 改动位置
                     this.data.recordsList[r].append[j].like.parent.splice(k, 1)
                     that.setData({
                       recordsList: this.data.recordsList
@@ -114,7 +146,6 @@ Page({
                     // console.info(this.data.recordsList)
                     // console.info('splice')
                   } else if ((k + 1) == this.data.recordsList[r].append[j].like.parent.length) {
-                    // console.info(k + 1)
 
                     this.data.recordsList[r].append[j].like.parent.push(gData.userId)
 
@@ -291,7 +322,7 @@ Page({
 
     // if (!this.data.recordId || this.data.recordId != res[0].recordId) {
     http.login(function(res) {
-      
+
       if (res == 0) {
         if (!app.globalData.Imgpath) {
           http.getHeadImg(function(res) {
@@ -311,7 +342,11 @@ Page({
               showswiper: app.globalData.studentList,
               userId: app.globalData.userId
             })
-            studentId = app.globalData.studentList[0].id
+            if (!studentId){
+              studentId = app.globalData.studentList[0].id
+            }
+          
+            
             // console.info(that.data.showswiper)
             http.getGrowthRecordsWithoutAppend(studentId, function(res) {
               if (res == 0) {
@@ -334,9 +369,12 @@ Page({
                 // -- > 代码改动区域
                 http.getParents(function(res) {
                   if (res == 0) {
+                    
                     http.getTeachers(function(res) {
 
-                      recordId = res.slice(res.length - 1)[0].recordId
+                      recordId = res.slice(-1)[0].recordId
+                      // console.info(recordId)
+                      // console.info('recordId')
                       // console.info(app.globalData.allTeacherInfo)
                       // console.info(app.globalData.allParentInfo)
                       // 整合 教师信息 和 家长信息
@@ -367,12 +405,12 @@ Page({
     var that = this
     // console.info('recordsList----')
     // console.info(app.globalData.recordsList.length)
-    
+
     for (var i = 0; i < app.globalData.recordsList.length; i++) {
-      
+
       var recordId = app.globalData.recordsList[i].recordId
       console.info(recordId)
-      
+
       wx.request({
         url: app.globalData.minodopeApi.getOneGrowthRecordWithAppendByRecordId,
         data: {
@@ -402,7 +440,7 @@ Page({
               }
             }
             if (app.globalData.recordsList[x].append) {
-             
+
               // 代码改动区域  authorType:1:teacher 2:parent --> 循环内  allTeacherInfo 换成 allUserInfo
               for (var y = 0; y < app.globalData.allUserInfo.length; y++) {
                 for (var z = 0; z < app.globalData.recordsList[x].append.length; z++) {

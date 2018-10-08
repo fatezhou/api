@@ -28,28 +28,27 @@ App({
     userId: '',
     // studentId: [115, 44, 43],
     studentList: [{
-        avatarUrl: '',
-        // ../../ image / head02.png
-        name: '李司羽',
-        sex: 1,
-        recardCount: 115,
-        id: 44,
-      }, {
-        avatarUrl: '',
-        // ../../ image / head.png
-        name: '曹语荞',
-        sex: 0,
-        recardCount: 162,
-        id: 141,
-      }, {
-        avatarUrl: '',
-        // ../../ image / head.png
-        name: '李淇锭',
-        sex: 1,
-        recardCount: 16259,
-        id: 43,
-      },
-    ],
+      avatarUrl: '',
+      // ../../ image / head.png
+      name: '曹语荞',
+      sex: 0,
+      recardCount: 162,
+      id: 341,
+    }, {
+      avatarUrl: '',
+      // ../../ image / head02.png
+      name: '李司羽',
+      sex: 1,
+      recardCount: 115,
+      id: 44,
+    }, {
+      avatarUrl: '',
+      // ../../ image / head.png
+      name: '李淇锭',
+      sex: 1,
+      recardCount: 16259,
+        id: 143,
+    }, ],
     // 教师端1 ,家长端2 测试用记得改
     userType: 2,
     unionid: "",
@@ -57,13 +56,13 @@ App({
     token: "",
     appId: "wxf4ff3923fa71c9a3",
     minodopeApi: {
-      loginUrl: "http://api.minidope.com/api/v1.0/login",
-      contactUrl: "http://api.minidope.com/api/v1.0/get_contact",
+      loginUrl: "https://api.minidope.com/api/v1.0/login",
+      contactUrl: "https://api.minidope.com/api/v1.0/get_contact",
       getGrowthRecordsWithoutAppend: "https://api.minidope.com/api/v1.0/get_growth_records_without_append",
       getTeachers: "https://api.minidope.com/api/v1.0/get_teachers",
       // 改为获取家长信息
       getParentInfo: "https://api.minidope.com/api/v1.0/get_profile",
-      getOneGrowthRecordWithAppendByRecordId: "http://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
+      getOneGrowthRecordWithAppendByRecordId: "https://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
       putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
       getCdnToken: 'https://api.minidope.com/api/v1.0/get_cdn_token',
       putNewRecord: 'https://api.minidope.com/api/v1.0/put_new_record',

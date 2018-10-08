@@ -235,7 +235,8 @@ Page({
         url: app.globalData.minodopeApi.getCdnToken,
         method: 'post',
         data: {
-          appid: app.globalData.appId,
+          // appid: app.globalData.appId,
+          appid:'wxc3cdca6978c3b5ba',
           fileName: fileName,
           action: 'z2'
         },
@@ -384,12 +385,14 @@ Page({
             url: app.globalData.minodopeApi.getCdnToken,
             method: 'post',
             data: {
-              appid: app.globalData.appId,
+              // appid: app.globalData.appId,
+              appid: 'wxc3cdca6978c3b5ba',
               fileName: encodePicFileName,
               localFilePath: localFilePath
             },
             success: function(res) {
               console.info(res);
+              console.info('res')
               self.data.prepareToUpload.push({
                 fileName: res.data.data.cdn.fileName,
                 token: res.data.data.cdn.token,

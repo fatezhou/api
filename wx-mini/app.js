@@ -22,6 +22,27 @@ App({
         }
       }
     })
+
+    // heart
+    //     wx.request({
+    //       url: this.globalData.heartBeat,
+    //       method: 'post',
+    //       success:function(res) {
+    // console.info(res)
+    //         console.log('连接成功')
+    // that.initEventHandle()
+    //   }
+    // })
+    // let that = this
+    // wx.connectSocket({
+    //   url: this.globalData.heartBeat,
+    //   method:'post',
+    //   success() {
+    //     console.log('连接成功')
+    //     that.initEventHandle()
+    //   }
+    // })
+
   },
   globalData: {
     userInfo: null,
@@ -45,19 +66,23 @@ App({
     putMemberFav: "https://api.minidope.com/api/v1.0/put_member_fav",
     getGrowthRecordsWithoutAppend: "https://api.minidope.com/api/v1.0/get_growth_records_without_append",
     getTeachers: "https://api.minidope.com/api/v1.0/get_teachers",
+    getParentsInfo: "https://api.minidope.com/api/v1.0/get_parents_info",
     getFamily: 'https://api.minidope.com/api/v1.0/get_family',
     putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
     getChildGrowthRecordCount: 'https://api.minidope.com/api/v1.0/get_child_growth_record_count',
     getPrePics: 'https://api.minidope.com/api/v1.0/get_pre_pics',
-    putFormId:'https://api.minidope.com/api/v1/put_form_id',
+    putFormId: 'https://api.minidope.com/api/v1/put_form_id',
     getNewMessage: 'https://api.minidope.com/api/v1/get_new_message',
-    headImg:'https://ouat-file.buzaishudian.com/images/wx-mini/teacher/ui/default-avatar.png',
-    Imgpath:'',
+    headImg: 'https://ouat-file.buzaishudian.com/images/wx-mini/teacher/ui/default-avatar.png',
+    // 心跳
+    heartBeat: 'https://api.minidope.com/api/v1.0/heart_beat',
+    Imgpath: '',
 
     studentRecordCount: '',
     contact: {},
     teacherInfo: {},
     allTeacherInfo: null,
+    allParentInfo: null,
     allStudent: null, // 通讯录
     qiniup: 'https://up-z2.qiniup.com',
     stararr: [], // 有星标的
@@ -72,8 +97,8 @@ App({
     memberListLength: null,
     stararrLength: null,
 
-    likes:[],
+    likes: [],
 
-    norecord:'',
+    norecord: '',
   }
 })
