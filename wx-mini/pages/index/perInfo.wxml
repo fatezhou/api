@@ -31,7 +31,8 @@
   <view class='forlD' wx:for="{{allGrowthRecords}}" wx:for-item="item" wx:key='index'>
 
     <view wx:if="{{studentId == item.studentId}}">
-      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}' hover-class="none">
+      <navigator id="{{item.recordId}}" url='perInfoDetail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}'
+        hover-class="none">
         <view>
           <view class='toplD'>
             <view class='tlDleft' wx:for="{{allTeacherInfo}}" wx:for-item='teacheriteminfo' wx:key='teacherindexinfo' wx:if="{{item.authorId == teacheriteminfo.teacherId}}">
@@ -62,7 +63,8 @@
       <!-- <view wx:else> -->
       <!-- <view wx:if="{{item.isfold}}" bindtap='showmore' data-recordId='{{item.recordId}}' style="opacity:0">666</view> -->
       <!-- </view> -->
-      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}' hover-class="none">
+      <navigator id="{{item.recordId}}" url='perInfoDetail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}'
+        hover-class="none">
 
 
         <view style="margin-left:84rpx;margin-top:20rpx">
@@ -85,19 +87,19 @@
 
     <view style="margin:50rpx 0 0 84rpx;">
       <!-- 点赞 -->
-      <view wx:for="{{recordWithAppends}}" wx:for-item='likesitem' wx:key='likesindex' wx:if="{{item.recordId == likesitem.recordId && likesitem.likes != [] && likesitem.likes.teacher.length > 0}}" style="display:flex;align-items:center">
-        <image src='../../image/nice.png' style='width:30rpx;height:30rpx;' mode='cover'></image>
+      <view wx:for="{{recordWithAppends}}" wx:for-item='likesitem' wx:key='likesindex' wx:if="{{item.recordId == likesitem.recordId && likesitem.likes != []}}" style="display:flex;align-items:center">
+        <image wx:if="{{likesitem.likes.teacher.length > 0 || likesitem.likes.parent.length > 0}}" src='../../image/nice.png' style='width:30rpx;height:30rpx;' mode='cover'></image>
         <view wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
           <view wx:for="{{likesitem.likes.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
             <text style="font-size:24rpx;color:#98A5A5;margin-left:8rpx" wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allTeacheritem.nickname}} </text>
           </view>
         </view>
+        <view wx:for="{{allParentInfo}}" wx:for-item='allParentitem' wx:key='allParentindex'>
+          <view wx:for="{{likesitem.likes.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex'>
+            <text style="font-size:24rpx;color:#98A5A5;margin-left:8rpx" wx:if="{{allParentitem.parentId == parentLikeitem}}"> {{allParentitem.name}} </text>
+          </view>
+        </view>
       </view>
-      <!-- <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
-          <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
-            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}} </text>
-          </block>
-        </block> -->
     </view>
     <view style="display:flex;justify-content: space-between;align-items:center;margin:20rpx 0 0 84rpx;padding-bottom:50rpx;margin-top:20rpx">
       <view style="font-size: 24rpx;color:#98A5A5;">
@@ -136,7 +138,8 @@
 
     <view wx:for='{{recordWithAppends}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' style='background:#FFF;font-size:30rpx;' wx:if="{{itemWithAppend.recordId == item.recordId}}">
       <view wx:for='{{itemWithAppend.append}}' wx:for-item='itemappend' wx:key='indexappend' wx:if="{{index <= 1}}">
-        <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true' hover-class="none">
+        <navigator id="{{item.recordId}}" url='perInfoDetail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true'
+          hover-class="none">
           <view style="border-top:1rpx solid #eee;">
             <view style="opacity:0;font-size:20rpx">1</view>
             <!-- <image src='../../image/head02.png' mode='widthFix' style="width: 48rpx;float: left;border-radius: 100%;"></image> -->
@@ -169,7 +172,8 @@
             <image wx:for="{{itemappend.pictures}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill" data-showBigImg="{{imgitem}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
             <!-- </block> -->
           </view>
-          <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true' hover-class="none">
+          <navigator id="{{item.recordId}}" url='perInfoDetail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true'
+            hover-class="none">
             <view style="margin-top:20rpx;">
               <!-- 点赞 -->
               <view wx:if="{{itemappend.like}}">

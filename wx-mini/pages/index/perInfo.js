@@ -35,7 +35,7 @@ Page({
 
   showmore: function(e) {
 
-    for (var o = 0; 0 < this.data.allGrowthRecords.length; o++) {
+    for (var o = 0; o < this.data.allGrowthRecords.length; o++) {
       if (this.data.allGrowthRecords[o].recordId == e.currentTarget.dataset.recordid) {
         this.data.allGrowthRecords[o].isfold = !this.data.allGrowthRecords[o].isfold
         this.setData({
@@ -146,7 +146,7 @@ Page({
       studentId: studentId,
 
     })
-
+    // console.info(self.data.allGrowthRecords)
 
     // var recordsList = self.data.recordsList
 
@@ -210,6 +210,7 @@ Page({
             allTeacherInfo: allTeacherInfo,
             allParentInfo: allParentInfo
           })
+          app.globalData.recordWithAppends = recordWithAppends
           // console.info(recordWithAppends)
           // console.info('recordWithAppends')
 

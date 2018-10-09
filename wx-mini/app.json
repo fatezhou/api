@@ -12,7 +12,8 @@
     "pages/member/memberDetail",
     "pages/index/newMess",
     "pages/member/parents",
-    "pages/pull/chooseStudent"
+    "pages/pull/chooseStudent",
+    "pages/index/perInfoDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

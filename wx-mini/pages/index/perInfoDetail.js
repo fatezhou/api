@@ -1,5 +1,4 @@
-// pages/index/detail.js
-
+// pages/index/perInfoDetail.js
 const app = getApp();
 
 Page({
@@ -37,6 +36,8 @@ Page({
     userId: '',
     Imgpath: '',
     avatarUrl: '',
+    teacherName: '',
+    recordList: '',
   },
 
   /**
@@ -54,7 +55,8 @@ Page({
     this.data.allTeacherInfo = app.globalData.allTeacherInfo
     // 家长信息
     this.data.allParentInfo = app.globalData.allParentInfo
-    this.data.recordId = options.recordId;
+    this.data.recordId = parseInt(options.recordId);
+
     // console.info(options);
     this.data.mainText = options.mainText;
     this.data.studentId = options.studentId;
@@ -72,10 +74,34 @@ Page({
     for (var i = 0; i < app.globalData.contact.length; i++) {
       if (app.globalData.contact[i].recordId == options.recordId) {
         this.setData({
-          imgUrl: app.globalData.contact[i].pictureUrls
+          imgUrl: app.globalData.contact[i].pictureUrls,
         })
       }
     }
+    var that = this
+    wx.request({
+      url: app.globalData.oneGrowthRecordWithAppendUrl,
+      data: {
+        unionid: app.globalData.unionid,
+        openid: app.globalData.openid,
+        recordId: this.data.recordId
+      },
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(e) {
+        e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
+        var list = [];
+        list.push(e.data.data.record)
+        that.setData({
+          recordList: list
+        })
+        console.info(list)
+        console.info('list')
+      }
+    })
+
+
     // console.info(this.data.imgUrl)
     this.setData({
       imgUrllength: this.data.imgUrl.length
@@ -91,6 +117,15 @@ Page({
       })
     }
 
+    // 获取教师头像
+    for (var i = 0; i < app.globalData.allTeacherInfo.length; i++) {
+      if (app.globalData.allTeacherInfo[i].teacherId == this.data.orgAuthorId) {
+        var name = (app.globalData.allTeacherInfo[i].nickname ? app.globalData.allTeacherInfo[i].nickname : app.globalData.allTeacherInfo[i].name)
+        this.setData({
+          teacherName: name
+        })
+      }
+    }
   },
 
   like: function(e) {
@@ -99,6 +134,12 @@ Page({
     // console.info(e)
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
+
+    if (e.currentTarget.dataset.parentrecordid){
+      var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
+    }else{
+      var parentRecordId = parseInt(that.data.recordId)
+    }
     // console.info(this.data.appendList)
     // console.info(' this.data.appendList')
     // for (var i = 0; i < this.data.appendList.length; i++) {
@@ -154,11 +195,50 @@ Page({
         }
       }
     }
-    // }
-    // }
 
-    // console.info(this.data.appendList)
-    // console.info(1)
+    if (parentRecordId == 0){
+     
+      if (this.data.recordList[0].likes) {
+        if (this.data.recordList[0].likes.teacher.length > 0) {
+          for (var k = 0; k < this.data.recordList[0].likes.teacher.length; k++) {
+            // 已经点赞了 就取消
+            if (this.data.recordList[0].likes.teacher[k] == gData.userId) {
+
+              this.data.recordList[0].likes.teacher.splice(k, 1)
+              this.setData({
+                recordList: this.data.recordList
+              })
+            } else if ((k + 1) == this.data.recordList[0].likes.teacher.length) {
+              this.data.recordList[0].likes.teacher.push(gData.userId)
+              this.setData({
+                recordList: this.data.recordList
+              })
+              break;
+            }
+
+          }
+        } else {
+          this.data.recordList[0].likes.teacher[0] = gData.userId
+
+          this.setData({
+            recordList: this.data.recordList
+          })
+        }
+
+      } else {
+        var likes = []
+        var teacher = []
+        this.data.recordList[0].likes = {}
+        this.data.recordList[0].likes.teacher = []
+
+        this.data.recordList[0].likes.teacher[0] = gData.userId
+
+        this.setData({
+          recordList: this.data.recordList
+        })
+      }
+    }
+    console.info(this.data.recordList)
 
 
     wx.request({
@@ -170,7 +250,7 @@ Page({
         "authorId": gData.userId, //自己的id
         "authorType": 1, //1: teacher, 2: parent",
         "recordId": recordId,
-        "parentRecordId": parseInt(that.data.recordId),
+        "parentRecordId": parentRecordId,
         "orgAuthorId": authorId,
         "orgAuthorType": 1
       },
