@@ -17,16 +17,19 @@ function CuteHttps(){
     };
     this.Post = function(url, data, callback){
         var urlObject = require("url").parse(url, true);
-		var res_data = "";
+        var res_data = "";
         var req = https.request({
             host: urlObject.host,
-            path: urlObject.pathname,
+            path: urlObject.path,
             method: "POST",
+            json: true,
 			headers:{
-				'Content-Type' : 'application/json'
-			}
+                'Content-Type' : 'application/json',
+                //'content-type': 'application/x-www-form-urlencoded'
+                'Content-Length': Buffer.byteLength(JSON.stringify(data))
+            },
+            //rejectUnauthorized: false
         }, function(res){
-            console.info(res);
             res.setEncoding("utf8");
             res.on('data', function(chuck){
 				res_data += chuck.toString();
@@ -37,6 +40,7 @@ function CuteHttps(){
         });
         req.on('error', function(e){console.info(e);});
         strJson = JSON.stringify(data);
+        console.info("POST Param", strJson);
         req.write(strJson);
         req.end();
         console.info("post end");
