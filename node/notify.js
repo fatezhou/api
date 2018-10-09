@@ -31,6 +31,7 @@ function PostMsgToWxClient(data){
         url += wx_secret;        
 
         https.Get(url, function(e){
+            e = JSON.parse(e);
             if(e.access_token){
                 data.token = e.access_token;
                 var https = tools.GetHttps();
@@ -46,8 +47,8 @@ function PostMsgToWxClient(data){
                             keyword1 : {value : "新消息提醒"}
                         }
                     }, 
-                    function(e){
-                        console.info(e);
+                    function(res){                        
+				        console.info(res);
                     }
                 )
             }
@@ -58,7 +59,9 @@ function PostMsgToWxClient(data){
 
 
 function DoNotify(obj){    
-    db.Query("select * from form_table where author_id=? and author_type=? order by create_time limit 1", [obj.org_author_id, obj.org_author_type], function(e){
+    console.info("do notify:", obj);
+    var newDb = tools.GetDataBase();
+    newDb.Query("select * from form_table where author_id=? and author_type=? and !(form_id like '%the%') order by create_time desc limit 1", [obj.org_author_id, obj.org_author_type], function(e){
         if(!e.error){
             //send notify!
             console.info("notify callback, e:", e);
@@ -73,9 +76,10 @@ function DoNotify(obj){
             if(e && e.length > 0){
                 PostMsgToWxClient({formId: e[0].form_id, openId: e[0].openId});
                 var sqlFmt = "delete from form_table where id = ?";
-                db.Query(sqlFmt, [e[0].id], function(e){
+                var newDb = tools.GetDataBase();
+                newDb.Query(sqlFmt, [e[0].id], function(e){
                     console.info("remove one used form_id");
-                })
+                });
             }
         }
     });
@@ -85,14 +89,12 @@ function DoNotify(obj){
 function CheckClientOnlineOrNot(obj){
     var author = {author_id:obj.org_author_id, author_type: obj.org_author_type};
     mongo.Query(author, function(e){
-        console.info("on mongo query callback");
         if(e.length > 0){
             if(e[0].online){
-                //do nothing
-            }else{
-                DoNotify(obj);
+               return;
             }
         }
+        DoNotify(obj);
     })
 }
 
@@ -107,12 +109,13 @@ function GetNewMessageFromDb(){
                 e = [];
             }
             console.info("get distinct ok, size:", e.length);
+            console.info(e);
             for(var i in e){
                 CheckClientOnlineOrNot(e[i]);
                 sqlFmt = "update new_message set state = 1 where org_author_id = ? and org_author_type = ?";
                 var newDb = tools.GetDataBase();
                 newDb.Query(sqlFmt, [e[i].org_author_id, e[i].org_author_type], function(ee){
-                    console.info("update the new_message state, authorId:", e[i].org_author_id, ", type:", e[i].org_author_type);
+                    console.info("update the new_message state, authorId:", ee);
                 });
             }
         }
@@ -121,7 +124,7 @@ function GetNewMessageFromDb(){
 
 function GetAppSecFromDb(){
     var db = tools.GetDataBase();
-    db.Query("select config_value from config_table where app_parent_sec = ?", ["app_parent_sec"], function(e){
+    db.Query("select config_value from config_table where config_key = ?", ["app_parent_sec"], function(e){
         if(!e.error){
             try{
                 e = JSON.stringify(e);
