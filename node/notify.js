@@ -4,6 +4,7 @@ var db = tools.GetDataBase();
 var mongo = tools.GetMongo();
 var config = tools.GetConfig();
 var template_id = config.GetTemplateId();
+var template_id_parent = config.GetTemplateIdOfParent();
 var wx_template_url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=";
 var wx_t_sec = "";
 var wx_p_sec = "";
@@ -26,20 +27,22 @@ var app_p_id = "";
 function PostMsgToWxClient(data){
     function GetToken(){
         var https = tools.GetHttps();
-        var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=";
+        var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=";        
+        var templateId = "";        
         if(data.authorType == 1){
             url += app_t_id;
             url += "&secret=";
             url += wx_t_sec;
+            templateId = template_id;
         }else if(data.authorType == 2){
             url += app_p_id;            
             url += "&secret=";
             url += wx_p_sec;
+            templateId = template_id_parent;
         }else{
             console.info("error authorType, pass this one");
             return;
         }
-
         https.Get(url, function(e){            
             e = JSON.parse(e);
             console.info("get token end:  ", e);
@@ -52,7 +55,7 @@ function PostMsgToWxClient(data){
                     {
                         access_token: data.token,
                         touser: data.openId,
-                        template_id: template_id,
+                        template_id: templateId,
                         form_id: data.formId,
                         page: "pages/index/index?new_message=true",
                         data:{
@@ -144,7 +147,7 @@ function GetNewMessageFromDb(){
 
 function GetAppSecFromDb(){
     var db = tools.GetDataBase();
-    db.Query("select config_value from config_table", [], function(e){
+    db.Query("select * from config_table", [], function(e){
         if(!e.error){
             try{
                 app_t_id = config.GetTeacherAppid();
@@ -160,7 +163,7 @@ function GetAppSecFromDb(){
                             wx_p_sec = e[i].config_value;
                         }
                     }
-                    console.info("update the app_sec, " , e[0].config_value);
+                    console.info("update the app_sec, " , wx_t_sec, wx_p_sec);
                     GetNewMessageFromDb();
                 }                
             }
