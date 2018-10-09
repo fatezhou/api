@@ -15,8 +15,8 @@
         <view class='crNews'>
           <image src='./../../image/icnotification.png' mode='widthFix'></image>
         </view>
-        <!-- <view class='newsList'>xx条消息</view> -->
-        <button formType="submit" hover-class="none">新消息</button>
+        <view class='newsList'>xx条消息</view>
+        <!-- <button formType="submit" hover-class="none">新消息</button> -->
       </view>
     </navigator>
 

@@ -423,7 +423,9 @@ Page({
       }
     }
 
-
+    console.info(recordId)
+    console.info(orgAuthorType)
+    console.info('like-------------')
     wx.request({
       url: gData.putRecordLike,
       method: 'post',
