@@ -29,7 +29,10 @@ function CuteConfig(){
         return "5RrP5MixecP2lFPLATMazPRoQmBsiQ_wVy2a5H0Vd34";
     };
     this.GetParentAppid = function(){
-        return "";
+        return "wxf4ff3923fa71c9a3";
+    };
+    this.GetTemplateIdOfParent = function(){
+        return "CfO9VdYIeC70pQTBX-9DIbPLrbG-Hgc9HrO9nF3K2dM";
     };
     this.GetPort = function(){
         return this.cfg.port;
