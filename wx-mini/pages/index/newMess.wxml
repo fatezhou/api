@@ -10,65 +10,90 @@
 
 </view> -->
 
-<view wx:for="{{newAppendList}}" wx:key="listIndex" wx:for-item="listItem" style='padding:30rpx;display:flex;justify-content: space-between;background:#fff;border-bottom:1rpx solid #e5e5ea;'>
-  <view wx:if="{{listItem.authorType == 1}}">
-    <view wx:for="{{allTeacherInfo}}" wx:key="teacherIndex" wx:for-item="teacherItem" wx:if="{{listItem.authorId == teacherItem.teacherId}}" bindtap='toDetail' data-item="{{listItem}}" style='display:flex;'>
-      <image wx:if="{{teacherItem.avatarUrl}}" src='{{teacherItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
-      <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
-      <view style="width:80%">
-        <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{teacherItem.nickname ? teacherItem.nickname : teacherItem.name}}</view>
-      
-        <view>
-          <text class="word">{{listItem.text}}</text>
+<view wx:for="{{newAppendList}}" wx:key="listIndex" wx:for-item="listItem">
+  <view wx:if="{{listItem.authorType == 1}}" style='padding:30rpx;display:flex;justify-content: space-between;background:#fff;border-bottom:1rpx solid #e5e5ea;'>
+    <view>
+      <view wx:for="{{allTeacherInfo}}" wx:key="teacherIndex" wx:for-item="teacherItem" wx:if="{{listItem.authorId == teacherItem.teacherId}}" bindtap='toDetail' data-item="{{listItem}}" style='display:flex;'>
+        <image wx:if="{{teacherItem.avatarUrl}}" src='{{teacherItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+        <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+        <view style="width:80%">
+          <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{teacherItem.nickname ? teacherItem.nickname : teacherItem.name}}</view>
+          <view>
+            <text class="word">{{listItem.text}}</text>
+          </view>
+          <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>{{listItem.dateTime}}</view>
         </view>
-        <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>{{listItem.dateTime}}</view>
       </view>
     </view>
-  </view>
-  <view wx:elif="{{listItem.authorType == 2}}">
-    <view wx:for="{{allParentInfo}}" wx:key="parentIndex" wx:for-item="parentItem" wx:if="{{listItem.authorId == parentItem.parentId}}" bindtap='toDetail' data-item="{{listItem}}" style='display:flex;'>
-      <image wx:if="{{parentItem.avatarUrl}}" src='{{parentItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
-      <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
-      <view style="width:80%">
-        <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{parentItem.nickname ? parentItem.nickname : parentItem.name}}</view>
-        <view>
-          <text class="word">{{listItem.text}}</text>
-        </view>
-        <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>{{listItem.dateTime}}</view>
-      </view>
-    </view>
-  </view>
-  <view wx:elif="{{listItem.author_type == 1}}">
-    <view wx:for="{{allTeacherInfo}}" wx:key="teacherIndex" wx:for-item="teacherItem" wx:if="{{listItem.author_id == teacherItem.teacherId}}" bindtap='toDetail' data-item="{{listItem}}" style='display:flex;'>
-      <image wx:if="{{teacherItem.avatarUrl}}" src='{{teacherItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
-      <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
-      <view style="width:80%">
-        <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{teacherItem.nickname ? teacherItem.nickname : teacherItem.name}}</view>
-        <image src='../../image/nice.png' style='width:30rpx;' mode='widthFix'></image>
-        <!-- <view>
-          <text class="word">{{listItem.text}}</text>
-        </view> -->
-        <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>{{listItem.dateTime}}</view>
-      </view>
-    </view>
-  </view>
-  <view wx:elif="{{listItem.author_type == 2}}">
-    <view wx:for="{{allParentInfo}}" wx:key="parentIndex" wx:for-item="parentItem" wx:if="{{listItem.author_id == parentItem.parentId}}" bindtap='toDetail' data-item="{{listItem}}" style='display:flex;'>
-      <image wx:if="{{parentItem.avatarUrl}}" src='{{parentItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
-      <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
-      <view style="width:80%">
-        <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{parentItem.nickname ? parentItem.nickname : parentItem.name}}</view>
-        <image src='../../image/nice.png' style='width:30rpx;' mode='widthFix'></image>
-        <!-- <view>
-          <text class="word">{{listItem.text}}</text>
-        </view> -->
-        <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>{{listItem.dateTime}}</view>
-      </view>
+    <image wx:if="{{listItem.pictureUrls[0]}}" src="{{listItem.pictureUrls[0]}}" style='width:120rpx;height:120rpx;'></image>
+    <view wx:if="{{!listItem.pictureUrls[0]}}" wx:for="{{mainText}}" wx:key="textIndex" wx:for-item="textItem" style='width:120rpx;height:120rpx;'>
+      <text wx:if="{{textItem.recordId == listItem.parentRecordId}}" class="words">{{textItem.text}}</text>
     </view>
   </view>
 
-  <image wx:if="{{listItem.pictureUrls[0]}}" src="{{listItem.pictureUrls[0]}}" style='width:120rpx;height:120rpx;'></image>
-  <view wx:else style='width:120rpx;height:120rpx;'>
-    <text class="words">{{mainText}}</text>
+  <view wx:elif="{{listItem.authorType == 2}}" style='padding:30rpx;display:flex;justify-content: space-between;background:#fff;border-bottom:1rpx solid #e5e5ea;'>
+    <view>
+      <view wx:for="{{allParentInfo}}" wx:key="parentIndex" wx:for-item="parentItem" wx:if="{{listItem.authorId == parentItem.parentId}}" bindtap='toDetail' data-item="{{listItem}}" style='display:flex;'>
+        <image wx:if="{{parentItem.avatarUrl}}" src='{{parentItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+        <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+        <view style="width:80%">
+          <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{parentItem.nickname ? parentItem.nickname : parentItem.name}}</view>
+          <view>
+            <text class="word">{{listItem.text}}</text>
+          </view>
+          <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>{{listItem.dateTime}}</view>
+        </view>
+      </view>
+    </view>
+    <image wx:if="{{listItem.pictureUrls[0]}}" src="{{listItem.pictureUrls[0]}}" style='width:120rpx;height:120rpx;'></image>
+    <view wx:if="{{!listItem.pictureUrls[0]}}" wx:for="{{mainText}}" wx:key="textIndex" wx:for-item="textItem" style='width:120rpx;height:120rpx;'>
+      <text wx:if="{{textItem.recordId == listItem.parentRecordId}}" class="words">{{textItem.text}}</text>
+    </view>
   </view>
+
+  <view wx:elif="{{listItem.author_type == 1}}" style='padding:30rpx;display:flex;justify-content: space-between;background:#fff;border-bottom:1rpx solid #e5e5ea;'>
+    <view>
+      <view wx:for="{{allTeacherInfo}}" wx:key="teacherIndex" wx:for-item="teacherItem" wx:if="{{listItem.author_id == teacherItem.teacherId}}" bindtap='toDetail' data-item="{{listItem}}" style='display:flex;'>
+        <image wx:if="{{teacherItem.avatarUrl}}" src='{{teacherItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+        <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+        <view style="width:80%">
+          <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{teacherItem.nickname ? teacherItem.nickname : teacherItem.name}}</view>
+          <image src='../../image/nice.png' style='width:30rpx;' mode='widthFix'></image>
+          <!-- <view>
+          <text class="word">{{listItem.text}}</text>
+        </view> -->
+          <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>{{listItem.dateTime}}</view>
+        </view>
+      </view>
+    </view>
+    <image wx:if="{{listItem.pictureUrls[0]}}" src="{{listItem.pictureUrls[0]}}" style='width:120rpx;height:120rpx;'></image>
+    <view wx:if="{{!listItem.pictureUrls[0]}}" wx:for="{{mainText}}" wx:key="textIndex" wx:for-item="textItem" style='width:120rpx;height:120rpx;'>
+      <text wx:if="{{textItem.recordId == listItem.parentRecordId}}" class="words">{{textItem.text}}</text>
+    </view>
+  </view>
+  <view wx:elif="{{listItem.author_type == 2}}" style='padding:30rpx;display:flex;justify-content: space-between;background:#fff;border-bottom:1rpx solid #e5e5ea;'>
+    <view>
+      <view wx:for="{{allParentInfo}}" wx:key="parentIndex" wx:for-item="parentItem" wx:if="{{listItem.author_id == parentItem.parentId}}" bindtap='toDetail' data-item="{{listItem}}" style='display:flex;'>
+        <image wx:if="{{parentItem.avatarUrl}}" src='{{parentItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+        <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+        <view style="width:80%">
+          <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{parentItem.nickname ? parentItem.nickname : parentItem.name}}</view>
+          <image src='../../image/nice.png' style='width:30rpx;' mode='widthFix'></image>
+          <!-- <view>
+          <text class="word">{{listItem.text}}</text>
+        </view> -->
+          <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>{{listItem.dateTime}}</view>
+        </view>
+      </view>
+    </view>
+    <image wx:if="{{listItem.pictureUrls[0]}}" src="{{listItem.pictureUrls[0]}}" style='width:120rpx;height:120rpx;'></image>
+    <view wx:if="{{!listItem.pictureUrls[0]}}" wx:for="{{mainText}}" wx:key="textIndex" wx:for-item="textItem" style='width:120rpx;height:120rpx;'>
+      <text wx:if="{{textItem.recordId == listItem.parentRecordId}}" class="words">{{textItem.text}}</text>
+    </view>
+  </view>
+
+  <!-- <image wx:if="{{listItem.pictureUrls[0]}}" src="{{listItem.pictureUrls[0]}}" style='width:120rpx;height:120rpx;'></image>
+  <view wx:else style='width:120rpx;height:120rpx;'>
+    <text class="words">11</text>
+  </view> -->
 </view>

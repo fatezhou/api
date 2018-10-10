@@ -10,7 +10,7 @@ Page({
     Imgpath: '',
     allTeacherInfo: null,
     allParentInfo: null,
-    mainText:'',
+    mainText: [],
   },
 
   toDetail: function(e) {
@@ -46,7 +46,7 @@ Page({
       allParentInfo: app.globalData.allParentInfo,
 
     })
- 
+
     wx.request({
       url: app.globalData.getNewMessage,
       data: {
@@ -57,30 +57,93 @@ Page({
       },
       method: 'POST',
       success: function(res) {
-        for (var i = 0; i < res.data.data.append.length; i++) {
-          res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
-          // res.data.data.append[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
-          var recordId = res.data.data.append[i].parentRecordId
-          wx.request({
-            url: app.globalData.oneGrowthRecordWithAppendUrl,
-            data: {
-              unionid: app.globalData.unionid,
-              openid: app.globalData.openid,
-              recordId: recordId
-            },
-            header: {},
-            method: 'post',
-            dataType: 'json',
-            responseType: 'text',
-            success: function (e) {
-console.info(e)
-              e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
-              that.setData({
-                mainText: e.data.data.record.text
-              })
-            },
-          })
+        console.info(res)
+        if (res.data.data.append.length > 0) {
+          for (var i = 0; i < res.data.data.append.length; i++) {
+            res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
+            // res.data.data.append[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
+            var recordId = res.data.data.append[i].parentRecordId
+            console.info(i)
+            wx.request({
+              url: app.globalData.oneGrowthRecordWithAppendUrl,
+              data: {
+                unionid: app.globalData.unionid,
+                openid: app.globalData.openid,
+                recordId: recordId
+              },
+              header: {},
+              method: 'post',
+              dataType: 'json',
+              responseType: 'text',
+              success: function(e) {
+                e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
+                if (that.data.mainText.length > 0) {
+                  for (var i = 0; i < that.data.mainText.length; i++) {
+                    if (that.data.mainText[i].recordId == e.data.data.record.recordId) {
+                   
+                    } else if (i + 1 == that.data.mainText.length) {
+                      that.data.mainText = that.data.mainText.concat(e.data.data.record)
+                      that.setData({
+                        mainText: that.data.mainText
+                      })
+                    }
+                  }
+                  console.info(that.data.mainText)
+                }else{
+                  that.data.mainText = that.data.mainText.concat(e.data.data.record)
+                  that.setData({
+                    mainText: that.data.mainText
+                  })
+                }
+              },
+            })
+          }
         }
+
+        if (res.data.data.like.length > 0) {
+          for (var i = 0; i < res.data.data.like.length; i++) {
+            // res.data.data.like[i].text = decodeURIComponent(res.data.data.append[i].text)
+            // res.data.data.like[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
+            var recordId = res.data.data.like[i].parentRecordId
+            console.info(i)
+            wx.request({
+              url: app.globalData.oneGrowthRecordWithAppendUrl,
+              data: {
+                unionid: app.globalData.unionid,
+                openid: app.globalData.openid,
+                recordId: recordId
+              },
+              header: {},
+              method: 'post',
+              dataType: 'json',
+              responseType: 'text',
+              success: function(e) {
+                e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
+                if (that.data.mainText.length > 0) {
+                  for (var i = 0; i < that.data.mainText.length; i++) {
+                    if (that.data.mainText[i].recordId == e.data.data.record.recordId) {
+                      continue;
+                    } else if (i + 1 == that.data.mainText.length) {
+                      that.data.mainText = that.data.mainText.concat(e.data.data.record)
+                      that.setData({
+                        mainText: that.data.mainText
+                      })
+                    }
+                  }
+                  console.info(that.data.mainText)
+                } else {
+                  that.data.mainText = that.data.mainText.concat(e.data.data.record)
+                  that.setData({
+                    mainText: that.data.mainText
+                  })
+                }
+
+                console.info(that.data.mainText)
+              },
+            })
+          }
+        }
+
         console.info(res)
 
         if (res.data.code == 0) {
