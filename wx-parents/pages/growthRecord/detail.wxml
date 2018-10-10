@@ -29,27 +29,30 @@
       <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
       <view>
         <!-- <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix'></image> -->
-        <!-- 代码改动区域    --起始--  区域内teacher字符串 改为  parent  -->
+        <!-- 点击图标更换 赞显示的图标不变 名字变更     -------  区域内 nice> clicknice  nonice > clicknonice  -->
         <!-- 没有点赞数据 -->
         <block wx:if="{{!item.likes.parent || item.likes.parent.length == 0}}">
-          <image src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0" data-orgAuthorType="{{item.authorType}}"></image>
+          <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:40rpx;display:inline-block' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0" data-orgAuthorType="{{item.authorType}}"></image>
         </block>
         <!-- 有点赞数据 -->
         <block wx:else>
           <!-- 点赞数据没有你 -->
           <block wx:for="{{item.likes.parent}}" wx:for-item='parentLikes' wx:key='parentLikes' wx:if="{{parentLikes != userId}}">
-            <image wx:if="{{index+1 == item.likes.parent.length}}" src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0"
-              data-orgAuthorType="{{item.authorType}}"></image>
+            <image wx:if="{{index+1 == item.likes.parent.length}}" src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:40rpx;display:inline-block' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"
+              data-parentRecordId="0" data-orgAuthorType="{{item.authorType}}"></image>
 
           </block>
           <!-- 点赞数据有你 -->
           <block wx:for="{{item.likes.parent}}" wx:for-item='parentLike' wx:key='parentLike' wx:if="{{parentLike == userId}}">
-            <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0" data-orgAuthorType="{{item.authorType}}"></image>
+            <image src='../../image/clicknice.png' style='width:50rpx;height:50rpx;margin-right:40rpx;display:inline-block' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0" data-orgAuthorType="{{item.authorType}}"></image>
           </block>
         </block>
+        <!-- 点击图标更换 赞显示的图标不变 名字变更     -------  区域内 nice> clicknice  nonice > clicknonice  -->
         <!-- 代码改动区域    --终止--    -->
         <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=false" style="display:inline-block" hover-class="none">
-          <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
+          <!-- 图标变更 -->
+          <image src='../../image/more.png' style='width:50rpx;height:50rpx' mode='cover'></image>
+          <!-- 图标变更 -->
         </navigator>
       </view>
 
@@ -136,31 +139,34 @@
           <view>
             <!-- <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
               data-orgAuthorType="{{itemWithAppend.authorType}}"></image> -->
-            <!-- 代码改动区域    --起始--  区域内teacher字符串 改为  parent  -->
+            <!-- 点击图标更换 赞显示的图标不变 名字变更     -------  区域内 nice> clicknice  nonice > clicknonice  -->
             <!-- 没有点赞数据 -->
             <block wx:if="{{!itemWithAppend.like.parent || itemWithAppend.like.parent.length == 0}}">
-              <image src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
+              <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:40rpx;display:inline-block' mode='cover' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
                 data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
             </block>
             <!-- 有点赞数据 -->
             <block wx:else>
               <!-- 点赞数据没有你 -->
               <block wx:for="{{itemWithAppend.like.parent}}" wx:for-item='parentLikes' wx:key='parentLikes' wx:if="{{parentLikes != userId}}">
-                <image wx:if="{{index+1 == itemWithAppend.like.parent.length}}" src='../../image/nonice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}"
+                <image wx:if="{{index+1 == itemWithAppend.like.parent.length}}" src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:40rpx;display:inline-block' mode='cover' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}"
                   data-parentRecordId="{{item.recordId}}" data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
 
               </block>
               <!-- 点赞数据有你 -->
               <block wx:for="{{itemWithAppend.like.parent}}" wx:for-item='parentLike' wx:key='parentLike' wx:if="{{parentLike == userId}}">
-                <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
+                <image src='../../image/clicknice.png' style='width:50rpx;height:50rpx;margin-right:40rpx;display:inline-block' mode='cover' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
                   data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
               </block>
             </block>
+            <!-- 点击图标更换 赞显示的图标不变 名字变更     -------  区域内 nice> clicknice  nonice > clicknonice  -->
             <!-- 代码改动区域    --终止--    -->
 
             <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{itemWithAppend.authorId}}&orgAuthorType={{itemWithAppend.authorType}}&studentId={{itemWithAppend.studentId}}&hindname=false&callName={{itemWithAppend.name}}" style="display:inline-block"
               hover-class="none">
-              <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
+              <!-- 图标变更 -->
+              <image src='../../image/more.png' style='width:50rpx;height:50rpx' mode='cover'></image>
+              <!-- 图标变更 -->
             </navigator>
           </view>
 
