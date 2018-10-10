@@ -1,13 +1,15 @@
 <!--pages/growthRecord/growthRecord.wxml-->
+<form bindsubmit="formSubmit_collect" report-submit="true">
 <image src="../../image/bg.png" style="position:relative;z-index:-1;width:750rpx;height:400rpx" mode="cover"></image>
 <view class='counts' style="height:375rpx">
-  <navigator url='newMess' style="margin-top:-400rpx;position:relative;" hover-class="none">
+  <navigator url='newMess' style="margin-top:-400rpx;position:relative;z-index:3" hover-class="none">
     <view class='countsRight'>
-      <!-- <view class='crNews'>
-        <image src='./../../image/icnotification.png' mode='widthFix'></image>
+        <view class='crNews'>
+          <image src='./../../image/icnotification.png' mode='widthFix'></image>
+        </view>
+        <!-- <view class='newsList'>xx条消息</view> -->
+        <button formType="submit" hover-class="none">新消息</button>
       </view>
-      <view class='newsList'>xx条消息</view> -->
-    </view>
   </navigator>
 
   <view style="margin-top:-350rpx;position:relative;">
@@ -284,3 +286,5 @@
 
 <import src="../../template/template.wxml" />
 <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />
+
+</form>

@@ -29,20 +29,21 @@ App({
     // studentId: [115, 44, 43],
     studentList: [
       {
+        avatarUrl: '',
+        // ../../ image / head02.png
+        name: '李司羽',
+        sex: 1,
+        recardCount: 115,
+        id: 141,
+      },
+      {
       avatarUrl: '',
       // ../../ image / head.png
       name: '曹语荞',
       sex: 0,
       recardCount: 162,
       id: 341,
-    }, {
-      avatarUrl: '',
-      // ../../ image / head02.png
-      name: '李司羽',
-      sex: 1,
-      recardCount: 115,
-      id: 141,
-    }, {
+    },  {
       avatarUrl: '',
       // ../../ image / head.png
       name: '李淇锭',
@@ -73,6 +74,8 @@ App({
       getParentsInfo: "https://api.minidope.com/api/v1.0/get_parents_info",
       //  <-- 新增代码
     },
+
+    putFormId: 'https://api.minidope.com/api/v1/put_form_id',
 
     phoneVcode: "https://api.minidope.com/api/v1.0/phone-vcode",
     // getTeacherInfo: "https://api.minidope.com/api/v1.0/get_teacher_info",

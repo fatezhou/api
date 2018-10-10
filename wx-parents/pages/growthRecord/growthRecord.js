@@ -27,6 +27,34 @@ Page({
     recordId: '',
   },
 
+  formSubmit_collect: function (e) {
+    console.info(e)
+    let formId = e.detail.formId;
+    // console.info(formId)
+    console.info(app.globalData.userId)
+    console.info(app.globalData.userType)
+    console.info(formId)
+    console.info(app.globalData.openid)
+    console.info(app.globalData.unionid)
+    console.info(app.globalData.token)
+
+    wx.request({
+      url: app.globalData.putFormId,
+      data: {
+        "authorId": app.globalData.userId,
+        "authorType": app.globalData.userType,
+        "formId": formId,
+        "openId": app.globalData.openid,
+        "unionId": app.globalData.unionid,
+        "accesstoken": app.globalData.token
+      },
+      method: 'post',
+      success: function (res) {
+        console.info(res)
+      }
+    })
+  },
+
   showmore: function(e) {
     console.info(e)
     for (var o = 0; 0 < this.data.recordsList.length; o++) {
