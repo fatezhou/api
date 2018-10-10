@@ -26,7 +26,7 @@
     </view>
   </view>
   <view wx:elif="{{listItem.authorType == 2}}">
-    <view wx:for="{{allParentInfo}}" wx:key="parentIndex" wx:for-item="parentItem" wx:if="{{listItem.authorId == parentItem.parentId}}" style='display:flex;'>
+    <view wx:for="{{allParentInfo}}" wx:key="parentIndex" wx:for-item="parentItem" wx:if="{{listItem.authorId == parentItem.parentId}}" bindtap='toDetail' style='display:flex;'>
       <image wx:if="{{parentItem.avatarUrl}}" src='{{parentItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
       <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
       <view style="width:80%">
@@ -39,7 +39,7 @@
     </view>
   </view>
   <view wx:elif="{{listItem.author_type == 1}}">
-    <view wx:for="{{allTeacherInfo}}" wx:key="teacherIndex" wx:for-item="teacherItem" wx:if="{{listItem.author_id == teacherItem.teacherId}}" style='display:flex;'>
+    <view wx:for="{{allTeacherInfo}}" wx:key="teacherIndex" wx:for-item="teacherItem" wx:if="{{listItem.author_id == teacherItem.teacherId}}" bindtap='toDetail' style='display:flex;'>
       <image wx:if="{{teacherItem.avatarUrl}}" src='{{teacherItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
       <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
       <view style="width:80%">
@@ -53,7 +53,7 @@
     </view>
   </view>
   <view wx:elif="{{listItem.author_type == 2}}">
-    <view wx:for="{{allParentInfo}}" wx:key="parentIndex" wx:for-item="parentItem" wx:if="{{listItem.author_id == parentItem.parentId}}" style='display:flex;'>
+    <view wx:for="{{allParentInfo}}" wx:key="parentIndex" wx:for-item="parentItem" wx:if="{{listItem.author_id == parentItem.parentId}}" bindtap='toDetail' style='display:flex;'>
       <image wx:if="{{parentItem.avatarUrl}}" src='{{parentItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
       <image wx:else src='{{Imgpath}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
       <view style="width:80%">

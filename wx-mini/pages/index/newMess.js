@@ -32,7 +32,7 @@ Page({
       }
     }
     wx.navigateTo({
-      url: "detail?recordId=" + item.recordId + "&mainText=" + item.parentText + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
+      url: "detail?recordId=" + item.parentId + "&mainText=" + item.parentText + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
     })
   },
 
