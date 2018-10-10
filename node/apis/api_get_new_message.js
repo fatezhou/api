@@ -73,6 +73,7 @@ function ApiGetNewMessage(){
             growth_record a , \
             growth_record b \
             where \
+            a.record_type = 1 and \
             a.parent_record_id = b.id \
             and \
             a.id in (\
