@@ -68,7 +68,7 @@
     </view>
     <image wx:if="{{listItem.pictureUrls[0]}}" src="{{listItem.pictureUrls[0]}}" style='width:120rpx;height:120rpx;'></image>
     <view wx:if="{{!listItem.pictureUrls[0]}}" wx:for="{{mainText}}" wx:key="textIndex" wx:for-item="textItem" style='width:120rpx;height:120rpx;'>
-      <text wx:if="{{textItem.recordId == listItem.parentRecordId}}" class="words">{{textItem.text}}</text>
+      <text class="words">{{listItem.text}}</text>
     </view>
   </view>
   <view wx:elif="{{listItem.author_type == 2}}" style='padding:30rpx;display:flex;justify-content: space-between;background:#fff;border-bottom:1rpx solid #e5e5ea;'>
@@ -88,7 +88,7 @@
     </view>
     <image wx:if="{{listItem.pictureUrls[0]}}" src="{{listItem.pictureUrls[0]}}" style='width:120rpx;height:120rpx;'></image>
     <view wx:if="{{!listItem.pictureUrls[0]}}" wx:for="{{mainText}}" wx:key="textIndex" wx:for-item="textItem" style='width:120rpx;height:120rpx;'>
-      <text wx:if="{{textItem.recordId == listItem.parentRecordId}}" class="words">{{textItem.text}}</text>
+      <text class="words">{{listItem.text}}</text>
     </view>
   </view>
 

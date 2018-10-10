@@ -102,7 +102,7 @@ Page({
 
         if (res.data.data.like.length > 0) {
           for (var i = 0; i < res.data.data.like.length; i++) {
-            // res.data.data.like[i].text = decodeURIComponent(res.data.data.append[i].text)
+            res.data.data.like[i].text = decodeURIComponent(res.data.data.like[i].text)
             // res.data.data.like[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
             var recordId = res.data.data.like[i].parentRecordId
             console.info(i)
