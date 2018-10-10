@@ -4,6 +4,7 @@
     "pages/growthRecord/growthRecord",
     "pages/growthRecord/detail",
     "pages/growthRecord/teacher",
+    "pages/growthRecord/newMess",
     "pages/index/index",
     "pages/my/my",
     "pages/my/vipCard",

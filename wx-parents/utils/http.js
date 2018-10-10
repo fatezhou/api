@@ -176,8 +176,8 @@ function getParents(callback) {
       openid: app.globalData.openid,
     },
     success: function (res) {
-      // console.info(res)
-      // console.info('getParents')
+      console.info(res)
+      console.info('getParents')
 
       if (res.data.code == 0) {
         // 所有家长信息保存本地

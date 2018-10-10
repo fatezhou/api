@@ -285,7 +285,7 @@ Page({
       data: {
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
-        // "authorId": app.globalData.userId,
+        "authorId": app.globalData.userId, //只要这个老师的记录数量
         "authorType": 1, //1: teacher, 2: parent",
         "studentId": this.data.studentId
       },

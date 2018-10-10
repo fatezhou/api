@@ -249,7 +249,7 @@ Page({
       data: {
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
-        // "authorId": app.globalData.userId,
+        "authorId": app.globalData.userId,
         "authorType": app.globalData.userType, //1: teacher, 2: parent",
         "studentId": that.data.studentId
       },
@@ -308,8 +308,12 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(e) {
-        // console.info(e)
-        // console.info('dsadasdasd===')
+        console.info(e)
+        console.info('dsadasdasd===')
+        e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
+        self.setData({
+          mainText: e.data.data.record.text
+        })
         if (e.data.code == 0) {
           for (var t = 0; t < e.data.data.record.append.length; t++) {
             e.data.data.record.append[t].text = decodeURIComponent(e.data.data.record.append[t].text)

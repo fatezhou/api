@@ -26,32 +26,25 @@ App({
   globalData: {
     userInfo: null,
     userId: 221,
-    // studentId: [115, 44, 43],
-    studentList: [
-      {
-        avatarUrl: '',
-        // ../../ image / head02.png
-        name: '李司羽',
-        sex: 1,
-        recardCount: 115,
-        id: 141,
-      },
-      {
-      avatarUrl: '',
-      // ../../ image / head.png
-      name: '曹语荞',
+    studentList: [{
+      avatarUrl: "",
+      name: "T小小铭",
       sex: 0,
       recardCount: 162,
-      id: 341,
-    },  {
-      avatarUrl: '',
-      // ../../ image / head.png
-      name: '李淇锭',
+      id: 141,
+    }, {
+      avatarUrl: "",
+      name: "T周周",
+      sex: 1,
+      recardCount: 115,
+      id: 143,
+    }, {
+      avatarUrl: "",
+      name: "T平平",
       sex: 1,
       recardCount: 16259,
-        id: 143,
-    }, 
-    ],
+      id: 142,
+    }, ],
     // 教师端1 ,家长端2 测试用记得改
     userType: 2,
     unionid: "",
@@ -70,15 +63,20 @@ App({
       getCdnToken: 'https://api.minidope.com/api/v1.0/get_cdn_token',
       putNewRecord: 'https://api.minidope.com/api/v1.0/put_new_record',
 
-      // 获得全部家长信息  --> 新增代码
+
       getParentsInfo: "https://api.minidope.com/api/v1.0/get_parents_info",
-      //  <-- 新增代码
+
     },
 
+    // 新消息提醒
     putFormId: 'https://api.minidope.com/api/v1/put_form_id',
+    getNewMessage: 'https://api.minidope.com/api/v1/get_new_message',
+    // 新消息提醒
+
+
 
     phoneVcode: "https://api.minidope.com/api/v1.0/phone-vcode",
-    // getTeacherInfo: "https://api.minidope.com/api/v1.0/get_teacher_info",
+  
     bindPhone: 'https://api.minidope.com/api/v1.0/bindPhone',
 
     putMemberFav: "https://api.minidope.com/api/v1.0/put_member_fav",
@@ -89,12 +87,12 @@ App({
     Imgpath: '',
 
     allTeacherInfo: null,
-    // 所有家长信息  --> 新增代码
+ 
     allParentInfo: null,
     // 所有用户信息  包括所有家长和教师的信息  id区别: 'teacherId' 和 'parentId'
     // 记录和评论里面id的区别方式 : authorid可能一样 区别方式是authorType 1:'teacher' 2:'parent'
     allUserInfo: null,
-    //  <-- 新增代码
+
     recordsList: '',
     // 记录条数
     indexSize: '',

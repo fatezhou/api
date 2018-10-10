@@ -32,7 +32,7 @@ Page({
       }
     }
     wx.navigateTo({
-      url: "detail?recordId=" + item.parentRecordId + "&mainText=" + item.parentText + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
+      url: "detail?recordId=" + item.parentId + "&mainText=" + item.parentText + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
     })
   },
 
@@ -110,6 +110,10 @@ Page({
 
     // return
     // <-- 数据写死测试用 
+    console.info(app.globalData.unionid)
+    console.info(app.globalData.openid)
+    console.info(app.globalData.userId)
+    console.info(app.globalData.userType)
 
     wx.request({
       url: app.globalData.getNewMessage,
@@ -125,7 +129,7 @@ Page({
           res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
           res.data.data.append[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
         }
-        console.info(res)
+        console.info(res.data.data)
 
         if (res.data.code == 0) {
           var append = res.data.data.append

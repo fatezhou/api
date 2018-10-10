@@ -56,7 +56,7 @@ Page({
   },
 
   showmore: function(e) {
-    console.info(e)
+    // console.info(e)
     for (var o = 0; 0 < this.data.recordsList.length; o++) {
       if (this.data.recordsList[o].recordId == e.currentTarget.dataset.recordid) {
         this.data.recordsList[o].isfold = !this.data.recordsList[o].isfold
@@ -86,8 +86,8 @@ Page({
   changestudent: function(index) {
     var that = this
     studentId = this.data.showswiper[index].id
-    console.info(studentId)
-    console.info('studentId')
+    // console.info(studentId)
+    // console.info('studentId')
     http.getGrowthRecordsWithoutAppend(studentId, function(res) {
       if (res == 0) {
        
@@ -96,8 +96,8 @@ Page({
             // console.info(res)
 
             recordId = res.slice(res.length - 1)[0].recordId
-            console.info(recordId)
-            console.info('recordId')
+            // console.info(recordId)
+            // console.info('recordId')
             that.setData({
               recordId: recordId
             })
@@ -150,8 +150,8 @@ Page({
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
     var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
 
-    console.info(this.data.recordsList)
-    console.info('this.data.recordsList.append')
+    // console.info(this.data.recordsList)
+    // console.info('this.data.recordsList.append')
     for (var r = 0; r < this.data.recordsList.length; r++) {
       if (this.data.recordsList[r].recordId == parentRecordId) {
         for (var j = 0; j < this.data.recordsList[r].append.length; j++) {
@@ -162,8 +162,8 @@ Page({
                 for (var k = 0; k < this.data.recordsList[r].append[j].like.parent.length; k++) {
                   // 已经点赞了 就取消
                   // 改动位置 删除 previewImage  -->
-                  console.info(this.data.recordsList[r].append[j].like[k])
-                  console.info('cccccc')
+                  // console.info(this.data.recordsList[r].append[j].like[k])
+                  // console.info('cccccc')
                   if (this.data.recordsList[r].append[j].like.parent[k] == gData.userId) {
                     // <-- 改动位置
                     this.data.recordsList[r].append[j].like.parent.splice(k, 1)
@@ -437,7 +437,7 @@ Page({
     for (var i = 0; i < app.globalData.recordsList.length; i++) {
 
       var recordId = app.globalData.recordsList[i].recordId
-      console.info(recordId)
+      // console.info(recordId)
 
       wx.request({
         url: app.globalData.minodopeApi.getOneGrowthRecordWithAppendByRecordId,
@@ -451,9 +451,9 @@ Page({
         dataType: 'json',
         responseType: 'text',
         success: function(res) {
-          console.info(res)
-          console.info('append')
-          console.info(app.globalData.recordsList.length)
+          // console.info(res)
+          // console.info('append')
+          // console.info(app.globalData.recordsList.length)
           // app.globalData.recordsList = res.data.data.record
           for (var x = 0; x < app.globalData.recordsList.length; x++) {
 
@@ -584,7 +584,7 @@ Page({
                       // console.info(app.globalData.allParentInfo)
                       // 整合 教师信息 和 家长信息
                       app.globalData.allUserInfo = app.globalData.allTeacherInfo.concat(app.globalData.allParentInfo)
-                      console.info(app.globalData.allUserInfo)
+                      // console.info(app.globalData.allUserInfo)
                       that.setData({
                         // allTeacherInfo: app.globalData.allTeacherInfo,
                         // allParentInfo: app.globalData.allParentInfo,
