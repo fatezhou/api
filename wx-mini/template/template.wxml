@@ -6,7 +6,7 @@
 
           <!-- <view>{{item.msg}}</view> -->
           <view>
-            <button formType="submit" hover-class="none" style="margin-left:0">
+            <button formType="submit" hover-class="none" style="margin-left:12rpx">
               <image class="tabsIcon" src='{{item.iconPath}}' style="width:32rpx;height:36rpx;"></image>
             </button>
           </view>
@@ -27,7 +27,7 @@
         <navigator open-type="redirect" hover-class='none' url="{{item.pagePath}}">
           <!-- <view>{{item.msg}}</view> -->
           <view>
-            <button formType="submit" hover-class="none" style="margin-left:0">
+            <button formType="submit" hover-class="none" style="margin-left:12rpx">
               <image class="tabsIcon" src='{{item.iconPath}}' style="width:40rpx;height:40rpx;"></image>
             </button>
           </view>
