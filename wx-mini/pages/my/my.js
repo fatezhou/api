@@ -36,7 +36,7 @@ Page({
     if (app.globalData.teacherInfo.teacherId) {
       this.data.position = '教师'
     }
-    console.info(app.globalData.teacherInfo)
+
     this.setData({
       name: app.globalData.teacherInfo.name,
       nickname: app.globalData.teacherInfo.nickname,

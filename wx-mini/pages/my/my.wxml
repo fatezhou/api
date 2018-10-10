@@ -2,7 +2,6 @@
 <view style='height:200rpx;background:#fff;margin-top:30rpx;font-size:28rpx;display:flex;justify-content: space-between;align-items: center'>
   <view style='display:flex;'>
     <view style='margin-left:30rpx;margin-right:24rpx;position:relative;'>
-      <!-- <image src='../../image/head.png' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image> -->
 
       <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image>
       <image wx:else src="{{avatarUrl}}" style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;' />
@@ -13,7 +12,7 @@
     <view>
       <view style='display:flex;margin-top:20rpx;'>
         <view>{{nickname}}</view>
-        <!-- <image src='../../image/man.png' style='width:38rpx;height:38rpx;margin-left:10rpx;'></image> -->
+     
         <image src="{{sex == 2 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style='width:38rpx;height:38rpx;margin-left:10rpx;' />
       </view>
       <view style='color:#98a5a5;margin-top:20rpx;'>一句话介绍：教育没有捷径</view>

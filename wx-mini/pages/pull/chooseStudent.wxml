@@ -2,9 +2,8 @@
 <view style='height:27rpx;'></view>
 
 <view class='memberListBG'>
-  <!-- <view style="padding: 0 30rpx 20rpx 30rpx;width:600rpx"> -->
     <input bindinput='searchName' style="padding: 20rpx 30rpx;" placeholder="搜索" placeholder-style="font-size:32rpx"></input>
-  <!-- </view> -->
+
   <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{perStudent}}" wx:key='index' bindtap='searchList' data-index='{{index}}'>
     <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
     <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
@@ -14,7 +13,7 @@
         <view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
       </view>
       <view>
-        <!-- <image wx:if="{{item.star}}" src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:20rpx;'></image> -->
+
         <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
       </view>
 
@@ -27,7 +26,7 @@
 <view class='leadW'>星标</view>
 <view class='memberListBG'>
   <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{stararr}}" wx:key='index' bindtap='memberstar' data-index='{{index}}'>
-    <!-- <image src='../../image/head.png' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image> -->
+
 
     <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
     <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
@@ -38,7 +37,7 @@
         <view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
       </view>
       <view>
-        <!-- <image wx:if="{{item.star}}" src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:20rpx;'></image> -->
+  
         <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
       </view>
 
@@ -51,7 +50,7 @@
 <view class='leadW'>通讯录</view>
 <view class='memberListBG'>
   <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{memberList}}" wx:key='index' bindtap='member' data-index='{{index}}'>
-    <!-- <image src='../../image/head.png' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image> -->
+
 
     <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
     <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>

@@ -22,9 +22,9 @@ Page({
     var searchValue = e.detail.value
     this.data.perStudent = []
     for (var i = 0; i < app.globalData.allStudent.length; i++) {
-      // console.info(app.globalData.allStudent[i].name.indexOf(searchValue))
+    
       if (app.globalData.allStudent[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
-        // console.info(app.globalData.allStudent[i].name)
+  
         this.data.perStudent.push(app.globalData.allStudent[i])
       }
     }
@@ -37,9 +37,7 @@ Page({
   searchList: function (e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.perStudent[index];
-    // console.info("member.member");
-    // console.info(item);
-    // console.info(3333)
+
     var url = 'memberDetail?name=' + item.name;
     url += "&studentId=" + item.studentId;
     url += "&cardCode=" + item.cardCode;
@@ -48,7 +46,7 @@ Page({
     url += "&freeze=" + item.freeze;
     url += "&sex=" + item.sex;
     url += "&avatarUrl=" + item.avatarUrl;
-    // console.info(url);
+  
     wx.navigateTo({
       url: url,
       success: function (res) { },
@@ -60,9 +58,7 @@ Page({
   member: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.memberList[index];
-    // console.info("member.member");
-    // console.info(item);
-    // console.info(3333)
+
     var url = 'memberDetail?name=' + item.name;
     url += "&studentId=" + item.studentId;
     url += "&cardCode=" + item.cardCode;
@@ -71,7 +67,7 @@ Page({
     url += "&freeze=" + item.freeze;
     url += "&sex=" + item.sex;
     url += "&avatarUrl=" + item.avatarUrl;
-    // console.info(url);
+  
     wx.navigateTo({
       url: url,
       success: function(res) {},
@@ -83,8 +79,7 @@ Page({
   memberstar: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.stararr[index];
-    // console.info("member.member");
-    // console.info(item);
+  
     var url = 'memberDetail?name=' + item.name;
     url += "&studentId=" + item.studentId;
     url += "&cardCode=" + item.cardCode;
@@ -93,7 +88,7 @@ Page({
     url += "&freeze=" + item.freeze;
     url += "&sex=" + item.sex;
     url += "&avatarUrl=" + item.avatarUrl;
-    // console.info(url);
+   
     wx.navigateTo({
       url: url,
       success: function(res) {},
@@ -118,7 +113,7 @@ Page({
     if (app.globalData.stararr.length > 0) {
       app.globalData.stararrLength = app.globalData.stararr.length
       var stararr = app.globalData.stararr
-      // console.info(stararr)
+   
       for (var i = 0; i < memberList.length; i++) {
         memberList[i].star = false
         for (var j = 0; j < stararr.length; j++) {
@@ -139,8 +134,6 @@ Page({
       })
     }
 
-    // console.info(memberList)
-    // console.info(this.data.stararr)
   },
 
   /**
@@ -156,15 +149,12 @@ Page({
   onShow: function() {
     var that = this;
     var memberList = app.globalData.allStudent
-    // console.info(memberList.length)
-    // that.setData({
-    //   memberList: memberList,
-    // })
+ 
     if (!app.globalData.memberListLength || !app.globalData.stararrLength || app.globalData.memberListLength != memberList.length || app.globalData.stararrLength != app.globalData.stararr.length) {
       app.globalData.memberListLength = memberList.length
       app.globalData.stararrLength = app.globalData.stararr.length
       var stararr = app.globalData.stararr
-      // console.info(stararr)
+
       for (var i = 0; i < memberList.length; i++) {
         memberList[i].star = false
         for (var j = 0; j < stararr.length; j++) {
@@ -178,7 +168,7 @@ Page({
           }
         }
       }
-      // console.info(this.data.stararr)
+
     }
   },
 

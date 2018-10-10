@@ -43,7 +43,7 @@ Page({
       var text = e.detail.value
     }
 
-    console.info(text)
+
     text = encodeURIComponent(text)
     this.setData({
       addtext: text
@@ -81,7 +81,6 @@ Page({
 
     var that = this;
     var gData = app.globalData;
-    console.info(that.data);
 
     for (var i in this.data.prepareToUpload) {
       wx.uploadFile({
@@ -95,10 +94,10 @@ Page({
           key: this.data.prepareToUpload[i].key,
         },
         success: function(res) {
-          // console.info(res)
+
         },
         complete: function(res) {
-          console.info(res)
+      
         }
       });
     }
@@ -119,19 +118,8 @@ Page({
     for (var i in this.data.prepareToUpload) {
       pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
     }
-    // var text = null;
-    // if (this.data.calltext) {
-    //   text = this.data.calltext + that.data.text
-    //   console.info(11111)
-    //   console.info(text)
-    // } else {
-    //   text = that.data.text
-    //   console.info(22222)
-    //   console.info(text)
-    // }
 
-    console.info(pictureUrls)
-    console.info('------------')
+
     wx.request({
       url: app.globalData.putNewRecord,
       data: {
@@ -152,7 +140,6 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        console.log(res);
         wx.showToast({
           title: '发送成功',
           icon: 'success',
@@ -178,7 +165,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.info(options)
     this.setData({
       Imgpath: app.globalData.Imgpath,
     })
@@ -203,15 +189,13 @@ Page({
     }
     this.data.studentId = parseInt(options.studentId);
     this.data.recordId = parseInt(options.recordId);
-    console.info("pull");
-    console.info(this.data);
+
     var contact = app.globalData.contact;
     for (var i in contact) {
       if (contact[i].studentId == this.data.studentId) {
         this.data.name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
         this.data.name = contact[i].name;
-        console.info(contact[i]);
-        console.info("find!!!!" + this.data.name);
+ 
         this.setData(this.data);
         break;
       }
@@ -224,7 +208,7 @@ Page({
     }
 
     if (options.hindname) {
-      console.info(options.hindname)
+ 
       this.setData({
         hindname: true
       })
@@ -236,7 +220,7 @@ Page({
         calltext: this.data.calltext,
         placeholder: '回复' + ' ' + options.callName + ' '
       })
-      // console.info(calltext)
+
     }
   },
 
@@ -291,7 +275,7 @@ Page({
     for (var t = 0; t < timeArr.length; t++) {
       time += timeArr[t]
     }
-    console.info(time)
+
     var fileName = 't_' + userId + '_' + time + '_' + imgNumber + '.jpg '
     return callback(fileName)
   },
@@ -317,7 +301,7 @@ Page({
     for (var t = 0; t < timeArr.length; t++) {
       time += timeArr[t]
     }
-    console.info(time)
+
     var arr = tmpFilePath.split('.');
     var ext = "JPG";
     if (arr.length > 0) {
@@ -352,13 +336,7 @@ Page({
         if (!res.cancel) {
           if (res.tapIndex == 0) {
             that.chooseWxImage('album')
-            // wx.chooseImage({
-            //   sourceType: 'album',
-            //   success: function(res) {
-            //     var tempFilePaths = res.tempFilePaths[0]
-
-            //   }
-            // })
+ 
           } else if (res.tapIndex == 1) {
             that.chooseWxImage('camera')
           }
@@ -387,21 +365,20 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: [type],
       success: function(res) {
-        console.log(res);
+ 
         var imgsLimit = [];
         var tempFilePaths = that.data.tempFilePaths;
         var imgs = that.data.imgs;
         var index = imgs.length;
 
-        console.log(res.tempFilePaths);
         for (var i = 0; i < res.tempFilePaths.length; i++) {
           tempFilePaths[res.tempFilePaths[i]] = '';
-          console.log(res.tempFilePaths[i])
+ 
           imgs.push(res.tempFilePaths[i]);
 
           var encodePicFileName = that.makePicName(index, res.tempFilePaths[i]);
           index++;
-          console.info(encodePicFileName);
+ 
           var self = that;
           var localFilePath = res.tempFilePaths[i];
           wx.request({
@@ -413,7 +390,7 @@ Page({
               localFilePath: localFilePath
             },
             success: function(res) {
-              console.info(res);
+   
               self.data.prepareToUpload.push({
                 fileName: res.data.data.cdn.fileName,
                 token: res.data.data.cdn.token,
@@ -421,7 +398,7 @@ Page({
                 key: res.data.data.cdn.key,
                 localFilePath: res.data.data.cdn.localFilePath
               });
-              console.info(self.data.prepareToUpload);
+     
             }
           })
         };

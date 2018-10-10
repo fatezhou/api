@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // record: '',
     newAppendList: '',
     Imgpath: '',
     allTeacherInfo: null,
@@ -14,7 +13,6 @@ Page({
   },
 
   toDetail: function(e) {
-    console.info(e.currentTarget.dataset.item)
     var item = e.currentTarget.dataset.item
     var allStudentInfo = app.globalData.allStudent
     if (item.authorId) {
@@ -47,70 +45,7 @@ Page({
       allParentInfo: app.globalData.allParentInfo,
 
     })
-    // 数据写死测试用 -->
-    // var append = [{
-    //   authorId: 3,
-    //   authorType: 1,
-    //   dateTime: "2018-10-09 15:30:26",
-    //   parentRecordId: 594,
-    //   parentText: "3_append",
-    //   pictureUrls: [app.globalData.Imgpath],
-    //   recordId: 649,
-    //   text: "33333",
-    //   studentId: 141
-    // }, {
-    //   authorId: 3,
-    //   authorType: 1,
-    //   dateTime: "2018-10-09 15:32:32",
-    //   parentRecordId: 594,
-    //   parentText: "我们收费收费大师那麻烦你你反平方",
-    //   pictureUrls: [],
-    //   recordId: 646,
-    //   text: "222ds按施工i啊的那个i适当皮带是你公婆那段视频给你v的女i奶瓶v男彼女本片十大女仆不可能 怕你公婆东南部v破案被迫v女娲哦怕根据颇为局被破微博v评委的视频222",
-    //   studentId: 141
-    // }]
-
-    // var like = [{
-    //   author_id: 3,
-    //   author_type: 1,
-    //   dateTime: "2018-10-09 15:34:26",
-    //   parentRecordId: 594,
-    //   parentText: "1_like",
-    //   pictureUrls: [app.globalData.Imgpath],
-    //   recordId: 646,
-    //   text: "111111",
-    //   studentId: 141
-    // }, {
-    //   author_id: 3,
-    //   author_type: 1,
-    //   dateTime: "2018-10-09 15:29:24",
-    //   parentRecordId: 594,
-    //   parentText: "4_like",
-    //   pictureUrls: [],
-    //   recordId: 646,
-    //   text: "4444",
-    //   studentId: 141
-    // }]
-
-    // var newAppendList = append.concat(like)
-
-    // for (var i = 0; i < newAppendList.length - 1; i++) {
-    //   for (var j = 0; j < newAppendList.length - i - 1; j++) {
-    //     if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
-    //       var temp = newAppendList[j]
-    //       newAppendList[j] = newAppendList[j + 1];
-    //       newAppendList[j + 1] = temp;
-    //     }
-    //   }
-    // }
-    // newAppendList.reverse()
-    // this.setData({
-    //   newAppendList: newAppendList
-    // })
-
-    // return
-    // <-- 数据写死测试用 
-
+ 
     wx.request({
       url: app.globalData.getNewMessage,
       data: {
@@ -125,14 +60,12 @@ Page({
           res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
           res.data.data.append[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
         }
-        console.info(res)
 
         if (res.data.code == 0) {
           var append = res.data.data.append
           var like = res.data.data.like
           if (res.data.data.append.length > 0 && res.data.data.like.length > 0) {
             var newAppendList = append.concat(like)
-            console.info(newAppendList + '111')
             for (var i = 0; i < newAppendList.length - 1; i++) {
               for (var j = 0; j < newAppendList.length - i - 1; j++) {
                 if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
@@ -148,38 +81,17 @@ Page({
             })
           } else if (res.data.data.like.length > 0) {
             var newAppendList = like
-            console.info(newAppendList + '222')
             newAppendList.reverse()
             that.setData({
               newAppendList: newAppendList
             })
           } else if (res.data.data.append.length > 0) {
             var newAppendList = append
-            console.info(newAppendList + '333')
             newAppendList.reverse()
             that.setData({
               newAppendList: newAppendList
             })
           }
-
-          // var newAppendList = append.concat(like)
-          // if (newAppendList.length > 0) {
-          //   console.info(newAppendList)
-
-          //   for (var i = 0; i < newAppendList.length - 1; i++) {
-          //     for (var j = 0; j < newAppendList.length - i - 1; j++) {
-          //       if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
-          //         var temp = newAppendList[j]
-          //         newAppendList[j] = newAppendList[j + 1];
-          //         newAppendList[j + 1] = temp;
-          //       }
-          //     }
-          //   }
-          //   newAppendList.reverse()
-          //   this.setData({
-          //     newAppendList: newAppendList
-          //   })
-          // }
         }
       }
     })

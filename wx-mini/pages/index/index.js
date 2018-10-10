@@ -30,7 +30,7 @@ Page({
   },
   //事件处理函数
   showmore: function(e) {
-    // console.info(e)
+  
     for (var o = 0; 0 < this.data.recordsList.length; o++) {
       if (this.data.recordsList[o].recordId == e.currentTarget.dataset.recordid) {
         this.data.recordsList[o].isfold = !this.data.recordsList[o].isfold
@@ -44,10 +44,9 @@ Page({
   },
 
   formSubmit_collect: function(e) {
-    // console.info(e)
+   
     let formId = e.detail.formId;
-    // console.info(formId)
-    // console.info(app.globalData.token)
+   
     wx.request({
       url: app.globalData.putFormId,
       data: {
@@ -60,7 +59,7 @@ Page({
       },
       method: 'post',
       success: function(res) {
-        // console.info(res)
+     
       }
     })
   },
@@ -75,22 +74,7 @@ Page({
     if (options.new_message) {
       console.info(options.new_message)
     }
-    // wx.request({
-    //   url: app.globalData.getNewMessage,
-    //   data:{
-    //     "unionid":app.globalData.,
-    //     "openid": "xxxxxxx",
-    //     "authorId": 1,//自己的id
-    //     "authorType": 1//自己的type
-    //   },
-    //   method:'post',
-    //   success:function(res){
-    //     console.info(res)
-    //   }
-    // })
 
-
-    // console.info(app.globalData);
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -142,7 +126,7 @@ Page({
 
   getContactFromGData: function() {
     var self = this;
-    console.info(app.globalData.allStudent)
+
     for (var i in app.globalData.allStudent) {
       for (var j in getrecordsList) {
         if (app.globalData.allStudent[i].studentId == getrecordsList[j].studentId) {
@@ -154,7 +138,7 @@ Page({
     }
 
     app.globalData.recordsList = app.globalData.recordsList.concat(getrecordsList)
-    // console.log(app.globalData.recordsList)
+  
     self.setData({
       recordsList: app.globalData.recordsList,
     });
@@ -171,12 +155,9 @@ Page({
       })
 
       if (!app.globalData.recordId || app.globalData.recordId != res[0].recordId) {
-        // console.info(1)
+   
         app.globalData.recordId = res[0].recordId
         recordId = res.slice(res.length - 1)[0].recordId
-        // for (var t = 0; t < res.length; t++) {
-        //   res[t].text = decodeURIComponent(res[t].text)
-        // }
 
         that.setData({
           recordsList: res,
@@ -212,7 +193,6 @@ Page({
         },
         success: function(res) {
           if (res.data.code == 0) {
-            // console.info(res.data.data.records)
             app.globalData.allParentInfo = res.data.data.records
           }
         },
@@ -227,9 +207,7 @@ Page({
     var that = this
     http.login(function(res) {
       recordId = res.slice(res.length - 1)[0].recordId
-      // for (var t = 0; t < res.length; t++) {
-      //   res[t].text = decodeURIComponent(res[t].text)
-      // }
+
       that.setData({
         recordsList: res
       });
@@ -242,7 +220,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    console.info(recordId)
+
     var that = this;
     wx.request({
       url: app.globalData.getGrowthRecordsWithoutAppend,
@@ -258,8 +236,7 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        console.info(res)
-        console.info('getGrowthRecordsWithoutAppend')
+
         if (res.data.data.records.length != 0) {
 
           recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
@@ -285,7 +262,7 @@ Page({
   },
 
   getUserInfo: function(e) {
-    // console.log(e)
+
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

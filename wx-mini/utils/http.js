@@ -12,8 +12,6 @@ function login(callback) {
             appid: app.globalData.appId
           },
           success: function(e) {
-            // console.info("app.js.login");
-            // console.info(e.data.data);
             if (e.data.data.openId) {
               app.globalData.openid = e.data.data.openId;
             }
@@ -27,11 +25,9 @@ function login(callback) {
               wx.getImageInfo({
                 src: app.globalData.headImg,
                 success: function(res) {
-                  // console.info(res)
+    
                   app.globalData.Imgpath = res.path
-                  // that.setData({
-                  //   Imgpath: app.globalData.Imgpath
-                  // })
+    
                 }
               })
             }
@@ -46,14 +42,11 @@ function login(callback) {
                 openid: app.globalData.openid,
               },
               success: function(res) {
-                // console.info(res)
-                // console.info('教师信息')
 
                 if (res.data.code === 0) {
                   if (res.data.data.teacherInfo.teacherId) {
                     app.globalData.teacherInfo = res.data.data.teacherInfo
                     app.globalData.userId = res.data.data.teacherInfo.teacherId
-                    // app.globalData.userId = 4
                   } else {
                     wx.redirectTo({
                       url: '../unBound/index',
@@ -78,11 +71,7 @@ function login(callback) {
                     }else{
                       app.globalData.norecord = false
                     }
-                    // console.info(res)
-                    // console.info('getGrowthRecordsWithoutAppend')
-
                     app.globalData.allGrowthRecords = res.data.data.records
-                    // console.log(app.globalData.allGrowthRecords)
                     for (var i in res.data.data.records) {
                       res.data.data.records[i].name = " ";
                       res.data.data.records[i].avatarUrl = '';
@@ -93,11 +82,6 @@ function login(callback) {
                       }
                     }
                     // 分布加载第一式
-                    // for (var t = 0; t < res.data.data.records.length; t++) {
-                    //   res.data.data.records[t].text = decodeURIComponent(res.data.data.records[t].text)
-                    // }
-                    
-                    // console.info(res.data.data.records)
                     app.globalData.recordsList = res.data.data.records
                     app.globalData.indexSize = res.data.data.size
 
@@ -146,7 +130,6 @@ function login(callback) {
             })
           },
           fail: function(e) {
-            // console.info(e);
           },
           method: "POST"
         })

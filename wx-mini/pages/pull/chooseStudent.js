@@ -20,9 +20,9 @@ Page({
     var searchValue = e.detail.value
     this.data.perStudent = []
     for (var i = 0; i < app.globalData.allStudent.length; i++) {
-      console.info(app.globalData.allStudent[i].name.indexOf(searchValue))
+    
       if (app.globalData.allStudent[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
-        console.info(app.globalData.allStudent[i].name)
+     
         this.data.perStudent.push(app.globalData.allStudent[i])
       }
     }
@@ -30,14 +30,13 @@ Page({
     this.setData({
       perStudent: this.data.perStudent
     })
-    console.info(this.data.perStudent)
+ 
   },
 
   searchList:function(e){
     var index = e.currentTarget.dataset.index;
     var item = this.data.perStudent[index];
-    console.info("member.member");
-    console.info(item);
+
     app.globalData.chooseStudent = item
     wx.navigateBack({
 
@@ -47,51 +46,23 @@ Page({
   member: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.memberList[index];
-    console.info("member.member");
-    console.info(item);
+
     app.globalData.chooseStudent = item
     wx.navigateBack({
 
     })
-    // var url = 'memberDetail?name=' + item.name;
-    // url += "&studentId=" + item.studentId;
-    // url += "&cardCode=" + item.cardCode;
-    // url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
-    // url += "&birthday=" + item.birthday;
-    // url += "&freeze=" + item.freeze;
-    // url += "&choosestudent=false";
-    // console.info(url);
-    // wx.navigateBack({
-    //   url: url,
-    //   success: function (res) { },
-    //   fail: function (res) { },
-    //   complete: function (res) { },
-    // })
+
   },
 
   memberstar: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.stararr[index];
-    console.info("member.member");
-    console.info(item);
+  
     app.globalData.chooseStudent = item
     wx.navigateBack({
       
     })
-    // var url = 'memberDetail?name=' + item.name;
-    // url += "&studentId=" + item.studentId;
-    // url += "&cardCode=" + item.cardCode;
-    // url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
-    // url += "&birthday=" + item.birthday;
-    // url += "&freeze=" + item.freeze;
-    // url += "&choosestudent=false";
-    // console.info(url);
-    // wx.navigateBack({
-    //   url: url,
-    //   success: function (res) { },
-    //   fail: function (res) { },
-    //   complete: function (res) { },
-    // })
+ 
   },
   /**
    * 生命周期函数--监听页面加载
@@ -121,7 +92,7 @@ Page({
     })
 
     var stararr = app.globalData.stararr
-    console.info(stararr)
+ 
     for (var i = 0; i < memberList.length; i++) {
       memberList[i].star = false
       for (var j = 0; j < stararr.length; j++) {

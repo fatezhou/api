@@ -18,7 +18,7 @@ Page({
   },
 
   getFamily: function(studentId) {
-    console.info(studentId)
+ 
     var gData = app.globalData
     var that = this;
     wx.request({
@@ -30,7 +30,7 @@ Page({
       },
       method: 'post',
       success: function(res) {
-        console.info(res)
+    
         that.setData({
           parentList: res.data.data.parents
         })

@@ -55,7 +55,7 @@ Page({
     // 家长信息
     this.data.allParentInfo = app.globalData.allParentInfo
     this.data.recordId = options.recordId;
-    // console.info(options);
+
     this.data.mainText = options.mainText;
     this.data.studentId = options.studentId;
     this.data.orgAuthorId = options.orgAuthorId;
@@ -65,10 +65,9 @@ Page({
     this.data.dateTime = options.dateTime;
 
     this.setData(this.data);
-    // console.info(app.globalData.oneGrowthRecordWithAppendUrl);
+
     this.getRecordSize();
-    // console.info(app.globalData.contact)
-    // console.info('------------------')
+
     for (var i = 0; i < app.globalData.contact.length; i++) {
       if (app.globalData.contact[i].recordId == options.recordId) {
         this.setData({
@@ -76,7 +75,7 @@ Page({
         })
       }
     }
-    // console.info(this.data.imgUrl)
+
     this.setData({
       imgUrllength: this.data.imgUrl.length
     })
@@ -96,13 +95,10 @@ Page({
   like: function(e) {
     var gData = app.globalData
     var that = this
-    // console.info(e)
+
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
-    // console.info(this.data.appendList)
-    // console.info(' this.data.appendList')
-    // for (var i = 0; i < this.data.appendList.length; i++) {
-    // if (this.data.appendList[i].recordId == that.data.recordId) {
+
     for (var j = 0; j < this.data.appendList.length; j++) {
       if (this.data.appendList[j].recordId == recordId) {
 
@@ -116,19 +112,15 @@ Page({
                 that.setData({
                   appendList: this.data.appendList
                 })
-                // console.info(this.data.appendList)
-                // console.info('splice')
+     
               } else if ((k + 1) == this.data.appendList[j].like.teacher.length) {
-                // console.info(k + 1)
-
                 this.data.appendList[j].like.teacher.push(gData.userId)
 
                 that.setData({
                   appendList: this.data.appendList
                 })
                 break;
-                // console.info(this.data.appendList)
-                // console.info('this.data.appendList[j].like.teacher----------')
+
               }
 
             }
@@ -154,12 +146,6 @@ Page({
         }
       }
     }
-    // }
-    // }
-
-    // console.info(this.data.appendList)
-    // console.info(1)
-
 
     wx.request({
       url: gData.putRecordLike,
@@ -176,7 +162,6 @@ Page({
       },
       success: function(res) {
 
-        // console.info(res)
         if (res.data.code == 4) {
           wx.request({
             url: gData.putRecordLike,
@@ -193,14 +178,11 @@ Page({
               // "orgAuthorType": 1
             },
             success: function(res) {
-              // console.info(res)
 
-              // that.show()
-              // return
             }
           })
         }
-        // that.show()
+  
       }
     })
   },
@@ -219,13 +201,7 @@ Page({
   },
 
   goMoreRecords: function(e) {
-    // getApp().globalData.studentId = this.data.studentId;
-    // getApp().globalData.showAllStudents = false;
-    // console.info(getApp().globalData);
-    // wx.switchTab({
-    //   url: '../index/index',
-    // });
-    // console.info(app.globalData.allStudent)
+
     var sex = null;
     var name = null;
     var avatarUrl = null;
@@ -249,41 +225,20 @@ Page({
       data: {
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
-        "authorId": app.globalData.userId,
+        // "authorId": app.globalData.userId,
         "authorType": app.globalData.userType, //1: teacher, 2: parent",
         "studentId": that.data.studentId
       },
       method: "post",
       success: function(res) {
         app.globalData.studentRecordCount = res.data.data.count
-        // console.info(res.data.data.count)
+  
         that.setData({
           recordSize: "" + res.data.data.count + "条成长记录"
         })
       }
     })
 
-
-
-    // var gData = getApp().globalData;
-    // var self = this;
-    // console.info(gData.userId)
-    // wx.request({
-    //   url: gData.minodopeApi.recordSizeUrl,
-    //   data: {
-    //     "studentId": self.data.studentId,
-    //     "authorId": gData.userId,
-    //     "authorType": 1,
-    //   },
-    //   success: function(e) {
-    //     self.data.recordSize = "" + e.data.data.count + "条成长记录";
-    //     self.setData(self.data);
-    //   },
-    //   method: "POST",
-    //   complete: function(e) {
-    //     console.info(e);
-    //   }
-    // });
   },
 
   /**
@@ -308,8 +263,7 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(e) {
-        console.info(e)
-        console.info('dsadasdasd===')
+  
         e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
         self.setData({
           mainText: e.data.data.record.text
@@ -325,17 +279,15 @@ Page({
             self.data.likenumber = 0
           }
 
-          // app.globalData.likes = e.data.data.record.likes
-          // console.info()
           self.setData(self.data);
         }
-        // console.info(self.data.appendList)
+
         // 教师信息
         var allTeacherInfo = app.globalData.allTeacherInfo
         // 家长信息
         var allParentInfo = app.globalData.allParentInfo
         for (var i = 0; i < self.data.appendList.length; i++) {
-          // console.info(self.data.appendList)
+ 
           if (self.data.appendList[i].authorType == 1) {
             for (var j = 0; j < allTeacherInfo.length; j++) {
               if (self.data.appendList[i].authorId == allTeacherInfo[j].teacherId) {
@@ -358,13 +310,13 @@ Page({
           listNumber: self.data.appendList.length,
           likenumber: self.data.likenumber
         })
-        // console.info(self.data.appendList)
+
       },
       fail: function(e) {
 
       },
       complete: function(e) {
-        // console.info(e);
+ 
       }
     })
   },

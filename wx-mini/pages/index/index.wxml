@@ -1,16 +1,7 @@
 <form bindsubmit="formSubmit_collect" report-submit="true">
   <view class='counts'>
     <view class='countsLeft'>{{recordSize}}条记录</view>
-    <!-- <navigator url='newMess'>
-    <view class='countsRight'>
-      <view class='crNews'>
-        <image src='./../../image/icnotification.png' mode='widthFix'></image>
-      </view>
-      <view class='newsList'>xx条消息</view>
-    </view>
-  </navigator> -->
     <navigator url='newMess'>
-      <!--原有业务代码 -->
       <view class='countsRight'>
         <view class='crNews'>
           <image src='./../../image/icnotification.png' mode='widthFix'></image>
@@ -28,8 +19,7 @@
   </view>
   <view class='listDetail' wx:else>
     <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index' style="padding-bottom:{{itemObject.showTextBtn ? '60rpx' : '40rpx'}}">
-      <!-- <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}'
-        hover-class="none" style="padding-bottom:40rpx"> -->
+  
       <button formType="submit" hover-class="none" style="margin-left:0;" bindtap='todetail' data-item="{{itemObject}}">
         <view class='toplD'>
           <view class='tlDleft'>
@@ -50,17 +40,10 @@
           <text style="letter-spacing:1rpx;font-size: 28rpx;">{{itemObject.text}}</text>
         </button>
       </view>
-      <!-- </navigator> -->
-      <!-- <block wx:if="{{itemObject.showTextBtn}}"> -->
+ 
       <view wx:if="{{itemObject.isfold && itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:relative;font-size:24rpx;float:right;margin-right:10rpx;color:#aaa">全文</view>
       <view wx:elif="{{itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:relative;font-size:24rpx;float:right;margin-right:10rpx;color:#aaa">收起</view>
-      <!-- </block> -->
-      <!-- <block wx:else> -->
-      <!-- <view bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="opacity:0;height:100rpx">666</view> -->
-      <!-- </block> -->
-
-      <!-- 
-    <navigator id="{{itemObject.recordId}}" url='detail?recordId={{itemObject.recordId}}&mainText={{itemObject.text}}&orgAuthorId={{itemObject.authorId}}&orgAuthorType={{itemObject.authorType}}&studentId={{itemObject.studentId}}&name={{itemObject.name}}&dateTime={{itemObject.dateTime}}&avatarUrl={{itemObject.avatarUrl}}' hover-class="none"> -->
+   
       <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
         <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
           <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
@@ -75,13 +58,13 @@
 
       <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length >= 3}}">
         <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
-          <!-- <block > -->
+     
           <image wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill"></image>
         </button>
-        <!-- </block> -->
+    
       </view>
 
-      <!-- </navigator> -->
+  
     </view>
 
   </view>
@@ -98,5 +81,5 @@
   <import src="../../template/template.wxml" />
   <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />
 
-  <!--原有业务代码 -->
+ 
 </form>

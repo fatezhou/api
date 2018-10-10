@@ -71,7 +71,7 @@ Page({
           phone: phone,
         },
         success: function(res) {
-          console.log(res)
+   
           if (res.data.code === 0) {
             if (res.data.data.text == "验证码发送成功") {
               wx.showToast({
@@ -91,7 +91,7 @@ Page({
           }
         },
         complete: function(res) {
-          console.info(res)
+
         }
       })
     }
@@ -103,8 +103,7 @@ Page({
     const code = that.data.code
     const phone = that.data.phone
     const token = app.globalData.token
-    console.info(app.globalData.unionid)
-    console.info(app.globalData.openid)
+ 
     if (phone && code) {
       wx.request({
         url: app.globalData.bindPhone,
@@ -118,7 +117,7 @@ Page({
           token: token,
         },
         success: function(res) {
-          console.info(res)
+
           if (res.data.code === 0) {
             if (res.data.data.text == "绑定成功") {
               wx.showToast({
@@ -135,7 +134,6 @@ Page({
                   openid: app.globalData.openid,
                 },
                 success: function(res) {
-                  console.info(res)
 
                   if (res.data.code === 0) {
                     if (res.data.data.teacherInfo.teacherId) {
