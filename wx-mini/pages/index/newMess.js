@@ -10,6 +10,7 @@ Page({
     Imgpath: '',
     allTeacherInfo: null,
     allParentInfo: null,
+    mainText:'',
   },
 
   toDetail: function(e) {
@@ -30,7 +31,7 @@ Page({
       }
     }
     wx.navigateTo({
-      url: "detail?recordId=" + item.parentRecordId + "&mainText=" + item.parentText + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
+      url: "detail?recordId=" + item.parentRecordId + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
     })
   },
 
@@ -58,8 +59,29 @@ Page({
       success: function(res) {
         for (var i = 0; i < res.data.data.append.length; i++) {
           res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
-          res.data.data.append[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
+          // res.data.data.append[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
+          var recordId = res.data.data.append[i].parentRecordId
+          wx.request({
+            url: app.globalData.oneGrowthRecordWithAppendUrl,
+            data: {
+              unionid: app.globalData.unionid,
+              openid: app.globalData.openid,
+              recordId: recordId
+            },
+            header: {},
+            method: 'post',
+            dataType: 'json',
+            responseType: 'text',
+            success: function (e) {
+console.info(e)
+              e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
+              that.setData({
+                mainText: e.data.data.record.text
+              })
+            },
+          })
         }
+        console.info(res)
 
         if (res.data.code == 0) {
           var append = res.data.data.append

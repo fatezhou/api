@@ -81,7 +81,7 @@ App({
     getChildGrowthRecordCount: 'https://api.minidope.com/api/v1.0/get_child_growth_record_count',
     getPrePics: 'https://api.minidope.com/api/v1.0/get_pre_pics',
     putFormId: 'https://api.minidope.com/api/v1/put_form_id',
-    getNewMessage: 'https://api.minidope.com/api/v1/get_new_message',
+    getNewMessage: 'https://api.minidope.com/api/v2.0/get_new_message',
     // 获得全部家长信息  --> 新增代码
     getParentsInfo: "https://api.minidope.com/api/v1.0/get_parents_info",
       //  <-- 新增代码

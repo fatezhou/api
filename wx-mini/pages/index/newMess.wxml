@@ -69,6 +69,6 @@
 
   <image wx:if="{{listItem.pictureUrls[0]}}" src="{{listItem.pictureUrls[0]}}" style='width:120rpx;height:120rpx;'></image>
   <view wx:else style='width:120rpx;height:120rpx;'>
-    <text class="words">{{listItem.parentText}}</text>
+    <text class="words">{{mainText}}</text>
   </view>
 </view>
