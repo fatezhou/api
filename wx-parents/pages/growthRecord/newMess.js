@@ -110,10 +110,10 @@ Page({
 
     // return
     // <-- 数据写死测试用 
-    console.info(app.globalData.unionid)
-    console.info(app.globalData.openid)
-    console.info(app.globalData.userId)
-    console.info(app.globalData.userType)
+    // console.info(app.globalData.unionid)
+    // console.info(app.globalData.openid)
+    // console.info(app.globalData.userId)
+    // console.info(app.globalData.userType)
 
     wx.request({
       url: app.globalData.getNewMessage,
@@ -136,7 +136,7 @@ Page({
           var like = res.data.data.like
           if (res.data.data.append.length > 0 && res.data.data.like.length > 0) {
             var newAppendList = append.concat(like)
-            console.info(newAppendList + '111')
+            // console.info(newAppendList + '111')
             for (var i = 0; i < newAppendList.length - 1; i++) {
               for (var j = 0; j < newAppendList.length - i - 1; j++) {
                 if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
@@ -152,14 +152,14 @@ Page({
             })
           } else if (res.data.data.like.length > 0) {
             var newAppendList = like
-            console.info(newAppendList + '222')
+            // console.info(newAppendList + '222')
             newAppendList.reverse()
             that.setData({
               newAppendList: newAppendList
             })
           } else if (res.data.data.append.length > 0) {
             var newAppendList = append
-            console.info(newAppendList + '333')
+            // console.info(newAppendList + '333')
             newAppendList.reverse()
             that.setData({
               newAppendList: newAppendList

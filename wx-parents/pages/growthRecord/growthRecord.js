@@ -28,15 +28,15 @@ Page({
   },
 
   formSubmit_collect: function (e) {
-    console.info(e)
+    // console.info(e)
     let formId = e.detail.formId;
     // console.info(formId)
-    console.info(app.globalData.userId)
-    console.info(app.globalData.userType)
-    console.info(formId)
-    console.info(app.globalData.openid)
-    console.info(app.globalData.unionid)
-    console.info(app.globalData.token)
+    // console.info(app.globalData.userId)
+    // console.info(app.globalData.userType)
+    // console.info(formId)
+    // console.info(app.globalData.openid)
+    // console.info(app.globalData.unionid)
+    // console.info(app.globalData.token)
 
     wx.request({
       url: app.globalData.putFormId,
@@ -50,7 +50,7 @@ Page({
       },
       method: 'post',
       success: function (res) {
-        console.info(res)
+        // console.info(res)
       }
     })
   },
