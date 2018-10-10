@@ -1,11 +1,11 @@
 <!--pages/index/newMess.wxml-->
-<!-- <view wx:for="{{newAppendList}}" wx:key="recordIndex" wx:for-item="recordItem" style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;margin-top:20rpx;'>
+<!-- <view style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;margin-top:20rpx;'>
   
-    <image src="{{recordItem.avatarUrl ? recordItem.avatarUrl : Imgpath}}" style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+    <image src="{{Imgpath}}" style='width:65rpx;height:65rpx;border-radius:50%;'></image>
     <view style='width:600rpx;margin-left:20rpx;'>
-      <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{recordItem.name}}</view>
-      <view>{{recordItem.text}}</view>
-      <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>{{recordItem.dateTime}}</view>
+      <view style='color:#5b6c8c;margin-bottom:10rpx;'>名字</view>
+      <view>回复 小名 评论</view>
+      <view style='font-size:24rpx;color:#8e8e93;margin-top:20rpx;'>时间</view>
     </view>
 
 </view> -->

@@ -1,7 +1,7 @@
 <template name="tabBar">
   <view class="tabBar" style="position:fixed;bottom:0;width:750rpx;background-color:#fff;font-size:24rpx">
     <block wx:for="{{tabBar}}" wx:for-item="item" wx:key="tabBar">
-      <view class="tabItem" style="width: 33.3%;padding: 20rpx 0 0 0;text-align: center;overflow: hidden;display:inline-block">
+      <view class="tabItem" style="width: 33.3%;padding: 20rpx 0;text-align: center;overflow: hidden;display:inline-block">
         <navigator open-type="redirect" hover-class='none' url="{{item.pagePath}}">
 
           <!-- <view>{{item.msg}}</view> -->
@@ -12,7 +12,7 @@
           </view>
 
           <view class="{{item.current == 0 ? 'color189' :''}}">
-            <button formType="submit" hover-class="none">{{item.text}}{{isIpx}}</button>
+            <button formType="submit" hover-class="none" style="font-size:20rpx;font-weight:bold">{{item.text}}{{isIpx}}</button>
           </view>
         </navigator>
       </view>
@@ -23,17 +23,17 @@
 <template name="ipxTabBar">
   <view class="ipxTabBar" style="position:fixed;bottom:0;width:750rpx;background-color:#fff;font-size:24rpx">
     <block wx:for="{{tabBar}}" wx:for-item="item" wx:key="tabBar">
-      <view class="tabItem" style="width: 33.3%;padding: 20rpx 0 0 0;text-align: center;overflow: hidden;display:inline-block">
+      <view class="tabItem" style="width: 33.3%;padding: 20rpx 0;text-align: center;overflow: hidden;display:inline-block">
         <navigator open-type="redirect" hover-class='none' url="{{item.pagePath}}">
           <!-- <view>{{item.msg}}</view> -->
           <view>
-            <button formType="submit" hover-class="none" style="margin-left:12rpx">
+            <button formType="submit" hover-class="none" style="margin-left:12rpx;font-weight:bold">
               <image class="tabsIcon" src='{{item.iconPath}}' style="width:40rpx;height:40rpx;"></image>
             </button>
           </view>
 
           <view class="{{item.current == 0 ? 'color189' :''}}">
-            <button formType="submit" hover-class="none">{{item.text}}{{isIpx}}</button>
+            <button formType="submit" hover-class="none" style="font-size:20rpx">{{item.text}}{{isIpx}}</button>
           </view>
 
         </navigator>
