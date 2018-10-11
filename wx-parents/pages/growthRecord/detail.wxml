@@ -2,12 +2,8 @@
 <!-- 记录list -->
 <view wx:for='{{recordsList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;margin-bottom:20rpx'>
   <view>
-    <!-- <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}">
-      <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
-    </navigator>
-    <image src='../../image/head02.png' wx:else style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
     <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}" hover-class="none">
-      <!-- <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
+
       <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
       <image wx:else src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
     </navigator>
@@ -19,17 +15,15 @@
   </view>
 
   <view style='width:600rpx;margin-left:20rpx;'>
-    <!-- <navigator url="teacher">
-      <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
-    </navigator> -->
+
     <view style='display:flex;justify-content: space-between;align-items:center;'>
       <navigator url="teacher?teacherid={{item.authorId}}" wx:if="{{item.authorType == 1}}" hover-class="none">
         <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
       </navigator>
       <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.name}}</view>
       <view>
-        <!-- <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix'></image> -->
-        <!-- 点击图标更换 赞显示的图标不变 名字变更     -------  区域内 nice> clicknice  nonice > clicknonice  -->
+
+
         <!-- 没有点赞数据 -->
         <block wx:if="{{!item.likes.parent || item.likes.parent.length == 0}}">
           <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:40rpx;display:inline-block' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0" data-orgAuthorType="{{item.authorType}}"></image>
@@ -47,12 +41,11 @@
             <image src='../../image/clicknice.png' style='width:50rpx;height:50rpx;margin-right:40rpx;display:inline-block' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-parentRecordId="0" data-orgAuthorType="{{item.authorType}}"></image>
           </block>
         </block>
-        <!-- 点击图标更换 赞显示的图标不变 名字变更     -------  区域内 nice> clicknice  nonice > clicknonice  -->
-        <!-- 代码改动区域    --终止--    -->
+
         <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=false" style="display:inline-block" hover-class="none">
-          <!-- 图标变更 -->
+
           <image src='../../image/more.png' style='width:50rpx;height:50rpx' mode='cover'></image>
-          <!-- 图标变更 -->
+
         </navigator>
       </view>
 
@@ -78,12 +71,6 @@
         </block>
       </view>
 
-
-      <!-- <view style="margin-top:20rpx;">
-        <image src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
-        小名，大名
-      </view> -->
-      <!-- 代码改动区域  --起始--      -->
       <view style="margin-top:20rpx;">
         <image wx:if="{{item.likes.teacher.length > 0 || item.likes.parent.length}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
         <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
@@ -97,28 +84,19 @@
           </block>
         </block>
       </view>
-      <!-- 代码改动区域   --终止--     -->
+
 
       <view style="display:flex;justify-content: space-between;align-items:center;margin-top:20rpx;">
         <view> {{item.dateTime}} </view>
-        <!-- <view style='display:flex;justify-content: space-between;align-items:center;'>
-          <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix'></image>
-          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hindname=true&callName={{item.authorName}}">
-            <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
-          </navigator>
-        </view> -->
+
       </view>
     </view>
 
     <!-- 评论 -->
     <view wx:for='{{appendList}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-top:1rpx solid #e5e5ea;margin-top:20rpx;width:750rpx;margin-left:-110rpx;'>
       <view>
-        <!-- <navigator url="teacherteacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}">
-          <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
-        </navigator>
-        <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
         <navigator url="teacher?teacherid={{itemWithAppend.authorId}}" wx:if="{{itemWithAppend.authorType == 1}}" hover-class="none">
-          <!-- <image src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
+
           <image wx:if="{{itemWithAppend.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
           <image wx:else src='{{itemWithAppend.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
         </navigator>
@@ -126,7 +104,7 @@
           <image wx:if="{{itemWithAppend.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
           <image wx:else src='{{itemWithAppend.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
         </block>
-        <!-- <image wx:else src='../../image/head02.png' style='width:65rpx;height:65rpx;border-radius:50%;'></image> -->
+
       </view>
       <view style='width:600rpx;margin-left:20rpx;'>
 
@@ -137,9 +115,7 @@
           </navigator>
           <view wx:else style='color:#5b6c8c;margin-bottom:10rpx;'>{{itemWithAppend.name}}</view>
           <view>
-            <!-- <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;display:inline-block' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
-              data-orgAuthorType="{{itemWithAppend.authorType}}"></image> -->
-            <!-- 点击图标更换 赞显示的图标不变 名字变更     -------  区域内 nice> clicknice  nonice > clicknonice  -->
+
             <!-- 没有点赞数据 -->
             <block wx:if="{{!itemWithAppend.like.parent || itemWithAppend.like.parent.length == 0}}">
               <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:40rpx;display:inline-block' mode='cover' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}"
@@ -159,14 +135,11 @@
                   data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
               </block>
             </block>
-            <!-- 点击图标更换 赞显示的图标不变 名字变更     -------  区域内 nice> clicknice  nonice > clicknonice  -->
-            <!-- 代码改动区域    --终止--    -->
-
             <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{itemWithAppend.authorId}}&orgAuthorType={{itemWithAppend.authorType}}&studentId={{itemWithAppend.studentId}}&hindname=false&callName={{itemWithAppend.name}}" style="display:inline-block"
               hover-class="none">
-              <!-- 图标变更 -->
+
               <image src='../../image/more.png' style='width:50rpx;height:50rpx' mode='cover'></image>
-              <!-- 图标变更 -->
+
             </navigator>
           </view>
 
@@ -196,7 +169,7 @@
 
 
           <view style="margin-top:20rpx;">
-            <!-- 代码改动区域  --起始--      -->
+
             <image wx:if="{{itemWithAppend.like.teacher.length > 0 || itemWithAppend.like.parent.length}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
             <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
               <block wx:for="{{itemWithAppend.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
@@ -208,16 +181,11 @@
                 <text wx:if="{{allUseritem.parentId == parentLikeitem}}"> {{allUseritem.nickname}} </text>
               </block>
             </block>
-            <!-- 代码改动区域  --终止--      -->
+
           </view>
           <view style="display:flex;justify-content: space-between;align-items:center;margin-top:20rpx;">
             <view> {{itemWithAppend.dateTime}} </view>
-            <!-- <view style='display:flex;justify-content: space-between;align-items:center;'>
-              <image src='../../image/nice.png' style='width:30rpx;margin-right:80rpx;' mode='widthFix' bindtap='like' data-recordId='{{itemWithAppend.recordId}}' data-authorId="{{itemWithAppend.authorId}}" data-parentRecordId="{{item.recordId}}" data-orgAuthorType="{{itemWithAppend.authorType}}"></image>
-              <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{itemWithAppend.authorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hindname=true&callName={{itemWithAppend.authorName}}">
-                <image src='../../image/more.png' style='width:40rpx;' mode='widthFix'></image>
-              </navigator>
-            </view> -->
+
           </view>
         </view>
       </view>

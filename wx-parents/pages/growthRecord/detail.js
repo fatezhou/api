@@ -1,5 +1,5 @@
 // pages/growthRecord/detail.js
-// var recordId;
+
 const app = getApp();
 Page({
 
@@ -14,8 +14,6 @@ Page({
     recordsList: '',
     appendList: '',
     recordSize: '',
-    // 字段更换
-    // allTeacherInfo: '',
     allUserInfo: '',
     recordId: '',
 
@@ -39,11 +37,9 @@ Page({
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
     var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
 
-    // for (var r = 0; r < this.data.recordsList.length; r++) {
-    //   if (this.data.recordsList[r].recordId == parentRecordId) {
     for (var j = 0; j < this.data.appendList.length; j++) {
       if (this.data.appendList[j].recordId == recordId) {
-        // 代码改动区域   --起始--   -->  teacher 改为 parent
+ 
         if (this.data.appendList[j].like) {
           if (this.data.appendList[j].like.parent.length > 0) {
             for (var k = 0; k < this.data.appendList[j].like.parent.length; k++) {
@@ -108,10 +104,9 @@ Page({
                   that.setData({
                     recordsList: this.data.recordsList
                   })
-                  // console.info(this.data.recordsList)
-                  // console.info('splice')
+  
                 } else if ((k + 1) == this.data.recordsList[j].likes.parent.length) {
-                  // console.info(k + 1)
+
 
                   this.data.recordsList[j].likes.parent.push(gData.userId)
 
@@ -119,8 +114,7 @@ Page({
                     recordsList: this.data.recordsList
                   })
                   break;
-                  // console.info(this.data.recordsList)
-                  // console.info('this.data.appendList[j].like.teacher----------')
+   
                 }
 
               }
@@ -148,9 +142,6 @@ Page({
       }
     }
 
-    // 代码改动区域   --终止--   -->
-    //   }
-    // }
 
     console.info('like')
 
@@ -225,10 +216,8 @@ Page({
         this.setData({
           recordsList: recordsList,
           appendList: recordsList[0].append,
-          // 代码改动区域  --起始-- 
-          // allTeacherInfo: app.globalData.allTeacherInfo,
           allUserInfo: app.globalData.allUserInfo,
-          // 代码改动区域  --终止-- 
+
         })
         return
       }
@@ -258,12 +247,9 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(e) {
-        console.info(e)
+
         self.data.appendList = e.data.data.record.append
-        console.info(self.data.appendList)
-        // 代码改动区域  --起始--   allTeacherInfo  改为  allUserInfo 根据authorType插对应表数据
-        console.info(app.globalData.allUserInfo)
-        console.info(111)
+
         for (var i = 0; i < self.data.appendList.length; i++) {
           for (var j = 0; j < app.globalData.allUserInfo.length; j++) {
             if (self.data.appendList[i].authorType == 1){
@@ -284,7 +270,6 @@ Page({
             
           }
         }
-        // 代码改动区域  --终止--
         self.setData({
           appendList: self.data.appendList
         })

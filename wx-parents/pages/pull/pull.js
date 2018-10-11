@@ -82,7 +82,7 @@ Page({
           key: this.data.prepareToUpload[i].key,
         },
         success: function(res) {
-          // console.info(res)
+   
         },
         complete: function(res) {
           console.info(res)
@@ -212,7 +212,7 @@ Page({
         calltext: this.data.calltext,
         placeholder: '回复' + ' ' + options.callName + ' '
       })
-      // console.info(calltext)
+
     }
   },
 

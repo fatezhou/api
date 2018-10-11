@@ -17,29 +17,19 @@ Page({
 
     recordsList: '',
     recordSize: '',
-    // --> 代码改动区域 
-    // allTeacherInfo: '',
+
     allUserInfo: '',
-    // <-- 代码改动区域
 
     userId: '',
     Imgpath: '',
     recordId: '',
   },
 
-  formSubmit_collect: function (e) {
-    // console.info(e)
+  // 新增代码  获取formid -->
+  formSubmit_collect: function(e) {
     let formId = e.detail.formId;
-    // console.info(formId)
-    // console.info(app.globalData.userId)
-    // console.info(app.globalData.userType)
-    // console.info(formId)
-    // console.info(app.globalData.openid)
-    // console.info(app.globalData.unionid)
-    // console.info(app.globalData.token)
-
     wx.request({
-      url: app.globalData.putFormId,
+      url: app.globalData.minodopeApi.putFormId,
       data: {
         "authorId": app.globalData.userId,
         "authorType": app.globalData.userType,
@@ -49,14 +39,15 @@ Page({
         "accesstoken": app.globalData.token
       },
       method: 'post',
-      success: function (res) {
-        // console.info(res)
+      success: function(res) {
+
       }
     })
   },
+  // 新增代码  获取formid  <--
 
   showmore: function(e) {
-    // console.info(e)
+
     for (var o = 0; 0 < this.data.recordsList.length; o++) {
       if (this.data.recordsList[o].recordId == e.currentTarget.dataset.recordid) {
         this.data.recordsList[o].isfold = !this.data.recordsList[o].isfold
@@ -86,38 +77,35 @@ Page({
   changestudent: function(index) {
     var that = this
     studentId = this.data.showswiper[index].id
-    // console.info(studentId)
-    // console.info('studentId')
+
     http.getGrowthRecordsWithoutAppend(studentId, function(res) {
       if (res == 0) {
-       
+
         http.getTeachers(function(res) {
           if (that.data.recordId != res[0].recordId || that.data.recordId != '') {
-            // console.info(res)
+
 
             recordId = res.slice(res.length - 1)[0].recordId
-            // console.info(recordId)
-            // console.info('recordId')
+
             that.setData({
               recordId: recordId
             })
 
-            // -- > 代码改动区域
+
             if (!app.globalData.allUserInfo) {
               http.getParents(function(res) {
                 if (res == 0) {
                   http.getTeachers(function(res) {
 
                     // recordId = res.slice(-1)[0].recordId
-           
+
                     // 整合 教师信息 和 家长信息
                     app.globalData.allUserInfo = app.globalData.allTeacherInfo.concat(app.globalData.allParentInfo)
-                   
+
                     that.setData({
-                      // allTeacherInfo: app.globalData.allTeacherInfo,
-                      // allParentInfo: app.globalData.allParentInfo,
+
                       allUserInfo: app.globalData.allUserInfo,
-                      // recordId: recordId
+
                     })
                     that.getAppend()
                   })
@@ -127,7 +115,6 @@ Page({
               that.getAppend()
             }
 
-            // <-- 代码改动区域
 
 
           }
@@ -144,14 +131,20 @@ Page({
   like: function(e) {
     var gData = app.globalData
     var that = this
-    // console.info(e)
+
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
     var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
 
-    // console.info(this.data.recordsList)
-    // console.info('this.data.recordsList.append')
+    // 新增代码 -->
+    if (e.currentTarget.dataset.familyid) {
+      var familyId = e.currentTarget.dataset.familyid
+    } else {
+      var familyId = 0
+    }
+    // 新增代码 <--
+
     for (var r = 0; r < this.data.recordsList.length; r++) {
       if (this.data.recordsList[r].recordId == parentRecordId) {
         for (var j = 0; j < this.data.recordsList[r].append.length; j++) {
@@ -161,18 +154,16 @@ Page({
               if (this.data.recordsList[r].append[j].like.parent.length > 0) {
                 for (var k = 0; k < this.data.recordsList[r].append[j].like.parent.length; k++) {
                   // 已经点赞了 就取消
-                  // 改动位置 删除 previewImage  -->
-                  // console.info(this.data.recordsList[r].append[j].like[k])
-                  // console.info('cccccc')
+
                   if (this.data.recordsList[r].append[j].like.parent[k] == gData.userId) {
-                    // <-- 改动位置
+
                     this.data.recordsList[r].append[j].like.parent.splice(k, 1)
                     that.setData({
                       recordsList: this.data.recordsList
                     })
                     app.globalData.recordsList = this.data.recordsList
-                    // console.info(this.data.recordsList)
-                    // console.info('splice')
+
+
                   } else if ((k + 1) == this.data.recordsList[r].append[j].like.parent.length) {
 
                     this.data.recordsList[r].append[j].like.parent.push(gData.userId)
@@ -182,8 +173,7 @@ Page({
                     })
                     app.globalData.recordsList = this.data.recordsList
                     break;
-                    // console.info(this.data.recordsList)
-                    // console.info('this.data.appendList[j].like.teacher----------')
+
                   }
 
                 }
@@ -231,10 +221,9 @@ Page({
                     recordsList: this.data.recordsList
                   })
                   app.globalData.recordsList = this.data.recordsList
-                  // console.info(this.data.recordsList)
-                  // console.info('splice')
+
                 } else if ((k + 1) == this.data.recordsList[j].likes.parent.length) {
-                  // console.info(k + 1)
+
 
                   this.data.recordsList[j].likes.parent.push(gData.userId)
 
@@ -243,8 +232,7 @@ Page({
                   })
                   app.globalData.recordsList = this.data.recordsList
                   break;
-                  // console.info(this.data.recordsList)
-                  // console.info('this.data.appendList[j].like.teacher----------')
+
                 }
 
               }
@@ -274,17 +262,6 @@ Page({
       }
     }
 
-    // console.info('like')
-
-    // console.info(gData.unionid),
-    //   console.info(gData.openid),
-    //   console.info(gData.userId), //自己的id
-    //   console.info(gData.userType), //1: teacher, 2: parent",
-    //   console.info(recordId), //评论的id
-    //   console.info(parentRecordId), //记录的id
-    //   console.info(authorId), //评论者id
-    //   console.info(orgAuthorType) //评论者类型
-    // console.info('like')
     wx.request({
       url: gData.minodopeApi.putRecordLike,
       method: 'post',
@@ -294,12 +271,13 @@ Page({
         "authorId": gData.userId, //自己的id
         "authorType": gData.userType, //1: teacher, 2: parent",
         "recordId": recordId, //评论的id
+        "familyId": familyId,
         "parentRecordId": parentRecordId, //记录的id
         "orgAuthorId": authorId, //评论者id
         "orgAuthorType": orgAuthorType //评论者类型
       },
       success: function(res) {
-        // console.info(res)
+
         if (res.data.code == 4) {
           wx.request({
             url: gData.minodopeApi.putRecordLike,
@@ -310,20 +288,19 @@ Page({
               "authorId": gData.userId, //自己的id
               "authorType": gData.userType, //1: teacher, 2: parent",
               "recordId": recordId,
+              "familyId": familyId,
               "parentRecordId": parentRecordId,
               'cancel': true,
               "orgAuthorId": authorId,
               "orgAuthorType": orgAuthorType
             },
             success: function(res) {
-              // console.info(res)
 
-              // that.changestudent(that.data.current)
               return
             }
           })
         }
-        // that.changestudent(that.data.current)
+
       }
     })
   },
@@ -348,7 +325,7 @@ Page({
   onShow: function() {
     var that = this
 
-    // if (!this.data.recordId || this.data.recordId != res[0].recordId) {
+
     http.login(function(res) {
 
       if (res == 0) {
@@ -368,49 +345,33 @@ Page({
           if (res == 0) {
             that.setData({
               showswiper: app.globalData.studentList,
-              userId: app.globalData.userId
+              userId: app.globalData.userId,
+              // 新增代码  -->
+              familyId: app.globalData.familyId
+              // 新增代码  <--
             })
-            if (!studentId){
+            if (!studentId) {
               studentId = app.globalData.studentList[0].id
             }
-          
-            
-            // console.info(that.data.showswiper)
+
+
+
             http.getGrowthRecordsWithoutAppend(studentId, function(res) {
               if (res == 0) {
 
-                // http.getTeachers(function(res) {
-                //   // if (!that.data.recordId) {
-                //   // console.info(res)
-                //   recordId = res.slice(res.length - 1)[0].recordId
 
-                //   that.setData({
-                //     allTeacherInfo: app.globalData.allTeacherInfo,
-                //     recordId: recordId
-                //   })
-                //   // console.info('get')
-                //   // console.info(app.globalData.allTeacherInfo)
-
-                //   that.getAppend()
-                //   // }
-                // })
-                // -- > 代码改动区域
                 http.getParents(function(res) {
                   if (res == 0) {
-                    
+
                     http.getTeachers(function(res) {
 
                       recordId = res.slice(-1)[0].recordId
-                      // console.info(recordId)
-                      // console.info('recordId')
-                      // console.info(app.globalData.allTeacherInfo)
-                      // console.info(app.globalData.allParentInfo)
+
                       // 整合 教师信息 和 家长信息
                       app.globalData.allUserInfo = app.globalData.allTeacherInfo.concat(app.globalData.allParentInfo)
-                      // console.info(app.globalData.allUserInfo)
+
                       that.setData({
-                        // allTeacherInfo: app.globalData.allTeacherInfo,
-                        // allParentInfo: app.globalData.allParentInfo,
+
                         allUserInfo: app.globalData.allUserInfo,
                         recordId: recordId
                       })
@@ -418,7 +379,7 @@ Page({
                     })
                   }
                 })
-                // <-- 代码改动区域
+
 
               }
             })
@@ -426,18 +387,15 @@ Page({
         })
       }
     })
-    // }
+
   },
 
   getAppend: function() {
     var that = this
-    // console.info('recordsList----')
-    // console.info(app.globalData.recordsList.length)
 
     for (var i = 0; i < app.globalData.recordsList.length; i++) {
 
       var recordId = app.globalData.recordsList[i].recordId
-      // console.info(recordId)
 
       wx.request({
         url: app.globalData.minodopeApi.getOneGrowthRecordWithAppendByRecordId,
@@ -451,10 +409,7 @@ Page({
         dataType: 'json',
         responseType: 'text',
         success: function(res) {
-          // console.info(res)
-          // console.info('append')
-          // console.info(app.globalData.recordsList.length)
-          // app.globalData.recordsList = res.data.data.record
+
           for (var x = 0; x < app.globalData.recordsList.length; x++) {
 
             if (app.globalData.recordsList[x].recordId == res.data.data.record.recordId) {
@@ -469,31 +424,20 @@ Page({
             }
             if (app.globalData.recordsList[x].append) {
 
-              // 代码改动区域  authorType:1:teacher 2:parent --> 循环内  allTeacherInfo 换成 allUserInfo
               for (var y = 0; y < app.globalData.allUserInfo.length; y++) {
                 for (var z = 0; z < app.globalData.recordsList[x].append.length; z++) {
                   app.globalData.recordsList[x].append[z].text = decodeURIComponent(app.globalData.recordsList[x].append[z].text)
                   if (app.globalData.recordsList[x].append[z].authorType == 1) {
                     if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allUserInfo[y].teacherId) {
-                      // console.info(app.globalData.allUserInfo[y].teacherId)
-                      // console.info(app.globalData.recordsList[x].append[z].authorId)
-                      // console.info(app.globalData.allUserInfo[y])
+
                       app.globalData.recordsList[x].append[z].name = app.globalData.allUserInfo[y].nickname
                       app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allUserInfo[y].avatarUrl
-                      // app.globalData.recordsList[x].append[z].isfold = true
-                      // if (app.globalData.recordsList[x].append[z].text.length > 100) {
-                      //   app.globalData.recordsList[x].append[z].showTextBtn = true
-                      // }
+
                     }
                   } else if (app.globalData.recordsList[x].append[z].authorType == 2) {
-                    // console.info(app.globalData.allUserInfo[y])
-                    // console.info(app.globalData.recordsList[x].append[z])
-                    // console.info(app.globalData.allUserInfo[y].parentId)
+
                     if (app.globalData.recordsList[x].append[z].authorId == app.globalData.allUserInfo[y].parentId) {
-                      // console.info(app.globalData.allUserInfo[y].parentId)
-                      // console.info(app.globalData.recordsList[x].append[z].authorId)
-                      // console.info(app.globalData.allUserInfo)
-                      // console.info('-------------------------')
+
                       app.globalData.recordsList[x].append[z].name = app.globalData.allUserInfo[y].name
                       app.globalData.recordsList[x].append[z].avatarUrl = app.globalData.allUserInfo[y].avatarUrl
                       // app.globalData.recordsList[x].append[z].isfold = true
@@ -503,15 +447,14 @@ Page({
                     }
                   }
 
-                  // <-- 代码改动区域
+
                 }
               }
-              // console.info(app.globalData.recordsList[x].append)
+
             }
 
           }
-          // console.info(app.globalData.recordsList)
-          // console.info('recordsList')
+
           that.setData({
             recordsList: app.globalData.recordsList,
             recordSize: app.globalData.indexSize
@@ -520,10 +463,10 @@ Page({
         },
         fail: function(res) {
 
-          // console.info('fail: ' + res)
+
         },
         complete: function(res) {
-          // console.info(res)
+
         },
       })
     }
@@ -556,38 +499,21 @@ Page({
             that.setData({
               showswiper: app.globalData.studentList
             })
-            // var studentId = studentId
+
             http.getGrowthRecordsWithoutAppend(studentId, function(res) {
               if (res == 0) {
 
-                // http.getTeachers(function(res) {
-                //   // console.info(res)
-                //   recordId = res.slice(res.length - 1)[0].recordId
-
-                //   that.setData({
-                //     allTeacherInfo: app.globalData.allTeacherInfo,
-                //     recordId: recordId
-                //   })
-                //   // console.info('get')
-                //   // console.info(app.globalData.allTeacherInfo)
-
-                //   that.getAppend()
-                // })
-
-                // -- > 代码改动区域
                 http.getParents(function(res) {
                   if (res == 0) {
                     http.getTeachers(function(res) {
 
                       recordId = res.slice(res.length - 1)[0].recordId
-                      // console.info(app.globalData.allTeacherInfo)
-                      // console.info(app.globalData.allParentInfo)
+
                       // 整合 教师信息 和 家长信息
                       app.globalData.allUserInfo = app.globalData.allTeacherInfo.concat(app.globalData.allParentInfo)
-                      // console.info(app.globalData.allUserInfo)
+
                       that.setData({
-                        // allTeacherInfo: app.globalData.allTeacherInfo,
-                        // allParentInfo: app.globalData.allParentInfo,
+
                         allUserInfo: app.globalData.allUserInfo,
                         recordId: recordId
                       })
@@ -595,7 +521,7 @@ Page({
                     })
                   }
                 })
-                // <-- 代码改动区域
+
               }
             })
           }
@@ -608,8 +534,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    // console.info(recordId)
-    // console.info(111)
+
     var that = this;
 
     wx.request({
@@ -625,7 +550,7 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        // console.info(res)
+
         recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
         that.setData({
           recordId: recordId
@@ -647,7 +572,7 @@ Page({
 
   getContactFromGData: function() {
     var that = this;
-    // 代码改动区域   allTeacherInfo 换成  allUserInfo -->
+
     for (var i in app.globalData.allUserInfo) {
       for (var j in getrecordsList) {
         if (getrecordsList[j].authorType == 1) {
@@ -664,7 +589,7 @@ Page({
 
       }
     }
-    //  <-- 代码改动区域
+
 
     app.globalData.recordsList = app.globalData.recordsList.concat(getrecordsList)
 

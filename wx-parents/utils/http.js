@@ -4,7 +4,7 @@ function login(callback) {
   
   wx.login({
     success: function(res) {
-      // console.info(res)
+  
       if (res.code) {
 
         wx.request({
@@ -14,9 +14,7 @@ function login(callback) {
             appid: app.globalData.appId
           },
           success: function(e) {
-            // console.info("app.js.login");
-            // console.info(e.data.data.openId)
-            // console.info(e.data.data);
+    
             if (e.data.data.openId) {
               app.globalData.openid = e.data.data.openId;
             }
@@ -26,19 +24,19 @@ function login(callback) {
             if (e.data.data.token) {
               app.globalData.token = e.data.data.token;
             }
-            // console.info(app.globalData.openid)
+      
           
             return callback(0)
           },
           fail: function(e) {
-            // console.info(e);
+      
           },
           method: "POST"
         })
       }
     },
     complete:function(res){
-      // console.info(res)
+     
     }
   })
 };
@@ -54,11 +52,8 @@ function getHeadImg(callback) {
 }
 
 function getParentInfo(callback) {
-  // 通过uid获取教师信息  改为获取家长信息
-  // console.info(app.globalData.unionid)
-  // console.info(app.globalData.openid)
   wx.request({
-    // 改为获取家长info
+    // 获取
     url: app.globalData.minodopeApi.getParentInfo,
     method: 'POST',
     data: {
@@ -67,9 +62,7 @@ function getParentInfo(callback) {
       authorType: 2
     },
     success: function(res) {
-      // console.info(res)
-      // console.info('getParentInfo')
-
+console.info(res)
       if (res.data.code === 0) {
         // 家长信息保存本地
         if (res.data.data.profile) {
@@ -97,7 +90,6 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
       "openid": app.globalData.openid,
       // "authorId": app.globalData.userId,
       // "authorType": app.globalData.userType,
-      // 目前写死的
       "studentId": studentId,
     },
     header: {},
@@ -106,10 +98,9 @@ function getGrowthRecordsWithoutAppend(studentId, callback) {
     responseType: 'text',
     success: function(res) {
       if (res.data.data.records.length != 0) {
-        // console.info(res)
-        // console.info('getGrowthRecordsWithoutAppend')
+
         app.globalData.allGrowthRecords = res.data.data.records
-        // console.log(app.globalData.allGrowthRecords)
+ 
         for (var i in res.data.data.records) {
           res.data.data.records[i].name = " ";
           res.data.data.records[i].avatarUrl = " ";
@@ -146,8 +137,7 @@ function getTeachers(callback) {
     dataType: 'json',
     success: function(res) {
       var contact = res.data.data.teachers;
-      // console.info(contact)
-      // console.info('getTeachers')
+
       // 获取所有教师信息
       app.globalData.allTeacherInfo = contact
       for (var i in contact) {
@@ -166,7 +156,7 @@ function getTeachers(callback) {
   })
 };
 
-// 获取所有家长  --> 新增代码
+// 获取所有家长 
 function getParents(callback) {
   wx.request({
     url: app.globalData.minodopeApi.getParentsInfo,
@@ -189,7 +179,7 @@ function getParents(callback) {
     },
   })
 };
-//  <-- 新增代码
+
 
 module.exports = {
   login: login,
@@ -197,7 +187,6 @@ module.exports = {
   getParentInfo: getParentInfo,
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
   getTeachers: getTeachers,
-  //  -->  新增代码
   getParents: getParents,
-  // <-- 新增代码
+
 }

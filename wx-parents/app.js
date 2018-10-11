@@ -45,7 +45,9 @@ App({
       recardCount: 16259,
       id: 142,
     }, ],
-    // 教师端1 ,家长端2 测试用记得改
+    // 新增代码  -->  我这边是写死的 
+    familyId: 64,
+    // 新增代码  <--
     userType: 2,
     unionid: "",
     openid: "",
@@ -66,20 +68,20 @@ App({
 
       getParentsInfo: "https://api.minidope.com/api/v1.0/get_parents_info",
 
+      // 新增代码 新消息提醒   -->
+      putFormId: 'https://api.minidope.com/api/v1/put_form_id',
+      getNewMessage: 'https://api.minidope.com/api/v2.0/get_new_message',
+      //  <--  新增代码 新消息提醒 
+
     },
 
-    // 新消息提醒
-    putFormId: 'https://api.minidope.com/api/v1/put_form_id',
-    getNewMessage: 'https://api.minidope.com/api/v1/get_new_message',
-    // 新消息提醒
+
 
 
 
     phoneVcode: "https://api.minidope.com/api/v1.0/phone-vcode",
-  
-    bindPhone: 'https://api.minidope.com/api/v1.0/bindPhone',
 
-    putMemberFav: "https://api.minidope.com/api/v1.0/put_member_fav",
+    bindPhone: 'https://api.minidope.com/api/v1.0/bindPhone',
 
 
     qiniup: 'https://up-z2.qiniup.com',
@@ -87,10 +89,9 @@ App({
     Imgpath: '',
 
     allTeacherInfo: null,
- 
+
     allParentInfo: null,
-    // 所有用户信息  包括所有家长和教师的信息  id区别: 'teacherId' 和 'parentId'
-    // 记录和评论里面id的区别方式 : authorid可能一样 区别方式是authorType 1:'teacher' 2:'parent'
+
     allUserInfo: null,
 
     recordsList: '',

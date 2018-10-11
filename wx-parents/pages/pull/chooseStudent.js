@@ -20,20 +20,7 @@ Page({
     wx.navigateBack({
 
     })
-    // var url = 'memberDetail?name=' + item.name;
-    // url += "&studentId=" + item.studentId;
-    // url += "&cardCode=" + item.cardCode;
-    // url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
-    // url += "&birthday=" + item.birthday;
-    // url += "&freeze=" + item.freeze;
-    // url += "&choosestudent=false";
-    // console.info(url);
-    // wx.navigateBack({
-    //   url: url,
-    //   success: function (res) { },
-    //   fail: function (res) { },
-    //   complete: function (res) { },
-    // })
+ 
   },
 
   memberstar: function(e) {
@@ -45,20 +32,7 @@ Page({
     wx.navigateBack({
       
     })
-    // var url = 'memberDetail?name=' + item.name;
-    // url += "&studentId=" + item.studentId;
-    // url += "&cardCode=" + item.cardCode;
-    // url += "&nickName=" + (item.nickName == "" ? item.nickName : item.name);
-    // url += "&birthday=" + item.birthday;
-    // url += "&freeze=" + item.freeze;
-    // url += "&choosestudent=false";
-    // console.info(url);
-    // wx.navigateBack({
-    //   url: url,
-    //   success: function (res) { },
-    //   fail: function (res) { },
-    //   complete: function (res) { },
-    // })
+ 
   },
   /**
    * 生命周期函数--监听页面加载

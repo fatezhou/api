@@ -6,15 +6,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // record: '',
     newAppendList: '',
     Imgpath: '',
     allTeacherInfo: null,
     allParentInfo: null,
+    mainText: [],
+    // likeMainText: [],
   },
 
   toDetail: function(e) {
-    console.info(e.currentTarget.dataset.item)
     var item = e.currentTarget.dataset.item
     var allStudentInfo = app.globalData.allStudent
     if (item.authorId) {
@@ -31,8 +31,14 @@ Page({
         var avatarUrl = allStudentInfo[i].avatarUrl
       }
     }
+    for (var i = 0; i < app.globalData.allStudent.length; i++) {
+      if (app.globalData.allStudent[i].studentId == item.studentId) {
+        item.familyId = app.globalData.allStudent[i].familyId
+      }
+    }
+
     wx.navigateTo({
-      url: "detail?recordId=" + item.parentId + "&mainText=" + item.parentText + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
+      url: "detail?recordId=" + item.parentRecordId + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl + "&familyId=" + item.familyId,
     })
   },
 
@@ -47,73 +53,129 @@ Page({
       allParentInfo: app.globalData.allParentInfo,
 
     })
-    // 数据写死测试用 -->
+
+
+
     // var append = [{
     //   authorId: 3,
     //   authorType: 1,
-    //   dateTime: "2018-10-09 15:30:26",
-    //   parentRecordId: 594,
-    //   parentText: "3_append",
-    //   pictureUrls: [app.globalData.Imgpath],
-    //   recordId: 649,
-    //   text: "33333",
-    //   studentId: 141
+    //   createTime: "2018-10-11 17:37:30",
+    //   dateTime: "2018-10-11 17:37:30",
+    //   orgAuthorId: 3,
+    //   orgAuthorType: 1,
+    //   parentRecordId: 712,
+    //   pictureUrls: [],
+    //   recordId: 734,
+    //   studentId: 141,
+    //   text: "评论111"
     // }, {
     //   authorId: 3,
     //   authorType: 1,
-    //   dateTime: "2018-10-09 15:32:32",
-    //   parentRecordId: 594,
-    //   parentText: "我们收费收费大师那麻烦你你反平方",
+    //   createTime: "2018-10-11 17:37:40",
+    //   dateTime: "2018-10-11 17:37:40",
+    //   orgAuthorId: 3,
+    //   orgAuthorType: 1,
+    //   parentRecordId: 713,
     //   pictureUrls: [],
-    //   recordId: 646,
-    //   text: "222ds按施工i啊的那个i适当皮带是你公婆那段视频给你v的女i奶瓶v男彼女本片十大女仆不可能 怕你公婆东南部v破案被迫v女娲哦怕根据颇为局被破微博v评委的视频222",
-    //   studentId: 141
+    //   recordId: 735,
+    //   studentId: 141,
+    //   text: "评论222"
     // }]
-
     // var like = [{
     //   author_id: 3,
     //   author_type: 1,
-    //   dateTime: "2018-10-09 15:34:26",
-    //   parentRecordId: 594,
-    //   parentText: "1_like",
-    //   pictureUrls: [app.globalData.Imgpath],
-    //   recordId: 646,
-    //   text: "111111",
-    //   studentId: 141
+    //   dateTime: "2018-10-11 17:37:30",
+    //   parentRecordId: 712,
+    //   pictureUrls: [],
+    //   recordId: 734,
+    //   studentId: 141,
+    //   text: "评论111"
     // }, {
     //   author_id: 3,
     //   author_type: 1,
-    //   dateTime: "2018-10-09 15:29:24",
-    //   parentRecordId: 594,
-    //   parentText: "4_like",
+    //   dateTime: "2018-10-11 17:37:40",
+    //   parentRecordId: 713,
     //   pictureUrls: [],
-    //   recordId: 646,
-    //   text: "4444",
-    //   studentId: 141
+    //   recordId: 735,
+    //   studentId: 141,
+    //   text: "评论222",
     // }]
 
-    // var newAppendList = append.concat(like)
+    // if (append.length > 0) {
+    //   for (var i = 0; i < append.length; i++) {
+    //     append[i].text = decodeURIComponent(append[i].text)
+    //     var recordId = append[i].parentRecordId
+    //     wx.request({
+    //       url: app.globalData.oneGrowthRecordWithAppendUrl,
+    //       data: {
+    //         unionid: app.globalData.unionid,
+    //         openid: app.globalData.openid,
+    //         recordId: recordId
+    //       },
+    //       header: {},
+    //       method: 'post',
+    //       dataType: 'json',
+    //       responseType: 'text',
+    //       success: function(e) {
+    //         e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
+    //         if (that.data.mainText.length > 0) {
+    //           for (var i = 0; i < that.data.mainText.length; i++) {
+    //             if (that.data.mainText[i].recordId == e.data.data.record.recordId) {
 
-    // for (var i = 0; i < newAppendList.length - 1; i++) {
-    //   for (var j = 0; j < newAppendList.length - i - 1; j++) {
-    //     if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
-    //       var temp = newAppendList[j]
-    //       newAppendList[j] = newAppendList[j + 1];
-    //       newAppendList[j + 1] = temp;
-    //     }
+    //             } else if (i + 1 == that.data.mainText.length) {
+    //               that.data.mainText = that.data.mainText.concat(e.data.data.record)
+    //               that.setData({
+    //                 mainText: that.data.mainText
+    //               })
+    //             }
+    //           }
+    //           // console.info(that.data.mainText)
+    //         } else {
+    //           that.data.mainText = that.data.mainText.concat(e.data.data.record)
+    //           that.setData({
+    //             mainText: that.data.mainText
+    //           })
+    //         }
+    //       },
+    //     })
     //   }
     // }
-    // newAppendList.reverse()
-    // this.setData({
-    //   newAppendList: newAppendList
-    // })
 
+
+
+    // // if (res.data.code == 0) {
+    // // var append = res.data.data.append
+    // // var like = res.data.data.like
+    // if (append.length > 0 && like.length > 0) {
+    //   var newAppendList = append.concat(like)
+    //   for (var i = 0; i < newAppendList.length - 1; i++) {
+    //     for (var j = 0; j < newAppendList.length - i - 1; j++) {
+    //       if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
+    //         var temp = newAppendList[j]
+    //         newAppendList[j] = newAppendList[j + 1];
+    //         newAppendList[j + 1] = temp;
+    //       }
+    //     }
+    //   }
+    //   newAppendList.reverse()
+    //   that.setData({
+    //     newAppendList: newAppendList
+    //   })
+    // } else if (like.length > 0) {
+    //   var newAppendList = like
+    //   newAppendList.reverse()
+    //   that.setData({
+    //     newAppendList: newAppendList
+    //   })
+    // } else if (append.length > 0) {
+    //   var newAppendList = append
+    //   newAppendList.reverse()
+    //   that.setData({
+    //     newAppendList: newAppendList
+    //   })
+    // }
+    // // }
     // return
-    // <-- 数据写死测试用 
-    // console.info(app.globalData.unionid)
-    // console.info(app.globalData.openid)
-    // console.info(app.globalData.userId)
-    // console.info(app.globalData.userType)
 
     wx.request({
       url: app.globalData.getNewMessage,
@@ -125,18 +187,101 @@ Page({
       },
       method: 'POST',
       success: function(res) {
-        for (var i = 0; i < res.data.data.append.length; i++) {
-          res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
-          res.data.data.append[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
+        // console.info(res)
+        if (res.data.data.append.length > 0) {
+          for (var i = 0; i < res.data.data.append.length; i++) {
+            res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
+            var recordId = res.data.data.append[i].parentRecordId
+            wx.request({
+              url: app.globalData.oneGrowthRecordWithAppendUrl,
+              data: {
+                unionid: app.globalData.unionid,
+                openid: app.globalData.openid,
+                recordId: recordId
+              },
+              header: {},
+              method: 'post',
+              dataType: 'json',
+              responseType: 'text',
+              success: function(e) {
+                e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
+                if (that.data.mainText.length > 0) {
+                  for (var i = 0; i < that.data.mainText.length; i++) {
+                    if (that.data.mainText[i].recordId == e.data.data.record.recordId) {
+
+                    } else if (i + 1 == that.data.mainText.length) {
+                      that.data.mainText = that.data.mainText.concat(e.data.data.record)
+                      that.setData({
+                        mainText: that.data.mainText
+                      })
+                    }
+                  }
+                } else {
+                  that.data.mainText = that.data.mainText.concat(e.data.data.record)
+                  that.setData({
+                    mainText: that.data.mainText
+                  })
+                }
+              },
+            })
+          }
         }
-        console.info(res.data.data)
+
+        // if (res.data.data.like.length > 0) {
+        //   for (var i = 0; i < res.data.data.like.length; i++) {
+        //     res.data.data.like[i].text = decodeURIComponent(res.data.data.like[i].text)
+        //     // res.data.data.like[i].parentText = decodeURIComponent(res.data.data.append[i].parentText)
+        //     var recordId = res.data.data.like[i].parentRecordId
+        //     // console.info(i)
+        //     wx.request({
+        //       url: app.globalData.oneGrowthRecordWithAppendUrl,
+        //       data: {
+        //         unionid: app.globalData.unionid,
+        //         openid: app.globalData.openid,
+        //         recordId: recordId
+        //       },
+        //       header: {},
+        //       method: 'post',
+        //       dataType: 'json',
+        //       responseType: 'text',
+        //       success: function(e) {
+        //         e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
+        //         if (that.data.likeMainText.length > 0) {
+        //           for (var i = 0; i < that.data.likeMainText.length; i++) {
+        //             if (that.data.likeMainText[i].recordId == e.data.data.record.recordId) {
+        //               // continue;
+        //             } else if (i + 1 == that.data.likeMainText.length) {
+        //               that.data.likeMainText = that.data.likeMainText.concat(e.data.data.record)
+        //               that.setData({
+        //                 likeMainText: that.data.likeMainText
+        //               })
+        //             }
+        //           }
+        //           // console.info(that.data.mainText)
+        //         } else {
+        //           that.data.likeMainText = that.data.likeMainText.concat(e.data.data.record)
+        //           that.setData({
+        //             likeMainText: that.data.likeMainText
+        //           })
+        //         }
+
+        //         // console.info(that.data.likeMainText)
+        //       },
+        //     })
+        //   }
+        // }
+
+        console.info(res)
 
         if (res.data.code == 0) {
+          for (var a = 0; a < res.data.data.like.length;a++){
+            res.data.data.like[a].text = decodeURIComponent(res.data.data.like[a].text)
+          }
+        
           var append = res.data.data.append
           var like = res.data.data.like
           if (res.data.data.append.length > 0 && res.data.data.like.length > 0) {
             var newAppendList = append.concat(like)
-            // console.info(newAppendList + '111')
             for (var i = 0; i < newAppendList.length - 1; i++) {
               for (var j = 0; j < newAppendList.length - i - 1; j++) {
                 if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
@@ -152,38 +297,17 @@ Page({
             })
           } else if (res.data.data.like.length > 0) {
             var newAppendList = like
-            // console.info(newAppendList + '222')
             newAppendList.reverse()
             that.setData({
               newAppendList: newAppendList
             })
           } else if (res.data.data.append.length > 0) {
             var newAppendList = append
-            // console.info(newAppendList + '333')
             newAppendList.reverse()
             that.setData({
               newAppendList: newAppendList
             })
           }
-
-          // var newAppendList = append.concat(like)
-          // if (newAppendList.length > 0) {
-          //   console.info(newAppendList)
-
-          //   for (var i = 0; i < newAppendList.length - 1; i++) {
-          //     for (var j = 0; j < newAppendList.length - i - 1; j++) {
-          //       if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
-          //         var temp = newAppendList[j]
-          //         newAppendList[j] = newAppendList[j + 1];
-          //         newAppendList[j + 1] = temp;
-          //       }
-          //     }
-          //   }
-          //   newAppendList.reverse()
-          //   this.setData({
-          //     newAppendList: newAppendList
-          //   })
-          // }
         }
       }
     })
