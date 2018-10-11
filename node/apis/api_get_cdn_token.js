@@ -22,7 +22,7 @@ function ApiGetCdnToken(){
             }catch(err){
                 e = {token:"", downloadUrl:""}
             }
-            callback(response.Succ({cdn:{localFilePath: localFilePath, fileName: fileName, token:e.data.token, downloadUrl:e.data.downloadUrl, key:e.data.key}}));
+            callback(response.Succ({cdn:{localFilePath: filePath, fileName: fileName, token:e.data.token, downloadUrl:e.data.downloadUrl, key:e.data.key}}));
         });       
     }
 }
