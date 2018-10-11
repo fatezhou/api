@@ -31,10 +31,10 @@ function ApiPutNewRecord(){
                     "insert into growth_record (\
                         text, author_id, picture_urls, \
                         author_type, student_id, record_type, \
-                        parent_record_id, org_author_id, org_author_type\
-                    )VALUES(?,?,?,?,?,?,?,?,?)",
+                        parent_record_id, org_author_id, org_author_type, family_id\
+                    )VALUES(?,?,?,?,?,?,?,?,?,?)",
                     [sqlData.text, sqlData.author_id, sqlData.picture_urls, sqlData.author_type, sqlData.student_id,
-                    1, 0, sqlData.author_id, sqlData.author_type], function(res){
+                    1, 0, sqlData.author_id, sqlData.author_type, data.familyId ? data.familyId : 0], function(res){
                         logger.debug("ApiPutNewRecord.finish");
                         if(res.error){
                             callback(response.BadSQL());
@@ -47,9 +47,9 @@ function ApiPutNewRecord(){
                     "insert into growth_record(\
                         text, author_id, author_type, \
                         student_id, record_type, parent_record_id,\
-                        org_author_id, org_author_type, picture_urls\
-                    )VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    [sqlData.text, sqlData.author_id, sqlData.author_type, sqlData.student_id, 2, sqlData.parent_record_id, data.orgAuthorId, data.orgAuthorType, sqlData.picture_urls], function(e){
+                        org_author_id, org_author_type, picture_urls, family_id\
+                    )VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    [sqlData.text, sqlData.author_id, sqlData.author_type, sqlData.student_id, 2, sqlData.parent_record_id, data.orgAuthorId, data.orgAuthorType, sqlData.picture_urls, data.familyId ? data.familyId : 0], function(e){
                         logger.debug("ApiPutNewRecord.finish");
                         if(e.error){
                             callback(response.BadSQL());

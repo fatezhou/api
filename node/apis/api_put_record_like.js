@@ -20,8 +20,8 @@ function ApiPutRecordLike(){
             });
         }else{
             sqlFmt = "insert into growth_record_like (record_id, author_id, author_type, \
-                parent_record_id, org_author_id, org_author_type)VALUES(?,?,?,?,?,?)";
-            db.Query(sqlFmt, [data.recordId, data.authorId, data.authorType, data.parentRecordId, data.orgAuthorId, data.orgAuthorType], function(e){
+                parent_record_id, org_author_id, org_author_type, family_id)VALUES(?,?,?,?,?,?,?)";
+            db.Query(sqlFmt, [data.recordId, data.authorId, data.authorType, data.parentRecordId, data.orgAuthorId, data.orgAuthorType, data.familyId ? data.familyId : 0], function(e){
                 if(e.error){
                     callback(response.BadSQL());
                 }else{
