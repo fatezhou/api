@@ -11,6 +11,7 @@ Page({
   data: {
     allGrowthRecords: '',
     studentId: '',
+    familyId: '',
     studentName: '',
     sex: '',
     recordSize: 0,
@@ -50,10 +51,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-  
     studentId = options.studentId
     this.setData({
       studentId: studentId,
+      familyId: parseInt(options.familyId),
       studentName: options.studentName,
       sex: options.sex,
       recordSize: app.globalData.studentRecordCount,
@@ -61,6 +62,7 @@ Page({
       Imgpath: app.globalData.Imgpath,
       avatarUrl: options.avatarUrl
     })
+    console.info(this.data.familyId)
   },
 
   /**
@@ -79,7 +81,7 @@ Page({
     })
 
     perTeacherRecords = false
- 
+
     this.getGrowthRecords()
 
   },
@@ -121,7 +123,7 @@ Page({
       for (var j in self.data.recordsList) {
         if (contact[i].studentId == self.data.recordsList[j].studentId) {
           self.data.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
-
+          // self.data.recordsList[j].familyId = contact[i].familyId
         }
       }
     }
@@ -137,6 +139,7 @@ Page({
       studentId: studentId,
 
     })
+    console.info(self.data.allGrowthRecords)
 
     for (var i = 0; i < app.globalData.contact.length; i++) {
       var self = this;
@@ -153,7 +156,7 @@ Page({
         dataType: 'json',
         responseType: 'text',
         success: function(e) {
- 
+
           if (e.data.code == 0) {
             for (var t = 0; t < e.data.data.record.append.length; t++) {
               e.data.data.record.append[t].text = decodeURIComponent(e.data.data.record.append[t].text)
@@ -166,8 +169,9 @@ Page({
           }
 
           var allTeacherInfo = app.globalData.allTeacherInfo
-        
+
           var allParentInfo = app.globalData.allParentInfo
+          var allStudentInfo = app.globalData.allStudent
           for (var i = 0; i < self.data.recordWithAppend.append.length; i++) {
             if (self.data.recordWithAppend.append[i].authorType == 1) {
               for (var j = 0; j < allTeacherInfo.length; j++) {
@@ -177,7 +181,7 @@ Page({
                   self.data.recordWithAppend.append[i].text = decodeURIComponent(self.data.recordWithAppend.append[i].text)
                 }
               }
-            }else{
+            } else {
               for (var j = 0; j < allParentInfo.length; j++) {
                 if (self.data.recordWithAppend.append[i].authorId == allParentInfo[j].parentId) {
                   self.data.recordWithAppend.append[i].authorName = allParentInfo[j].name
@@ -186,7 +190,14 @@ Page({
                 }
               }
             }
-            
+
+            // 通过student表 获取familyId
+            for (var j = 0; j < allStudentInfo.length; j++) {
+              if (self.data.recordWithAppend.append[i].studentId == allStudentInfo[j].studentId) {
+                self.data.recordWithAppend.append[i].familyId = allStudentInfo[j].familyId
+              }
+            }
+
           }
 
           var recordWithAppends = self.data.recordWithAppends.concat(self.data.recordWithAppend)
@@ -235,9 +246,9 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        if (res.data.data.records.length == 0){
+        if (res.data.data.records.length == 0) {
           that.setData({
-            norecord:true
+            norecord: true
           })
         }
         for (var t = 0; t < res.data.data.records.length; t++) {
@@ -270,6 +281,7 @@ Page({
     var authorId = e.currentTarget.dataset.authorid
     var orgAuthorType = e.currentTarget.dataset.orgauthortype
     var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
+    var familyId = parseInt(e.currentTarget.dataset.familyid)
 
     for (var i = 0; i < this.data.recordWithAppends.length; i++) {
       if (this.data.recordWithAppends[i].recordId == parentRecordId) {
@@ -285,9 +297,7 @@ Page({
                     that.setData({
                       recordWithAppends: this.data.recordWithAppends
                     })
-                  }
-
-                  else if ((k + 1) == this.data.recordWithAppends[i].append[j].like.teacher.length) {
+                  } else if ((k + 1) == this.data.recordWithAppends[i].append[j].like.teacher.length) {
 
                     this.data.recordWithAppends[i].append[j].like.teacher.push(gData.userId)
 
@@ -337,7 +347,7 @@ Page({
                     recordWithAppends: this.data.recordWithAppends
                   })
                   app.globalData.recordWithAppends = this.data.recordWithAppends
-    
+
                 } else if ((k + 1) == this.data.recordWithAppends[j].likes.teacher.length) {
 
                   this.data.recordWithAppends[j].likes.teacher.push(gData.userId)
@@ -375,7 +385,7 @@ Page({
         }
       }
     }
-
+ 
     wx.request({
       url: gData.putRecordLike,
       method: 'post',
@@ -385,6 +395,7 @@ Page({
         "authorId": gData.userId, //自己的id
         "authorType": gData.userType, //1: teacher, 2: parent",
         "recordId": recordId, //评论的id
+        "familyId": familyId,
         "parentRecordId": parentRecordId, //记录的id
         "orgAuthorId": authorId, //评论者id
         "orgAuthorType": orgAuthorType //评论者类型
@@ -398,6 +409,7 @@ Page({
               "unionid": gData.unionid,
               "openid": gData.openid,
               "authorId": gData.userId, //自己的id
+              "familyId": familyId,
               "authorType": gData.userType, //1: teacher, 2: parent",
               "recordId": recordId,
               "parentRecordId": parentRecordId,

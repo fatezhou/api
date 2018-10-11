@@ -12,6 +12,7 @@ Page({
     birthDay: "",
     freeze: "",
     studentId: 0,
+    familyId:'',
     recordSize: "查询中",
 
     star: null,
@@ -26,7 +27,7 @@ Page({
   goMoreRecords: function(e) {
 
     wx.navigateTo({
-      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + this.data.nickName + '&sex=' + this.data.sex + '&avatarUrl=' + this.data.avatarUrl,
+      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + this.data.nickName + '&sex=' + this.data.sex + '&avatarUrl=' + this.data.avatarUrl + '&familyId=' + this.data.familyId,
     })
     app.globalData.perTeacherRecords = true
   },
@@ -103,7 +104,7 @@ Page({
   // 跳转新建记录页面
   toAddRecard: function() {
     wx.navigateTo({
-      url: '../pull/pull?name=' + this.data.name + '&studentId=' + this.data.studentId + '&avatarUrl=' + this.data.avatarUrl,
+      url: '../pull/pull?name=' + this.data.name + '&studentId=' + this.data.studentId + '&avatarUrl=' + this.data.avatarUrl + '&familyId=' + this.data.familyId,
     })
   },
 
@@ -123,8 +124,8 @@ Page({
     this.data.birthDay = options.birthday;
     this.data.freeze = options.freeze == 0 ? 　"年费会员" : "普通会员";
     this.data.studentId = parseInt(options.studentId);
+    this.data.familyId = parseInt(options.familyId)
     this.setData(this.data);
-  
 
   },
 

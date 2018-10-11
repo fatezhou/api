@@ -18,6 +18,7 @@ Page({
     orgAuthorId: 0,
     orgAuthorType: 1,
     recordId: 0,
+    familyId:'',
     name: "",
 
     downloadUrl: '',
@@ -119,7 +120,6 @@ Page({
       pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
     }
 
-
     wx.request({
       url: app.globalData.putNewRecord,
       data: {
@@ -129,6 +129,7 @@ Page({
         "text": that.data.addtext,
         "authorId": gData.teacherInfo.teacherId,
         "studentId": that.data.studentId, //如果是评论的话, 则此项可以不用填,
+        "familyId": that.data.familyId,
         "pictureUrls": pictureUrls,
         "recordType": that.data.type, //1:record,2:append",
         "parentRecordId": that.data.recordId, //如果是全新的一条记录, 则此项可以不用填,
@@ -189,7 +190,8 @@ Page({
     }
     this.data.studentId = parseInt(options.studentId);
     this.data.recordId = parseInt(options.recordId);
-
+    this.data.familyId = parseInt(options.familyId)
+    console.info(this.data.familyId)
     var contact = app.globalData.contact;
     for (var i in contact) {
       if (contact[i].studentId == this.data.studentId) {
@@ -230,8 +232,10 @@ Page({
         name: app.globalData.chooseStudent.name,
         studentId: app.globalData.chooseStudent.studentId,
         avatarUrl: app.globalData.chooseStudent.avatarUrl,
+        familyId: app.globalData.chooseStudent.familyId
       })
     }
+ 
   },
 
   getTokenAndImgUrl(imgNum, callback) {

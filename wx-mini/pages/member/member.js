@@ -46,6 +46,8 @@ Page({
     url += "&freeze=" + item.freeze;
     url += "&sex=" + item.sex;
     url += "&avatarUrl=" + item.avatarUrl;
+    url += "&familyId=" + item.familyId;
+ 
   
     wx.navigateTo({
       url: url,
@@ -58,7 +60,7 @@ Page({
   member: function(e) {
     var index = e.currentTarget.dataset.index;
     var item = this.data.memberList[index];
-
+ 
     var url = 'memberDetail?name=' + item.name;
     url += "&studentId=" + item.studentId;
     url += "&cardCode=" + item.cardCode;
@@ -67,7 +69,8 @@ Page({
     url += "&freeze=" + item.freeze;
     url += "&sex=" + item.sex;
     url += "&avatarUrl=" + item.avatarUrl;
-  
+    url += "&familyId=" + item.familyId;
+
     wx.navigateTo({
       url: url,
       success: function(res) {},
@@ -88,6 +91,7 @@ Page({
     url += "&freeze=" + item.freeze;
     url += "&sex=" + item.sex;
     url += "&avatarUrl=" + item.avatarUrl;
+    url += "&familyId=" + item.familyId;
    
     wx.navigateTo({
       url: url,

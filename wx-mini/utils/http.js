@@ -96,6 +96,7 @@ function login(callback) {
                       method: 'POST',
                       dataType: 'json',
                       success: function(res) {
+   
                         // 有星标的
                         app.globalData.stararr = res.data.data.contact[0].member;
                         var contact = res.data.data.contact[1].member;
@@ -106,6 +107,7 @@ function login(callback) {
                             if (contact[i].studentId == app.globalData.recordsList[j].studentId) {
                               app.globalData.recordsList[j].name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
                               app.globalData.recordsList[j].avatarUrl = contact[i].avatarUrl;
+                              app.globalData.recordsList[j].familyId = contact[i].familyId
                             }
                           }
                         }

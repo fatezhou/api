@@ -19,18 +19,18 @@ Page({
     Imgpath: '',
 
     norecord: '',
-    isIpx:'',
+    isIpx: '',
   },
 
   todetail: function(e) {
     var item = e.currentTarget.dataset.item
     wx.navigateTo({
-      url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.name + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.avatarUrl,
+      url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.name + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.avatarUrl + "&familyId=" + item.familyId,
     })
   },
   //事件处理函数
   showmore: function(e) {
-  
+
     for (var o = 0; 0 < this.data.recordsList.length; o++) {
       if (this.data.recordsList[o].recordId == e.currentTarget.dataset.recordid) {
         this.data.recordsList[o].isfold = !this.data.recordsList[o].isfold
@@ -44,9 +44,9 @@ Page({
   },
 
   formSubmit_collect: function(e) {
-   
+
     let formId = e.detail.formId;
-   
+
     wx.request({
       url: app.globalData.putFormId,
       data: {
@@ -55,17 +55,18 @@ Page({
         "formId": formId,
         "openId": app.globalData.openid,
         "unionId": app.globalData.unionid,
-        "accesstoken": app.globalData.token
+        "accesstoken": app.globalData.token,
+        "familyId": 0,
       },
       method: 'post',
       success: function(res) {
-     
+
       }
     })
   },
 
   onLoad: function(options) {
-    if (app.globalData.isIpx){
+    if (app.globalData.isIpx) {
       this.setData({
         isIpx: app.globalData.isIpx
       })
@@ -132,13 +133,14 @@ Page({
         if (app.globalData.allStudent[i].studentId == getrecordsList[j].studentId) {
           getrecordsList[j].name = (app.globalData.allStudent[i].nickname == "" ? app.globalData.allStudent[i].name : app.globalData.allStudent[i].nickname);
           getrecordsList[j].avatarUrl = app.globalData.allStudent[i].avatarUrl;
+          getrecordsList[j].familyId = app.globalData.allStudent[i].familyId
 
         }
       }
     }
 
     app.globalData.recordsList = app.globalData.recordsList.concat(getrecordsList)
-  
+
     self.setData({
       recordsList: app.globalData.recordsList,
     });
@@ -155,7 +157,7 @@ Page({
       })
 
       if (!app.globalData.recordId || app.globalData.recordId != res[0].recordId) {
-   
+
         app.globalData.recordId = res[0].recordId
         recordId = res.slice(res.length - 1)[0].recordId
 
@@ -251,6 +253,7 @@ Page({
           for (var i in getrecordsList) {
             getrecordsList[i].name = "";
             getrecordsList[i].avatarUrl = '';
+            getrecordsList[i].familyId = '';
           }
           that.getContactFromGData();
         }

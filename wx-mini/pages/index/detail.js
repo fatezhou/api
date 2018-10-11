@@ -35,6 +35,7 @@ Page({
 
     likenumber: 0,
     userId: '',
+    familyId: '',
     Imgpath: '',
     avatarUrl: '',
   },
@@ -43,6 +44,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
     // 默认头像
     this.data.Imgpath = app.globalData.Imgpath
 
@@ -58,6 +60,7 @@ Page({
 
     this.data.mainText = options.mainText;
     this.data.studentId = options.studentId;
+    this.data.familyId = options.familyId;
     this.data.orgAuthorId = options.orgAuthorId;
     this.data.orgAuthorType = options.orgAuthorType;
     this.data.recordId = options.recordId;
@@ -98,6 +101,7 @@ Page({
 
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
+    var familyId = e.currentTarget.dataset.familyid
 
     for (var j = 0; j < this.data.appendList.length; j++) {
       if (this.data.appendList[j].recordId == recordId) {
@@ -112,7 +116,7 @@ Page({
                 that.setData({
                   appendList: this.data.appendList
                 })
-     
+
               } else if ((k + 1) == this.data.appendList[j].like.teacher.length) {
                 this.data.appendList[j].like.teacher.push(gData.userId)
 
@@ -147,6 +151,9 @@ Page({
       }
     }
 
+
+
+
     wx.request({
       url: gData.putRecordLike,
       method: 'post',
@@ -158,7 +165,8 @@ Page({
         "recordId": recordId,
         "parentRecordId": parseInt(that.data.recordId),
         "orgAuthorId": authorId,
-        "orgAuthorType": 1
+        "orgAuthorType": 1,
+        "familyId": familyId
       },
       success: function(res) {
 
@@ -173,6 +181,7 @@ Page({
               "authorType": 1, //1: teacher, 2: parent",
               "recordId": recordId,
               "parentRecordId": parseInt(that.data.recordId),
+              "familyId": familyId,
               'cancel': true
               // "orgAuthorId": authorId,
               // "orgAuthorType": 1
@@ -182,7 +191,7 @@ Page({
             }
           })
         }
-  
+
       }
     })
   },
@@ -214,7 +223,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + name + '&sex=' + sex + '&avatarUrl=' + avatarUrl,
+      url: '../index/perInfo?studentId=' + this.data.studentId + '&studentName=' + name + '&sex=' + sex + '&avatarUrl=' + avatarUrl + '&familyId=' + this.data.familyId,
     })
     app.globalData.perTeacherRecords = false
   },
@@ -232,7 +241,7 @@ Page({
       method: "post",
       success: function(res) {
         app.globalData.studentRecordCount = res.data.data.count
-  
+
         that.setData({
           recordSize: "" + res.data.data.count + "条成长记录"
         })
@@ -263,7 +272,7 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function(e) {
-  
+
         e.data.data.record.text = decodeURIComponent(e.data.data.record.text)
         self.setData({
           mainText: e.data.data.record.text
@@ -286,8 +295,9 @@ Page({
         var allTeacherInfo = app.globalData.allTeacherInfo
         // 家长信息
         var allParentInfo = app.globalData.allParentInfo
+        var allStudentInfo = app.globalData.allStudent
         for (var i = 0; i < self.data.appendList.length; i++) {
- 
+
           if (self.data.appendList[i].authorType == 1) {
             for (var j = 0; j < allTeacherInfo.length; j++) {
               if (self.data.appendList[i].authorId == allTeacherInfo[j].teacherId) {
@@ -304,7 +314,15 @@ Page({
             }
           }
 
+          
+          for (var j = 0; j < allStudentInfo.length; j++) {
+            if (allStudentInfo[j].studentId == self.data.appendList[i].studentId) {
+              self.data.appendList[i].familyId = allStudentInfo[j].familyId
+            }
+          }
+
         }
+
         self.setData({
           appendList: self.data.appendList,
           listNumber: self.data.appendList.length,
@@ -316,7 +334,7 @@ Page({
 
       },
       complete: function(e) {
- 
+
       }
     })
   },

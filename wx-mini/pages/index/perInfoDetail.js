@@ -12,6 +12,7 @@ Page({
     appendList: [],
     listNumber: 0,
     studentId: 0,
+    familyId: 0,
     orgAuthorId: 0,
     orgAuthorType: 0,
     name: " ",
@@ -44,6 +45,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
     // 默认头像
     this.data.Imgpath = app.globalData.Imgpath
 
@@ -59,6 +61,7 @@ Page({
 
     this.data.mainText = options.mainText;
     this.data.studentId = options.studentId;
+    this.data.familyId = parseInt(options.familyId);
     this.data.orgAuthorId = options.orgAuthorId;
     this.data.orgAuthorType = options.orgAuthorType;
     this.data.recordId = options.recordId;
@@ -66,7 +69,7 @@ Page({
     this.data.dateTime = options.dateTime;
 
     this.setData(this.data);
- 
+
     this.getRecordSize();
 
     for (var i = 0; i < app.globalData.contact.length; i++) {
@@ -94,7 +97,7 @@ Page({
         that.setData({
           recordList: list
         })
-  
+
       }
     })
 
@@ -130,10 +133,11 @@ Page({
 
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
+    var familyId = parseInt(e.currentTarget.dataset.familyid)
 
-    if (e.currentTarget.dataset.parentrecordid){
+    if (e.currentTarget.dataset.parentrecordid) {
       var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
-    }else{
+    } else {
       var parentRecordId = parseInt(that.data.recordId)
     }
 
@@ -150,7 +154,7 @@ Page({
                 that.setData({
                   appendList: this.data.appendList
                 })
- 
+
               } else if ((k + 1) == this.data.appendList[j].like.teacher.length) {
 
                 this.data.appendList[j].like.teacher.push(gData.userId)
@@ -185,8 +189,8 @@ Page({
       }
     }
 
-    if (parentRecordId == 0){
-     
+    if (parentRecordId == 0) {
+
       if (this.data.recordList[0].likes) {
         if (this.data.recordList[0].likes.teacher.length > 0) {
           for (var k = 0; k < this.data.recordList[0].likes.teacher.length; k++) {
@@ -227,8 +231,8 @@ Page({
         })
       }
     }
-    console.info(this.data.recordList)
-
+    // console.info(this.data.recordList)
+    // console.info(familyId)
     wx.request({
       url: gData.putRecordLike,
       method: 'post',
@@ -237,6 +241,7 @@ Page({
         "openid": gData.openid,
         "authorId": gData.userId, //自己的id
         "authorType": 1, //1: teacher, 2: parent",
+        "familyId": familyId,
         "recordId": recordId,
         "parentRecordId": parentRecordId,
         "orgAuthorId": authorId,
@@ -254,6 +259,7 @@ Page({
               "authorId": gData.userId, //自己的id
               "authorType": 1, //1: teacher, 2: parent",
               "recordId": recordId,
+              "familyId": familyId,
               "parentRecordId": parseInt(that.data.recordId),
               'cancel': true
               // "orgAuthorId": authorId,
@@ -285,7 +291,7 @@ Page({
   },
 
   goMoreRecords: function(e) {
- 
+
     var sex = null;
     var name = null;
     var avatarUrl = null;
@@ -362,6 +368,7 @@ Page({
         var allTeacherInfo = app.globalData.allTeacherInfo
         // 家长信息
         var allParentInfo = app.globalData.allParentInfo
+        var allStudentInfo = app.globalData.allStudent
         for (var i = 0; i < self.data.appendList.length; i++) {
           if (self.data.appendList[i].authorType == 1) {
             for (var j = 0; j < allTeacherInfo.length; j++) {
@@ -379,18 +386,26 @@ Page({
             }
           }
 
+          for (var j = 0; j < allStudentInfo.length; j++) {
+            if (self.data.appendList[i].studentId == allStudentInfo[j].studentId){
+              self.data.appendList[i].familyId = allStudentInfo[j].familyId
+            }
+          }
+  
+
         }
         self.setData({
           appendList: self.data.appendList,
           listNumber: self.data.appendList.length,
           likenumber: self.data.likenumber
         })
+        console.info(self.data.appendList)
       },
       fail: function(e) {
 
       },
       complete: function(e) {
- 
+
       }
     })
   },
