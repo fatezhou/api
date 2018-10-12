@@ -120,6 +120,7 @@ Page({
         recordSize: app.globalData.indexSize,
         Imgpath: app.globalData.Imgpath,
       });
+      wx.hideLoading()
     })
 
   },
@@ -147,6 +148,9 @@ Page({
   },
 
   onShow: function() {
+    wx.showLoading({
+      title: '加载中...',
+    })
     app.globalData.chooseStudent = ''
     var that = this
 
@@ -166,6 +170,11 @@ Page({
           recordSize: app.globalData.indexSize,
           Imgpath: app.globalData.Imgpath,
         });
+        wx.hideLoading()
+      } else {
+
+        wx.hideLoading()
+
       }
 
     })

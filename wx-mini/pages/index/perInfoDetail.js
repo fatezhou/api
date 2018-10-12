@@ -49,9 +49,9 @@ Page({
     // 默认头像
     this.data.Imgpath = app.globalData.Imgpath
 
-    if (options.avatarUrl) {
-      this.data.avatarUrl = options.avatarUrl
-    }
+    // if (options.avatarUrl) {
+    //   this.data.avatarUrl = options.avatarUrl
+    // }
 
     this.data.userId = app.globalData.userId
     this.data.allTeacherInfo = app.globalData.allTeacherInfo
@@ -120,8 +120,10 @@ Page({
     for (var i = 0; i < app.globalData.allTeacherInfo.length; i++) {
       if (app.globalData.allTeacherInfo[i].teacherId == this.data.orgAuthorId) {
         var name = (app.globalData.allTeacherInfo[i].nickname ? app.globalData.allTeacherInfo[i].nickname : app.globalData.allTeacherInfo[i].name)
+        var avatarUrl = app.globalData.allTeacherInfo[i].avatarUrl
         this.setData({
-          teacherName: name
+          teacherName: name,
+          avatarUrl: avatarUrl
         })
       }
     }

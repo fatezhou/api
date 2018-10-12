@@ -110,7 +110,14 @@ Page({
       })
     }
     template.tabbar("tabBar", 1, this)
-
+    wx.showLoading({
+      title: '加载中...',
+      success:function(){
+        setTimeout(function(){
+          wx.hideLoading()
+        },1000)
+      }
+    })
     var that = this;
     var memberList = app.globalData.allStudent
     app.globalData.memberListLength = memberList.length
@@ -128,6 +135,7 @@ Page({
               stararr: stararr,
               Imgpath: app.globalData.Imgpath
             })
+            // wx.hideLoading()
           }
         }
       }
@@ -136,6 +144,7 @@ Page({
         memberList: memberList,
         Imgpath: app.globalData.Imgpath
       })
+      // wx.hideLoading()
     }
 
   },

@@ -62,9 +62,9 @@
       <image src='../../image/add.png' style='width:60rpx;height:60rpx;margin-top:50rpx;'></image>
     </view>
  
-    <view wx:for="{{recordList}}" wx:for-item='item' wx:key="index">
-      <image wx:if="{{item.pictureUrls[0]}}" src="{{item.pictureUrls[0]}}" style='width:160rpx;height:160rpx;margin-right:10rpx' mode="aspectFill"></image>
-      <view wx:else style="width:160rpx;height:160rpx;margin-top:35rpx;margin-right:10rpx">
+    <view wx:for="{{recordList}}" wx:for-item='item' wx:key="index" style='width:160rpx;height:160rpx;background:#f2f4f7;text-align:center;margin-right:10rpx'>
+      <image wx:if="{{item.pictureUrls[0]}}" src="{{item.pictureUrls[0]}}" style='width:160rpx;height:160rpx;' mode="aspectFill"></image>
+      <view wx:else style="width:160rpx;height:160rpx;margin-top:35rpx;">
         <text class="words">{{item.text}}</text>
       </view>
    

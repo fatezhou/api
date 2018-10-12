@@ -96,7 +96,7 @@ function login(callback) {
                       method: 'POST',
                       dataType: 'json',
                       success: function(res) {
-   
+  
                         // 有星标的
                         app.globalData.stararr = res.data.data.contact[0].member;
                         var contact = res.data.data.contact[1].member;
