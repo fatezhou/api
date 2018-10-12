@@ -28,6 +28,7 @@ Page({
   // 新增代码  获取formid -->
   formSubmit_collect: function(e) {
     let formId = e.detail.formId;
+
     wx.request({
       url: app.globalData.minodopeApi.putFormId,
       data: {
@@ -36,7 +37,8 @@ Page({
         "formId": formId,
         "openId": app.globalData.openid,
         "unionId": app.globalData.unionid,
-        "accesstoken": app.globalData.token
+        "accesstoken": app.globalData.token,
+        "familyId":app.globalData.familyId
       },
       method: 'post',
       success: function(res) {

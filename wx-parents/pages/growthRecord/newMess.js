@@ -46,6 +46,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
     var that = this
     this.setData({
       Imgpath: app.globalData.Imgpath,
@@ -176,18 +177,23 @@ Page({
     // }
     // // }
     // return
-
+    console.info(app.globalData.unionid)
+    console.info(app.globalData.openid)
+    console.info(app.globalData.userId) //自己的id
+    console.info(app.globalData.userType) //自己的type
+    console.info(app.globalData.familyId)
     wx.request({
-      url: app.globalData.getNewMessage,
+      url: app.globalData.minodopeApi.getNewMessage,
       data: {
         "unionid": app.globalData.unionid,
         "openid": app.globalData.openid,
         "authorId": app.globalData.userId, //自己的id
-        "authorType": app.globalData.userType //自己的type
+        "authorType": app.globalData.userType, //自己的type
+        "familyId": app.globalData.familyId
       },
       method: 'POST',
       success: function(res) {
-        // console.info(res)
+        console.info(res)
         if (res.data.data.append.length > 0) {
           for (var i = 0; i < res.data.data.append.length; i++) {
             res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
@@ -274,10 +280,10 @@ Page({
         console.info(res)
 
         if (res.data.code == 0) {
-          for (var a = 0; a < res.data.data.like.length;a++){
+          for (var a = 0; a < res.data.data.like.length; a++) {
             res.data.data.like[a].text = decodeURIComponent(res.data.data.like[a].text)
           }
-        
+
           var append = res.data.data.append
           var like = res.data.data.like
           if (res.data.data.append.length > 0 && res.data.data.like.length > 0) {
