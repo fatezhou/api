@@ -20,6 +20,7 @@ Page({
 
     norecord: '',
     isIpx: '',
+    noTextPrompt: '',
   },
 
   todetail: function(e) {
@@ -233,6 +234,9 @@ Page({
   onReachBottom: function() {
 
     var that = this;
+    that.setData({
+      noTextPrompt: '无更多记录'
+    })
     wx.request({
       url: app.globalData.getGrowthRecordsWithoutAppend,
       data: {
@@ -266,6 +270,11 @@ Page({
           }
           that.getContactFromGData();
         }
+        // else{
+        //   that.setData({
+        //     noTextPrompt:'无更多记录'
+        //   })
+        // }
 
       },
       fail: function(res) {},

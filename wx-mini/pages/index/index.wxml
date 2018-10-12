@@ -68,7 +68,7 @@
     </view>
 
   </view>
-  <view style="position:relative;height:250rpx;opacity: 0;">1</view>
+  <view style="position:relative;height:200rpx;display:flex;font-size:28rpx;flex-direction:column;align-items:center;opacity:.5">{{noTextPrompt}}</view>
   <view class='fixed'>
     <navigator url='./../pull/pull?choosestudent=true' hover-class="none">
       <button formType="submit" hover-class="none" style="background-color:transparent">

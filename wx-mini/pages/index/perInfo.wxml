@@ -213,3 +213,5 @@
 
   </view>
 </view>
+
+<view style="position:relative;height:70rpx;display:flex;font-size:28rpx;flex-direction:column;align-items:center;opacity:.5;">{{noTextPrompt}}</view>

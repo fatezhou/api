@@ -32,6 +32,7 @@ Page({
     avatarUrl: '',
 
     norecord: '',
+    noTextPrompt:'无更多记录',
   },
 
   showmore: function(e) {
