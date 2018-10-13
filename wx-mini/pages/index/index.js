@@ -270,11 +270,6 @@ Page({
           }
           that.getContactFromGData();
         }
-        // else{
-        //   that.setData({
-        //     noTextPrompt:'无更多记录'
-        //   })
-        // }
 
       },
       fail: function(res) {},
