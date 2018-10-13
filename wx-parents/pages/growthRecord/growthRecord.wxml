@@ -20,8 +20,8 @@
       <swiper previous-margin="280rpx" next-margin="280rpx" style="width:750rpx;" bindchange='swiper'>
         <swiper-item wx:for="{{showswiper}}" wx:for-item='item' wx:key='index'>
           <view wx:if="{{index == current}}">
-            <image wx:if="{{item.avatarUrl == ''}}" src="{{Imgpath}}" mode="widthFix" style="width:120rpx;margin:20rpx 40rpx;border-radius:50%" />
-            <image wx:else src="{{item.avatarUrl}}" mode="widthFix" style="width:120rpx;margin:20rpx 40rpx；border-radius:50%" />
+            <image wx:if="{{item.avatarUrl == ''}}" src="{{Imgpath}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx;border-radius:50%" />
+            <image wx:else src="{{item.avatarUrl}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx；border-radius:50%" />
             <view style="display:flex;flex-direction:column;align-items:center;color:#fff;">
               <text>{{item.name}}</text>
               <image src="{{item.sex == 2 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style="position:absolute;width:30rpx;margin-left:80rpx;" mode="widthFix" />
@@ -29,7 +29,7 @@
             </view>
           </view>
           <view wx:else>
-            <image wx:if="{{item.avatarUrl == ''}}" src="{{Imgpath}}" mode="widthFix" style="width:90rpx;opacity:.4;margin:35rpx 50rpx;border-radius:50%" />
+            <image wx:if="{{item.avatarUrl == ''}}" src="{{Imgpath}}" mode="cover" style="width:90rpx;height:90rpx;opacity:.4;margin:35rpx 50rpx;border-radius:50%" />
             <image wx:else src="{{item.avatarUrl}}" mode="widthFix" style="width:90rpx;opacity:.4;margin:35rpx 50rpx;border-radius:50%" />
           </view>
         </swiper-item>
@@ -225,7 +225,7 @@
 
               <image wx:if="{{itemWithAppend.like.teacher.length > 0 || itemWithAppend.like.parent.length > 0}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
               <view wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex' style='display:inline-block'>
-                <view wx:for="{{itemWithAppend.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>{{allUseritem.nickname}}
+                <view wx:for="{{itemWithAppend.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
                   <text wx:if="{{allUseritem.teacherId == teacherLikeitem}}"> {{allUseritem.nickname}} </text>
                 </view>
                 <view wx:for="{{itemWithAppend.like.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex'>
@@ -244,6 +244,7 @@
       <!-- 评论 -->
     </view>
   </view>
+  <view style="position:relative;height:200rpx;display:flex;font-size:28rpx;flex-direction:column;align-items:center;opacity:.5">{{noTextPrompt}}</view>
 
 
   <import src="../../template/template.wxml" />

@@ -23,6 +23,8 @@ Page({
     userId: '',
     Imgpath: '',
     recordId: '',
+
+    noTextPrompt: '',
   },
 
   // 新增代码  获取formid -->
@@ -38,7 +40,7 @@ Page({
         "openId": app.globalData.openid,
         "unionId": app.globalData.unionid,
         "accesstoken": app.globalData.token,
-        "familyId":app.globalData.familyId
+        "familyId": app.globalData.familyId
       },
       method: 'post',
       success: function(res) {
@@ -78,6 +80,11 @@ Page({
 
   changestudent: function(index) {
     var that = this
+    // 新增代码
+    wx.showLoading({
+      title: '加载中...',
+    })
+    // 新增代码
     studentId = this.data.showswiper[index].id
 
     http.getGrowthRecordsWithoutAppend(studentId, function(res) {
@@ -92,8 +99,9 @@ Page({
             that.setData({
               recordId: recordId
             })
-
-
+            // 新增代码
+            wx.hideLoading()
+            // 新增代码
             if (!app.globalData.allUserInfo) {
               http.getParents(function(res) {
                 if (res == 0) {
@@ -109,6 +117,7 @@ Page({
                       allUserInfo: app.globalData.allUserInfo,
 
                     })
+                    // console.info(app.globalData.allUserInfo)
                     that.getAppend()
                   })
                 }
@@ -126,6 +135,11 @@ Page({
           recordsList: '',
           recordSize: 0
         });
+        // 新增代码
+        setTimeout(function() {
+          wx.hideLoading()
+        }, 1000)
+        // 新增代码
       }
     })
   },
@@ -326,7 +340,11 @@ Page({
    */
   onShow: function() {
     var that = this
-
+    // 新增代码
+    wx.showLoading({
+      title: '加载中...',
+    })
+    // 新增代码
 
     http.login(function(res) {
 
@@ -377,6 +395,9 @@ Page({
                         allUserInfo: app.globalData.allUserInfo,
                         recordId: recordId
                       })
+                      // 新增代码
+                      wx.hideLoading()
+                      // 新增代码
                       that.getAppend()
                     })
                   }
@@ -461,7 +482,7 @@ Page({
             recordsList: app.globalData.recordsList,
             recordSize: app.globalData.indexSize
           });
-
+          // console.info(app.globalData.recordsList)
         },
         fail: function(res) {
 
@@ -537,6 +558,7 @@ Page({
    */
   onReachBottom: function() {
 
+
     var that = this;
 
     wx.request({
@@ -553,18 +575,27 @@ Page({
       responseType: 'text',
       success: function(res) {
 
-        recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
-        that.setData({
-          recordId: recordId
-        })
-        getrecordsList = res.data.data.records
-        for (var i in getrecordsList) {
-          getrecordsList[i].name = " ";
-          getrecordsList[i].avatarUrl = " ";
-          getrecordsList[i].text = decodeURIComponent(getrecordsList[i].text)
+        if (res.data.code == 0 && res.data.data.records.length > 0) {
+          recordId = res.data.data.records.slice(res.data.data.records.length - 1)[0].recordId
+          that.setData({
+            recordId: recordId
+          })
+          getrecordsList = res.data.data.records
+          for (var i in getrecordsList) {
+            getrecordsList[i].name = " ";
+            getrecordsList[i].avatarUrl = " ";
+            getrecordsList[i].text = decodeURIComponent(getrecordsList[i].text)
+          }
+
+          that.getContactFromGData();
+        } else {
+          // 新增代码  上划加载无更多记录  
+          that.setData({
+            noTextPrompt: '无更多记录'
+          })
+          // 新增代码  上划加载无更多记录  
         }
 
-        that.getContactFromGData();
       },
       fail: function(res) {},
       complete: function(res) {},

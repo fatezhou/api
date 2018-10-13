@@ -45,7 +45,7 @@ App({
       recardCount: 16259,
       id: 142,
     }, ],
-    // 新增代码  -->  我这边是写死的 
+    // 新增代码  -->  我这边是写死的 用于消息提醒
     familyId: 64,
     // 新增代码  <--
     userType: 2,
@@ -54,11 +54,14 @@ App({
     token: "",
     appId: "wxf4ff3923fa71c9a3",
     minodopeApi: {
+      // 获取 openId unionId token
       loginUrl: "https://api.minidope.com/api/v1.0/login",
-      contactUrl: "https://api.minidope.com/api/v1.0/get_contact",
+      // contactUrl: "https://api.minidope.com/api/v1.0/get_contact",
+      // 获取单个学员的成长记录（不包括评论）
       getGrowthRecordsWithoutAppend: "https://api.minidope.com/api/v1.0/get_growth_records_without_append",
+      // 获取教师列表
       getTeachers: "https://api.minidope.com/api/v1.0/get_teachers",
-      // 改为获取家长信息
+      // 获取家长信息
       getParentInfo: "https://api.minidope.com/api/v1.0/get_profile",
       getOneGrowthRecordWithAppendByRecordId: "https://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
       putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
