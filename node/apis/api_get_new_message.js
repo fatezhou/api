@@ -113,6 +113,51 @@ function ApiGetNewMessage(){
         }
 
         function V2(){
+            function GetRecord(){
+                var sqlFmt = 
+                    "select \
+                    student_id as studentId,\
+                    author_id as authorId,\
+                    author_type as authorType,\
+                    create_time as dateTime, \
+                    text, \
+                    parent_record_id as parentRecordId, \
+                    id as recordId, \
+                    picture_urls as pictureUrls, \
+                    org_author_id as orgAuthorId, \
+                    org_author_type as orgAuthorType,\
+                    create_time as createTime\
+                    from growth_record \
+                    where record_type = 1 and id in(\
+                    select record_id from new_message\
+                    where org_author_id = ? and\
+                    org_author_type = ? and\
+                    msg_type = 3)\
+                    ";
+                    var recordDb = tool.GetDataBase();
+                    recordDb.Query(sqlFmt, [data.authorId, data.authorType], function(e){
+                        if(e.error){
+                            callback(response.BadSQL());
+                        }else{
+                            try{
+                                e = JSON.stringify(e);
+                                e = JSON.parse(e);
+                            }catch(err){
+                                e = [];
+                            }
+                            for(var i in e){
+                                try{
+                                    e[i].pictureUrls = JSON.parse(e[i].pictureUrls).urls;
+                                }catch(err){
+                                    e[i].pictureUrls = [];
+                                }  
+                            }
+                            res.record = e;
+                            GetNewAppend();
+                        }
+                    })
+            }
+
             function GetNewAppend(){
                 var sqlFmt =
                     "select \
@@ -214,7 +259,7 @@ function ApiGetNewMessage(){
                             }  
                         }
                         res.like = e;
-                        GetNewAppend();
+                        GetRecord();                        
                     }
                 });     
             }
