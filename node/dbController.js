@@ -18,7 +18,8 @@ function CuteDbController(conn){
         this.conn = conn;
         this.connection = mysql.createConnection(conn);
         this.connection.connect(function(e){
-            console.info("database connect fail!-->" + e);
+            if(e)
+                console.info("database connect-->" + e);            
         });
         this.isConnect = true;
     }
@@ -30,7 +31,12 @@ function CuteDbController(conn){
         var self = this;
         try{
             connection.query(sqlfmt, data, function (error, results) {                
-                connection.end();
+                connection.end(function(endErr){
+                    if(endErr)
+                        console.info("con.end:", endErr);
+                    else
+                        console.info("con.end.ok");
+                });
                 self.isConnect = false;
                 if (error){
                     console.info(error);
@@ -40,6 +46,13 @@ function CuteDbController(conn){
                 }
             });
         }catch(err){
+            connection.end(function(endErr){
+                if(endErr)
+                    console.info("con.end:", endErr);
+                else
+                    console.info("con.end.ok");
+            });
+            self.isConnect = false;
             callback({error:true});
         }
         //connection.end();
@@ -48,7 +61,6 @@ function CuteDbController(conn){
         this.Init(this.conn);
     }
     this.Init(conn);
-    console.info("database connect succ!");
 }
 
 module.exports = CuteDbController;
