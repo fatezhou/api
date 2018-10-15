@@ -127,7 +127,7 @@
 
           </block>
 
-          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hindname=true&callName={{item.authorName}}&familyId=0" hover-class="none" style="margin-top:18rpx">
+          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{studentId}}&hindname=true&callName={{item.authorName}}&familyId=0" hover-class="none" style="margin-top:18rpx">
             <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx;' mode='cover'></image>
           </navigator>
         </view>
