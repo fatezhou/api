@@ -287,7 +287,6 @@ Page({
           } else {
             self.data.likenumber = 0
           }
-
           self.setData(self.data);
         }
 
@@ -314,12 +313,31 @@ Page({
             }
           }
 
-          
+
           for (var j = 0; j < allStudentInfo.length; j++) {
             if (allStudentInfo[j].studentId == self.data.appendList[i].studentId) {
               self.data.appendList[i].familyId = allStudentInfo[j].familyId
             }
           }
+
+
+
+          // 排序  修复 点赞图标可能出现两个的问题  开始 --->
+          console.info(self.data.appendList)
+          if (self.data.appendList[i].like) {
+            if (self.data.appendList[i].like.teacher.length > 0) {
+              for (var j = 0; j < self.data.appendList[i].like.teacher.length; j++) {
+                var length = self.data.appendList[i].like.teacher.length
+                if (self.data.appendList[i].like.teacher[j] == app.globalData.userId) {
+                  var temp = self.data.appendList[i].like.teacher[length - 1]
+                  self.data.appendList[i].like.teacher[length - 1] = self.data.appendList[i].like.teacher[j]
+                  self.data.appendList[i].like.teacher[j] = temp
+                  break
+                }
+              }
+            }
+          }
+          //排序  修复 点赞图标可能出现两个的问题   <---  结束
 
         }
 
@@ -328,7 +346,7 @@ Page({
           listNumber: self.data.appendList.length,
           likenumber: self.data.likenumber
         })
-        console.info(self.data.appendList)
+        // console.info(self.data.appendList)
 
       },
       fail: function(e) {

@@ -356,6 +356,22 @@ Page({
         if (e.data.code == 0) {
           for (var t = 0; t < e.data.data.record.append.length; t++) {
             e.data.data.record.append[t].text = decodeURIComponent(e.data.data.record.append[t].text)
+
+            // 排序  修复 点赞图标可能出现两个的问题  开始 --->
+            if (e.data.data.record.append[t].like) {
+              if (e.data.data.record.append[t].like.teacher.length > 0) {
+                for (var i = 0; i < e.data.data.record.append[t].like.teacher.length; i++) {
+                  var length = e.data.data.record.append[t].like.teacher.length
+                  if (e.data.data.record.append[t].like.teacher[i] == app.globalData.userId) {
+                    var temp = e.data.data.record.append[t].like.teacher[length - 1]
+                    e.data.data.record.append[t].like.teacher[length - 1] = e.data.data.record.append[t].like.teacher[i]
+                    e.data.data.record.append[t].like.teacher[i] = temp
+                    break
+                  }
+                }
+              }
+            }
+          //排序  修复 点赞图标可能出现两个的问题   <---  结束
           }
           self.data.appendList = e.data.data.record.append;
           if (e.data.data.record.likes) {
@@ -363,6 +379,23 @@ Page({
           } else {
             self.data.likenumber = 0
           }
+
+          // 排序  修复 点赞图标可能出现两个的问题  开始 --->
+          if (e.data.data.record.likes) {
+            if (e.data.data.record.likes.teacher.length > 0) {
+              for (var i = 0; i < e.data.data.record.likes.teacher.length; i++) {
+                var length = e.data.data.record.likes.teacher.length
+                if (e.data.data.record.likes.teacher[i] == app.globalData.userId) {
+                  var temp = e.data.data.record.likes.teacher[length - 1]
+                  e.data.data.record.likes.teacher[length - 1] = e.data.data.record.likes.teacher[i]
+                  e.data.data.record.likes.teacher[i] = temp
+                  break
+                }
+              }
+            }
+          }
+          //排序  修复 点赞图标可能出现两个的问题   <---  结束
+
           self.setData(self.data);
         }
 

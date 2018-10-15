@@ -23,14 +23,17 @@
       </view>
       <view style="margin-top:20rpx;">
         <image wx:if="{{item.likes.teacher.length > 0 || item.likes.parent.length>0}}" src='../../image/nice.png' style='width:30rpx;height:30rpx' mode='cover'></image>
-        <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
-          <block wx:for="{{item.likes.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
-            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allTeacheritem.nickname}} </text>
+
+        <block wx:for="{{item.likes.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex' wx:for-index="teacherindex">
+          <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
+            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}}<text wx:if="{{item.likes.teacher.length-1 > teacherindex}}">，</text>
+            <text wx:if="{{item.likes.parent.length > 0}}" style="inline-block">，</text></text>
           </block>
         </block>
-        <block wx:for="{{allParentInfo}}" wx:for-item='allParentitem' wx:key='allParentindex'>
-          <block wx:for="{{item.likes.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex'>
-            <text wx:if="{{allParentitem.parentId == parentLikeitem}}"> {{allParentitem.name}} </text>
+
+        <block wx:for="{{item.likes.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex' wx:for-index="parentindex">
+          <block wx:for="{{allParentInfo}}" wx:for-item='allParentitem' wx:key='allParentindex'>
+            <text wx:if="{{allParentitem.parentId == parentLikeitem}}">{{allParentitem.name}}<text wx:if="{{item.likes.parent.length-1 > parentindex}}">，</text></text>
           </block>
         </block>
       </view>
@@ -93,14 +96,17 @@
 
       <view style="margin-top:20rpx;">
         <image wx:if="{{item.like.teacher.length > 0 || item.like.parent.length>0}}" src='../../image/nice.png' style='width:30rpx;height:30rpx' mode='cover'></image>
-        <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
-          <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
-            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allTeacheritem.nickname}} </text>
+
+        <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex' wx:for-index="teacherindex">
+          <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
+            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}}<text wx:if="{{item.like.teacher.length-1 > teacherindex}}">，</text>
+            <text wx:if="{{item.like.parent.length > 0}}" style="inline-block">，</text></text>
           </block>
         </block>
-        <block wx:for="{{allParentInfo}}" wx:for-item='allParentitem' wx:key='allParentindex'>
-          <block wx:for="{{item.like.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex'>
-            <text wx:if="{{allParentitem.parentId == parentLikeitem}}"> {{allParentitem.name}} </text>
+
+        <block wx:for="{{item.like.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex' wx:for-index="parentindex">
+          <block wx:for="{{allParentInfo}}" wx:for-item='allParentitem' wx:key='allParentindex'>
+            <text wx:if="{{allParentitem.parentId == parentLikeitem}}">{{allParentitem.name}}<text wx:if="{{item.like.parent.length-1 > parentindex}}">，</text></text>
           </block>
         </block>
 
@@ -117,7 +123,8 @@
           <block wx:else>
             <!-- 点赞数据没有你 -->
             <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikes' wx:if="{{teacherLikes != userId}}">
-              <image wx:if="{{index+1 == item.like.teacher.length}}" src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-familyid="0"></image>
+              <image wx:if="{{index+1 == item.like.teacher.length}}" src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"
+                data-familyid="0"></image>
 
             </block>
             <!-- 点赞数据有你 -->

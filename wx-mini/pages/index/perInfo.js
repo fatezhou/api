@@ -165,6 +165,23 @@ Page({
               if (e.data.data.record.append[t].text.length > 100) {
                 e.data.data.record.append[t].showTextBtn = true
               }
+
+
+              // 排序  修复 点赞图标可能出现两个的问题  开始 --->
+              if (e.data.data.record.append[t].like) {
+                if (e.data.data.record.append[t].like.teacher.length > 0) {
+                  for (var i = 0; i < e.data.data.record.append[t].like.teacher.length; i++) {
+                    var length = e.data.data.record.append[t].like.teacher.length
+                    if (e.data.data.record.append[t].like.teacher[i] == app.globalData.userId) {
+                      var temp = e.data.data.record.append[t].like.teacher[length - 1]
+                      e.data.data.record.append[t].like.teacher[length - 1] = e.data.data.record.append[t].like.teacher[i]
+                      e.data.data.record.append[t].like.teacher[i] = temp
+                      break
+                    }
+                  }
+                }
+              }
+          //排序  修复 点赞图标可能出现两个的问题   <---  结束
             }
             self.data.recordWithAppend = e.data.data.record
           }
@@ -259,6 +276,22 @@ Page({
           if (res.data.data.records[t].text.length > 100) {
             res.data.data.records[t].showTextBtn = true
           }
+
+          // 排序  修复 点赞图标可能出现两个的问题  开始 --->
+          if (res.data.data.records[t].likes) {
+            if (res.data.data.records[t].likes.teacher.length > 0) {
+              for (var i = 0; i < res.data.data.records[t].likes.teacher.length; i++) {
+                var length = res.data.data.records[t].likes.teacher.length
+                if (res.data.data.records[t].likes.teacher[i] == app.globalData.userId) {
+                  var temp = res.data.data.records[t].likes.teacher[length - 1]
+                  res.data.data.records[t].likes.teacher[length - 1] = res.data.data.records[t].likes.teacher[i]
+                  res.data.data.records[t].likes.teacher[i] = temp
+                  break
+                }
+              }
+            }
+          }
+          //排序  修复 点赞图标可能出现两个的问题   <---  结束
         }
         for (var i in res.data.data.records) {
           res.data.data.records[i].name = " ";
