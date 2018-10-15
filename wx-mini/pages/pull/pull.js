@@ -18,7 +18,7 @@ Page({
     orgAuthorId: 0,
     orgAuthorType: 1,
     recordId: 0,
-    familyId:'',
+    familyId: '',
     name: "",
 
     downloadUrl: '',
@@ -36,6 +36,8 @@ Page({
 
     Imgpath: '',
     avatarUrl: '',
+    // 学生所有家长的id
+    familyIds:[],
   },
   charChange: function(e) {
     if (this.data.calltext) {
@@ -98,7 +100,7 @@ Page({
 
         },
         complete: function(res) {
-      
+
         }
       });
     }
@@ -119,7 +121,8 @@ Page({
     for (var i in this.data.prepareToUpload) {
       pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
     }
-
+    console.info(that.data.orgAuthorId)
+    console.info(gData.teacherInfo.teacherId)
     wx.request({
       url: app.globalData.putNewRecord,
       data: {
@@ -129,7 +132,10 @@ Page({
         "text": that.data.addtext,
         "authorId": gData.teacherInfo.teacherId,
         "studentId": that.data.studentId, //如果是评论的话, 则此项可以不用填,
+        // 学生家庭id
         "familyId": that.data.familyId,
+        // 学生所有家长id
+        "familyIds": that.data.familyIds,
         "pictureUrls": pictureUrls,
         "recordType": that.data.type, //1:record,2:append",
         "parentRecordId": that.data.recordId, //如果是全新的一条记录, 则此项可以不用填,
@@ -162,6 +168,34 @@ Page({
       complete: function(res) {},
     })
   },
+
+  getFamily: function(studentId) {
+    var gData = app.globalData
+    var that = this;
+    wx.request({
+      url: gData.getFamily,
+      data: {
+        "unionid": gData.unionid,
+        "openid": gData.openid,
+        "studentId": studentId,
+      },
+      method: 'post',
+      success: function(res) {
+        if (res.data.data.parents.length > 0) {
+          var familyIds = []
+          for (var i = 0; i < res.data.data.parents.length; i++) {
+            familyIds[i] = res.data.data.parents[i].id
+          }
+          that.setData({
+            familyIds: familyIds
+          })
+          console.info(familyIds)
+        }
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -189,15 +223,21 @@ Page({
       this.data.type = 2;
     }
     this.data.studentId = parseInt(options.studentId);
+    if (options.studentId) {
+      this.getFamily(this.data.studentId)
+    }
     this.data.recordId = parseInt(options.recordId);
-    this.data.familyId = parseInt(options.familyId)
-    console.info(this.data.familyId)
+    this.data.familyId = parseInt(options.familyId);
+    this.data.orgAuthorId = parseInt(options.orgAuthorId)
+    this.data.orgAuthorType = parseInt(options.orgAuthorType)
+    console.info(this.data.orgAuthorId)
+    console.info(this.data.orgAuthorType)
     var contact = app.globalData.contact;
     for (var i in contact) {
       if (contact[i].studentId == this.data.studentId) {
         this.data.name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
         this.data.name = contact[i].name;
- 
+
         this.setData(this.data);
         break;
       }
@@ -210,7 +250,7 @@ Page({
     }
 
     if (options.hindname) {
- 
+
       this.setData({
         hindname: true
       })
@@ -234,8 +274,9 @@ Page({
         avatarUrl: app.globalData.chooseStudent.avatarUrl,
         familyId: app.globalData.chooseStudent.familyId
       })
+      this.getFamily(this.data.studentId)
     }
- 
+
   },
 
   getTokenAndImgUrl(imgNum, callback) {
@@ -340,7 +381,7 @@ Page({
         if (!res.cancel) {
           if (res.tapIndex == 0) {
             that.chooseWxImage('album')
- 
+
           } else if (res.tapIndex == 1) {
             that.chooseWxImage('camera')
           }
@@ -369,7 +410,7 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: [type],
       success: function(res) {
- 
+
         var imgsLimit = [];
         var tempFilePaths = that.data.tempFilePaths;
         var imgs = that.data.imgs;
@@ -377,12 +418,12 @@ Page({
 
         for (var i = 0; i < res.tempFilePaths.length; i++) {
           tempFilePaths[res.tempFilePaths[i]] = '';
- 
+
           imgs.push(res.tempFilePaths[i]);
 
           var encodePicFileName = that.makePicName(index, res.tempFilePaths[i]);
           index++;
- 
+
           var self = that;
           var localFilePath = res.tempFilePaths[i];
           wx.request({
@@ -394,7 +435,7 @@ Page({
               localFilePath: localFilePath
             },
             success: function(res) {
-   
+
               self.data.prepareToUpload.push({
                 fileName: res.data.data.cdn.fileName,
                 token: res.data.data.cdn.token,
@@ -402,7 +443,7 @@ Page({
                 key: res.data.data.cdn.key,
                 localFilePath: res.data.data.cdn.localFilePath
               });
-     
+
             }
           })
         };

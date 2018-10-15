@@ -73,16 +73,20 @@
 
       <view style="margin-top:20rpx;">
         <image wx:if="{{item.likes.teacher.length > 0 || item.likes.parent.length}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
-        <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
-          <block wx:for="{{item.likes.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
-            <text wx:if="{{allUseritem.teacherId == teacherLikeitem}}"> {{allUseritem.nickname}} </text>
+        <!-- 代码改动区域  开始 -->
+        <block wx:for="{{item.likes.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex' wx:for-index="teacherindex">
+          <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
+            <text wx:if="{{allUseritem.teacherId == teacherLikeitem}}">{{allUseritem.nickname}}<text wx:if="{{item.likes.teacher.length-1 > teacherindex}}">，</text>
+            <text wx:if="{{item.likes.parent.length > 0}}" style="inline-block">，</text></text>
           </block>
         </block>
-        <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
-          <block wx:for="{{item.likes.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex'>
-            <text wx:if="{{allUseritem.parentId == parentLikeitem}}"> {{allUseritem.name}} </text>
+
+        <block wx:for="{{item.likes.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex' wx:for-index="parentindex">
+          <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
+            <text wx:if="{{allUseritem.parentId == parentLikeitem}}">{{allUseritem.name}}<text wx:if="{{item.likes.parent.length-1 > parentindex}}">，</text></text>
           </block>
         </block>
+        <!-- 代码改动区域  结束 -->
       </view>
 
 
@@ -171,17 +175,21 @@
           <view style="margin-top:20rpx;">
 
             <image wx:if="{{itemWithAppend.like.teacher.length > 0 || itemWithAppend.like.parent.length}}" src='../../image/nice.png' style='width:30rpx' mode='widthFix'></image>
-            <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
-              <block wx:for="{{itemWithAppend.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex'>
-                <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}"> {{allUseritem.nickname}} </text>
-              </block>
-            </block>
-            <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
-              <block wx:for="{{itemWithAppend.like.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex'>
-                <text wx:if="{{allUseritem.parentId == parentLikeitem}}"> {{allUseritem.nickname}} </text>
+            <!-- 代码改动区域   开始  -->
+
+            <block wx:for="{{itemWithAppend.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex' wx:for-index="teacherindex">
+              <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
+                <text wx:if="{{allUseritem.teacherId == teacherLikeitem}}">{{allUseritem.nickname}}<text wx:if="{{itemWithAppend.like.teacher.length-1 > teacherindex}}">，</text>
+                <text wx:if="{{itemWithAppend.like.parent.length > 0}}" style="inline-block">，</text></text>
               </block>
             </block>
 
+            <block wx:for="{{itemWithAppend.like.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex' wx:for-index="parentindex">
+              <block wx:for="{{allUserInfo}}" wx:for-item='allUseritem' wx:key='allUserindex'>
+                <text wx:if="{{allUseritem.parentId == parentLikeitem}}">{{allUseritem.name}}<text wx:if="{{itemWithAppend.like.parent.length-1 > parentindex}}">，</text></text>
+              </block>
+            </block>
+            <!-- 代码改动区域  结束 -->
           </view>
           <view style="display:flex;justify-content: space-between;align-items:center;margin-top:20rpx;">
             <view> {{itemWithAppend.dateTime}} </view>

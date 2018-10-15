@@ -82,7 +82,7 @@ Page({
           key: this.data.prepareToUpload[i].key,
         },
         success: function(res) {
-   
+
         },
         complete: function(res) {
           console.info(res)
@@ -110,7 +110,8 @@ Page({
       console.info(text)
     }
 
-    console.info(pictureUrls)
+    console.info(that.data.orgAuthorId)
+    console.info(that.data.orgAuthorType)
     console.info('------------')
     console.info(gData.userId)
     wx.request({
@@ -141,11 +142,11 @@ Page({
           duration: 1000,
           mask: true,
           success: function(res) {
-            setTimeout(function(){
+            setTimeout(function() {
               wx.navigateBack({
                 delta: 1,
               })
-            },1000)
+            }, 1000)
           },
           fail: function(res) {},
           complete: function(res) {},
@@ -179,6 +180,10 @@ Page({
     }
     this.data.studentId = parseInt(options.studentId);
     this.data.recordId = parseInt(options.recordId);
+    // 修改位置  开始
+    this.data.orgAuthorId = parseInt(options.orgAuthorId);
+    this.data.orgAuthorType = parseInt(options.orgAuthorType)
+    // 修改位置   结束
     console.info("pull");
     console.info(this.data);
     var contact = app.globalData.contact;
@@ -351,9 +356,9 @@ Page({
       image: '',
       duration: 1000,
       mask: true,
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
   // 选取图片

@@ -30,7 +30,7 @@ Page({
   // 新增代码  获取formid -->
   formSubmit_collect: function(e) {
     let formId = e.detail.formId;
-
+    console.info('formid: ' + formId)
     wx.request({
       url: app.globalData.minodopeApi.putFormId,
       data: {
@@ -40,7 +40,7 @@ Page({
         "openId": app.globalData.openid,
         "unionId": app.globalData.unionid,
         "accesstoken": app.globalData.token,
-        "familyId": app.globalData.familyId
+        // "familyId": app.globalData.familyId
       },
       method: 'post',
       success: function(res) {
@@ -154,11 +154,11 @@ Page({
     var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
 
     // 新增代码 -->
-    if (e.currentTarget.dataset.familyid) {
-      var familyId = e.currentTarget.dataset.familyid
-    } else {
-      var familyId = 0
-    }
+    // if (e.currentTarget.dataset.familyid) {
+    //   var familyId = e.currentTarget.dataset.familyid
+    // } else {
+    //   var familyId = 0
+    // }
     // 新增代码 <--
 
     for (var r = 0; r < this.data.recordsList.length; r++) {
@@ -287,7 +287,7 @@ Page({
         "authorId": gData.userId, //自己的id
         "authorType": gData.userType, //1: teacher, 2: parent",
         "recordId": recordId, //评论的id
-        "familyId": familyId,
+        // "familyId": familyId,
         "parentRecordId": parentRecordId, //记录的id
         "orgAuthorId": authorId, //评论者id
         "orgAuthorType": orgAuthorType //评论者类型
@@ -304,7 +304,7 @@ Page({
               "authorId": gData.userId, //自己的id
               "authorType": gData.userType, //1: teacher, 2: parent",
               "recordId": recordId,
-              "familyId": familyId,
+              // "familyId": familyId,
               "parentRecordId": parentRecordId,
               'cancel': true,
               "orgAuthorId": authorId,
@@ -367,7 +367,7 @@ Page({
               showswiper: app.globalData.studentList,
               userId: app.globalData.userId,
               // 新增代码  -->
-              familyId: app.globalData.familyId
+              // familyId: app.globalData.familyId
               // 新增代码  <--
             })
             if (!studentId) {
@@ -444,6 +444,23 @@ Page({
               if (app.globalData.recordsList[x].text.length > 100) {
                 app.globalData.recordsList[x].showTextBtn = true
               }
+
+              // 给记录的likes排序  修复 点赞图标出现两个的问题  开始 --->
+              if (app.globalData.recordsList[x].likes) {
+                if (app.globalData.recordsList[x].likes.parent.length > 0) {
+                  for (var i = 0; i < app.globalData.recordsList[x].likes.parent.length; i++) {
+                    var length = app.globalData.recordsList[x].likes.parent.length
+                    if (app.globalData.recordsList[x].likes.parent[i] == that.data.userId) {
+                      var temp = app.globalData.recordsList[x].likes.parent[length - 1]
+                      app.globalData.recordsList[x].likes.parent[length - 1] = app.globalData.recordsList[x].likes.parent[i]
+                      app.globalData.recordsList[x].likes.parent[i] = temp
+                      break
+                    }
+                  }
+                }
+              }
+              // 给likes排序  修复 点赞图标出现两个的问题   <---  结束
+
             }
             if (app.globalData.recordsList[x].append) {
 
@@ -473,6 +490,30 @@ Page({
 
                 }
               }
+
+
+              // 给评论like排序  修复 点赞图标出现两个的问题  开始 --->
+              if (app.globalData.recordsList[x].append.length > 0) {
+                // console.info(app.globalData.recordsList[x].append)
+                for (var i = 0; i < app.globalData.recordsList[x].append.length; i++) {
+                  if (app.globalData.recordsList[x].append[i].like) {
+                    // console.info(app.globalData.recordsList[x].append[i].like)
+                    if (app.globalData.recordsList[x].append[i].like.parent.length > 0) {
+                      for (var j = 0; j < app.globalData.recordsList[x].append[i].like.parent.length; j++) {
+                        var length = app.globalData.recordsList[x].append[i].like.parent.length
+                        if (app.globalData.recordsList[x].append[i].like.parent[j] == that.data.userId) {
+                          var temp = app.globalData.recordsList[x].append[i].like.parent[length - 1]
+                          app.globalData.recordsList[x].append[i].like.parent[length - 1] = app.globalData.recordsList[x].append[i].like.parent[j]
+                          app.globalData.recordsList[x].append[i].like.parent[j] = temp
+                          break
+                        }
+                      }
+                    }
+                  }
+                }
+
+              }
+              // 给评论like排序  修复 点赞图标出现两个的问题  开始 --->
 
             }
 

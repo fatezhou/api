@@ -328,6 +328,7 @@ Page({
           listNumber: self.data.appendList.length,
           likenumber: self.data.likenumber
         })
+        console.info(self.data.appendList)
 
       },
       fail: function(e) {
