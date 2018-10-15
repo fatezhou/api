@@ -16,7 +16,7 @@ Page({
 
   toDetail: function(e) {
     var item = e.currentTarget.dataset.item
-    var allStudentInfo = app.globalData.allStudent
+    // var allStudentInfo = app.globalData.allStudent
     if (item.authorId) {
       var authorId = item.authorId
       var authorType = item.authorType
@@ -24,22 +24,33 @@ Page({
       var authorId = item.author_id
       var authorType = item.author_type
     }
-    for (var i = 0; i < allStudentInfo.length; i++) {
-      if (item.studentId == allStudentInfo[i].studentId) {
-        // var name = (allStudentInfo[i].nickname ? allStudentInfo[i].nickname : allStudentInfo[i].name)
-        var name = allStudentInfo[i].name
-        var avatarUrl = allStudentInfo[i].avatarUrl
-      }
+    // var name = ''
+    // var avatarUrl = ''
+    // for (var i = 0; i < allStudentInfo.length; i++) {
+    //   if (item.studentId == allStudentInfo[i].studentId) {
+    //     // var name = (allStudentInfo[i].nickname ? allStudentInfo[i].nickname : allStudentInfo[i].name)
+    //     name = allStudentInfo[i].name
+    //     avatarUrl = allStudentInfo[i].avatarUrl
+    //   }
+    // }
+    // console.info(name)
+    // console.info(avatarUrl)
+    // for (var i = 0; i < app.globalData.allStudent.length; i++) {
+    //   if (app.globalData.allStudent[i].studentId == item.studentId) {
+    //     item.familyId = app.globalData.allStudent[i].familyId
+    //   }
+    // }
+    console.info(item)
+    if (item.parentRecordId == 0){
+      wx.navigateTo({
+        url: "detail?recordId=" + item.recordId,
+      })
+    }else{
+      wx.navigateTo({
+        url: "detail?recordId=" + item.parentRecordId,
+      })
     }
-    for (var i = 0; i < app.globalData.allStudent.length; i++) {
-      if (app.globalData.allStudent[i].studentId == item.studentId) {
-        item.familyId = app.globalData.allStudent[i].familyId
-      }
-    }
-
-    wx.navigateTo({
-      url: "detail?recordId=" + item.parentRecordId + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl + "&familyId=" + item.familyId,
-    })
+    
   },
 
   /**
@@ -100,6 +111,31 @@ Page({
     //   recordId: 735,
     //   studentId: 141,
     //   text: "评论222",
+    // }]
+    // var record = [{
+    //   authorId: 3,
+    //   authorType: 1,
+    //   createTime: "2018-10-15 17:37:30",
+    //   dateTime: "2018-10-15 17:37:30",
+    //   orgAuthorId: 3,
+    //   orgAuthorType: 1,
+    //   parentRecordId: 0,
+    //   pictureUrls: [],
+    //   recordId: 846,
+    //   studentId: 141,
+    //   text: "q"
+    // }, {
+    //   authorId: 3,
+    //   authorType: 1,
+    //   createTime: "2018-10-16 17:37:30",
+    //   dateTime: "2018-10-16 17:37:30",
+    //   orgAuthorId: 3,
+    //   orgAuthorType: 1,
+    //   parentRecordId: 0,
+    //   pictureUrls: [],
+    //   recordId: 847,
+    //   studentId: 141,
+    //   text: "1"
     // }]
 
     // if (append.length > 0) {
@@ -181,7 +217,7 @@ Page({
     console.info(app.globalData.openid)
     console.info(app.globalData.userId) //自己的id
     console.info(app.globalData.userType) //自己的type
-    console.info(app.globalData.familyId)
+    // console.info(app.globalData.familyId)
     wx.request({
       url: app.globalData.minodopeApi.getNewMessage,
       data: {
@@ -189,7 +225,7 @@ Page({
         "openid": app.globalData.openid,
         "authorId": app.globalData.userId, //自己的id
         "authorType": app.globalData.userType, //自己的type
-        "familyId": app.globalData.familyId
+        // "familyId": app.globalData.familyId
       },
       method: 'POST',
       success: function(res) {
@@ -230,6 +266,11 @@ Page({
                 }
               },
             })
+          }
+        }
+        if (res.data.data.record.length > 0) {
+          for (var i = 0; i < res.data.data.record.length; i++) {
+            res.data.data.record[i].text = decodeURIComponent(res.data.data.record[i].text)
           }
         }
 
@@ -286,34 +327,36 @@ Page({
 
           var append = res.data.data.append
           var like = res.data.data.like
-          if (res.data.data.append.length > 0 && res.data.data.like.length > 0) {
-            var newAppendList = append.concat(like)
-            for (var i = 0; i < newAppendList.length - 1; i++) {
-              for (var j = 0; j < newAppendList.length - i - 1; j++) {
-                if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
-                  var temp = newAppendList[j]
-                  newAppendList[j] = newAppendList[j + 1];
-                  newAppendList[j + 1] = temp;
-                }
+          var record = res.data.data.record
+          // if (res.data.data.append.length > 0 && res.data.data.like.length > 0) {
+          var newAppendList = append.concat(like)
+          newAppendList = newAppendList.concat(record)
+          for (var i = 0; i < newAppendList.length - 1; i++) {
+            for (var j = 0; j < newAppendList.length - i - 1; j++) {
+              if (newAppendList[j].dateTime > newAppendList[j + 1].dateTime) {
+                var temp = newAppendList[j]
+                newAppendList[j] = newAppendList[j + 1];
+                newAppendList[j + 1] = temp;
               }
             }
-            newAppendList.reverse()
-            that.setData({
-              newAppendList: newAppendList
-            })
-          } else if (res.data.data.like.length > 0) {
-            var newAppendList = like
-            newAppendList.reverse()
-            that.setData({
-              newAppendList: newAppendList
-            })
-          } else if (res.data.data.append.length > 0) {
-            var newAppendList = append
-            newAppendList.reverse()
-            that.setData({
-              newAppendList: newAppendList
-            })
           }
+          newAppendList.reverse()
+          that.setData({
+            newAppendList: newAppendList
+          })
+          // } else if (res.data.data.like.length > 0) {
+          //   var newAppendList = like
+          //   newAppendList.reverse()
+          //   that.setData({
+          //     newAppendList: newAppendList
+          //   })
+          // } else if (res.data.data.append.length > 0) {
+          //   var newAppendList = append
+          //   newAppendList.reverse()
+          //   that.setData({
+          //     newAppendList: newAppendList
+          //   })
+          // }
         }
       }
     })

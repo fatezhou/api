@@ -45,9 +45,7 @@ App({
       recardCount: 16259,
       id: 142,
     }, ],
-    // 新增代码  -->  我这边是写死的 用于消息提醒
-    familyId: 64,
-    // 新增代码  <--
+  
     userType: 2,
     unionid: "",
     openid: "",
