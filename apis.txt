@@ -654,6 +654,22 @@ response:
 	"error": "成功"
 }
 
+------------------------------------------------
+#上传form_id
+url: https://api.minidope.com/api/v1.0/put_form_id
+method: post
+param:
+{
+"openid":"xxxxx",
+"unionid":"xxxx",
+"formId":"xxxxx"
+}
+response:
+{
+	"code":1,
+	"data":{},
+	"error":"成功"
+}
 
 
 
