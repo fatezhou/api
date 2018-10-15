@@ -107,7 +107,8 @@ function DoNotify(obj){
                         id:e[0].id, 
                         authorId: obj.org_author_id,
                         authorType: obj.org_author_type
-                    });
+                    }
+                );
             }
         }
     });
@@ -139,7 +140,8 @@ function GetNewMessageFromDb(){
             console.info("get distinct ok, size:", e.length);
             console.info(e);
             for(var i in e){
-                CheckClientOnlineOrNot(e[i]);
+                DoNotify(e[i]);
+                //CheckClientOnlineOrNot(e[i]);
             }
         }
     });
