@@ -11,8 +11,8 @@
   </navigator>
 
   <view style="position:relative;display:flex;flex-direction: column;align-items: center;width:750rpx">
-    <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx; border-radius: 50%"></image>
-    <image wx:else src="{{avatarUrl}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx; border-radius: 50%" />
+    <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx; border-radius: 50%" data-showimg="{{Imgpath}}" bindtap='showBigImg'></image>
+    <image wx:else src="{{avatarUrl}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx; border-radius: 50%" data-showimg="{{avatarUrl}}" bindtap='showBigImg' />
     <view style="display:flex;flex-direction:column;align-items:center;color:#fff;">
       <text>{{studentName}}</text>
       <image src="{{sex == 2 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style="position:absolute;width:30rpx;height:30rpx;margin-left:80rpx;" mode="cover" />
@@ -102,21 +102,19 @@
         <!-- 没有点赞数据 -->
         <view wx:for="{{recordWithAppends}}" wx:for-item='likesitem' wx:key='likesindex' wx:if="{{item.recordId == likesitem.recordId}}">
           <view wx:if="{{!likesitem.likes.teacher || likesitem.likes.teacher.length == 0}}">
-            <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{likesitem.recordId}}' data-authorId="{{likesitem.authorId}}" data-orgAuthorType="{{likesitem.authorType}}"
-              data-parentRecordId="0" data-familyid="{{familyId}}"></image>
+            <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{likesitem.recordId}}' data-parentRecordId="0" data-familyid="{{familyId}}"></image>
           </view>
           <!-- 有点赞数据 -->
           <view wx:else>
             <!-- 点赞数据没有你 -->
             <view wx:for="{{likesitem.likes.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikes' wx:if="{{teacherLikes != userId}}">
-              <image wx:if="{{index+1 == likesitem.likes.teacher.length}}" src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{likesitem.recordId}}' data-authorId="{{likesitem.authorId}}"
-                data-orgAuthorType="{{likesitem.authorType}}" data-parentRecordId="0" data-familyid="{{familyId}}"></image>
+              <image wx:if="{{index+1 == likesitem.likes.teacher.length}}" src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{likesitem.recordId}}' data-parentRecordId="0"
+                data-familyid="{{familyId}}"></image>
 
             </view>
             <!-- 点赞数据有你 -->
             <view wx:for="{{likesitem.likes.teacher}}" wx:for-item='teacherLike' wx:key='teacherLike' wx:if="{{teacherLike == userId}}">
-              <image src='../../image/clicknice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{likesitem.recordId}}' data-authorId="{{likesitem.authorId}}" data-orgAuthorType="{{likesitem.authorType}}"
-                data-parentRecordId="0" data-familyid="{{familyId}}"></image>
+              <image src='../../image/clicknice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{likesitem.recordId}}' data-parentRecordId="0" data-familyid="{{familyId}}"></image>
             </view>
 
           </view>
@@ -169,7 +167,7 @@
                 <view wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLikeitem' wx:for-index="teacherindex" wx:key='teacherLikeindex' style="display:inline-block">
                   <view wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
                     <text style="margin-left:8rpx" wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}}<text wx:if="{{itemappend.like.teacher.length-1 > teacherindex}}">，</text>
-              <text wx:if="{{itemappend.like.parent.length > 0}}" style="inline-block">，</text></text>
+                    <text wx:if="{{itemappend.like.parent.length > 0}}" style="inline-block">，</text></text>
                   </view>
                 </view>
 
@@ -190,7 +188,7 @@
             <view style='display:flex;justify-content: space-between;align-items:center;'>
               <!-- 没有点赞数据 -->
               <view wx:if="{{!itemappend.like.teacher || itemappend.like.teacher.length == 0}}">
-                <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}"
+                <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{itemappend.recordId}}' data-orgAuthorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}"
                   data-parentRecordId="{{item.recordId}}" data-familyid="0"></image>
               </view>
               <!-- 有点赞数据 -->
@@ -198,7 +196,7 @@
                 <!-- 点赞数据没有你 -->
                 <view wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikesine' wx:if="{{teacherLikes != userId}}">
                   <view wx:if="{{index+1 == itemappend.like.teacher.length}}">
-                    <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}"
+                    <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{itemappend.recordId}}' data-orgAuthorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}"
                       data-parentRecordId="{{item.recordId}}" data-familyid="0"></image>
                   </view>
 
@@ -206,7 +204,7 @@
                 </view>
                 <!-- 点赞数据有你 -->
                 <view wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLike' wx:key='teacherLikeine' wx:if="{{teacherLike == userId}}">
-                  <image src='../../image/clicknice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{itemappend.recordId}}' data-authorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}"
+                  <image src='../../image/clicknice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{itemappend.recordId}}' data-orgAuthorId="{{itemappend.authorId}}" data-orgAuthorType="{{itemappend.authorType}}"
                     data-parentRecordId="{{item.recordId}}" data-familyid="0"></image>
                 </view>
 

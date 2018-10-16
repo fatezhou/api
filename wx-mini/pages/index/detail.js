@@ -102,6 +102,7 @@ Page({
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
     var familyId = e.currentTarget.dataset.familyid
+    var authorType = e.currentTarget.dataset.authortype
 
     for (var j = 0; j < this.data.appendList.length; j++) {
       if (this.data.appendList[j].recordId == recordId) {
@@ -153,7 +154,7 @@ Page({
 
 
 
-
+    console.info(authorType)
     wx.request({
       url: gData.putRecordLike,
       method: 'post',
@@ -161,11 +162,11 @@ Page({
         "unionid": gData.unionId,
         "openid": gData.openid,
         "authorId": gData.userId, //自己的id
-        "authorType": 1, //1: teacher, 2: parent",
+        "authorType": gData.userType, //1: teacher, 2: parent",
         "recordId": recordId,
         "parentRecordId": parseInt(that.data.recordId),
         "orgAuthorId": authorId,
-        "orgAuthorType": 1,
+        "orgAuthorType": authorType,
         "familyId": familyId
       },
       success: function(res) {
@@ -178,13 +179,13 @@ Page({
               // "unionid": gData.unionId,
               // "openid": gData.openid,
               "authorId": gData.userId, //自己的id
-              "authorType": 1, //1: teacher, 2: parent",
+              "authorType": gData.userType, //1: teacher, 2: parent",
               "recordId": recordId,
               "parentRecordId": parseInt(that.data.recordId),
               "familyId": familyId,
-              'cancel': true
-              // "orgAuthorId": authorId,
-              // "orgAuthorType": 1
+              'cancel': true,
+              "orgAuthorId": authorId,
+              "orgAuthorType": authorType
             },
             success: function(res) {
 
@@ -346,7 +347,7 @@ Page({
           listNumber: self.data.appendList.length,
           likenumber: self.data.likenumber
         })
-        // console.info(self.data.appendList)
+        console.info(self.data.appendList)
 
       },
       fail: function(e) {
