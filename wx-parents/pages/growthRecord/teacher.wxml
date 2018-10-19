@@ -4,8 +4,10 @@
     <view style='margin-left:30rpx;margin-right:24rpx;position:relative;'>
       <!-- <image src='../../image/head.png' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image> -->
 
-      <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image>
-      <image wx:else src='{{avatarUrl}}' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image>
+      <!--  头像放大  版本2.0.0  data-showimg="{{Imgpath}}" bindtap='showBigImg'-->
+      <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' data-showimg="{{Imgpath}}" bindtap='showBigImg' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image>
+      <!--  头像放大  版本2.0.0  data-showimg="{{avatarUrl}}" bindtap='showBigImg'-->
+      <image wx:else src='{{avatarUrl}}' data-showimg="{{avatarUrl}}" bindtap='showBigImg' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image>
 
 
       <image src='../../image/Ticon.png' style='width:36rpx;height:36rpx;position:absolute;top:95rpx;left:95rpx;'></image>

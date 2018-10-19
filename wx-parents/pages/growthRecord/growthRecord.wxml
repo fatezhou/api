@@ -55,6 +55,9 @@
         <button formType="submit" hover-class="none">
           <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
           <image wx:else src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+
+          <!-- 教师标志  版本2.0.0 -->
+          <image src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;top:8rpx;left:48rpx'></image>
         </button>
         <!-- 获取formid -->
       </navigator>
@@ -179,6 +182,8 @@
             <button formType="submit" hover-class="none">
               <image wx:if="{{itemWithAppend.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
               <image wx:else src='{{itemWithAppend.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+              <!-- 教师标志  版本2.0.0 -->
+              <image src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;top:8rpx;left:46rpx'></image>
             </button>
             <!-- 获取formid用    -->
           </navigator>
