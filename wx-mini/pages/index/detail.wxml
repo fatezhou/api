@@ -60,6 +60,7 @@
 
   <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' data-item="{{item}}" bindtap='toUserInfo' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
   <image wx:else src='{{item.avatarUrl}}' data-item="{{item}}" bindtap='toUserInfo' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  <image wx:if="{{item.authorType == 1}}" src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;margin:40rpx 0 0 44rpx'></image>
 
   <view style='width:600rpx;margin-left:20rpx;'>
     <view style='color:#5b6c8c;margin-bottom:10rpx;' data-item="{{item}}" bindtap='toUserInfo'>{{item.authorName}}</view>

@@ -22,14 +22,14 @@
 
       <button formType="submit" hover-class="none" style="margin-left:0;" data-item="{{itemObject}}">
         <view class='toplD'>
-          <view class='tlDleft' bindtap='todetail'>
+          <view class='tlDleft' bindtap='todetail' data-item="{{itemObject}}">
             <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
             <image wx:else src='{{itemObject.avatarUrl}}'></image>
 
             <text class='phName'>{{itemObject.name}}</text>
 
           </view>
-          <view class='tlDleft' style="margin-left:22rpx" bindtap='todetail'>
+          <view class='tlDleft' style="margin-left:22rpx" bindtap='todetail' data-item="{{itemObject}}">
             <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
             <image wx:else src='{{itemObject.avatarUrl}}'></image>
 
@@ -38,7 +38,7 @@
           </view>
 
           <view class='tlDright'>
-            <text bindtap='todetail'>{{itemObject.dateTime}}</text>
+            <text bindtap='todetail' data-item="{{itemObject}}">{{itemObject.dateTime}}</text>
             <button style="padding:12rpx 12rpx;background-color:#8F9C9C;border-radius:6rpx;color:#fff;font-size:24rpx" bindtap='toeditRecord' data-item="{{itemObject}}">未发布</button>
           </view>
 

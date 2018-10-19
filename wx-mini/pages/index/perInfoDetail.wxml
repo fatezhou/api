@@ -4,6 +4,8 @@
   <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;' data-item="{{item}}" bindtap='toUserInfo'></image>
   <image wx:else src='{{avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;' data-item="{{item}}" bindtap='toUserInfo'></image>
 
+  <image src='../../image/Ticon.png' style='width:26rpx;height:26rpx;margin:38rpx 0 0 -18rpx'></image>
+
   <view style='width:600rpx;margin-left:20rpx;'>
     <view style='color:#5b6c8c;margin-bottom:10rpx;' data-item="{{item}}" bindtap='toUserInfo'>{{teacherName}}</view>
     <view style="word-break: break-all;">
@@ -72,6 +74,7 @@
 
   <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;' data-item="{{item}}" bindtap='toUserInfo'></image>
   <image wx:else src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;' data-item="{{item}}" bindtap='toUserInfo'></image>
+    <image wx:if="{{item.authorType == 1}}" src='../../image/Ticon.png' style='width:26rpx;height:26rpx;margin:38rpx 0 0 -18rpx'></image>
 
   <view style='width:600rpx;margin-left:20rpx;'>
     <view style='color:#5b6c8c;margin-bottom:10rpx;' data-item="{{item}}" bindtap='toUserInfo'>{{item.authorName}}</view>
