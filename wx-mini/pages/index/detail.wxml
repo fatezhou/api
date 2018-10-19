@@ -1,5 +1,5 @@
 <!--pages/index/detail.wxml-->
-<view style='padding:30rpx;background:#fff;margin-top:20rpx;'>
+<view style='padding:30rpx 30rpx 10rpx 30rpx;background:#fff;margin-top:20rpx;'>
   <view style='word-break: break-all;letter-spacing:1rpx;font-size: 28rpx;'>
     <text>{{mainText}}</text>
   </view>
@@ -15,11 +15,21 @@
         <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg' mode="aspectFill"></image>
       </view>
     </view>
-    <view style="display:flex;lign-items:center;justify-content: space-between;">
+    <view style="display:flex;align-items:center;justify-content: space-between;">
       <view>{{dateTime}} · {{listNumber}}评论 · {{likenumber}}赞</view>
-      <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hindname=true&familyId={{familyId}}" hover-class="none">
-        <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx 14rpx 14rpx 0;' mode='cover'></image>
-      </navigator>
+      <!-- <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hidename=true&familyId={{familyId}}" hover-class="none"> -->
+      <view>
+        <view class="{{drawer ? 'show' : 'hide'}}">
+          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hidename=true&familyId={{familyId}}" hover-class="none">
+            <view style="border-right:1rpx solid #fff;padding-right:10rpx">评论</view>
+          </navigator>
+          <view style="padding:10rpx;">分享</view>
+        </view>
+        <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx 14rpx 14rpx 0;' mode='cover' bindtap='drawerClick'></image>
+
+      </view>
+
+      <!-- </navigator> -->
     </view>
 
   </view>
@@ -48,11 +58,11 @@
 
 <view wx:for='{{appendList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;'>
 
-  <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
-  <image wx:else src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' data-item="{{item}}" bindtap='toUserInfo' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  <image wx:else src='{{item.avatarUrl}}' data-item="{{item}}" bindtap='toUserInfo' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
 
   <view style='width:600rpx;margin-left:20rpx;'>
-    <view style='color:#5b6c8c;margin-bottom:10rpx;'>{{item.authorName}}</view>
+    <view style='color:#5b6c8c;margin-bottom:10rpx;' data-item="{{item}}" bindtap='toUserInfo'>{{item.authorName}}</view>
     <view style="word-break: break-all;">
       <text style="letter-spacing:1rpx;font-size: 28rpx;">{{item.text}}</text>
     </view>
@@ -111,7 +121,7 @@
 
           </block>
 
-          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{studentId}}&hindname=true&callName={{item.authorName}}&familyId=0" hover-class="none" style="margin-top:18rpx">
+          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{studentId}}&hidename=true&callName={{item.authorName}}&familyId=0" hover-class="none" style="margin-top:18rpx">
             <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx;' mode='cover'></image>
           </navigator>
         </view>

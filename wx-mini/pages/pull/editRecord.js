@@ -26,26 +26,20 @@ Page({
 
     prepareToUpload: [],
 
-    hidename: false,
-
-    calltext: null,
     addtext: null,
+    evaContent: '',
     placeholder: '填写内容(12-500字)',
-    choosestudent: false,
+    // choosestudent: false,
 
 
     Imgpath: '',
     avatarUrl: '',
     // 学生所有家长的id
-    familyIds:[],
+    familyIds: [],
   },
   charChange: function(e) {
-    if (this.data.calltext) {
-      var text = this.data.calltext + e.detail.value
-    } else {
-      var text = e.detail.value
-    }
 
+    var text = this.data.evaContent + e.detail.value
 
     text = encodeURIComponent(text)
     this.setData({
@@ -200,70 +194,58 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      Imgpath: app.globalData.Imgpath,
-    })
+    console.info(options)
+    this.data.authorId = parseInt(options.authorId)
     if (options.avatarUrl) {
-      this.setData({
-        avatarUrl: options.avatarUrl
-      })
+      this.data.avatarUrl = options.avatarUrl
     }
-
-    if (options.choosestudent == 'true') {
-      this.setData({
-        name: '请选择学员',
-        choosestudent: true
-      })
+    this.data.name = options.name
+    if (options.pictureUrls.length > 0) {
+      this.data.imgs = options.pictureUrls
     }
+    this.data.recordId = parseInt(options.recordId)
+    this.data.studentId = parseInt(options.studentId)
+    this.getFamily(this.data.studentId)
+    this.data.placeholder = options.text
+    this.data.evaContent = options.text
+    this.setData(this.data)
 
-    if (options.type == "append") {
-      wx.setNavigationBarTitle({
-        title: '评论'
-      });
-      this.data.type = 2;
-    }
-    this.data.studentId = parseInt(options.studentId);
-    if (options.studentId) {
-      this.getFamily(this.data.studentId)
-    }
-    this.data.recordId = parseInt(options.recordId);
-    this.data.familyId = parseInt(options.familyId);
-    this.data.orgAuthorId = parseInt(options.orgAuthorId)
-    this.data.orgAuthorType = parseInt(options.orgAuthorType)
-    console.info(this.data.orgAuthorId)
-    console.info(this.data.orgAuthorType)
-    var contact = app.globalData.contact;
-    for (var i in contact) {
-      if (contact[i].studentId == this.data.studentId) {
-        this.data.name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
-        this.data.name = contact[i].name;
+    // this.setData({
+    //   Imgpath: app.globalData.Imgpath,
+    // })
+    // if (options.avatarUrl) {
+    //   this.setData({
+    //     avatarUrl: options.avatarUrl
+    //   })
+    // }
 
-        this.setData(this.data);
-        break;
-      }
-    }
+    // this.data.studentId = parseInt(options.studentId);
+    // if (options.studentId) {
+    //   this.getFamily(this.data.studentId)
+    // }
+    // this.data.recordId = parseInt(options.recordId);
+    // this.data.familyId = parseInt(options.familyId);
+    // this.data.orgAuthorId = parseInt(options.orgAuthorId)
+    // this.data.orgAuthorType = parseInt(options.orgAuthorType)
+    // console.info(this.data.orgAuthorId)
+    // console.info(this.data.orgAuthorType)
+    // var contact = app.globalData.contact;
+    // for (var i in contact) {
+    //   if (contact[i].studentId == this.data.studentId) {
+    //     this.data.name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
+    //     this.data.name = contact[i].name;
 
-    if (options.name && options.studentId) {
-      this.setData({
-        name: options.name
-      })
-    }
+    //     this.setData(this.data);
+    //     break;
+    //   }
+    // }
 
-    if (options.hidename) {
+    // if (options.name && options.studentId) {
+    //   this.setData({
+    //     name: options.name
+    //   })
+    // }
 
-      this.setData({
-        hidename: true
-      })
-    }
-
-    if (options.callName) {
-      this.data.calltext = '回复' + ' ' + options.callName + ' '
-      this.setData({
-        calltext: this.data.calltext,
-        placeholder: '回复' + ' ' + options.callName + ' '
-      })
-
-    }
   },
 
   onShow: function() {
@@ -278,52 +260,6 @@ Page({
     }
 
   },
-
-  // getTokenAndImgUrl(imgNum, callback) {
-  //   var imgNumber = imgNum
-  //   var that = this
-  //   that.getUploadImgFile(imgNumber, function(res) {
-  //     var fileName = res;
-  //     wx.request({
-  //       url: app.globalData.getCdnToken,
-  //       method: 'post',
-  //       data: {
-  //         appid: app.globalData.appId,
-  //         fileName: fileName,
-  //         action: 'z2'
-  //       },
-  //       success: function(res) {
-  //         return callback(res)
-  //       }
-  //     })
-  //   })
-  // },
-
-  // getUploadImgFile(imgNumber, callback) {
-  //   var userId = app.globalData.userId
-
-  //   var date = new Date()
-  //   var year = date.getFullYear()
-  //   var month = date.getMonth() + 1
-  //   var day = date.getDate()
-  //   var hour = date.getHours()
-  //   var minute = date.getMinutes()
-  //   var second = date.getSeconds()
-
-  //   const formatNumber = n => {
-  //     n = n.toString()
-  //     return n[1] ? n : '0' + n
-  //   }
-  //   var timeArr = [year, month, day, hour, minute, second].map(formatNumber)
-  //   var time = '';
-
-  //   for (var t = 0; t < timeArr.length; t++) {
-  //     time += timeArr[t]
-  //   }
-
-  //   var fileName = 't_' + userId + '_' + time + '_' + imgNumber + '.jpg '
-  //   return callback(fileName)
-  // },
 
   makePicName: function(index, tmpFilePath) {
     var userId = app.globalData.userId

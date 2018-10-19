@@ -41,6 +41,21 @@ Page({
     recordList: '',
   },
 
+  //头像跳转个人信息
+  toUserInfo: function(e) {
+    console.info(e)
+    let item = e.currentTarget.dataset.item
+    if (item.authorType == 1) {
+      wx.navigateTo({
+        url: '../userInfo/userInfo?teacherid=' + item.authorId,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../member/parents?studentId=' + item.studentId,
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

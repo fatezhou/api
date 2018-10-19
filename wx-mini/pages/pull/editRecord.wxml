@@ -1,3 +1,4 @@
+<!--pages/pull/editRecord.wxml-->
 <!-- 图片上传 -->
 <view class='uploadimg'>
 
@@ -21,26 +22,33 @@
   </view>
 
 </view>
-<view class='choose' wx:if="{{!hidename}}">
-  <block wx:if="{{choosestudent}}">
-    <navigator url="chooseStudent" hover-class="none">
-      <text>学员</text>
-      <view class='cRight'>
-        <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
-        <image wx:else src='{{avatarUrl}}' mode='widthFix'></image>
-        <text class='phName'>{{name}}</text>
-        <image src='../../image/RightIcon.png' style='width:20rpx;position:relative;float:right;margin-top:16rpx' mode='widthFix'></image>
-       
-      </view>
-    </navigator>
-  </block>
-  <block wx:else>
+<view class='choose'>
+  <navigator url="chooseStudent" hover-class="none">
     <text>学员</text>
     <view class='cRight'>
       <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
       <image wx:else src='{{avatarUrl}}' mode='widthFix'></image>
       <text class='phName'>{{name}}</text>
+      <image src='../../image/RightIcon.png' style='width:20rpx;position:relative;float:right;margin-top:16rpx' mode='widthFix'></image>
+
     </view>
-  </block>
+  </navigator>
 </view>
+
+<view class='choose'>
+  <text>助教</text>
+  <view class='cRight'>
+    <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+    <image wx:else src='{{avatarUrl}}' mode='widthFix'></image>
+    <text class='phName'>{{name}}</text>
+  </view>
+</view>
+
+<view class='chooseswitch'>
+  <text>发布到家长端</text>
+  <view class='cRightswitch'>
+    <switch checked='true' bindchange='putMemberFav'></switch>
+  </view>
+</view>
+
 <button bindtap='submit' class="weui-btn mini-btn">提交</button>

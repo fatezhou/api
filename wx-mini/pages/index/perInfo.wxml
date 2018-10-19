@@ -120,7 +120,7 @@
           </view>
         </view>
 
-        <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hindname=true&familyId={{familyId}}" hover-class="none" style="margin-top:12rpx">
+        <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&hidename=true&familyId={{familyId}}" hover-class="none" style="margin-top:12rpx">
           <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx;' mode='cover'></image>
         </navigator>
 
@@ -211,7 +211,7 @@
               </view>
 
 
-              <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{itemappend.authorId}}&orgAuthorType={{itemappend.authorType}}&studentId={{itemappend.studentId}}&hindname=true&callName={{itemappend.authorName}}&familyId=0" hover-class="none"
+              <navigator url="../pull/pull?recordId={{item.recordId}}&type=append&orgAuthorId={{itemappend.authorId}}&orgAuthorType={{itemappend.authorType}}&studentId={{itemappend.studentId}}&hidename=true&callName={{itemappend.authorName}}&familyId=0" hover-class="none"
                 style="margin-top:12rpx">
                 <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx;' mode='cover'></image>
               </navigator>
