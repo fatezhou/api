@@ -15,7 +15,8 @@
     "pages/pull/chooseStudent",
     "pages/pull/editRecord",
     "pages/index/perInfoDetail",
-    "pages/userInfo/userInfo"
+    "pages/userInfo/userInfo",
+    "pages/pull/chooseTeacher"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,4 @@
+/* pages/pull/chooseTeacher.wxss */
+.memberListBG{
+	background: #fff;
+}

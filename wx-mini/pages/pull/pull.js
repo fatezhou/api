@@ -19,7 +19,8 @@ Page({
     orgAuthorType: 1,
     recordId: 0,
     familyId: '',
-    name: "",
+    studentName: "",
+    teacherName:'',
 
     downloadUrl: '',
     pictureUrls: [],
@@ -35,9 +36,11 @@ Page({
 
 
     Imgpath: '',
-    avatarUrl: '',
+    studentAvatarUrl: '',
+    teacherAvatarUrl:'',
+    teacherId:'',
     // 学生所有家长的id
-    familyIds:[],
+    familyIds: [],
   },
   charChange: function(e) {
     if (this.data.calltext) {
@@ -68,7 +71,7 @@ Page({
       })
       return
     }
-    if (this.data.name == '请选择学员') {
+    if (this.data.studentName == '请选择学员') {
       wx.showToast({
         title: '请选择学员',
         icon: 'none',
@@ -78,6 +81,20 @@ Page({
         success: function(res) {},
         fail: function(res) {},
         complete: function(res) {},
+      })
+      return
+    }
+
+    if (this.data.studentName == '请选择班主任') {
+      wx.showToast({
+        title: '请选择班主任',
+        icon: 'none',
+        image: '',
+        duration: 1000,
+        mask: true,
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
       })
       return
     }
@@ -203,15 +220,16 @@ Page({
     this.setData({
       Imgpath: app.globalData.Imgpath,
     })
-    if (options.avatarUrl) {
+    if (options.studentAvatarUrl) {
       this.setData({
-        avatarUrl: options.avatarUrl
+        studentAvatarUrl: options.studentAvatarUrl
       })
     }
 
     if (options.choosestudent == 'true') {
       this.setData({
-        name: '请选择学员',
+        studentName: '请选择学员',
+        teacherName:'请选择班主任',
         choosestudent: true
       })
     }
@@ -235,17 +253,17 @@ Page({
     var contact = app.globalData.contact;
     for (var i in contact) {
       if (contact[i].studentId == this.data.studentId) {
-        this.data.name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
-        this.data.name = contact[i].name;
+        this.data.studentName = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
+        this.data.studentName = contact[i].name;
 
         this.setData(this.data);
         break;
       }
     }
 
-    if (options.name && options.studentId) {
+    if (options.studentName && options.studentId) {
       this.setData({
-        name: options.name
+        studentName: options.studentName
       })
     }
 
@@ -269,12 +287,20 @@ Page({
   onShow: function() {
     if (app.globalData.chooseStudent) {
       this.setData({
-        name: app.globalData.chooseStudent.name,
+        studentName: app.globalData.chooseStudent.name,
         studentId: app.globalData.chooseStudent.studentId,
-        avatarUrl: app.globalData.chooseStudent.avatarUrl,
+        studentAvatarUrl: app.globalData.chooseStudent.avatarUrl,
         familyId: app.globalData.chooseStudent.familyId
       })
       this.getFamily(this.data.studentId)
+    }
+
+    if (app.globalData.chooseTeacher) {
+      this.setData({
+        teacherName: app.globalData.chooseTeacher.name,
+        teacherId: app.globalData.chooseTeacher.teacherId,
+        teacherAvatarUrl: app.globalData.chooseTeacher.avatarUrl,
+      })
     }
 
   },

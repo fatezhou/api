@@ -36,19 +36,25 @@
 </view>
 
 <view class='choose'>
-  <text>助教</text>
-  <view class='cRight'>
-    <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
-    <image wx:else src='{{avatarUrl}}' mode='widthFix'></image>
-    <text class='phName'>{{name}}</text>
-  </view>
+<view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
+  <!-- <view style="border-top:1rpx solid #ddd"> -->
+    <text>助教</text>
+    <view class='cRight'>
+      <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+      <image wx:else src='{{avatarUrl}}' mode='widthFix'></image>
+      <text class='phName'>{{name}}</text>
+    </view>
+  <!-- </view> -->
 </view>
 
-<view class='chooseswitch'>
-  <text>发布到家长端</text>
-  <view class='cRightswitch'>
-    <switch checked='true' bindchange='putMemberFav'></switch>
-  </view>
+<view class='choose' style="margin:0 0 18rpx 0">
+<view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
+  <!-- <view style="border-top:1rpx solid #ddd"> -->
+    <text>发布到家长端</text>
+    <view class='cRightswitch'>
+      <switch checked='true' bindchange='putMemberFav'></switch>
+    </view>
+  <!-- </view> -->
 </view>
 
 <button bindtap='submit' class="weui-btn mini-btn">提交</button>
