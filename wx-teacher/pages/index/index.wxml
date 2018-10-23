@@ -1,0 +1,94 @@
+<!--index.wxml-->
+<form bindsubmit="formSubmit_collect" report-submit="true">
+  <view class='counts'>
+    <view class='countsLeft'>{{recordSize}}条记录</view>
+    <navigator url='newMess'>
+      <view class='countsRight'>
+        <view class='crNews'>
+          <image src='./../../image/icnotification.png' mode='widthFix'></image>
+        </view>
+        <button formType="submit" hover-class="none">新消息</button>
+      </view>
+    </navigator>
+
+
+  </view>
+  <view wx:if="{{recordSize === 0}}" style="display:flex;flex-direction:column;align-items:center;top:40%;position:fixed;width:750rpx;font-size:28rpx;opacity: .5">
+    <image src="./../../image/icbook.png" style="height:66rpx;width:66rpx;margin-bottom:20rpx"></image>
+    无记录
+  </view>
+  <view class='listDetail' wx:else>
+    <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index' style="padding-bottom:{{itemObject.showTextBtn ? '60rpx' : '40rpx'}}">
+
+      <button formType="submit" hover-class="none" style="margin-left:0;" data-item="{{itemObject}}">
+        <view class='toplD'>
+          <view class='tlDleft' bindtap='todetail' data-item="{{itemObject}}">
+            <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
+            <image wx:else src='{{itemObject.avatarUrl}}'></image>
+
+            <text class='phName'>{{itemObject.name}}</text>
+
+          </view>
+          <view class='tlDleft' style="margin-left:22rpx" bindtap='todetail' data-item="{{itemObject}}">
+            <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
+            <image wx:else src='{{itemObject.avatarUrl}}'></image>
+
+            <text class='phName'>Aliys</text>
+
+          </view>
+
+          <view class='tlDright'>
+            <text bindtap='todetail' data-item="{{itemObject}}">{{itemObject.dateTime}}</text>
+            <button style="padding:12rpx 12rpx;background-color:#8F9C9C;border-radius:6rpx;color:#fff;font-size:24rpx" bindtap='toeditRecord' data-item="{{itemObject}}">未发布</button>
+          </view>
+
+        </view>
+      </button>
+      <view bindtap='todetail' data-item="{{itemObject}}" class="words {{itemObject.isfold ? 'hide' : 'show'}}" style="margin-bottom:20rpx;margin-left:10rpx">
+        <button formType="submit" hover-class="none" style="margin-left:0">
+          <text style="letter-spacing:1rpx;font-size: 28rpx;">{{itemObject.text}}</text>
+        </button>
+      </view>
+
+      <view wx:if="{{itemObject.isfold && itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:relative;font-size:24rpx;float:right;margin-right:10rpx;color:#aaa">全文</view>
+      <view wx:elif="{{itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:relative;font-size:24rpx;float:right;margin-right:10rpx;color:#aaa">收起</view>
+
+      <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
+        <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
+          <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
+        </button>
+      </view>
+      <view class='picList th2' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 2}}">
+        <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
+          <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
+          <image src='{{itemObject.pictureUrls[1]}}' mode="aspectFill"></image>
+        </button>
+      </view>
+
+      <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length >= 3}}">
+        <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
+
+          <image wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill"></image>
+        </button>
+
+      </view>
+
+
+    </view>
+
+  </view>
+  <view style="position:relative;height:200rpx;display:flex;font-size:28rpx;flex-direction:column;align-items:center;opacity:.5">{{noTextPrompt}}</view>
+  <view class='fixed'>
+    <navigator url='./../pull/pull?choosestudent=true' hover-class="none">
+      <button formType="submit" hover-class="none" style="background-color:transparent">
+        <image src='./../../image/edit.png' mode='widthFix'></image>
+      </button>
+    </navigator>
+  </view>
+
+
+  <import src="../../template/template.wxml" />
+  <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />
+
+
+</form>

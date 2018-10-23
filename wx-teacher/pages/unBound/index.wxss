@@ -1,0 +1,95 @@
+/* pages/unBound/index.wxss */
+.phoneNumber{
+  display: flex;
+  justify-content: space-between;
+  font-size: 32rpx;
+  width: 90%;
+  padding: 0 5%;
+  border-top: 1rpx solid #ddd;
+  margin-top: 5%;
+}
+
+.verification{
+  display: flex;
+  justify-content: flex-start;
+  font-size: 32rpx;
+  width: 90%;
+  padding: 0 5%;
+  border-top: 1rpx solid #ddd;
+  border-bottom: 1rpx solid #ddd;
+}
+
+.phoneNumber view{
+  width: 25%;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.phoneNumber input{
+  width: 75%;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.verification input{
+  width: 55%;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.verification .verificationCode{
+  width: 25%;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.verification .send{
+  width: 20%;
+  text-align:center;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin: 20rpx 0;
+  border-radius: 10rpx;
+  background: #00a1d6;
+  color: #fff;
+  font-size: 24rpx;
+  padding: 0;
+  position: unset;
+}
+
+
+.mustReason{
+  width: 60%;
+  position: fixed;
+  top: 35%;
+  left: 20%;
+  text-align: center;
+  border:1rpx solid #ddd;
+  border-radius: 10rpx;
+  height: 200rpx;
+}
+
+.reasonPlease{
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 30rpx;
+}
+
+.know{
+  width: 35%;
+  margin: 20rpx auto;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  border:1rpx solid #ddd;
+  border-radius: 10rpx;
+}
+
+.hidden{
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  opacity: .5;
+  position: fixed;
+  top: 0;
+}

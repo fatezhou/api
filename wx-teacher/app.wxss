@@ -1,0 +1,49 @@
+/**app.wxss**/
+page{background: #F2F4F7;}
+.MyInformationg{
+	display: flex;justify-content: space-between;border-bottom: 1rpx solid #bfbfbf;width: 720rpx;height: 88rpx;align-items: center;
+}
+.nameColor{
+	color: #8f8e94;margin-right: 30rpx;
+}
+.leadW{
+	text-indent: 30rpx;font-size: 28rpx;height: 50rpx;line-height: 50rpx;color: #8e8e93;
+}
+
+/* tabBar */
+.active{
+  border-bottom: 2px solid #189999;
+}
+
+.tabBar{
+  width: 100%;
+  position: fixed;
+  background: #fff;
+  bottom: 0;
+  font-size: 24rpx;
+  color: #98A5A5;
+  display: flex;
+}
+
+.ipxTabBar{
+  width: 100%;
+  position: fixed;
+  background: #fff;
+  bottom: 0;
+  padding-bottom: 68rpx;
+  font-size: 24rpx;
+  color: #98A5A5;
+  display: flex;
+}
+
+.tabsIcon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.tabItem {
+  width: 33.33%;
+  padding: 10rpx 0 0 0;
+  text-align: center;
+  overflow: hidden;
+}

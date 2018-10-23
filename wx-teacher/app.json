@@ -1,0 +1,23 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/index/detail",
+    "pages/unBound/index",
+    "pages/timeline/timeline",
+    "pages/timeline/detail",
+    "pages/student/stuList",
+    "pages/student/stuInfo",
+    "pages/student/parentInfo",
+    "pages/myInfo/myInfo",
+    "pages/teacher/teaInfo",
+    "pages/pull/pull",
+    "pages/pull/stuList",
+    "pages/pull/teaList"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "儿童学院",
+    "navigationBarTextStyle":"black"
+  }
+}
