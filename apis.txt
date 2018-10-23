@@ -287,8 +287,9 @@ response:
 url: https://ip:port/api/v1.0/put_new_record
 method: post
 param:
+//这个是班主任的参数
 {
-	"unionid":"xxxxxx",
+		"unionid":"xxxxxx",
     "openid":"xxxxxxx",
     "authorType":1,//1 teacher, 2 parent
     "text": "这是一篇将要发送的成长记录",
@@ -300,8 +301,24 @@ param:
     ],
     "recordType":1, //1:record,2:append",
     "parentRecordId":111111    //如果是全新的一条记录, 则此项可以不用填,
-	"orgAuthorId":1, //原作者的id, 如果这是一条全新的, 那么就填自己
-	"orgAuthorType":1//原作者的type
+		"orgAuthorId":1, //原作者的id, 如果这是一条全新的, 那么就填自己
+		"orgAuthorType":1,//原作者的type
+		"publishNow":true,//立即发布
+		"isAssist" : false, //是否是助教
+}
+//这个是助教的参数
+{
+	"unionid":"xxxxx",
+	"openid":"xxxxx",
+	"authorId":1234, //助教的id
+	"authorType:" 1,
+	"studentId":1234, //学生id
+	"pictureUrls": [
+        "https://xxxxx.jpg",
+        "https://xxxx.jpg"
+    ],
+  "mainTeacherId":2234, //班主任id
+  "isAssist" : true, //是否是助教
 }
 response:
 {
@@ -311,8 +328,59 @@ response:
         "parentRecordId":1//如果是一条全新的记录, 则此项为空
     }
 }
-other situation:
-code: 0/1
+
+# 操作审核#
+url: https://ip:port/api/v1.0/review
+method: post
+param:
+{
+	"unionid":"xxxxx",
+	"openid":"xxxxx",
+	"authorId":1234,
+	"recordId":1234,//要审核的纪录id
+	"reason":"xxxx",//选填,填写驳回的原因,使用url编码
+	"state":1, //1通过, 2驳回	
+}
+response:
+{
+	"code":0,
+	"data":{
+		
+	}
+}
+
+#获取审核记录#
+url: https://ip:port/api/v1.0/get_review_list
+method: post
+param:
+{
+	"unionid":"xxxxx",
+	"openid":"xxxxx",
+	"authorId":1234,//自己的id
+	"isAssist":true/false, //是/否是助理
+	"lastRecordId":1123, //分段加载, 上一回的最后一个recordId, 如果是第一次加载, 可以填0		
+}
+response:{
+	"code":1,
+	"data":{
+		"records":[
+			{
+				"recordId":1,
+				"createTime":"yyyy-mm-dd hhmiss",
+				"state":0/1/2, //未审, 通过, 驳回
+				"text":"xxxxxxx",
+				"pictureUrls":[
+				
+				],
+				"orgAuhtorId":1111,//助教id
+				"studentId":1122, //学生id
+			},
+			{
+			
+			}
+		]
+	}
+}
 
 ---------------------------------------------
 # 设置星标(
