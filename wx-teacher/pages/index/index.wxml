@@ -23,15 +23,15 @@
       <button formType="submit" hover-class="none" style="margin-left:0;" data-item="{{itemObject}}">
         <view class='toplD'>
           <view class='tlDleft' bindtap='todetail' data-item="{{itemObject}}">
-            <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
+            <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{defaultAvatar}}'></image>
             <image wx:else src='{{itemObject.avatarUrl}}'></image>
 
             <text class='phName'>{{itemObject.name}}</text>
 
           </view>
           <view class='tlDleft' style="margin-left:22rpx" bindtap='todetail' data-item="{{itemObject}}">
-            <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{Imgpath}}'></image>
-            <image wx:else src='{{itemObject.avatarUrl}}'></image>
+            <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{defaultAvatar}}'></image>
+            <image wx:else src='{{defaultAvatar}}'></image>
 
             <text class='phName'>Aliys</text>
 

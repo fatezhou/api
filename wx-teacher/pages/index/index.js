@@ -10,6 +10,8 @@ Page({
     recordSize: '',
     recordsList: '',
 
+    defaultAvatar: '',
+
     isIpx: '',
     noTextPrompt: '',
   },
@@ -44,7 +46,7 @@ Page({
   todetail: function(e) {
     var item = e.currentTarget.dataset.item
     wx.navigateTo({
-      url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.name + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.avatarUrl + "&familyId=" + item.familyId,
+      url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.name + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.avatarUrl,
     })
   },
   //事件处理函数
@@ -61,6 +63,7 @@ Page({
   },
 
   onLoad: function() {
+    var that = this
     // 底部tabbar
     if (app.globalData.isIpx) {
       this.setData({
@@ -69,6 +72,17 @@ Page({
     }
     template.tabbar("tabBar", 0, this)
 
+    // 默认头像
+    http.getDefaultAvatar(function(res) {
+      if (res === 0) {
+        that.setData({
+          defaultAvatar: app.globalData.defaultAvatar
+        })
+      }
+    })
+
+    // 获取家长列表
+    http.getParents()
   },
 
   /**
@@ -196,13 +210,13 @@ Page({
     })
   },
 
+  // 获取教师列表
   getTeachers: function() {
     http.getTeachers(function(res) {
       if (res === 0) {
 
       }
     })
-  }
-
+  },
 
 })

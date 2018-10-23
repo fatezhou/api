@@ -22,19 +22,21 @@ function login(callback) {
             if (res.data.data.token) {
               app.globalData.token = res.data.data.token;
             }
-            if (!app.globalData.defaultAvatar) {
-              // 获取默认头像
-              wx.getImageInfo({
-                src: app.globalData.minidopeApi.defaultAvatarUrl,
-                success: function(res) {
-                  app.globalData.defaultAvatar = res.path
-                }
-              })
-            }
             return callback(0)
           }
         })
       }
+    }
+  })
+};
+
+function getDefaultAvatar(callback) {
+  // 获取默认头像
+  wx.getImageInfo({
+    src: app.globalData.minidopeApi.defaultAvatarUrl,
+    success: function(res) {
+      app.globalData.defaultAvatar = res.path
+      return callback(0)
     }
   })
 };
@@ -93,6 +95,75 @@ function getGrowthRecordsWithoutAppend(recordId, callback) {
   })
 };
 
+// 根据记录id 获取对应的评论
+function getoneGrowthRecordWithAppend(recordId, callback) {
+  wx.request({
+    url: app.globalData.minidopeApi.oneGrowthRecordWithAppendUrl,
+    data: {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      recordId: recordId
+    },
+    method: 'POST',
+    success: function(res) {
+      console.info(res)
+      if (res.data.code == 0) {
+        res.data.data.record.text = decodeURIComponent(res.data.data.record.text)
+        for (var i in res.data.data.record.append) {
+          res.data.data.record.append[i].text = decodeURIComponent(res.data.data.record.append[i].text)
+        }
+        return callback(res.data.data.record)
+      }
+    }
+  })
+
+};
+
+// 点赞
+function putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, callback) {
+  console.info(recordId)
+  console.info(parentRecordId)
+  console.info(orgAuthorId)
+  console.info(orgAuthorType)
+  // wx.request({
+  //   url: app.globalData.minidopeApi.putRecordLike,
+  //   data: {
+  //     unionid: app.globalData.unionId,
+  //     openid: app.globalData.openid,
+  //     authorId: app.globalData.userId, //自己的id
+  //     authorType: app.globalData.userType, //1: teacher, 2: parent",
+  //     recordId: recordId,
+  //     parentRecordId: parentRecordId,
+  //     orgAuthorId: orgAuthorId,
+  //     orgAuthorType: orgAuthorType,
+  //   },
+  //   method: 'POST',
+  //   success: function(res) {
+  //     console.info(res)
+  //   }
+  // })
+}
+
+// 获取成长记录条数
+function getRecordSize(studentId, callback) {
+  wx.request({
+    url: app.globalData.minidopeApi.getChildGrowthRecordCount,
+    data: {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      // "authorId": app.globalData.userId,
+      authorType: app.globalData.userType, //1: teacher, 2: parent",
+      studentId: studentId
+    },
+    method: "post",
+    success: function(res) {
+      if (res.data.code == 0) {
+        return callback(res.data.data.count)
+      }
+    }
+  })
+};
+
 // 获取学生 家长 教师列表
 function getStudents(callback) {
   wx.request({
@@ -132,14 +203,14 @@ function getTeachers(callback) {
     method: 'POST',
     success: function(res) {
       if (res.data.code == 0) {
-        app.globalData.teacherList = res.data.teachers
+        app.globalData.teacherList = res.data.data.teachers
         return callback(0)
       }
     }
   })
 };
 
-function getParents(callback) {
+function getParents() {
   wx.request({
     url: app.globalData.minidopeApi.getParents,
     data: {
@@ -148,15 +219,21 @@ function getParents(callback) {
     },
     method: 'POST',
     success: function(res) {
-      console.info(res)
+      app.globalData.parentList = res.data.data.records
     }
   })
 }
 
 module.exports = {
   login: login,
+  getDefaultAvatar: getDefaultAvatar,
   getTeacherInfo: getTeacherInfo,
+
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
+  getoneGrowthRecordWithAppend: getoneGrowthRecordWithAppend,
+  putRecordLike: putRecordLike,
+  getRecordSize: getRecordSize,
+
   getStudents: getStudents,
   getTeachers: getTeachers,
   getParents: getParents,

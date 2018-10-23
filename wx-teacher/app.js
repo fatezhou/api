@@ -57,6 +57,10 @@ App({
       getParents: "https://api.minidope.com/api/v1.0/get_parents_info",
 
       getGrowthRecordsWithoutAppend: "https://api.minidope.com/api/v1.0/get_growth_records_without_append",
+      getChildGrowthRecordCount: 'https://api.minidope.com/api/v1.0/get_child_growth_record_count',
+      oneGrowthRecordWithAppendUrl: "https://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
+
+      putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
     },
 
     // 记录
@@ -68,6 +72,7 @@ App({
     // 通讯录
     studentList: [],
     teacherList: [],
+    parentList:[],
 
     // 手机型号
     model: null,

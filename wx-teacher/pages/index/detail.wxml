@@ -1,2 +1,131 @@
 <!--pages/index/detail.wxml-->
-<text>pages/index/detail.wxml</text>
+<view style='padding:30rpx 30rpx 10rpx 30rpx;background:#fff;margin-top:20rpx;'>
+  <view style='word-break: break-all;letter-spacing:1rpx;font-size: 28rpx;'>
+    <text>{{mainText}}</text>
+  </view>
+  <view style='font-size:24rpx;color:#8f8e94;margin-top:20rpx;'>
+    <view wx:for="{{imgUrl}}" wx:for-item="item" wx:key='index' style="display: inline-block;lign-items:center;">
+      <view class='picList th1' wx:if="{{imgUrllength == 1}}">
+        <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg' mode="aspectFill"></image>
+      </view>
+      <view class='picList th2' wx:if="{{imgUrllength == 2}}">
+        <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg' mode="aspectFill"></image>
+      </view>
+      <view class='picList th3' wx:if="{{imgUrllength >= 3}}">
+        <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg' mode="aspectFill"></image>
+      </view>
+    </view>
+    <view style="display:flex;align-items:center;justify-content: space-between;">
+      <view>{{dateTime}} · {{listNumber}}评论 · {{likenumber}}赞</view>
+
+      <view>
+        <view class="{{drawer ? 'show' : 'hide'}}">
+          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hidename=true&familyId={{familyId}}" hover-class="none">
+            <view style="border-right:1rpx solid #fff;padding-right:10rpx">评论</view>
+          </navigator>
+          <view style="padding:10rpx;">分享</view>
+        </view>
+        <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx 14rpx 14rpx 0;' mode='cover' bindtap='drawerClick'></image>
+
+      </view>
+
+    </view>
+
+  </view>
+</view>
+<view class='leadW' style='margin-top:20rpx;' wx:if="{{!hideBtn}}">学员</view>
+
+<view style='height:88rpx;background:#fff;display:flex;align-items:center;justify-content: space-between;' bindtap='goMoreRecords' wx:if="{{!hideBtn}}">
+  <view style='display:flex;align-items:center;'>
+
+
+    <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image>
+    <image wx:else src='{{avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image>
+
+    <view>
+      <view style='font-size:30rpx;'>{{name}}</view>
+
+    </view>
+  </view>
+  <view style='display:flex;align-items:center;margin-right:30rpx;'>
+    <view class='leadW' style='margin-right:20rpx;'>{{recordSize}}</view>
+    <image src='../../image/RightIcon.png' style='width:20rpx;' mode='widthFix'></image>
+  </view>
+</view>
+
+<view class='leadW' style='margin-top:20rpx;'>讨论</view>
+
+<view wx:for='{{appendList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;'>
+
+  <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' data-item="{{item}}" bindtap='toUserInfo' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  <image wx:else src='{{item.avatarUrl}}' data-item="{{item}}" bindtap='toUserInfo' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  <image wx:if="{{item.authorType == 1}}" src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;margin:40rpx 0 0 44rpx'></image>
+
+  <view style='width:600rpx;margin-left:20rpx;'>
+    <view style='color:#5b6c8c;margin-bottom:10rpx;' data-item="{{item}}" bindtap='toUserInfo'>{{item.authorName}}</view>
+    <view style="word-break: break-all;">
+      <text style="letter-spacing:1rpx;font-size: 28rpx;">{{item.text}}</text>
+    </view>
+    <view style='font-size:24rpx;color:#8f8e94;justify-content: space-between;align-items:center;margin-top:20rpx;'>
+
+      <view class='picList th1' wx:if="{{item.pictures.length == 1}}">
+        <image src='{{item.pictures[0]}}' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg' mode="aspectFill"></image>
+      </view>
+      <view class='picList th2' wx:if="{{item.pictures.length == 2}}">
+        <image src='{{item.pictures[0]}}' data-showBigImg="{{item.pictures[0]}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg' mode="aspectFill"></image>
+        <image src='{{item.pictures[1]}}' data-showBigImg="{{item.pictures[1]}}" data-showswiper="{{item.pictures}}" data-imgid="1" bindtap='showBigImg' mode="aspectFill"></image>
+      </view>
+      <view class='picList th3' wx:if="{{item.pictures.length >= 3}}">
+        <block wx:for="{{item.pictures}}" wx:for-item="imgitem" wx:key='imgindex'>
+          <image src='{{imgitem}}' data-showBigImg="{{imgitem}}" data-showswiper="{{item.pictures}}" data-imgid="0" bindtap='showBigImg' mode="aspectFill"></image>
+        </block>
+      </view>
+
+      <view style="margin-top:20rpx;">
+        <image wx:if="{{item.like.teacher.length > 0 || item.like.parent.length>0}}" src='../../image/nice.png' style='width:30rpx;height:30rpx' mode='cover'></image>
+
+        <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex' wx:for-index="teacherindex">
+          <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
+            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}}<text wx:if="{{item.like.teacher.length-1 > teacherindex}}">，</text>
+            <text wx:if="{{item.like.parent.length > 0}}" style="inline-block">，</text></text>
+          </block>
+        </block>
+
+        <block wx:for="{{item.like.parent}}" wx:for-item='parentLikeitem' wx:key='parentLikeindex' wx:for-index="parentindex">
+          <block wx:for="{{allParentInfo}}" wx:for-item='allParentitem' wx:key='allParentindex'>
+            <text wx:if="{{allParentitem.parentId == parentLikeitem}}">{{allParentitem.name}}<text wx:if="{{item.like.parent.length-1 > parentindex}}">，</text></text>
+          </block>
+        </block>
+
+      </view>
+      <view style="display:flex;justify-content: space-between;align-items:center;margin-top:20rpx;">
+        <view> {{item.dateTime}} </view>
+        <view style='display:flex;justify-content: space-between;align-items:center;'>
+
+          <!-- 没有点赞数据 -->
+          <block wx:if="{{!item.like.teacher || item.like.teacher.length == 0}}">
+            <image src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-familyid="0" data-authorType="{{item.authorType}}"></image>
+          </block>
+          <!-- 有点赞数据 -->
+          <block wx:else>
+            <!-- 点赞数据没有你 -->
+            <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikes' wx:key='teacherLikes' wx:if="{{teacherLikes != userId}}">
+              <image wx:if="{{index+1 == item.like.teacher.length}}" src='../../image/clicknonice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}"
+                data-familyid="0" data-authorType="{{item.authorType}}"></image>
+
+            </block>
+            <!-- 点赞数据有你 -->
+            <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLike' wx:key='teacherLike' wx:if="{{teacherLike == userId}}">
+              <image src='../../image/clicknice.png' style='width:50rpx;height:50rpx;margin-right:26rpx;padding:14rpx;' mode='cover' bindtap='like' data-recordId='{{item.recordId}}' data-authorId="{{item.authorId}}" data-familyid="0" data-authorType="{{item.authorType}}"></image>
+            </block>
+
+          </block>
+
+          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{studentId}}&hidename=true&callName={{item.authorName}}&familyId=0" hover-class="none" style="margin-top:18rpx">
+            <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx;' mode='cover'></image>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
