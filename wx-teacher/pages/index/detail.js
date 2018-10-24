@@ -117,8 +117,6 @@ Page({
             })
           }
         } else {
-          var like = []
-          var teacher = []
           this.data.appendList[j].like = {}
           this.data.appendList[j].like.teacher = []
           this.data.appendList[j].like.teacher[0] = app.globalData.userId
