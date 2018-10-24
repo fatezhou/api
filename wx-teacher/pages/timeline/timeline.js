@@ -2,7 +2,6 @@
 const app = getApp()
 var http = require('../../utils/http.js')
 
-var recordId = 0;
 var appends = [];
 Page({
 
@@ -28,6 +27,19 @@ Page({
 
     allTeacherInfo: [],
     allParentInfo: [],
+
+    noTextPrompt: '',
+    recordId: 0,
+  },
+  // 图片放大
+  showBigImg: function(e) {
+    console.info(e.currentTarget.dataset)
+    var urls = []
+    urls[0] = e.currentTarget.dataset.showimg
+    wx.previewImage({
+      current: e.currentTarget.dataset.showimg,
+      urls: urls
+    })
   },
 
   // 全文展开折叠
@@ -87,8 +99,8 @@ Page({
         recordWithAppendSize: res
       })
     })
-    http.getGrowthRecordsWithoutAppend(recordId, that.data.studentId, function(res) {
-      if (recordId == 0) {
+    http.getGrowthRecordsWithoutAppend(that.data.recordId, that.data.studentId, function(res) {
+      if (that.data.recordId == 0) {
         that.setData({
           recordSize: res.size,
         })
@@ -116,12 +128,16 @@ Page({
       }
       if (res.size != 0) {
         that.data.recordsList = that.data.recordsList.concat(res.records)
+        app.globalData.recordsList = that.data.recordsList
         that.setData({
           recordsList: that.data.recordsList,
           recordsListToGetAppend: res.records
         })
         // 获取最后一条recordId 用于加载之后的记录
-        recordId = res.records.slice(res.records.length - 1)[0].recordId
+        that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
+        that.setData({
+          recordId: that.data.recordId
+        })
         that.getAppendByRecordId()
       }
     })
@@ -300,7 +316,6 @@ Page({
    */
   onPullDownRefresh: function() {
     var that = this
-    recordId = 0
     http.getRecordSize(this.data.studentId, function(res) {
       if (that.data.recordWithAppendSize != res) {
         that.setData({
@@ -308,7 +323,7 @@ Page({
         })
       }
     })
-    http.getGrowthRecordsWithoutAppend(recordId, that.data.studentId, function(res) {
+    http.getGrowthRecordsWithoutAppend(0, that.data.studentId, function(res) {
       if (that.data.recordSize !== res.size) {
         // 记录数不同 才重新设置
         that.setData({
@@ -316,7 +331,10 @@ Page({
           recordsList: res.records,
         })
         // 获取最后一条recordId 用于加载之后的记录
-        recordId = res.records.slice(res.records.length - 1)[0].recordId
+        that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
+        that.setData({
+          recordId: that.data.recordId
+        })
       }
     })
     wx.stopPullDownRefresh()

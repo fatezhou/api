@@ -5,13 +5,13 @@
   </view>
   <view style='font-size:24rpx;color:#8f8e94;margin-top:20rpx;'>
     <view wx:for="{{imgUrl}}" wx:for-item="item" wx:key='index' style="display: inline-block;lign-items:center;">
-      <view class='picList th1' wx:if="{{imgUrllength == 1}}">
+      <view class='picList th1' wx:if="{{imgUrl.length == 1}}">
         <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg' mode="aspectFill"></image>
       </view>
-      <view class='picList th2' wx:if="{{imgUrllength == 2}}">
+      <view class='picList th2' wx:if="{{imgUrl.length == 2}}">
         <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg' mode="aspectFill"></image>
       </view>
-      <view class='picList th3' wx:if="{{imgUrllength >= 3}}">
+      <view class='picList th3' wx:if="{{imgUrl.length >= 3}}">
         <image data-showBigImg="{{item}}" data-showswiper="{{imgUrl}}" data-imgid="{{index}}" src='{{item}}' bindtap='showBigImg' mode="aspectFill"></image>
       </view>
     </view>

@@ -9,6 +9,7 @@ Page({
    */
   data: {
     mainText: '',
+    imgUrl:'',
     dateTime: '',
     studentId: '',
     recordId: '',
@@ -79,6 +80,13 @@ Page({
     this.data.studentId = parseInt(options.studentId)
     this.data.avatarUrl = options.avatarUrl
     this.data.name = options.name
+
+    for (var i = 0; i < app.globalData.recordsList.length; i++) {
+      if (app.globalData.recordsList[i].recordId == this.data.recordId) {
+        this.data.imgUrl = app.globalData.recordsList[i].pictureUrls
+        break
+      }
+    }
 
     this.setData(this.data)
   },

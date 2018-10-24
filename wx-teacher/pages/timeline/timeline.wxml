@@ -11,7 +11,7 @@
   </navigator>
 
   <view style="position:relative;display:flex;flex-direction: column;align-items: center;width:750rpx">
-    <image wx:if="{{studentAvatarUrl == ''}}" src='{{Imgpath}}' mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx; border-radius: 50%" data-showimg="{{Imgpath}}" bindtap='showBigImg'></image>
+    <image wx:if="{{studentAvatarUrl == ''}}" src='{{defaultAvatar}}' mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx; border-radius: 50%" data-showimg="{{defaultAvatar}}" bindtap='showBigImg'></image>
     <image wx:else src="{{studentAvatarUrl}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx; border-radius: 50%" data-showimg="{{studentAvatarUrl}}" bindtap='showBigImg' />
     <view style="display:flex;flex-direction:column;align-items:center;color:#fff;">
       <text>{{studentName}}</text>
@@ -31,12 +31,12 @@
   <view class='forlD' wx:for="{{recordsList}}" wx:for-item="item" wx:key='index'>
 
     <view wx:if="{{studentId == item.studentId}}">
-      <navigator id="{{item.recordId}}" url='perInfoDetail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}&familyId={{familyId}}'
+      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&studentName={{studentName}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}&familyId={{familyId}}'
         hover-class="none">
         <view>
           <view class='toplD'>
             <view class='tlDleft' wx:for="{{allTeacherInfo}}" wx:for-item='teacheriteminfo' wx:key='teacherindexinfo' wx:if="{{item.authorId == teacheriteminfo.teacherId}}">
-              <image wx:if="{{teacheriteminfo.avatarUrl == ''}}" src='{{Imgpath}}'></image>
+              <image wx:if="{{teacheriteminfo.avatarUrl == ''}}" src='{{defaultAvatar}}'></image>
               <image wx:else src='{{teacheriteminfo.avatarUrl}}'></image>
               <image src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;margin:21rpx 0 0 45rpx'></image>
               <text class='phName'>{{teacheriteminfo.nickname}}</text>
@@ -53,7 +53,7 @@
         <view wx:else bindtap='showmore' data-recordId='{{item.recordId}}' style="position:relative;float:right;font-size:24rpx;margin-right:30rpx;margin-top:10rpx;color:#aaa">收起</view>
       </view>
 
-      <navigator id="{{item.recordId}}" url='perInfoDetail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}&familyId={{familyId}}'
+      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&studentName={{studentName}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}&familyId={{familyId}}'
         hover-class="none">
 
 
@@ -130,12 +130,12 @@
     <!-- 评论 -->
     <view wx:for='{{recordWithAppends}}' wx:for-item='itemWithAppend' wx:key='indexWithAppend' style='background:#FFF;font-size:30rpx;' wx:if="{{itemWithAppend.recordId == item.recordId}}">
       <view wx:for='{{itemWithAppend.append}}' wx:for-item='itemappend' wx:key='indexappend' wx:if="{{index <= 1}}">
-        <navigator id="{{item.recordId}}" url='perInfoDetail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&familyId={{familyId}}'
+        <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&studentName={{studentName}}&dateTime={{item.dateTime}}&hideBtn=true&familyId={{familyId}}'
           hover-class="none">
           <view style="border-top:1rpx solid #eee;">
             <view style="opacity:0;font-size:20rpx">1</view>
 
-            <image wx:if="{{itemappend.avatarUrl == ''}}" src='{{Imgpath}}' mode="cover" style="width: 64rpx;height:64rpx;float: left;border-radius: 50%;"></image>
+            <image wx:if="{{itemappend.avatarUrl == ''}}" src='{{defaultAvatar}}' mode="cover" style="width: 64rpx;height:64rpx;float: left;border-radius: 50%;"></image>
             <image wx:else src="{{itemappend.avatarUrl}}" mode="cover" style="width: 64rpx;height:64rpx;float: left;border-radius: 100%;" />
             <image wx:if="{{itemappend.authorType == 1}}" src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;margin:40rpx 0 0 -18rpx'></image>
             <text class='phName' style="margin-top:10rpx">{{itemappend.authorName}}</text>
@@ -157,7 +157,7 @@
           <view class='picList th3' wx:if="{{itemappend.pictures.length >= 3}}">
             <image wx:for="{{itemappend.pictures}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill" data-showBigImg="{{imgitem}}" data-showswiper="{{itemappend.pictures}}" data-imgid="0" bindtap='showBigImg'></image>
           </view>
-          <navigator id="{{item.recordId}}" url='perInfoDetail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&name={{item.name}}&dateTime={{item.dateTime}}&hideBtn=true&familyId={{familyId}}'
+          <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&mainText={{item.text}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&studentName={{studentName}}&dateTime={{item.dateTime}}&hideBtn=true&familyId={{familyId}}'
             hover-class="none">
             <view style="margin-top:20rpx;">
               <!-- 点赞 -->

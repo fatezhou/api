@@ -4,7 +4,6 @@ const app = getApp()
 
 var template = require('../../template/template.js')
 var http = require('../../utils/http.js')
-var recordId = 0;
 Page({
   data: {
     recordSize: '',
@@ -14,6 +13,7 @@ Page({
 
     isIpx: '',
     noTextPrompt: '',
+    recordId: 0,
   },
 
   // 新消息 传递formid
@@ -93,6 +93,9 @@ Page({
     wx.showLoading({
       title: '加载中...',
     })
+    that.setData({
+      recordId: 0,
+    })
     if (!app.globalData.userId && !app.globalData.unionId) {
       http.login(function(res) {
         if (res === 0) {
@@ -113,13 +116,12 @@ Page({
    */
   onPullDownRefresh: function() {
     var that = this
-    recordId = 0
     if (!app.globalData.userId && !app.globalData.unionId) {
       http.login(function(res) {
         if (res === 0) {
           http.getTeacherInfo(function(res) {
             if (res === 0) {
-              http.getGrowthRecordsWithoutAppend(recordId, 0, function(res) {
+              http.getGrowthRecordsWithoutAppend(0, 0, function(res) {
                 if (that.data.recordSize !== res.size) {
                   // 记录数不同 才重新设置
                   app.globalData.recordsList = res.records
@@ -128,7 +130,10 @@ Page({
                     recordsList: app.globalData.recordsList,
                   })
                   // 获取最后一条recordId 用于加载之后的记录
-                  recordId = res.records.slice(res.records.length - 1)[0].recordId
+                  that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
+                  that.setData({
+                    recordId: that.data.recordId
+                  })
                   that.getStudents()
                   that.getTeachers()
                 }
@@ -139,7 +144,7 @@ Page({
         }
       })
     } else {
-      http.getGrowthRecordsWithoutAppend(recordId, 0, function(res) {
+      http.getGrowthRecordsWithoutAppend(0, 0, function(res) {
         if (that.data.recordSize !== res.size) {
           // 记录数不同 才重新设置
           app.globalData.recordsList = res.records
@@ -148,7 +153,10 @@ Page({
             recordsList: app.globalData.recordsList,
           })
           // 获取最后一条recordId 用于加载之后的记录
-          recordId = res.records.slice(res.records.length - 1)[0].recordId
+          that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
+          that.setData({
+            recordId: that.data.recordId
+          })
           that.getStudents()
           that.getTeachers()
         }
@@ -169,8 +177,8 @@ Page({
 
   getGrowthRecordsWithoutAppend: function() {
     var that = this
-    http.getGrowthRecordsWithoutAppend(recordId, 0, function(res) {
-      if (recordId == 0) {
+    http.getGrowthRecordsWithoutAppend(that.data.recordId, 0, function(res) {
+      if (that.data.recordId == 0) {
         that.setData({
           recordSize: res.size,
         })
@@ -181,7 +189,10 @@ Page({
           recordsList: app.globalData.recordsList,
         })
         // 获取最后一条recordId 用于加载之后的记录
-        recordId = res.records.slice(res.records.length - 1)[0].recordId
+        that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
+        that.setData({
+          recordId: that.data.recordId
+        })
         that.getStudents()
         that.getTeachers()
       }
