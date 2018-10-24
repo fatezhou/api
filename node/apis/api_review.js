@@ -31,16 +31,19 @@ function ApiReview(){
                                         msg_type, parent_record_id, org_author_id, \
                                         org_author_type, state)values";
                                     for(var i in familyIds){
-                                        insertNewMsgSql += "(" + res.insertId + "," +
+                                        insertNewMsgSql += "(" + res.recordId + "," +
                                             data.authorId + "," + data.authorType + "," +
                                             3 + "," + 0 + "," + familyIds[i] + "," +
                                             2 + "," + 0 + "),";
                                     }
-                                    if(insertNewMsgSql.length > 0){
-                                        if(insertNewMsgSql.charAt(insertNewMsgSql.length - 1) == ','){
-                                            insertNewMsgSql = insertNewMsgSql.substr(0, insertNewMsgSql.length - 1);
-                                        }
-                                    }
+                                    insertNewMsgSql += "(" + res.recordId + "," +
+                                        selectE.assist_id + "," + data.authorType + "," + 
+                                        3 + "," + 0 + "," +  selectE.assist_id + "," + 1 + ")";
+                                    // if(insertNewMsgSql.length > 0){
+                                    //     if(insertNewMsgSql.charAt(insertNewMsgSql.length - 1) == ','){
+                                    //         insertNewMsgSql = insertNewMsgSql.substr(0, insertNewMsgSql.length - 1);
+                                    //     }
+                                    // }
                                     dbFamilyIdsInsert.Query(insertNewMsgSql, [], function(e){
                                         console.info("insert to new_message");
                                     });
