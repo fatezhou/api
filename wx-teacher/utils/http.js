@@ -69,16 +69,29 @@ function getTeacherInfo(callback) {
 };
 
 // 获取记录 无评论 有recordId则获取recordId前面的记录 否则获取最新的10条记录
-function getGrowthRecordsWithoutAppend(recordId, callback) {
-  wx.request({
-    url: app.globalData.minidopeApi.getGrowthRecordsWithoutAppend,
-    data: {
+function getGrowthRecordsWithoutAppend(recordId, studentId, callback) {
+  var data = {}
+  if (studentId == 0) {
+    // 教师记录
+    data = {
       unionid: app.globalData.unionId,
       openid: app.globalData.openId,
       recordId: recordId,
       authorId: app.globalData.userId,
       authorType: app.globalData.userType,
-    },
+    }
+  } else {
+    // 时间线
+    data = {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      recordId: recordId,
+      studentId: studentId,
+    }
+  }
+  wx.request({
+    url: app.globalData.minidopeApi.getGrowthRecordsWithoutAppend,
+    data: data,
     method: 'POST',
     success: function(res) {
       if (res.data.code == 0) {
@@ -106,7 +119,6 @@ function getoneGrowthRecordWithAppend(recordId, callback) {
     },
     method: 'POST',
     success: function(res) {
-      console.info(res)
       if (res.data.code == 0) {
         res.data.data.record.text = decodeURIComponent(res.data.data.record.text)
         for (var i in res.data.data.record.append) {
@@ -120,28 +132,25 @@ function getoneGrowthRecordWithAppend(recordId, callback) {
 };
 
 // 点赞
-function putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, callback) {
-  console.info(recordId)
-  console.info(parentRecordId)
-  console.info(orgAuthorId)
-  console.info(orgAuthorType)
-  // wx.request({
-  //   url: app.globalData.minidopeApi.putRecordLike,
-  //   data: {
-  //     unionid: app.globalData.unionId,
-  //     openid: app.globalData.openid,
-  //     authorId: app.globalData.userId, //自己的id
-  //     authorType: app.globalData.userType, //1: teacher, 2: parent",
-  //     recordId: recordId,
-  //     parentRecordId: parentRecordId,
-  //     orgAuthorId: orgAuthorId,
-  //     orgAuthorType: orgAuthorType,
-  //   },
-  //   method: 'POST',
-  //   success: function(res) {
-  //     console.info(res)
-  //   }
-  // })
+function putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, cancel, callback) {
+  wx.request({
+    url: app.globalData.minidopeApi.putRecordLike,
+    data: {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openid,
+      authorId: app.globalData.userId, //自己的id
+      authorType: app.globalData.userType, //1: teacher, 2: parent",
+      recordId: recordId, //点赞评论的id   如果给记录点赞 则parentRecordId为0
+      parentRecordId: parentRecordId, //点赞记录的id
+      orgAuthorId: orgAuthorId, //评论的作者id
+      orgAuthorType: orgAuthorType, //评论的作者类型
+      cancel: cancel, //点赞的添加与取消
+    },
+    method: 'POST',
+    success: function(res) {
+      return callback(res.data.code)
+    }
+  })
 }
 
 // 获取成长记录条数

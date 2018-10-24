@@ -14,19 +14,65 @@ Page({
     recordId: '',
     avatarUrl: '',
     name: '',
+    userId: '',
 
     defaultAvatar: '',
     recordSize: '',
     appendList: '',
     likenumber: 0,
+
+    allTeacherInfo: '',
+    allParentInfo: '',
+
+    // 抽屉
+    drawer: false,
+  },
+
+  //头像跳转个人信息
+  toUserInfo: function(e) {
+    console.info(e)
+    let item = e.currentTarget.dataset.item
+    if (item.authorType == 1) {
+      // 跳转教师信息
+      wx.navigateTo({
+        url: '../userInfo/userInfo?teacherid=' + item.authorId,
+      })
+    } else {
+      // 跳转家长信息
+      wx.navigateTo({
+        url: '../member/parents?studentId=' + item.studentId,
+      })
+    }
+  },
+
+  // 抽屉
+  drawerClick: function() {
+    this.setData({
+      drawer: !this.data.drawer
+    })
+  },
+
+  // 图片放大
+  showBigImg: function(e) {
+    wx.previewImage({
+      current: e.currentTarget.dataset.showbigimg,
+      urls: e.currentTarget.dataset.showswiper
+    })
+  },
+
+  goMoreRecords: function(e) {
+    wx.navigateTo({
+      url: '../timeline/timeline?studentId=' + this.data.studentId,
+    })
+    // app.globalData.perTeacherRecords = false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.info(options)
     this.data.defaultAvatar = app.globalData.defaultAvatar
+    this.data.userId = app.globalData.userId
     this.data.mainText = options.mainText
     this.data.dateTime = options.dateTime
     this.data.recordId = parseInt(options.recordId)
@@ -51,13 +97,13 @@ Page({
           if (this.data.appendList[j].like.teacher.length > 0) {
             for (var k = 0; k < this.data.appendList[j].like.teacher.length; k++) {
               // 已经点赞了 就取消
-              if (this.data.appendList[j].like.teacher[k] == gData.userId) {
+              if (this.data.appendList[j].like.teacher[k] == app.globalData.userId) {
                 this.data.appendList[j].like.teacher.splice(k, 1)
                 that.setData({
                   appendList: this.data.appendList
                 })
               } else if ((k + 1) == this.data.appendList[j].like.teacher.length) {
-                this.data.appendList[j].like.teacher.push(gData.userId)
+                this.data.appendList[j].like.teacher.push(app.globalData.userId)
                 that.setData({
                   appendList: this.data.appendList
                 })
@@ -65,7 +111,7 @@ Page({
               }
             }
           } else {
-            this.data.appendList[j].like.teacher[0] = gData.userId
+            this.data.appendList[j].like.teacher[0] = app.globalData.userId
             that.setData({
               appendList: this.data.appendList
             })
@@ -75,7 +121,7 @@ Page({
           var teacher = []
           this.data.appendList[j].like = {}
           this.data.appendList[j].like.teacher = []
-          this.data.appendList[j].like.teacher[0] = gData.userId
+          this.data.appendList[j].like.teacher[0] = app.globalData.userId
           that.setData({
             appendList: this.data.appendList
           })
@@ -83,51 +129,11 @@ Page({
       }
     }
 
-    http.putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, function(res) {
-      
+    http.putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, false, function(res) {
+      if (res == 4) {
+        http.putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, true, function(res) {})
+      }
     })
-
-    // console.info(authorType)
-    // wx.request({
-    //   url: gData.putRecordLike,
-    //   method: 'post',
-    //   data: {
-    //     "unionid": gData.unionId,
-    //     "openid": gData.openid,
-    //     "authorId": gData.userId, //自己的id
-    //     "authorType": gData.userType, //1: teacher, 2: parent",
-    //     "recordId": recordId,
-    //     "parentRecordId": parseInt(that.data.recordId),
-    //     "orgAuthorId": authorId,
-    //     "orgAuthorType": authorType,
-    //     "familyId": familyId
-    //   },
-    //   success: function(res) {
-
-    //     if (res.data.code == 4) {
-    //       wx.request({
-    //         url: gData.putRecordLike,
-    //         method: 'post',
-    //         data: {
-    //           // "unionid": gData.unionId,
-    //           // "openid": gData.openid,
-    //           "authorId": gData.userId, //自己的id
-    //           "authorType": gData.userType, //1: teacher, 2: parent",
-    //           "recordId": recordId,
-    //           "parentRecordId": parseInt(that.data.recordId),
-    //           "familyId": familyId,
-    //           'cancel': true,
-    //           "orgAuthorId": authorId,
-    //           "orgAuthorType": authorType
-    //         },
-    //         success: function(res) {
-
-    //         }
-    //       })
-    //     }
-
-    //   }
-    // })
   },
 
   /**
@@ -189,7 +195,9 @@ Page({
       that.setData({
         appendList: appendList,
         listNumber: appendList.length,
-        likenumber: res.like
+        likenumber: res.like,
+        allTeacherInfo: allTeacherInfo,
+        allParentInfo: allParentInfo
       })
     })
   },
