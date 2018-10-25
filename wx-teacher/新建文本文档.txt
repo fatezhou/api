@@ -1,0 +1,99 @@
+index/index    记录  学生 助教
+index/detail
+perinfo
+perinfodetail
+
+member/member
+memberdetail
+parentinfo
+
+
+my
+teacherinfo
+
+
+pull  
+	新建记录 （选择学员 选择班主任） 标题 新建记录  ： 
+
+
+	 "unionid": gData.unionid,
+        "openid": gData.openid,
+        "authorType": gData.userType, //1 teacher, 2 parent
+        "text": that.data.addtext,
+        "authorId": gData.teacherInfo.teacherId, 自己的id
+        "studentId": that.data.studentId, //如果是评论的话, 则此项可以不用填,
+     
+        // 学生所有家长id
+        "familyIds": that.data.familyIds,
+        "pictureUrls": pictureUrls,
+        "recordType": that.data.type, //1:record,2:append",
+     
+        "orgAuthorId":  gData.userId
+        "orgAuthorType":  gData.userType 
+
+	评论 （只有提交按钮） 文本 回复。。  标题 评论   ： 记录id  记录作者id 类型   评论id 
+
+
+	 "unionid": gData.unionid,
+        "openid": gData.openid,
+        "authorType": gData.userType, //1 teacher, 2 parent
+        "text": that.data.addtext,
+        "authorId": gData.teacherInfo.teacherId, 自己的id
+        "studentId": that.data.studentId, //如果是评论的话, 则此项可以不用填,
+     
+        // 学生所有家长id
+        "familyIds": that.data.familyIds,
+        "pictureUrls": pictureUrls,
+        "recordType": that.data.type, //1:record,2:append",
+        "parentRecordId": that.data.recordId, //如果是全新的一条记录, 则此项可以不用填,
+        "orgAuthorId":  that.data.orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
+        "orgAuthorType": that.data.orgAuthorType, //原作者的type
+
+
+	从学员详情进入 （学员固定 能选择班主任） 标题 新建记录  ：学员id
+
+
+if(append)
+	隐藏学员和班主任选项
+else
+ 	if(studentid)
+		学生固定
+	else
+   		则选择学生
+
+
+	if(是助教)
+		选择班主任
+	else
+		发布家长端按钮
+
+编辑未发布
+可以更换学员
+助教固定
+发布家长端按钮
+
+
+	 "unionid": gData.unionid,
+        "openid": gData.openid,
+        "authorType": gData.userType, //1 teacher, 2 parent
+        "text": that.data.addtext,
+        "authorId": gData.teacherInfo.teacherId, 自己的id
+        "studentId": that.data.studentId, //如果是评论的话, 则此项可以不用填,
+     
+        // 学生所有家长id
+        "familyIds": that.data.familyIds,
+        "pictureUrls": pictureUrls,
+        "recordType": that.data.type, //1:record,2:append",
+        "parentRecordId": that.data.recordId, //如果是全新的一条记录, 则此项可以不用填,
+        "orgAuthorId": gData.userId , //原作者的id, 如果这是一条全新的, 那么就填自己
+        "orgAuthorType": gData.userType , //原作者的type
+
+
+
+choose userinfo
+
+
+unbound
+
+
+
