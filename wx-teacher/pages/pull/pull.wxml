@@ -1,2 +1,63 @@
 <!--pages/pull/pull.wxml-->
-<text>pages/pull/pull.wxml</text>
+<view class='uploadimg'>
+
+  <form class='all'>
+    <textarea name="evaContent" maxlength="500" value="{{evaContent}}" class="weui-textarea" placeholder="{{placeholder}}" bindinput="charChange" />
+  </form>
+  <view class='uploadimgBox'>
+    <view class='addImg' wx:if="{{canChoose}}" bindtap='chooseImageTap'>
+      <view class='add'>
+        <image src='./../../image/add.png' mode='widthFix'></image>
+      </view>
+    </view>
+    <view class='addImg' wx:else bindtap='noChoose'>
+      <view class='add'>
+        <image src='./../../image/add.png' mode='widthFix'></image>
+      </view>
+    </view>
+    <block wx:for="{{imgs}}" wx:key='asd' wx:if="{{9>=imgs.length>0}}">
+      <image class='addpic' mode='aspectFill' data-index='{{index}}' src="{{item}}" bindtap='reom'></image>
+    </block>
+  </view>
+
+</view>
+<view class='choose' wx:if="{{!hidename}}">
+  <block wx:if="{{choosestudent}}">
+    <navigator url="chooseStudent" hover-class="none">
+      <text>学员</text>
+      <view class='cRight'>
+        <image wx:if="{{studentAvatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+        <image wx:else src='{{studentAvatarUrl}}' mode='widthFix'></image>
+        <text class='phName'>{{studentName}}</text>
+        <image src='../../image/RightIcon.png' style='width:20rpx;position:relative;float:right;margin-top:16rpx' mode='widthFix'></image>
+
+      </view>
+    </navigator>
+  </block>
+  <block wx:else>
+    <text>学员</text>
+    <view class='cRight'>
+      <image wx:if="{{studentAvatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+      <image wx:else src='{{studentAvatarUrl}}' mode='widthFix'></image>
+      <text class='phName'>{{studentName}}</text>
+    </view>
+  </block>
+  <view style="border-bottom:1rpx solid #000;opacity:.25;width:720rpx"></view>
+</view>
+
+
+<view class='choose' style="margin-bottom:18rpx" wx:if="{{!hidename}}">
+
+  <navigator url="chooseTeacher" hover-class="none">
+    <text>班主任</text>
+    <view class='cRight'>
+      <image wx:if="{{teacherAvatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+      <image wx:else src='{{teacherAvatarUrl}}' mode='widthFix'></image>
+      <text class='phName'>{{teacherName}}</text>
+      <image src='../../image/RightIcon.png' style='width:20rpx;position:relative;float:right;margin-top:16rpx' mode='widthFix'></image>
+    </view>
+  </navigator>
+</view>
+
+
+<button bindtap='submit' class="weui-btn mini-btn">提交</button>

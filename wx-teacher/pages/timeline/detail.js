@@ -33,11 +33,11 @@ Page({
     let item = e.currentTarget.dataset.item
     if (item.authorType == 1) {
       wx.navigateTo({
-        url: '../userInfo/userInfo?teacherid=' + item.authorId,
+        url: '../teacher/teaInfo?teacherid=' + item.authorId,
       })
     } else {
       wx.navigateTo({
-        url: '../member/parents?studentId=' + item.studentId,
+        url: '../student/parentInfo?studentId=' + item.studentId,
       })
     }
   },
@@ -55,9 +55,9 @@ Page({
     this.data.allParentInfo = app.globalData.parentList
     this.data.recordId = parseInt(options.recordId);
     // 记录的配图
-    for (var i = 0; i < app.globalData.recordsList.length; i++) {
-      if (app.globalData.recordsList[i].recordId == this.data.recordId) {
-        this.data.imgUrl = app.globalData.recordsList[i].pictureUrls
+    for (var i = 0; i < app.globalData.timelineRecordsList.length; i++) {
+      if (app.globalData.timelineRecordsList[i].recordId == this.data.recordId) {
+        this.data.imgUrl = app.globalData.timelineRecordsList[i].pictureUrls
         break
       }
     }

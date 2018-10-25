@@ -1,2 +1,51 @@
 <!--pages/teacher/teaInfo.wxml-->
-<text>pages/teacher/teaInfo.wxml</text>
+<view style='height:200rpx;background:#fff;margin-top:30rpx;font-size:28rpx;display:flex;justify-content: space-between;align-items: center'>
+  <view style='display:flex;'>
+    <view style='margin-left:30rpx;margin-right:24rpx;position:relative;'>
+      <!-- <image src='../../image/head.png' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image> -->
+
+      <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;' data-showimg="{{Imgpath}}" bindtap='showBigImg'></image>
+      <image wx:else src='{{avatarUrl}}' data-showimg="{{avatarUrl}}" bindtap='showBigImg' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image>
+
+
+      <image src='../../image/Ticon.png' style='width:36rpx;height:36rpx;position:absolute;top:95rpx;left:95rpx;'></image>
+    </view>
+    <view>
+      <view style='display:flex;margin-top:20rpx;'>
+        <view>{{teachernickname}}</view>
+        <image src="{{sex == 2 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style='width:38rpx;height:38rpx;margin-left:10rpx;' />
+      </view>
+      <view style='color:#98a5a5;margin-top:20rpx;'>一句话介绍：教育没有捷径</view>
+    </view>
+  </view>
+  <!-- <view style='display:flex;color:#58698a;align-items: center;font-weight:bold;margin-right:30rpx;' bindtap='xiugai'>
+		<image src='../../image/pen.png' style='width:26rpx;height:26rpx;margin-right:10rpx;'></image>
+		<view>修改</view>
+	</view> -->
+</view>
+
+<view style='background:#fff;font-size:32rpx;padding-left:30rpx;margin-top:30rpx;'>
+  <view class='MyInformationg'>
+    <view>姓名</view>
+    <view class='nameColor'>{{teachername}}</view>
+  </view>
+  <view class='MyInformationg'>
+    <view>职位</view>
+    <view class='nameColor'>教师</view>
+  </view>
+  <view class='MyInformationg' style='border:none;'>
+    <view>所属校区</view>
+    <view class='nameColor'>厦门JFC校区</view>
+  </view>
+</view>
+
+<view style='padding-left:30rpx;margin-top:30rpx;background:#fff;font-size:32rpx;'>
+  <view class='MyInformationg' style='border:none;'>
+    <view>微信号</view>
+    <view class='nameColor'>{{phone}}</view>
+  </view>
+</view>
+
+<!-- <navigator url='meInforErro'>
+  <view style='font-size:24rpx;color:#617190;width:750rpx;text-align:center;margin-top:30rpx;'>信息有误？</view>
+</navigator> -->

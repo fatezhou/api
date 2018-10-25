@@ -2,7 +2,6 @@
 const app = getApp()
 var http = require('../../utils/http.js')
 
-var appends = [];
 Page({
 
   /**
@@ -89,6 +88,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      recordId: 0,
+      recordsList: [],
+      recordWithAppends: []
+    })
     this.getTimeline()
   },
 
@@ -99,7 +103,7 @@ Page({
         recordWithAppendSize: res
       })
     })
-    http.getGrowthRecordsWithoutAppend(that.data.recordId, that.data.studentId, function(res) {
+    http.getGrowthRecordsWithoutAppend(that.data.recordId, that.data.studentId, 10, function(res) {
       if (that.data.recordId == 0) {
         that.setData({
           recordSize: res.size,
@@ -128,7 +132,8 @@ Page({
       }
       if (res.size != 0) {
         that.data.recordsList = that.data.recordsList.concat(res.records)
-        app.globalData.recordsList = that.data.recordsList
+        app.globalData.timelineRecordsList = that.data.recordsList
+        console.info(app.globalData.timelineRecordsList)
         that.setData({
           recordsList: that.data.recordsList,
           recordsListToGetAppend: res.records
@@ -316,6 +321,9 @@ Page({
    */
   onPullDownRefresh: function() {
     var that = this
+    this.setData({
+      recordWithAppends: []
+    })
     http.getRecordSize(this.data.studentId, function(res) {
       if (that.data.recordWithAppendSize != res) {
         that.setData({
@@ -323,18 +331,47 @@ Page({
         })
       }
     })
-    http.getGrowthRecordsWithoutAppend(0, that.data.studentId, function(res) {
-      if (that.data.recordSize !== res.size) {
-        // 记录数不同 才重新设置
+    http.getGrowthRecordsWithoutAppend(0, that.data.studentId, 10, function(res) {
+      if (that.data.recordId == 0) {
         that.setData({
           recordSize: res.size,
-          recordsList: res.records,
+        })
+      }
+      for (var t = 0; t < res.records.length; t++) {
+        res.records[t].isfold = true
+        if (res.records[t].text.length > 100) {
+          res.records[t].showTextBtn = true
+        }
+
+        // 排序  修复 点赞图标可能出现两个的问题 
+        if (res.records[t].likes) {
+          if (res.records[t].likes.teacher.length > 0) {
+            for (var i = 0; i < res.records[t].likes.teacher.length; i++) {
+              var length = res.records[t].likes.teacher.length
+              if (res.records[t].likes.teacher[i] == app.globalData.userId) {
+                var temp = res.records[t].likes.teacher[length - 1]
+                res.records[t].likes.teacher[length - 1] = res.records[t].likes.teacher[i]
+                res.records[t].likes.teacher[i] = temp
+                break
+              }
+            }
+          }
+        }
+      }
+      if (res.size != 0) {
+        that.data.recordsList = res.records
+        app.globalData.timelineRecordsList = that.data.recordsList
+        console.info(app.globalData.timelineRecordsList)
+        that.setData({
+          recordsList: that.data.recordsList,
+          recordsListToGetAppend: res.records
         })
         // 获取最后一条recordId 用于加载之后的记录
         that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
         that.setData({
           recordId: that.data.recordId
         })
+        that.getAppendByRecordId()
       }
     })
     wx.stopPullDownRefresh()

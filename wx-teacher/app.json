@@ -9,6 +9,7 @@
     "pages/student/stuInfo",
     "pages/student/parentInfo",
     "pages/myInfo/myInfo",
+    "pages/myInfo/myInfoErro",
     "pages/teacher/teaInfo",
     "pages/pull/pull",
     "pages/pull/stuList",

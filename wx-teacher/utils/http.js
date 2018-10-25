@@ -69,7 +69,7 @@ function getTeacherInfo(callback) {
 };
 
 // 获取记录 无评论 有recordId则获取recordId前面的记录 否则获取最新的10条记录
-function getGrowthRecordsWithoutAppend(recordId, studentId, callback) {
+function getGrowthRecordsWithoutAppend(recordId, studentId, pageSize, callback) {
   var data = {}
   if (studentId == 0) {
     // 教师记录
@@ -79,6 +79,7 @@ function getGrowthRecordsWithoutAppend(recordId, studentId, callback) {
       recordId: recordId,
       authorId: app.globalData.userId,
       authorType: app.globalData.userType,
+      pageSize: pageSize,
     }
   } else {
     // 时间线
@@ -87,6 +88,7 @@ function getGrowthRecordsWithoutAppend(recordId, studentId, callback) {
       openid: app.globalData.openId,
       recordId: recordId,
       studentId: studentId,
+      pageSize: pageSize,
     }
   }
   wx.request({
@@ -151,7 +153,26 @@ function putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, can
       return callback(res.data.code)
     }
   })
-}
+};
+
+// 设置星标
+function putMemberFav(studentId, cancel, callback) {
+  wx.request({
+    url: app.globalData.minidopeApi.putMemberFav,
+    data: {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      authorType: app.globalData.userType,
+      authorId: app.globalData.userId,
+      studentId: studentId,
+      cancel: cancel
+    },
+    method: 'post',
+    success: function(res) {
+      return callback(0)
+    },
+  })
+};
 
 // 获取成长记录条数
 function getRecordSize(studentId, callback) {
@@ -231,6 +252,21 @@ function getParents() {
       app.globalData.parentList = res.data.data.records
     }
   })
+};
+
+function getFamily(studentId, callback) {
+  wx.request({
+    url: app.globalData.minidopeApi.getFamily,
+    data: {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      studentId: studentId,
+    },
+    method: 'POST',
+    success: function(res) {
+      return callback(res.data.data.parents)
+    },
+  })
 }
 
 module.exports = {
@@ -241,9 +277,11 @@ module.exports = {
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
   getoneGrowthRecordWithAppend: getoneGrowthRecordWithAppend,
   putRecordLike: putRecordLike,
+  putMemberFav: putMemberFav,
   getRecordSize: getRecordSize,
 
   getStudents: getStudents,
   getTeachers: getTeachers,
   getParents: getParents,
+  getFamily: getFamily,
 }

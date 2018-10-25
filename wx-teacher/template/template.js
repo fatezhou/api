@@ -11,7 +11,7 @@ function tabbarInit(){
     },
     {
       'current': 0,
-      'pagePath': '/pages/member/member',
+      'pagePath': '/pages/student/stuList',
       'iconPath': '../../image/iccontact.png',
       'selectedIconPath': '../../image/iccontact2.png',
       // 'msg':'2',
@@ -19,7 +19,7 @@ function tabbarInit(){
     },
     {
       'current': 0,
-      'pagePath': '/pages/my/my',
+      'pagePath': '/pages/myInfo/myInfo',
       'iconPath': '../../image/icaccount.png',
       'selectedIconPath': '../../image/icaccount2.png',
       'text': '我的'

@@ -1,5 +1,4 @@
-// pages/pull/pull.js
-const app = getApp();
+// pages/myInfo/myInfoErro.js
 Page({
 
   /**
@@ -13,9 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.defaultAvatar = app.globalData.defaultAvatar
 
-    console.info(options)
   },
 
   /**

@@ -36,12 +36,12 @@ Page({
     if (item.authorType == 1) {
       // 跳转教师信息
       wx.navigateTo({
-        url: '../userInfo/userInfo?teacherid=' + item.authorId,
+        url: '../teacher/teaInfo?teacherid=' + item.authorId,
       })
     } else {
       // 跳转家长信息
       wx.navigateTo({
-        url: '../member/parents?studentId=' + item.studentId,
+        url: '../student/parentInfo?studentId=' + item.studentId,
       })
     }
   },

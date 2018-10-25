@@ -121,7 +121,7 @@ Page({
         if (res === 0) {
           http.getTeacherInfo(function(res) {
             if (res === 0) {
-              http.getGrowthRecordsWithoutAppend(0, 0, function(res) {
+              http.getGrowthRecordsWithoutAppend(0, 0, 10, function(res) {
                 if (that.data.recordSize !== res.size) {
                   // 记录数不同 才重新设置
                   app.globalData.recordsList = res.records
@@ -144,7 +144,7 @@ Page({
         }
       })
     } else {
-      http.getGrowthRecordsWithoutAppend(0, 0, function(res) {
+      http.getGrowthRecordsWithoutAppend(0, 0, 10, function(res) {
         if (that.data.recordSize !== res.size) {
           // 记录数不同 才重新设置
           app.globalData.recordsList = res.records
@@ -177,7 +177,7 @@ Page({
 
   getGrowthRecordsWithoutAppend: function() {
     var that = this
-    http.getGrowthRecordsWithoutAppend(that.data.recordId, 0, function(res) {
+    http.getGrowthRecordsWithoutAppend(that.data.recordId, 0, 10, function(res) {
       if (that.data.recordId == 0) {
         that.setData({
           recordSize: res.size,
