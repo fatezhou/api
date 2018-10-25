@@ -9,7 +9,7 @@ Page({
    */
   data: {
     mainText: '',
-    imgUrl:'',
+    imgUrl: '',
     dateTime: '',
     studentId: '',
     recordId: '',
@@ -74,7 +74,7 @@ Page({
   onLoad: function(options) {
     this.data.defaultAvatar = app.globalData.defaultAvatar
     this.data.userId = app.globalData.userId
-    this.data.mainText = options.mainText
+    // this.data.mainText = options.mainText
     this.data.dateTime = options.dateTime
     this.data.recordId = parseInt(options.recordId)
     this.data.studentId = parseInt(options.studentId)
@@ -161,6 +161,7 @@ Page({
     })
 
     http.getoneGrowthRecordWithAppend(this.data.recordId, function(res) {
+
       var appendList = res.append
       // 教师信息
       var allTeacherInfo = app.globalData.teacherList
@@ -199,6 +200,7 @@ Page({
         }
       }
       that.setData({
+        mainText: res.text,
         appendList: appendList,
         listNumber: appendList.length,
         likenumber: res.like,

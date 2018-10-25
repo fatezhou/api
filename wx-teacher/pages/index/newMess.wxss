@@ -1,0 +1,4 @@
+/* pages/index/newMess.wxss */
+.words{width:120rpx;height:120rpx;font-size: 30rpx;color: #292E38;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;text-overflow: ellipsis;word-break: break-all;line-height: 1;}
+
+.word{font-size: 30rpx;color: #292E38;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;overflow: hidden;text-overflow: ellipsis;word-break: break-all;}

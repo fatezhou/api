@@ -133,6 +133,26 @@ function getoneGrowthRecordWithAppend(recordId, callback) {
 
 };
 
+// 获取新消息
+function getNewMessage(callback) {
+  wx.request({
+    url: app.globalData.minidopeApi.getNewMessage,
+    data: {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      authorId: app.globalData.userId, //自己的id
+      authorType: app.globalData.userType //自己的type
+    },
+    method: 'POST',
+    success: function(res) {
+      for (var i = 0; i < res.data.data.append.length; i++) {
+        res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
+      }
+      return callback(res)
+    }
+  })
+};
+
 // 点赞
 function putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, cancel, callback) {
   wx.request({
@@ -276,6 +296,7 @@ module.exports = {
 
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
   getoneGrowthRecordWithAppend: getoneGrowthRecordWithAppend,
+  getNewMessage: getNewMessage,
   putRecordLike: putRecordLike,
   putMemberFav: putMemberFav,
   getRecordSize: getRecordSize,

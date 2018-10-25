@@ -2,6 +2,7 @@
   "pages":[
     "pages/index/index",
     "pages/index/detail",
+    "pages/index/newMess",
     "pages/unBound/index",
     "pages/timeline/timeline",
     "pages/timeline/detail",

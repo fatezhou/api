@@ -61,6 +61,8 @@ App({
       getChildGrowthRecordCount: 'https://api.minidope.com/api/v1.0/get_child_growth_record_count',
       oneGrowthRecordWithAppendUrl: "https://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
 
+      getNewMessage: 'https://api.minidope.com/api/v2.0/get_new_message',
+
       putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
       putMemberFav: "https://api.minidope.com/api/v1.0/put_member_fav",
     },
