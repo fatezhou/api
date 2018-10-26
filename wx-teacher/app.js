@@ -50,6 +50,7 @@ App({
       loginUrl: "https://api.minidope.com/api/v1.0/login",
       defaultAvatarUrl: 'https://ouat-file.buzaishudian.com/images/wx-mini/teacher/ui/default-avatar.png',
       putFormId: 'https://api.minidope.com/api/v1/put_form_id',
+      getCdnToken: 'https://api.minidope.com/api/v1.0/get_cdn_token',
 
       getTeacherInfo: "https://api.minidope.com/api/v1.0/get_teacher_info",
       getStudents: "https://api.minidope.com/api/v1.0/get_contact",
@@ -63,6 +64,7 @@ App({
 
       getNewMessage: 'https://api.minidope.com/api/v2.0/get_new_message',
 
+      putNewRecord: 'https://api.minidope.com/api/v1.0/put_new_record',
       putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
       putMemberFav: "https://api.minidope.com/api/v1.0/put_member_fav",
     },

@@ -153,6 +153,36 @@ function getNewMessage(callback) {
   })
 };
 
+// 添加记录或评论
+// 评论不需要studentId
+function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, callback) {
+  return
+  wx.request({
+    url: app.globalData.minidopeApi.putNewRecord,
+    data: {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      authorType: app.globalData.userType, //1 teacher, 2 parent
+      authorId: app.globalData.userId,
+
+      recordType: recordType,
+
+      text: text,
+      studentId: studentId,
+      familyIds: familyIds, // 学生所有家长id
+      pictureUrls: pictureUrls,
+
+      parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
+      orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
+      orgAuthorType: orgAuthorType,
+    },
+    method: 'POST',
+    success: function(res) {
+      return callback(0)
+    },
+  })
+};
+
 // 点赞
 function putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, cancel, callback) {
   wx.request({
@@ -297,6 +327,8 @@ module.exports = {
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
   getoneGrowthRecordWithAppend: getoneGrowthRecordWithAppend,
   getNewMessage: getNewMessage,
+
+  putNewRecord: putNewRecord,
   putRecordLike: putRecordLike,
   putMemberFav: putMemberFav,
   getRecordSize: getRecordSize,

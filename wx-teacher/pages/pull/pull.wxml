@@ -23,10 +23,10 @@
 </view>
 <view class='choose' wx:if="{{!hidename}}">
   <block wx:if="{{choosestudent}}">
-    <navigator url="chooseStudent" hover-class="none">
+    <navigator url="stuList" hover-class="none">
       <text>学员</text>
       <view class='cRight'>
-        <image wx:if="{{studentAvatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+        <image wx:if="{{studentAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='widthFix'></image>
         <image wx:else src='{{studentAvatarUrl}}' mode='widthFix'></image>
         <text class='phName'>{{studentName}}</text>
         <image src='../../image/RightIcon.png' style='width:20rpx;position:relative;float:right;margin-top:16rpx' mode='widthFix'></image>
@@ -37,7 +37,7 @@
   <block wx:else>
     <text>学员</text>
     <view class='cRight'>
-      <image wx:if="{{studentAvatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+      <image wx:if="{{studentAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='widthFix'></image>
       <image wx:else src='{{studentAvatarUrl}}' mode='widthFix'></image>
       <text class='phName'>{{studentName}}</text>
     </view>
@@ -48,10 +48,10 @@
 
 <view class='choose' style="margin-bottom:18rpx" wx:if="{{!hidename}}">
 
-  <navigator url="chooseTeacher" hover-class="none">
+  <navigator url="teaList" hover-class="none">
     <text>班主任</text>
     <view class='cRight'>
-      <image wx:if="{{teacherAvatarUrl == ''}}" src='{{Imgpath}}' mode='widthFix'></image>
+      <image wx:if="{{teacherAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='widthFix'></image>
       <image wx:else src='{{teacherAvatarUrl}}' mode='widthFix'></image>
       <text class='phName'>{{teacherName}}</text>
       <image src='../../image/RightIcon.png' style='width:20rpx;position:relative;float:right;margin-top:16rpx' mode='widthFix'></image>

@@ -1,4 +1,6 @@
 // pages/pull/stuList.js
+const app = getApp();
+
 Page({
 
   /**

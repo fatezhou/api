@@ -1,1 +1,4 @@
 /* pages/pull/stuList.wxss */
+.memberListBG{
+	background: #fff;
+}

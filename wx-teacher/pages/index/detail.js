@@ -16,6 +16,8 @@ Page({
     avatarUrl: '',
     name: '',
     userId: '',
+    orgAuthorType: '',
+    orgAuthorId: '',
 
     defaultAvatar: '',
     recordSize: '',
@@ -65,13 +67,13 @@ Page({
     wx.navigateTo({
       url: '../timeline/timeline?studentId=' + this.data.studentId,
     })
-    // app.globalData.perTeacherRecords = false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.info(options)
     this.data.defaultAvatar = app.globalData.defaultAvatar
     this.data.userId = app.globalData.userId
     // this.data.mainText = options.mainText
@@ -80,6 +82,8 @@ Page({
     this.data.studentId = parseInt(options.studentId)
     this.data.avatarUrl = options.avatarUrl
     this.data.name = options.name
+    this.data.orgAuthorId = options.orgAuthorId
+    this.data.orgAuthorType = options.orgAuthorType
 
     for (var i = 0; i < app.globalData.recordsList.length; i++) {
       if (app.globalData.recordsList[i].recordId == this.data.recordId) {

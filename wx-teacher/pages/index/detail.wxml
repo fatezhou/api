@@ -20,7 +20,7 @@
 
       <view>
         <view class="{{drawer ? 'show' : 'hide'}}">
-          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}&hidename=true&familyId={{familyId}}" hover-class="none">
+          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}" hover-class="none">
             <view style="border-right:1rpx solid #fff;padding-right:10rpx">评论</view>
           </navigator>
           <view style="padding:10rpx;">分享</view>
@@ -121,7 +121,7 @@
 
           </block>
 
-          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{studentId}}&hidename=true&callName={{item.authorName}}&familyId=0" hover-class="none" style="margin-top:18rpx">
+          <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{studentId}}&callName={{item.authorName}}" hover-class="none" style="margin-top:18rpx">
             <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx;' mode='cover'></image>
           </navigator>
         </view>
