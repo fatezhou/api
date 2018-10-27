@@ -9,6 +9,10 @@
     </view>
 
 </view> -->
+<view wx:if="{{newAppendList.length == 0}}" style="display:flex;flex-direction:column;align-items:center;top:40%;position:fixed;width:750rpx;font-size:28rpx;opacity: .5">
+  <image src="./../../image/icbook.png" style="height:66rpx;width:66rpx;margin-bottom:20rpx"></image>
+  无记录
+</view>
 
 <view wx:for="{{newAppendList}}" wx:key="listIndex" wx:for-item="listItem">
   <view wx:if="{{listItem.authorType == 1}}" style='padding:30rpx;display:flex;justify-content: space-between;background:#fff;border-bottom:1rpx solid #e5e5ea;' bindtap='toDetail' data-item="{{listItem}}">

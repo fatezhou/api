@@ -344,6 +344,7 @@ Page({
           that.setData({
             newAppendList: newAppendList
           })
+          console.info(that.data.newAppendList)
           // } else if (res.data.data.like.length > 0) {
           //   var newAppendList = like
           //   newAppendList.reverse()
