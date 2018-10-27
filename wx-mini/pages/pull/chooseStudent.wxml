@@ -23,8 +23,8 @@
 
 
 <view style='height:27rpx;'></view>
-<view class='leadW'>星标</view>
-<view class='memberListBG'>
+<view class='leadW' wx:if="{{perStudent.length == 0}}">星标</view>
+<view class='memberListBG' wx:if="{{perStudent.length == 0}}">
   <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{stararr}}" wx:key='index' bindtap='memberstar' data-index='{{index}}'>
 
 
@@ -47,8 +47,8 @@
 
 
 <view style='height:27rpx;'></view>
-<view class='leadW'>通讯录</view>
-<view class='memberListBG'>
+<view class='leadW' wx:if="{{perStudent.length == 0}}">通讯录</view>
+<view class='memberListBG' wx:if="{{perStudent.length == 0}}">
   <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{memberList}}" wx:key='index' bindtap='member' data-index='{{index}}'>
 
 

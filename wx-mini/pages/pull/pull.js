@@ -19,14 +19,15 @@ Page({
     orgAuthorType: 1,
     recordId: 0,
     familyId: '',
-    name: "",
+    studentName: "",
+    teacherName:'',
 
     downloadUrl: '',
     pictureUrls: [],
 
     prepareToUpload: [],
 
-    hindname: false,
+    hidename: false,
 
     calltext: null,
     addtext: null,
@@ -35,9 +36,11 @@ Page({
 
 
     Imgpath: '',
-    avatarUrl: '',
+    studentAvatarUrl: '',
+    teacherAvatarUrl:'',
+    teacherId:'',
     // 学生所有家长的id
-    familyIds:[],
+    familyIds: [],
   },
   charChange: function(e) {
     if (this.data.calltext) {
@@ -68,7 +71,7 @@ Page({
       })
       return
     }
-    if (this.data.name == '请选择学员') {
+    if (this.data.studentName == '请选择学员') {
       wx.showToast({
         title: '请选择学员',
         icon: 'none',
@@ -78,6 +81,20 @@ Page({
         success: function(res) {},
         fail: function(res) {},
         complete: function(res) {},
+      })
+      return
+    }
+
+    if (this.data.studentName == '请选择班主任') {
+      wx.showToast({
+        title: '请选择班主任',
+        icon: 'none',
+        image: '',
+        duration: 1000,
+        mask: true,
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
       })
       return
     }
@@ -203,15 +220,16 @@ Page({
     this.setData({
       Imgpath: app.globalData.Imgpath,
     })
-    if (options.avatarUrl) {
+    if (options.studentAvatarUrl) {
       this.setData({
-        avatarUrl: options.avatarUrl
+        studentAvatarUrl: options.studentAvatarUrl
       })
     }
 
     if (options.choosestudent == 'true') {
       this.setData({
-        name: '请选择学员',
+        studentName: '请选择学员',
+        teacherName:'请选择班主任',
         choosestudent: true
       })
     }
@@ -235,24 +253,24 @@ Page({
     var contact = app.globalData.contact;
     for (var i in contact) {
       if (contact[i].studentId == this.data.studentId) {
-        this.data.name = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
-        this.data.name = contact[i].name;
+        this.data.studentName = (contact[i].nickname == "" ? contact[i].name : contact[i].nickname);
+        this.data.studentName = contact[i].name;
 
         this.setData(this.data);
         break;
       }
     }
 
-    if (options.name && options.studentId) {
+    if (options.studentName && options.studentId) {
       this.setData({
-        name: options.name
+        studentName: options.studentName
       })
     }
 
-    if (options.hindname) {
+    if (options.hidename) {
 
       this.setData({
-        hindname: true
+        hidename: true
       })
     }
 
@@ -269,61 +287,69 @@ Page({
   onShow: function() {
     if (app.globalData.chooseStudent) {
       this.setData({
-        name: app.globalData.chooseStudent.name,
+        studentName: app.globalData.chooseStudent.name,
         studentId: app.globalData.chooseStudent.studentId,
-        avatarUrl: app.globalData.chooseStudent.avatarUrl,
+        studentAvatarUrl: app.globalData.chooseStudent.avatarUrl,
         familyId: app.globalData.chooseStudent.familyId
       })
       this.getFamily(this.data.studentId)
     }
 
-  },
-
-  getTokenAndImgUrl(imgNum, callback) {
-    var imgNumber = imgNum
-    var that = this
-    that.getUploadImgFile(imgNumber, function(res) {
-      var fileName = res;
-      wx.request({
-        url: app.globalData.getCdnToken,
-        method: 'post',
-        data: {
-          appid: app.globalData.appId,
-          fileName: fileName,
-          action: 'z2'
-        },
-        success: function(res) {
-          return callback(res)
-        }
+    if (app.globalData.chooseTeacher) {
+      this.setData({
+        teacherName: app.globalData.chooseTeacher.name,
+        teacherId: app.globalData.chooseTeacher.teacherId,
+        teacherAvatarUrl: app.globalData.chooseTeacher.avatarUrl,
       })
-    })
-  },
-
-  getUploadImgFile(imgNumber, callback) {
-    var userId = app.globalData.userId
-
-    var date = new Date()
-    var year = date.getFullYear()
-    var month = date.getMonth() + 1
-    var day = date.getDate()
-    var hour = date.getHours()
-    var minute = date.getMinutes()
-    var second = date.getSeconds()
-
-    const formatNumber = n => {
-      n = n.toString()
-      return n[1] ? n : '0' + n
-    }
-    var timeArr = [year, month, day, hour, minute, second].map(formatNumber)
-    var time = '';
-
-    for (var t = 0; t < timeArr.length; t++) {
-      time += timeArr[t]
     }
 
-    var fileName = 't_' + userId + '_' + time + '_' + imgNumber + '.jpg '
-    return callback(fileName)
   },
+
+  // getTokenAndImgUrl(imgNum, callback) {
+  //   var imgNumber = imgNum
+  //   var that = this
+  //   that.getUploadImgFile(imgNumber, function(res) {
+  //     var fileName = res;
+  //     wx.request({
+  //       url: app.globalData.getCdnToken,
+  //       method: 'post',
+  //       data: {
+  //         appid: app.globalData.appId,
+  //         fileName: fileName,
+  //         action: 'z2'
+  //       },
+  //       success: function(res) {
+  //         return callback(res)
+  //       }
+  //     })
+  //   })
+  // },
+
+  // getUploadImgFile(imgNumber, callback) {
+  //   var userId = app.globalData.userId
+
+  //   var date = new Date()
+  //   var year = date.getFullYear()
+  //   var month = date.getMonth() + 1
+  //   var day = date.getDate()
+  //   var hour = date.getHours()
+  //   var minute = date.getMinutes()
+  //   var second = date.getSeconds()
+
+  //   const formatNumber = n => {
+  //     n = n.toString()
+  //     return n[1] ? n : '0' + n
+  //   }
+  //   var timeArr = [year, month, day, hour, minute, second].map(formatNumber)
+  //   var time = '';
+
+  //   for (var t = 0; t < timeArr.length; t++) {
+  //     time += timeArr[t]
+  //   }
+
+  //   var fileName = 't_' + userId + '_' + time + '_' + imgNumber + '.jpg '
+  //   return callback(fileName)
+  // },
 
   makePicName: function(index, tmpFilePath) {
     var userId = app.globalData.userId
@@ -359,12 +385,14 @@ Page({
   //删除上传图片
   reom(e) {
     let that = this
+    console.info(e)
     let index = e.currentTarget.dataset.index
     let imgs = that.data.imgs
     for (var i = 0; i < imgs.length; i++) {
       if (index == i) {
         imgs.splice(i, 1);
         i--;
+        break
       }
     }
     that.setData({

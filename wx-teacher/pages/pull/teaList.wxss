@@ -1,0 +1,4 @@
+/* pages/pull/teaList.wxss */
+.memberListBG{
+	background: #fff;
+}

@@ -32,7 +32,17 @@ Page({
     avatarUrl: '',
 
     norecord: '',
-    noTextPrompt:'无更多记录',
+    noTextPrompt: '无更多记录',
+  },
+
+  showBigImg: function (e) {
+    console.info(e.currentTarget.dataset)
+    var urls = []
+    urls[0] = e.currentTarget.dataset.showimg
+    wx.previewImage({
+      current: e.currentTarget.dataset.showimg,
+      urls: urls
+    })
   },
 
   showmore: function(e) {
@@ -181,7 +191,7 @@ Page({
                   }
                 }
               }
-          //排序  修复 点赞图标可能出现两个的问题   <---  结束
+              //排序  修复 点赞图标可能出现两个的问题   <---  结束
             }
             self.data.recordWithAppend = e.data.data.record
           }
@@ -231,6 +241,9 @@ Page({
         },
 
       })
+      // setTimeout(function(){
+      //   console.info(self.data.recordWithAppends)
+      // },5000)
     }
 
   },
@@ -310,10 +323,16 @@ Page({
 
     var gData = app.globalData
     var that = this
-
+    console.info(e.currentTarget.dataset)
     var recordId = e.currentTarget.dataset.recordid
-    var authorId = e.currentTarget.dataset.authorid
-    var orgAuthorType = e.currentTarget.dataset.orgauthortype
+    var orgAuthorId = 0
+    var orgAuthorType = 0
+    if (e.currentTarget.dataset.orgauthorid){
+      orgAuthorId = e.currentTarget.dataset.orgauthorid
+      orgAuthorType = e.currentTarget.dataset.orgauthortype
+    }
+ 
+
     var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
     var familyId = parseInt(e.currentTarget.dataset.familyid)
 
@@ -419,7 +438,11 @@ Page({
         }
       }
     }
- 
+    // console.info(gData.userId)
+    // console.info(gData.userType)
+    // console.info(orgAuthorId)
+    // console.info(orgAuthorType)
+
     wx.request({
       url: gData.putRecordLike,
       method: 'post',
@@ -431,7 +454,7 @@ Page({
         "recordId": recordId, //评论的id
         "familyId": familyId,
         "parentRecordId": parentRecordId, //记录的id
-        "orgAuthorId": authorId, //评论者id
+        "orgAuthorId": orgAuthorId, //评论者id
         "orgAuthorType": orgAuthorType //评论者类型
       },
       success: function(res) {
@@ -448,7 +471,7 @@ Page({
               "recordId": recordId,
               "parentRecordId": parentRecordId,
               'cancel': true,
-              "orgAuthorId": authorId,
+              "orgAuthorId": orgAuthorId,
               "orgAuthorType": orgAuthorType
             },
             success: function(res) {

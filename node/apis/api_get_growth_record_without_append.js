@@ -33,7 +33,10 @@ function ApiGetGrowthRecordWithoutAppend(){
 			logger.debug(data);
             var sqlFmt = "select text, author_id as authorId, \
             id as recordId, student_id as studentId, \
-            picture_urls as pictures, author_type as authorType, create_time as dateTime from \
+            picture_urls as pictures, author_type as authorType, create_time as dateTime, \
+            family_ids as familyIds, assist_id as assistId, main_teacher_id as mainTeacherId , \
+            publish_state as publishState \
+            from \
             growth_record where record_type = 1 ";
 
             var sqlCountFmt = "select count(*) as size from growth_record where record_type = 1 ";
@@ -60,7 +63,7 @@ function ApiGetGrowthRecordWithoutAppend(){
             }
 
             
-            if(data.authorId && data.authorType){
+            if(data.authorId && data.authorType && (data.isAssist == false)){
                 sqlFmt += "and author_id = ? and author_type = ? ";
                 sql.push(data.authorId);
                 sql.push(data.authorType);
@@ -68,7 +71,17 @@ function ApiGetGrowthRecordWithoutAppend(){
                 sqlCountFmt += " and author_id = ? and author_type = ? ";
                 sqlCount.push(data.authorId);
                 sqlCount.push(data.authorType);
-            }            
+            }    
+            
+            if(data.authorId && data.authorType && data.isAssist){
+                sqlFmt += "and assist_id = ? and author_type = ? ";
+                sql.push(data.authorId);
+                sql.push(data.authorType);
+
+                sqlCountFmt += " and assist_id = ? and author_type = ? ";
+                sqlCount.push(data.authorId);
+                sqlCount.push(data.authorType);
+            }
             
             sqlFmt += "order by create_time desc limit " + data.pageSize;            
 

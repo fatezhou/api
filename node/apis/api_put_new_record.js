@@ -27,44 +27,80 @@ function ApiPutNewRecord(){
             logger.debug(sqlData);
             var result = {code:0, data:{}};
             if(data.recordType == 1){//日志
-                db.Query(
-                    "insert into growth_record (\
-                        text, author_id, picture_urls, \
-                        author_type, student_id, record_type, \
-                        parent_record_id, org_author_id, org_author_type, family_id\
-                    )VALUES(?,?,?,?,?,?,?,?,?,?)",
-                    [sqlData.text, sqlData.author_id, sqlData.picture_urls, sqlData.author_type, sqlData.student_id,
-                    1, 0, sqlData.author_id, sqlData.author_type, data.familyId ? data.familyId : 0], function(res){
-                        logger.debug("ApiPutNewRecord.finish");
-                        if(res.error){
-                            callback(response.BadSQL());
-                        }else{
-                            if(data.familyIds){
-                                var dbFamilyIdsInsert = tools.GetDataBase();
-                                var insertNewMsgSql = "insert into new_message(\
-                                    record_id, author_id, author_type,\
-                                    msg_type, parent_record_id, org_author_id, \
-                                    org_author_type, state)values";
-                                for(var i in data.familyIds){
-                                    insertNewMsgSql += "(" + res.insertId + "," +
-                                        data.authorId + "," + data.authorType + "," +
-                                        3 + "," + 0 + "," + data.familyIds[i] + "," +
-                                        2 + "," + 0 + "),";
-                                }
-                                if(insertNewMsgSql.length > 0){
-                                    if(insertNewMsgSql.charAt(insertNewMsgSql.length - 1) == ','){
-                                        insertNewMsgSql = insertNewMsgSql.substr(0, insertNewMsgSql.length - 1);
+                if(true){
+                    var familyIds = "[]";
+                    if(data.familyIds){
+                        familyIds = JSON.stringify(data.familyIds);
+                    }
+                    db.Query(
+                        "insert into growth_record (\
+                            text, author_id, picture_urls, \
+                            author_type, student_id, record_type, \
+                            parent_record_id, org_author_id, org_author_type, \
+                            family_id, publish_state, main_teacher_id,\
+                            asisst_id, family_ids\
+                        )VALUES(\
+                            ?,?,?,\
+                            ?,?,?,\
+                            ?,?,?,\
+                            ?,?,?,\
+                            ?,?)",
+                        [
+                            sqlData.text, 
+                            data.isAssist ? data.mainTeacherId : data.authorId,
+                            sqlData.picture_urls, 
+                            sqlData.author_type, sqlData.student_id, 1, 
+                            0, data.isAssist ? data.mainTeacherId : data.authorId, sqlData.author_type, 
+                            data.familyId ? data.familyId : 0, 
+                            data.publishNow ? 1 : 0, 
+                            data.isAssist ? data.mainTeacherId : data.authorId,
+                            data.isAssist ? data.authorId : 0, familyIds
+                        ], function(res){
+                            logger.debug("ApiPutNewRecord.finish");
+                            if(res.error){
+                                callback(response.BadSQL());
+                            }else{
+                                if(data.familyIds && data.publishNow){
+                                    var dbFamilyIdsInsert = tools.GetDataBase();
+                                    var insertNewMsgSql = "insert into new_message(\
+                                        record_id, author_id, author_type,\
+                                        msg_type, parent_record_id, org_author_id, \
+                                        org_author_type, state)values";
+                                    for(var i in data.familyIds){
+                                        insertNewMsgSql += "(" + res.insertId + "," +
+                                            data.authorId + "," + data.authorType + "," +
+                                            3 + "," + 0 + "," + data.familyIds[i] + "," +
+                                            2 + "," + 0 + "),";
                                     }
+                                    if(insertNewMsgSql.length > 0){
+                                        if(insertNewMsgSql.charAt(insertNewMsgSql.length - 1) == ','){
+                                            insertNewMsgSql = insertNewMsgSql.substr(0, insertNewMsgSql.length - 1);
+                                        }
+                                    }
+                                    dbFamilyIdsInsert.Query(insertNewMsgSql, [], function(e){
+                                        console.info("insert to new_message");
+                                    });
                                 }
-                                dbFamilyIdsInsert.Query(insertNewMsgSql, [], function(e){
-                                    console.info("insert to new_message");
-                                });
-                            }
-                            callback(response.Succ({recordId:res.insertId}));                        
-                        }                        
-                    });
-                
-                
+                                if(data.isAssist){
+                                    var dbNotifyMainTeacher = tools.GetDataBase();
+                                    var insertSql = "insert into new_message(\
+                                        record_id, author_id, author_type,\
+                                        msg_type, parent_record_id, org_author_id,\
+                                        org_author_type, state)values(\
+                                            ?, ?, ?,\
+                                            ?, ?, ?,\
+                                            ?, ?)";
+                                        dbNotifyMainTeacher.Query(insertSql, 
+                                            [
+                                                res.insertId, data.authorId, data.authorType,
+                                                3, 0, data.mainTeacherId, 
+                                                1, 0 
+                                            ], function(err){});
+                                }
+                                callback(response.Succ({recordId:res.insertId}));                        
+                            }                        
+                        });
+                }
             }else if(data.recordType == 2){//评论
                 db.Query(
                     "insert into growth_record(\

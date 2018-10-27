@@ -20,8 +20,10 @@
       <swiper previous-margin="280rpx" next-margin="280rpx" style="width:750rpx;" bindchange='swiper'>
         <swiper-item wx:for="{{showswiper}}" wx:for-item='item' wx:key='index'>
           <view wx:if="{{index == current}}">
-            <image wx:if="{{item.avatarUrl == ''}}" src="{{Imgpath}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx;border-radius:50%" />
-            <image wx:else src="{{item.avatarUrl}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx；border-radius:50%" />
+            <!-- 代码修改   开始   添加 data-showbigimg="{{Imgpath}}" data-showpicurls="{{Imgpath}}" bindtap='showBigImg'-->
+            <image wx:if="{{item.avatarUrl == ''}}" src="{{Imgpath}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx;border-radius:50%" data-showbigimg="{{Imgpath}}" data-showpicurls="{{Imgpath}}" bindtap='showBigImg' />
+            <image wx:else src="{{item.avatarUrl}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx；border-radius:50%" data-showbigimg="{{item.avatarUrl}}" data-showpicurls="{{item.avatarUrl}}" bindtap='showBigImg' />
+            <!-- 代码修改 结束 -->
             <view style="display:flex;flex-direction:column;align-items:center;color:#fff;">
               <text>{{item.name}}</text>
               <image src="{{item.sex == 2 ? '../../image/icwoman.png' : '../../image/icman.png' }}" style="position:absolute;width:30rpx;margin-left:80rpx;" mode="widthFix" />
@@ -53,6 +55,9 @@
         <button formType="submit" hover-class="none">
           <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
           <image wx:else src='{{item.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+
+          <!-- 教师标志  版本2.0.0 -->
+          <image src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;top:8rpx;left:48rpx'></image>
         </button>
         <!-- 获取formid -->
       </navigator>
@@ -177,6 +182,8 @@
             <button formType="submit" hover-class="none">
               <image wx:if="{{itemWithAppend.avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
               <image wx:else src='{{itemWithAppend.avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+              <!-- 教师标志  版本2.0.0 -->
+              <image src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;top:8rpx;left:46rpx'></image>
             </button>
             <!-- 获取formid用    -->
           </navigator>

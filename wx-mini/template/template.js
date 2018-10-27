@@ -14,7 +14,7 @@ function tabbarInit(){
       'pagePath': '/pages/member/member',
       'iconPath': '../../image/iccontact.png',
       'selectedIconPath': '../../image/iccontact2.png',
-      'msg':'2',
+      // 'msg':'2',
       'text': '学员'
     },
     {

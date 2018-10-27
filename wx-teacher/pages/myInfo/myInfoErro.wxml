@@ -1,0 +1,2 @@
+<!--pages/myInfo/myInfoErro.wxml-->
+<view style='text-align:center;margin-top:50rpx;color:#ccc;'>信息有误请联系工作人员哦</view>

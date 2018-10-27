@@ -104,7 +104,7 @@ Page({
   // 跳转新建记录页面
   toAddRecard: function() {
     wx.navigateTo({
-      url: '../pull/pull?name=' + this.data.name + '&studentId=' + this.data.studentId + '&avatarUrl=' + this.data.avatarUrl + '&familyId=' + this.data.familyId,
+      url: '../pull/pull?studentName=' + this.data.name + '&studentId=' + this.data.studentId + '&studentAvatarUrl=' + this.data.avatarUrl + '&familyId=' + this.data.familyId,
     })
   },
 

@@ -38,6 +38,32 @@ Page({
     familyId: '',
     Imgpath: '',
     avatarUrl: '',
+
+    // 抽屉
+    drawer: false,
+  },
+
+  //头像跳转个人信息
+  toUserInfo: function(e) {
+    console.info(e)
+    let item = e.currentTarget.dataset.item
+    if (item.authorType == 1) {
+      wx.navigateTo({
+        url: '../userInfo/userInfo?teacherid=' + item.authorId,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../member/parents?studentId=' + item.studentId,
+      })
+    }
+  },
+
+  // 抽屉
+
+  drawerClick: function() {
+    this.setData({
+      drawer: !this.data.drawer
+    })
   },
 
   /**
@@ -102,6 +128,7 @@ Page({
     var recordId = e.currentTarget.dataset.recordid
     var authorId = e.currentTarget.dataset.authorid
     var familyId = e.currentTarget.dataset.familyid
+    var authorType = e.currentTarget.dataset.authortype
 
     for (var j = 0; j < this.data.appendList.length; j++) {
       if (this.data.appendList[j].recordId == recordId) {
@@ -153,7 +180,7 @@ Page({
 
 
 
-
+    // console.info(authorType)
     wx.request({
       url: gData.putRecordLike,
       method: 'post',
@@ -161,11 +188,11 @@ Page({
         "unionid": gData.unionId,
         "openid": gData.openid,
         "authorId": gData.userId, //自己的id
-        "authorType": 1, //1: teacher, 2: parent",
+        "authorType": gData.userType, //1: teacher, 2: parent",
         "recordId": recordId,
         "parentRecordId": parseInt(that.data.recordId),
         "orgAuthorId": authorId,
-        "orgAuthorType": 1,
+        "orgAuthorType": authorType,
         "familyId": familyId
       },
       success: function(res) {
@@ -178,13 +205,13 @@ Page({
               // "unionid": gData.unionId,
               // "openid": gData.openid,
               "authorId": gData.userId, //自己的id
-              "authorType": 1, //1: teacher, 2: parent",
+              "authorType": gData.userType, //1: teacher, 2: parent",
               "recordId": recordId,
               "parentRecordId": parseInt(that.data.recordId),
               "familyId": familyId,
-              'cancel': true
-              // "orgAuthorId": authorId,
-              // "orgAuthorType": 1
+              'cancel': true,
+              "orgAuthorId": authorId,
+              "orgAuthorType": authorType
             },
             success: function(res) {
 
@@ -323,7 +350,7 @@ Page({
 
 
           // 排序  修复 点赞图标可能出现两个的问题  开始 --->
-          console.info(self.data.appendList)
+          // console.info(self.data.appendList)
           if (self.data.appendList[i].like) {
             if (self.data.appendList[i].like.teacher.length > 0) {
               for (var j = 0; j < self.data.appendList[i].like.teacher.length; j++) {
@@ -346,7 +373,7 @@ Page({
           listNumber: self.data.appendList.length,
           likenumber: self.data.likenumber
         })
-        // console.info(self.data.appendList)
+        console.info(self.data.appendList)
 
       },
       fail: function(e) {

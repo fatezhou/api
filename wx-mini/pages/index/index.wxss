@@ -21,7 +21,7 @@ page{background: #F2F4F7;}
 .th3 image{width: 162rpx;height:162rpx}
 .th2 image{width: 220rpx;height:220rpx}
 .th1 image{width: 320rpx;height: 320rpx}
-.fixed{position: fixed;right: 30rpx;bottom: 124rpx;}
+.fixed{position: fixed;right: 30rpx;bottom: 164rpx;}
 .fixed navigator{display: inline-block}
 .fixed navigator image{width: 96rpx;}
 button{position:relative;display:inline;margin-left:10rpx;margin-right:auto;padding-left:0;padding-right:0;box-sizing:inherit;font-size:32rpx;text-align:center;text-decoration:none;line-height:0;border-radius:0;-webkit-tap-highlight-color:transparent;overflow:hidden;color:#000000;background-color:#fff;}

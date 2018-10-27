@@ -41,6 +41,21 @@ Page({
     recordList: '',
   },
 
+  //头像跳转个人信息
+  toUserInfo: function(e) {
+    console.info(e)
+    let item = e.currentTarget.dataset.item
+    if (item.authorType == 1) {
+      wx.navigateTo({
+        url: '../userInfo/userInfo?teacherid=' + item.authorId,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../member/parents?studentId=' + item.studentId,
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -132,10 +147,16 @@ Page({
   like: function(e) {
     var gData = app.globalData
     var that = this
-
     var recordId = e.currentTarget.dataset.recordid
-    var authorId = e.currentTarget.dataset.authorid
     var familyId = parseInt(e.currentTarget.dataset.familyid)
+
+    var orgAuthorId = 0
+    var orgAuthorType = 0
+    if (e.currentTarget.dataset.orgauthorid) {
+      orgAuthorId = e.currentTarget.dataset.orgauthorid
+      orgAuthorType = e.currentTarget.dataset.orgauthortype
+    }
+
 
     if (e.currentTarget.dataset.parentrecordid) {
       var parentRecordId = parseInt(e.currentTarget.dataset.parentrecordid)
@@ -233,8 +254,10 @@ Page({
         })
       }
     }
-    // console.info(this.data.recordList)
-    // console.info(familyId)
+    console.info(gData.userId)
+    console.info(gData.userType)
+    console.info(orgAuthorId)
+    console.info(orgAuthorType)
     wx.request({
       url: gData.putRecordLike,
       method: 'post',
@@ -242,12 +265,12 @@ Page({
         "unionid": gData.unionId,
         "openid": gData.openid,
         "authorId": gData.userId, //自己的id
-        "authorType": 1, //1: teacher, 2: parent",
+        "authorType": gData.userType, //1: teacher, 2: parent",
         "familyId": familyId,
         "recordId": recordId,
         "parentRecordId": parentRecordId,
-        "orgAuthorId": authorId,
-        "orgAuthorType": 1
+        "orgAuthorId": orgAuthorId,
+        "orgAuthorType": orgAuthorType
       },
       success: function(res) {
 
@@ -259,13 +282,13 @@ Page({
               // "unionid": gData.unionId,
               // "openid": gData.openid,
               "authorId": gData.userId, //自己的id
-              "authorType": 1, //1: teacher, 2: parent",
+              "authorType": gData.userType, //1: teacher, 2: parent",
               "recordId": recordId,
               "familyId": familyId,
               "parentRecordId": parseInt(that.data.recordId),
-              'cancel': true
-              // "orgAuthorId": authorId,
-              // "orgAuthorType": 1
+              'cancel': true,
+              "orgAuthorId": orgAuthorId,
+              "orgAuthorType": orgAuthorType
             },
             success: function(res) {
               // console.info(res)
@@ -371,7 +394,7 @@ Page({
                 }
               }
             }
-          //排序  修复 点赞图标可能出现两个的问题   <---  结束
+            //排序  修复 点赞图标可能出现两个的问题   <---  结束
           }
           self.data.appendList = e.data.data.record.append;
           if (e.data.data.record.likes) {
@@ -422,11 +445,11 @@ Page({
           }
 
           for (var j = 0; j < allStudentInfo.length; j++) {
-            if (self.data.appendList[i].studentId == allStudentInfo[j].studentId){
+            if (self.data.appendList[i].studentId == allStudentInfo[j].studentId) {
               self.data.appendList[i].familyId = allStudentInfo[j].familyId
             }
           }
-  
+
 
         }
         self.setData({

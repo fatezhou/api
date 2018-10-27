@@ -64,6 +64,12 @@ Page({
   },
 
   showBigImg: function(e) {
+    // 代码添加 开始
+    if (e.currentTarget.dataset.showbigimg == e.currentTarget.dataset.showpicurls) {
+      e.currentTarget.dataset.showpicurls = []
+      e.currentTarget.dataset.showpicurls[0] = e.currentTarget.dataset.showbigimg
+    }
+    // 代码添加 结束
     wx.previewImage({
       current: e.currentTarget.dataset.showbigimg,
       urls: e.currentTarget.dataset.showpicurls
@@ -277,6 +283,17 @@ Page({
         }
       }
     }
+    console.info('like')
+
+    console.info(gData.unionid),
+      console.info(gData.openid),
+      console.info(gData.userId), //自己的id
+      console.info(gData.userType), //1: teacher, 2: parent",
+      console.info(recordId), //评论的id
+      console.info(parentRecordId), //记录的id
+      console.info(authorId), //评论者id
+      console.info(orgAuthorType) //评论者类型
+    console.info('like')
 
     wx.request({
       url: gData.minodopeApi.putRecordLike,

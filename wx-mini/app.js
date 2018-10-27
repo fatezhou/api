@@ -3,12 +3,12 @@ App({
   onLaunch: function() {
     var that = this
     wx.getSystemInfo({
-      success: function (res) {
-        if(res.model == "iPhone X"){
+      success: function(res) {
+        that.globalData.model = res.model
+        let model = res.model.substring(0, res.model.indexOf('X')) + 'X'
+        if (model == "iPhone X") {
           that.globalData.isIpx = true
-        }else{
-          that.globalData.isIpx = false
-        }     
+        }
       }
     })
     // 获取用户信息
@@ -84,7 +84,7 @@ App({
     getNewMessage: 'https://api.minidope.com/api/v2.0/get_new_message',
     // 获得全部家长信息  --> 新增代码
     getParentsInfo: "https://api.minidope.com/api/v1.0/get_parents_info",
-      //  <-- 新增代码
+    //  <-- 新增代码
     headImg: 'https://ouat-file.buzaishudian.com/images/wx-mini/teacher/ui/default-avatar.png',
     // 心跳
     heartBeat: 'https://api.minidope.com/api/v1.0/heart_beat',
@@ -104,6 +104,7 @@ App({
     recordsList: '', //首页学员记录（特定老师）
     indexSize: '',
     chooseStudent: '',
+    chooseTeacher:'',
 
     recordId: null,
     memberListLength: null,
@@ -112,7 +113,10 @@ App({
     likes: [],
 
     norecord: '',
-    isIpx:false,
-    recordWithAppends:'',
+    isIpx: false,
+    recordWithAppends: '',
+
+    // 手机型号
+    model: '',
   }
 })

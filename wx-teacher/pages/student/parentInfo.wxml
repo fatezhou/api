@@ -1,0 +1,23 @@
+<!--pages/student/parentInfo.wxml-->
+<block wx:for="{{parentList}}" wx:for-item="item" wx:key="index">
+  <view style='background:#fff;font-size:32rpx;padding-left:30rpx;margin-top:30rpx;'>
+    <view class='MyInformationg'>
+      <view>家长姓名</view>
+      <view class='nameColor'>{{item.name}}</view>
+    </view>
+    <view class='MyInformationg'>
+      <view>关系</view>
+      <view class='nameColor' wx:if="{{item.memberType == 1}}">父亲</view>
+      <view class='nameColor' wx:elif="{{item.memberType == 2}}">母亲</view>
+      <view class='nameColor' wx:elif="{{item.memberType == 3}}">监护人</view>
+    </view>
+    <view class='MyInformationg'>
+      <view>电话</view>
+      <view class='nameColor'>{{item.phone}}</view>
+    </view>
+    <view class='MyInformationg' style='border:none;'>
+      <view>微信号</view>
+      <view class='nameColor'>{{item.wechat}}</view>
+    </view>
+  </view>
+</block>

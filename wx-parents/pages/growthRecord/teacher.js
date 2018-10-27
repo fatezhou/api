@@ -14,6 +14,17 @@ Page({
     sex: '',
   },
 
+  // 头像放大  版本2.0.0
+  showBigImg: function (e) {
+    console.info(e.currentTarget.dataset)
+    var urls = []
+    urls[0] = e.currentTarget.dataset.showimg
+    wx.previewImage({
+      current: e.currentTarget.dataset.showimg,
+      urls: urls
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

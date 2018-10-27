@@ -23,6 +23,14 @@ Page({
     noTextPrompt: '',
   },
 
+  toeditRecord: function(e) {
+    console.info(e)
+    var item = e.currentTarget.dataset.item
+    wx.navigateTo({
+      url: '../pull/editRecord?authorId=' + item.authorId + '&studentAvatarUrl=' + item.avatarUrl + '&name=' + item.name + '&pictureUrls=' + item.pictureUrls + '&recordId=' + item.recordId + '&studentId=' + item.studentId + '&text=' + item.text,
+    })
+  },
+
   todetail: function(e) {
     var item = e.currentTarget.dataset.item
     wx.navigateTo({
@@ -263,6 +271,7 @@ Page({
             }
           }
           getrecordsList = res.data.data.records
+          app.globalData.contact = app.globalData.contact.concat(getrecordsList)
           for (var i in getrecordsList) {
             getrecordsList[i].name = "";
             getrecordsList[i].avatarUrl = '';

@@ -1,0 +1,70 @@
+<!--pages/pull/stuList.wxml-->
+<view style='height:27rpx;'></view>
+
+<view class='memberListBG'>
+    <input bindinput='searchName' style="padding: 20rpx 30rpx;" placeholder="搜索" placeholder-style="font-size:32rpx"></input>
+
+  <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{perStudent}}" wx:key='index' bindtap='searchList' data-index='{{index}}'>
+    <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    <view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>
+      <view>
+        <view style='font-size:32rpx'>{{item.name}}</view>
+        <view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
+      </view>
+      <view>
+
+        <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+
+<view style='height:27rpx;'></view>
+<view class='leadW' wx:if="{{perStudent.length == 0}}">星标</view>
+<view class='memberListBG' wx:if="{{perStudent.length == 0}}">
+  <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{stararr}}" wx:key='index' bindtap='memberstar' data-index='{{index}}'>
+
+
+    <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+
+    <view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>
+      <view>
+        <view style='font-size:32rpx'>{{item.name}}</view>
+        <view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
+      </view>
+      <view>
+  
+        <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+
+<view style='height:27rpx;'></view>
+<view class='leadW' wx:if="{{perStudent.length == 0}}">通讯录</view>
+<view class='memberListBG' wx:if="{{perStudent.length == 0}}">
+  <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{memberList}}" wx:key='index' bindtap='member' data-index='{{index}}'>
+
+
+    <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+    
+    <view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>
+      <view>
+        <view style='font-size:32rpx'>{{item.name}}</view>
+        <view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
+      </view>
+      <view>
+        <image wx:if="{{item.star}}" src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:20rpx;'></image>
+        <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
+      </view>
+
+    </view>
+  </view>
+</view>
