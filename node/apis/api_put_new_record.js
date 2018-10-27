@@ -53,7 +53,7 @@ function ApiPutNewRecord(){
                             0, data.isAssist ? data.mainTeacherId : data.authorId, sqlData.author_type, 
                             data.familyId ? data.familyId : 0, 
                             data.publishNow ? 1 : 0, 
-                            data.mainTeacherId ? data.mainTeacherId : 0,
+                            data.isAssist ? data.mainTeacherId : data.authorId,
                             data.isAssist ? data.authorId : 0, familyIds
                         ], function(res){
                             logger.debug("ApiPutNewRecord.finish");

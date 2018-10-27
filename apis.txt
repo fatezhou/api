@@ -142,7 +142,8 @@ param:
     "openid":"xxxxxxx",
 	"studentId":12345,
 	"authorId":1,//可选, 只要特定老师发的
-	"authorType":1//保留参数, 用来标记是老师还是家长
+	"authorType":1,//保留参数, 用来标记是老师还是家长,
+	"isAssist":false,//用来标记是否为助教, 
 }
 response:
 {
@@ -155,7 +156,11 @@ response:
                 "text": "这是一段文字",
                 "authorId": 1,
                 "authorType": 1,
-                "dateTime": "2018-11-22 15:33"
+                "dateTime": "2018-11-22 15:33",
+                "familyIds": [1, 2, 3 ],//其他家庭成员的id
+                "assistId": 1, //助教的id
+                "mainTeacherId": 2, //班主任的id
+                "publishState": 1/0, //1发布, 2没发布 
             },
             {
                 "recordId": "10005",
@@ -164,7 +169,11 @@ response:
                 "authorId": "05920001(这个对应会员或老师id)",
                 "icon": "https://xxxxx.jpg",
                 "type": "teacher/parent",
-                "dateTime": "2018-11-19 13:13"
+                "dateTime": "2018-11-19 13:13",                
+                "familyIds": [1, 2, 3 ],//其他家庭成员的id
+                "assistId": 1, //助教的id
+                "mainTeacherId": 2, //班主任的id
+                "publishState": 1/0, //1发布, 2没发布 
             }
         ]
     }
@@ -305,6 +314,7 @@ param:
 		"orgAuthorType":1,//原作者的type
 		"publishNow":true,//立即发布
 		"isAssist" : false, //是否是助教
+		"familyIds": [1, 2, 3, 5],//家长们的id, 主要用来做提醒的				
 }
 //这个是助教的参数
 {
@@ -739,7 +749,18 @@ response:
 	"error":"成功"
 }
 
-
+------------------------------------------------
+#班主任审核
+url: https://api.minidope.com/api/v1.0/review
+method: post
+param:
+{
+"openid":"xxxxx",
+"unionid":"xxxx",
+"recordId":1,//纪录的id
+"familiIds":[ 1, 2, 3],//其他家庭成员的id
+"assistId":12, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
+}
 
 
 

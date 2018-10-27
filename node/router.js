@@ -116,6 +116,10 @@ function CuteRouter(){
                 var ApiHeartBeat = require("./apis/api_heart_beat.js");
                 baseApi = new ApiHeartBeat;
                 break;
+            case "review":
+                var ApiReview = require("./apis/api_review.js");
+                baseApi = new ApiReview;
+                break;            
             default:
                 callback({code:4, data:{}, error:"api错误"});
                 return;
