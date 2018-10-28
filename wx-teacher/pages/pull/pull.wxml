@@ -7,12 +7,12 @@
   <view class='uploadimgBox'>
     <view class='addImg' wx:if="{{canChoose}}" bindtap='chooseImageTap'>
       <view class='add'>
-        <image src='./../../image/add.png' mode='widthFix'></image>
+        <image src='./../../image/add.png' mode='cover'></image>
       </view>
     </view>
     <view class='addImg' wx:else bindtap='noChoose'>
       <view class='add'>
-        <image src='./../../image/add.png' mode='widthFix'></image>
+        <image src='./../../image/add.png' mode='cover'></image>
       </view>
     </view>
     <block wx:for="{{imgs}}" wx:key='asd' wx:if="{{9>=imgs.length>0}}">
@@ -26,8 +26,8 @@
     <navigator url="stuList" hover-class="none">
       <text>学员</text>
       <view class='cRight'>
-        <image wx:if="{{studentAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='widthFix'></image>
-        <image wx:else src='{{studentAvatarUrl}}' mode='widthFix'></image>
+        <image wx:if="{{studentAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='cover'></image>
+        <image wx:else src='{{studentAvatarUrl}}' mode='cover'></image>
         <text class='phName'>{{studentName}}</text>
         <image src='../../image/RightIcon.png' style='width:20rpx;position:relative;float:right;margin-top:16rpx' mode='widthFix'></image>
 
@@ -37,8 +37,8 @@
   <block wx:else>
     <text>学员</text>
     <view class='cRight'>
-      <image wx:if="{{studentAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='widthFix'></image>
-      <image wx:else src='{{studentAvatarUrl}}' mode='widthFix'></image>
+      <image wx:if="{{studentAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='cover'></image>
+      <image wx:else src='{{studentAvatarUrl}}' mode='cover'></image>
       <text class='phName'>{{studentName}}</text>
     </view>
   </block>
@@ -46,17 +46,27 @@
 </view>
 
 
-<view class='choose' style="margin-bottom:18rpx" wx:if="{{recordType == 1}}">
+<view class='choose' style="margin-bottom:18rpx" wx:if="{{recordType == 1 && role == 0}}">
 
   <navigator url="teaList" hover-class="none">
     <text>班主任</text>
     <view class='cRight'>
-      <image wx:if="{{teacherAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='widthFix'></image>
-      <image wx:else src='{{teacherAvatarUrl}}' mode='widthFix'></image>
+      <image wx:if="{{teacherAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='cover'></image>
+      <image wx:else src='{{teacherAvatarUrl}}' mode='cover'></image>
       <text class='phName'>{{teacherName}}</text>
       <image src='../../image/RightIcon.png' style='width:20rpx;position:relative;float:right;margin-top:16rpx' mode='widthFix'></image>
     </view>
   </navigator>
+</view>
+
+<view class='choose' style="margin-bottom:18rpx" wx:if="{{recordType == 1 && role == 1}}">
+  <view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
+  <!-- <view style="border-top:1rpx solid #ddd"> -->
+  <text>发布到家长端</text>
+  <view class='cRightswitch'>
+    <switch checked='{{publishRecord}}' bindchange='publishNow'></switch>
+  </view>
+  <!-- </view> -->
 </view>
 
 

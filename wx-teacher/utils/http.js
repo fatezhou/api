@@ -174,7 +174,82 @@ function getNewMessage(callback) {
 
 // 添加记录或评论
 // 评论不需要studentId
-function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, callback) {
+// mainTeacherId 班主任id 如果值为-1/0 则为班主任自己 -1:publishNow=false ,0:publishNow=true 
+function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, callback) {
+  var data = {}
+  if (recordType == 2) {
+    data = {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      authorType: app.globalData.userType, //1 teacher, 2 parent
+      authorId: app.globalData.userId,
+
+      recordType: recordType,
+
+      text: text,
+      studentId: studentId,
+      familyIds: familyIds, // 学生所有家长id
+      pictureUrls: pictureUrls,
+
+      parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
+      orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
+      orgAuthorType: orgAuthorType,
+    }
+  } else if (recordType == 1) {
+    if (app.globalData.role == 0) {
+      // 助教
+      data = {
+        unionid: app.globalData.unionId,
+        openid: app.globalData.openId,
+        authorType: app.globalData.userType, //1 teacher, 2 parent
+        authorId: app.globalData.userId,
+
+        recordType: recordType,
+
+        text: text,
+        studentId: studentId,
+        familyIds: familyIds, // 学生所有家长id
+        pictureUrls: pictureUrls,
+
+        parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
+        orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
+        orgAuthorType: orgAuthorType,
+
+        // 新增参数
+        mainTeacherId: mainTeacherId, //班主任id
+        isAssist: true, //是否是助教
+      }
+    } else if (app.globalData.role == 1) {
+      var publishNow
+      if (mainTeacherId == -1){
+        publishNow = false
+      }else if(mainTeacherId == 0){
+        publishNow = true
+      }
+      // 班主任
+      data = {
+        unionid: app.globalData.unionId,
+        openid: app.globalData.openId,
+        authorType: app.globalData.userType, //1 teacher, 2 parent
+        authorId: app.globalData.userId,
+
+        recordType: recordType,
+
+        text: text,
+        studentId: studentId,
+        familyIds: familyIds, // 学生所有家长id
+        pictureUrls: pictureUrls,
+
+        parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
+        orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
+        orgAuthorType: orgAuthorType,
+
+        // 新增参数
+        publishNow: publishNow, //立即发布
+        isAssist: false, //是否是助教
+      }
+    }
+  }
   // return
   wx.request({
     url: app.globalData.minidopeApi.putNewRecord,

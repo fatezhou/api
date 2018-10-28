@@ -21,13 +21,13 @@ Page({
     })
   },
 
-  searchName: function (e) {
+  searchName: function(e) {
     var searchValue = e.detail.value
     this.data.perTeacher = []
-    for (var i = 0; i < app.globalData.teacherList.length; i++) {
+    for (var i = 0; i < this.data.memberList.length; i++) {
 
-      if (app.globalData.teacherList[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
-        this.data.perTeacher.push(app.globalData.teacherList[i])
+      if (this.data.memberList[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
+        this.data.perTeacher.push(this.data.memberList[i])
       }
     }
 
@@ -37,10 +37,10 @@ Page({
 
   },
 
-  chooseTeacher: function (e) {
+  chooseTeacher: function(e) {
     var item = e.currentTarget.dataset.item;
     app.globalData.chooseTeacher = item
-    wx.navigateBack({ })
+    wx.navigateBack({})
 
   },
 
@@ -57,7 +57,12 @@ Page({
   onShow: function() {
     // app.globalData.chooseTeacher = ''
     var that = this;
-    var memberList = app.globalData.teacherList
+    var memberList = []
+    for (var i = 0; i < app.globalData.teacherList.length; i++) {
+      if (app.globalData.teacherList[i].role == 1) {
+        memberList.push(app.globalData.teacherList[i])
+      }
+    }
     that.setData({
       memberList: memberList,
     })
