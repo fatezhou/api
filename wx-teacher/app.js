@@ -37,6 +37,7 @@ App({
     userInfo: null,
     userId: null,
     userType: 1,
+    role: null,
 
     unionId: null,
     openId: null,
@@ -62,12 +63,17 @@ App({
       getChildGrowthRecordCount: 'https://api.minidope.com/api/v1.0/get_child_growth_record_count',
       oneGrowthRecordWithAppendUrl: "https://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
 
+      // 新api
+      getReviewList: "https://api.minidope.com/api/v1.0/get_review_list",
+
       getNewMessage: 'https://api.minidope.com/api/v2.0/get_new_message',
 
       putNewRecord: 'https://api.minidope.com/api/v1.0/put_new_record',
       putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
       putMemberFav: "https://api.minidope.com/api/v1.0/put_member_fav",
     },
+
+    qiniup: 'https://up-z2.qiniup.com',
 
     // 记录
     recordsSize: '',
@@ -80,6 +86,10 @@ App({
     studentList: [],
     teacherList: [],
     parentList: [],
+
+    // 添加记录选择人员
+    chooseTeacher: null,
+    chooseStudent:null,
 
     // 手机型号
     model: null,

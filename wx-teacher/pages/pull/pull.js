@@ -19,6 +19,11 @@ Page({
     studentAvatarUrl: '',
     studentName: '',
     studentId: 0,
+    teacherAvatarUrl: '',
+    teacherName: '',
+    teacherId: 0,
+  
+    toChooseStudent: true,
 
     familyIds: [],
     pictureUrls: [],
@@ -46,6 +51,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.globalData.chooseTeacher = null
+    app.globalData.chooseStudent = null
     this.data.defaultAvatar = app.globalData.defaultAvatar
 
     if (options.type == 'append') {
@@ -53,18 +60,25 @@ Page({
       this.data.orgAuthorId = parseInt(options.orgAuthorId)
       this.data.orgAuthorType = parseInt(options.orgAuthorType)
       this.data.parentRecordId = parseInt(options.recordId)
+      this.data.studentId = parseInt(options.studentId)
 
       this.setData(this.data)
+      this.getFamily(this.data.studentId)
+      
     } else if (options.type == 'record') {
       this.data.orgAuthorId = app.globalData.userId
       this.data.orgAuthorType = app.globalData.userType
       this.data.parentRecordId = 0
+      this.data.studentName = '请选择学员'
+      this.data.teacherName = '请选择班主任'
 
       this.setData(this.data)
       if (options.studentId) {
         this.data.studentAvatarUrl = options.studentAvatarUrl
         this.data.studentId = parseInt(options.studentId)
         this.data.studentName = options.studentName
+        this.data.teacherName = '请选择班主任'
+        this.data.toChooseStudent = false
 
         this.setData(this.data)
 
@@ -87,7 +101,7 @@ Page({
     // 发布家长端按钮
 
 
-    // console.info(options)
+    console.info(options)
   },
 
   getFamily: function(studentId) {
@@ -106,35 +120,44 @@ Page({
   },
 
   submit: function() {
+// console.info(this.data.text)
+// console.info(this.data.tempFilePaths)
+    if (this.data.text == '' && this.data.tempFilePaths == {}) {
+      wx.showToast({
+        title: '您还没输入内容呢',
+        icon: 'none',
+        image: '',
+        duration: 1000,
+        mask: true,
+        success: function (res) { },
+      })
+      return
+    }
+//  console.info(1)
+    if (encodeURIComponent(this.data.callText) == this.data.text || this.data.tempFilePaths == {}){
+      wx.showToast({
+        title: '您还没输入内容呢',
+        icon: 'none',
+        image: '',
+        duration: 1000,
+        mask: true,
+        success: function (res) { },
+      })
+      return
+    }
+    if (this.data.studentName == '请选择学员') {
+      wx.showToast({
+        title: '请选择学员',
+        icon: 'none',
+        image: '',
+        duration: 1000,
+        mask: true,
+        success: function (res) { },
+      })
+      return
+    }
 
-    // if (this.data.addtext == undefined || this.data.tempFilePaths == {}) {
-    //   wx.showToast({
-    //     title: '您还没输入内容呢',
-    //     icon: 'none',
-    //     image: '',
-    //     duration: 1000,
-    //     mask: true,
-    //     success: function (res) { },
-    //     fail: function (res) { },
-    //     complete: function (res) { },
-    //   })
-    //   return
-    // }
-    // if (this.data.studentName == '请选择学员') {
-    //   wx.showToast({
-    //     title: '请选择学员',
-    //     icon: 'none',
-    //     image: '',
-    //     duration: 1000,
-    //     mask: true,
-    //     success: function (res) { },
-    //     fail: function (res) { },
-    //     complete: function (res) { },
-    //   })
-    //   return
-    // }
-
-    // if (this.data.studentName == '请选择班主任') {
+    // if (this.data.teacherName == '请选择班主任') {
     //   wx.showToast({
     //     title: '请选择班主任',
     //     icon: 'none',
@@ -142,34 +165,24 @@ Page({
     //     duration: 1000,
     //     mask: true,
     //     success: function (res) { },
-    //     fail: function (res) { },
-    //     complete: function (res) { },
     //   })
     //   return
     // }
 
-    // var that = this;
-    // var gData = app.globalData;
-
-    // for (var i in this.data.prepareToUpload) {
-    //   wx.uploadFile({
-    //     url: app.globalData.qiniup,
-    //     filePath: this.data.prepareToUpload[i].localFilePath,
-    //     name: "file",
-    //     header: 'Content-Type: multipart/form-data;',
-    //     method: 'post',
-    //     formData: {
-    //       token: this.data.prepareToUpload[i].token,
-    //       key: this.data.prepareToUpload[i].key,
-    //     },
-    //     success: function (res) {
-
-    //     },
-    //     complete: function (res) {
-
-    //     }
-    //   });
-    // }
+    for (var i in this.data.prepareToUpload) {
+      wx.uploadFile({
+        url: app.globalData.qiniup,
+        filePath: this.data.prepareToUpload[i].localFilePath,
+        name: "file",
+        header: 'Content-Type: multipart/form-data;',
+        method: 'post',
+        formData: {
+          token: this.data.prepareToUpload[i].token,
+          key: this.data.prepareToUpload[i].key,
+        },
+        success: function (res) { },
+      });
+    }
     this.addRecard();
   },
 
@@ -182,12 +195,11 @@ Page({
       mask: true,
     })
 
-    // var pictureUrls = [];
-    // for (var i in this.data.prepareToUpload) {
-    //   pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
-    // }
-    // console.info(that.data.orgAuthorId)
-    // console.info(gData.teacherInfo.teacherId)
+    var pictureUrls = [];
+    for (var i in this.data.prepareToUpload) {
+      pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
+    }
+
     var recordType = this.data.recordType
     var text = this.data.text
     var studentId = this.data.studentId
@@ -198,7 +210,7 @@ Page({
     var orgAuthorType = this.data.orgAuthorType
     console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType)
 
-    return
+    // return
     http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, function(res) {
       if (res == 0) {
         wx.showToast({
@@ -230,7 +242,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    if (app.globalData.chooseStudent) {
+      this.setData({
+        studentName: app.globalData.chooseStudent.name,
+        studentId: app.globalData.chooseStudent.studentId,
+        studentAvatarUrl: app.globalData.chooseStudent.avatarUrl,
+      })
+      this.getFamily(this.data.studentId)
+    }
 
+    if (app.globalData.chooseTeacher) {
+      this.setData({
+        teacherName: app.globalData.chooseTeacher.name,
+        teacherId: app.globalData.chooseTeacher.teacherId,
+        teacherAvatarUrl: app.globalData.chooseTeacher.avatarUrl,
+      })
+    }
   },
 
   makePicName: function(index, tmpFilePath) {

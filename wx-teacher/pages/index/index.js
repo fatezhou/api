@@ -89,6 +89,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
+    // http.getReviewList(function(res) {
+    //   console.info(res)
+    // })
     var that = this
     wx.showLoading({
       title: '加载中...',
@@ -96,6 +100,7 @@ Page({
     that.setData({
       recordId: 0,
     })
+    app.globalData.recordsList = []
     if (!app.globalData.userId && !app.globalData.unionId) {
       http.login(function(res) {
         if (res === 0) {

@@ -56,6 +56,7 @@ function getTeacherInfo(callback) {
           if (res.data.data.teacherInfo.teacherId) {
             app.globalData.userInfo = res.data.data.teacherInfo
             app.globalData.userId = res.data.data.teacherInfo.teacherId
+            app.globalData.role = res.data.data.teacherInfo.role
             return callback(0)
           } else {
             wx.redirectTo({
@@ -110,6 +111,24 @@ function getGrowthRecordsWithoutAppend(recordId, studentId, pageSize, callback) 
   })
 };
 
+// 获取审核记录
+function getReviewList(callback) {
+  wx.request({
+    url: app.globalData.minidopeApi.getReviewList,
+    data: {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      authorId: 3, //自己的id
+      isAssist: false, //是/否是助理
+      lastRecordId: 0, //分段加载, 上一回的最后一个recordId, 如果是第一次加载, 可以填0
+    },
+    method: 'POST',
+    success: function(res) {
+      console.info(res)
+    }
+  })
+};
+
 // 根据记录id 获取对应的评论
 function getoneGrowthRecordWithAppend(recordId, callback) {
   wx.request({
@@ -156,7 +175,7 @@ function getNewMessage(callback) {
 // 添加记录或评论
 // 评论不需要studentId
 function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, callback) {
-  return
+  // return
   wx.request({
     url: app.globalData.minidopeApi.putNewRecord,
     data: {
@@ -325,6 +344,7 @@ module.exports = {
   getTeacherInfo: getTeacherInfo,
 
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
+  getReviewList: getReviewList,
   getoneGrowthRecordWithAppend: getoneGrowthRecordWithAppend,
   getNewMessage: getNewMessage,
 

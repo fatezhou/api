@@ -9,6 +9,7 @@ Page({
   data: {
     defaultAvatar: '',
     userId: '',
+    studentId:'',
 
     allTeacherInfo: '',
     allParentInfo: '',
@@ -29,7 +30,6 @@ Page({
 
   //头像跳转个人信息
   toUserInfo: function (e) {
-    console.info(e)
     let item = e.currentTarget.dataset.item
     if (item.authorType == 1) {
       wx.navigateTo({
@@ -54,6 +54,7 @@ Page({
     this.data.allTeacherInfo = app.globalData.teacherList
     this.data.allParentInfo = app.globalData.parentList
     this.data.recordId = parseInt(options.recordId);
+    this.data.studentId = parseInt(options.studentId);
     // 记录的配图
     for (var i = 0; i < app.globalData.timelineRecordsList.length; i++) {
       if (app.globalData.timelineRecordsList[i].recordId == this.data.recordId) {

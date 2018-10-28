@@ -33,7 +33,6 @@ Page({
 
   //头像跳转个人信息
   toUserInfo: function(e) {
-    console.info(e)
     let item = e.currentTarget.dataset.item
     if (item.authorType == 1) {
       // 跳转教师信息
@@ -73,7 +72,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.info(options)
     this.data.defaultAvatar = app.globalData.defaultAvatar
     this.data.userId = app.globalData.userId
     // this.data.mainText = options.mainText

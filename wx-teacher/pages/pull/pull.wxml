@@ -21,8 +21,8 @@
   </view>
 
 </view>
-<view class='choose' wx:if="{{!hidename}}">
-  <block wx:if="{{choosestudent}}">
+<view class='choose' wx:if="{{recordType == 1}}">
+  <block wx:if="{{toChooseStudent}}">
     <navigator url="stuList" hover-class="none">
       <text>学员</text>
       <view class='cRight'>
@@ -46,7 +46,7 @@
 </view>
 
 
-<view class='choose' style="margin-bottom:18rpx" wx:if="{{!hidename}}">
+<view class='choose' style="margin-bottom:18rpx" wx:if="{{recordType == 1}}">
 
   <navigator url="teaList" hover-class="none">
     <text>班主任</text>

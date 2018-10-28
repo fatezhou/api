@@ -22,13 +22,12 @@ Page({
   },
 
   searchName: function (e) {
-    console.info(e.detail.value)
     var searchValue = e.detail.value
     this.data.perTeacher = []
-    for (var i = 0; i < app.globalData.allTeacherInfo.length; i++) {
+    for (var i = 0; i < app.globalData.teacherList.length; i++) {
 
-      if (app.globalData.allTeacherInfo[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
-        this.data.perTeacher.push(app.globalData.allTeacherInfo[i])
+      if (app.globalData.teacherList[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
+        this.data.perTeacher.push(app.globalData.teacherList[i])
       }
     }
 
@@ -39,9 +38,7 @@ Page({
   },
 
   chooseTeacher: function (e) {
-    // var index = e.currentTarget.dataset.index;
     var item = e.currentTarget.dataset.item;
-console.info(item)
     app.globalData.chooseTeacher = item
     wx.navigateBack({ })
 

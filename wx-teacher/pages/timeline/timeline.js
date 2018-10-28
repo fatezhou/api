@@ -32,7 +32,6 @@ Page({
   },
   // 图片放大
   showBigImg: function(e) {
-    console.info(e.currentTarget.dataset)
     var urls = []
     urls[0] = e.currentTarget.dataset.showimg
     wx.previewImage({
@@ -133,7 +132,6 @@ Page({
       if (res.size != 0) {
         that.data.recordsList = that.data.recordsList.concat(res.records)
         app.globalData.timelineRecordsList = that.data.recordsList
-        console.info(app.globalData.timelineRecordsList)
         that.setData({
           recordsList: that.data.recordsList,
           recordsListToGetAppend: res.records
@@ -361,7 +359,6 @@ Page({
       if (res.size != 0) {
         that.data.recordsList = res.records
         app.globalData.timelineRecordsList = that.data.recordsList
-        console.info(app.globalData.timelineRecordsList)
         that.setData({
           recordsList: that.data.recordsList,
           recordsListToGetAppend: res.records

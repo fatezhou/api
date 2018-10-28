@@ -110,7 +110,6 @@ Page({
         that.setData({
           newAppendList: newAppendList
         })
-        console.info(that.data.newAppendList)
       }
     })
   },
