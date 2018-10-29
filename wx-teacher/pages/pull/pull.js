@@ -221,7 +221,6 @@ Page({
     var text = this.data.text
     var studentId = this.data.studentId
     var familyIds = this.data.familyIds
-    var pictureUrls = this.data.pictureUrls
     var parentRecordId = this.data.parentRecordId
     var orgAuthorId = this.data.orgAuthorId
     var orgAuthorType = this.data.orgAuthorType
@@ -278,6 +277,10 @@ Page({
         mainTeacherId: app.globalData.chooseTeacher.teacherId,
       })
     }
+
+    // if(){
+      
+    // }
   },
 
   makePicName: function(index, tmpFilePath) {

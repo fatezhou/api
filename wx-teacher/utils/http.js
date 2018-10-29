@@ -273,7 +273,9 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
     method: 'POST',
     success: function(res) {
       return callback(0)
-    },
+    },complete:function(res){
+      console.info(res)
+    }
   })
 };
 

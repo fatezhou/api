@@ -87,6 +87,9 @@ App({
     teacherList: [],
     parentList: [],
 
+    // pull 班主任审核记录
+    editRecordList:null,
+
     // 添加记录选择人员
     chooseTeacher: null,
     chooseStudent:null,
