@@ -28,6 +28,16 @@ function ApiPutNewRecord(){
             var result = {code:0, data:{}};
             if(data.recordType == 1){//日志
                 if(true){
+                    if(data.recordId){
+                        var dbEdit = tools.GetDataBase();
+                        var editSql = "update growth_record set publish_state = 2 where id = ?";
+                        dbEdit.Query(editSql, [data.recordId], function(err){});
+                        if(data.action == "del"){
+                            callback(response.Succ({}));
+                            return;
+                        } 
+                    }
+
                     var familyIds = "[]";
                     if(data.familyIds){
                         familyIds = JSON.stringify(data.familyIds);
@@ -97,6 +107,7 @@ function ApiPutNewRecord(){
                                                 1, 0 
                                             ], function(err){});
                                 }
+                                
                                 callback(response.Succ({recordId:res.insertId}));                        
                             }                        
                         });

@@ -82,6 +82,14 @@ function ApiGetGrowthRecordWithoutAppend(){
                 sqlCount.push(data.authorId);
                 sqlCount.push(data.authorType);
             }
+
+            if(data.authorType == 1){
+                sqlFmt += "and publish_state != 2 ";
+                sqlCountFmt += "and publish_state != 2 ";
+            }else{
+                sqlFmt += "and publish_state = 1 ";
+                sqlCountFmt += "and publish_state = 1 ";
+            }
             
             sqlFmt += "order by create_time desc limit " + data.pageSize;            
 

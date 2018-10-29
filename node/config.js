@@ -22,6 +22,8 @@ function CuteConfig(){
 			dateStrings:true			
         };
     };
+    var frontPage = "https://ouat";//https://test
+    
     this.GetTeacherAppid = function(){
         return "wxc3cdca6978c3b5ba";
     };
@@ -41,34 +43,34 @@ function CuteConfig(){
         return this.cfg.log;
     }
     this.GetStudentsInfoUrl = function(){
-        return "https://test.buzaishudian.com/api/students";
+        return frontPage + ".buzaishudian.com/api/students";
     }
     this.GetParentProfileInfoUrl = function(){
-        return "https://test.buzaishudian.com/api/parent-info";
+        return frontPage + ".buzaishudian.com/api/parent-info";
     }
     this.GetLoginUrl = function(){
-        return "https://test.buzaishudian.com/api/mini/user-id";
+        return frontPage + ".buzaishudian.com/api/mini/user-id";
     }
     this.GetTeathersUrl = function(){
-		return "https://test.buzaishudian.com/api/teachers";
+		return frontPage + ".buzaishudian.com/api/teachers";
 	}
 	this.GetBindPhoneUrl = function(){
-		return "https://test.buzaishudian.com/api/mini/phone-bind";
+		return frontPage + ".buzaishudian.com/api/mini/phone-bind";
 	}
 	this.GetVCode = function(){
-		return "https://test.buzaishudian.com/api/mini/phone-vcode";
+		return frontPage + ".buzaishudian.com/api/mini/phone-vcode";
 	}
 	this.GetTeacherInfoByPhone = function(){
-		return "https://test.buzaishudian.com/api/teacher-info";
+		return frontPage + ".buzaishudian.com/api/teacher-info";
     }
     this.GetCdnTokenUrl = function(){
-        return "https://test.buzaishudian.com/api/upload-auth";
+        return frontPage + ".buzaishudian.com/api/upload-auth";
     }
     this.GetFamilyUrl = function(){
-        return "https://test.buzaishudian.com/api/family-info";
+        return frontPage + ".buzaishudian.com/api/family-info";
     }
     this.GetParentsUrl = function(){
-        return "https://test.buzaishudian.com/api/parents";
+        return frontPage + ".buzaishudian.com/api/parents";
     }
 }
 

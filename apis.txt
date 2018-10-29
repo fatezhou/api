@@ -315,6 +315,9 @@ param:
 		"publishNow":true,//立即发布
 		"isAssist" : false, //是否是助教
 		"familyIds": [1, 2, 3, 5],//家长们的id, 主要用来做提醒的				
+		"recordId":11, //如果是修改或删除的话, 要带上之前的recordId, 会把原来的那条纪录状态改掉, 但是修改的话会插入一条新的
+		"action":"del",//如果是删除的话, 要加上这一项
+		
 }
 //这个是助教的参数
 {
@@ -328,7 +331,9 @@ param:
         "https://xxxx.jpg"
     ],
   "mainTeacherId":2234, //班主任id
-  "isAssist" : true, //是否是助教
+  "isAssist" : true, //是否是助教	
+		"recordId":11, //如果是修改或删除的话, 要带上之前的recordId, 会把原来的那条纪录状态改掉, 但是修改的话会插入一条新的
+		"action":"del",//如果是删除的话, 要加上这一项
 }
 response:
 {
