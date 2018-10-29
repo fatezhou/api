@@ -13,6 +13,7 @@
     "pages/myInfo/myInfoErro",
     "pages/teacher/teaInfo",
     "pages/pull/pull",
+    "pages/pull/review",
     "pages/pull/stuList",
     "pages/pull/teaList"
   ],

@@ -1,4 +1,4 @@
-// pages/pull/pull.js
+// pages/pull/review.js
 const app = getApp();
 var http = require('../../utils/http.js')
 Page({
@@ -7,28 +7,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    recordType: 1,
-    orgAuthorId: '',
-    orgAuthorType: '',
-    parentRecordId: 0,
-
-    callText: '',
-    placeholder: '填写内容(12-500字)',
+    value: '',
     text: '',
-
+    authorId: '',
+    authorType: '',
     studentAvatarUrl: '',
     studentName: '',
-    studentId: 0,
-    teacherAvatarUrl: '',
-    teacherName: '',
-    teacherId: 0,
-    mainTeacherId: -1,
 
-    toChooseStudent: true,
-    role: null,
-    publishRecord: false,
-
-    familyIds: [],
     pictureUrls: [],
     canChoose: true, //是否可选图片
     tempFilePaths: {}, //本地图片地址对象
@@ -36,92 +21,20 @@ Page({
     prepareToUpload: [],
     imgs: [], //本地图片地址数组
 
-    defaultAvatar: '',
+    recordId: '',
+    studentId: '',
+
+    familyIds: '',
+
   },
 
   charChange: function(e) {
-    if (this.data.callText) {
-      var text = this.data.callText + e.detail.value
-    } else {
-      var text = e.detail.value
-    }
+    var text = e.detail.value
     text = encodeURIComponent(text)
     this.setData({
-      text: text
+      text: text,
+      value: text,
     })
-  },
-
-  // 班主任选择发布
-  publishNow: function(e) {
-    var status = e.detail.value
-    this.data.publishRecord = status
-    if (status) {
-      this.data.mainTeacherId = 0
-    } else {
-      this.data.mainTeacherId = -1
-    }
-    this.setData(this.data)
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    app.globalData.chooseTeacher = null
-    app.globalData.chooseStudent = null
-
-    this.data.role = app.globalData.role
-    this.data.defaultAvatar = app.globalData.defaultAvatar
-
-    if (options.type == 'append') {
-      this.data.recordType = 2
-      this.data.orgAuthorId = parseInt(options.orgAuthorId)
-      this.data.orgAuthorType = parseInt(options.orgAuthorType)
-      this.data.parentRecordId = parseInt(options.recordId)
-      this.data.studentId = parseInt(options.studentId)
-
-      this.setData(this.data)
-      this.getFamily(this.data.studentId)
-
-    } else if (options.type == 'record') {
-      this.data.orgAuthorId = app.globalData.userId
-      this.data.orgAuthorType = app.globalData.userType
-      this.data.parentRecordId = 0
-      this.data.studentName = '请选择学员'
-      this.data.teacherName = '请选择班主任'
-
-      this.setData(this.data)
-      if (options.studentId) {
-        this.data.studentAvatarUrl = options.studentAvatarUrl
-        this.data.studentId = parseInt(options.studentId)
-        this.data.studentName = options.studentName
-        this.data.teacherName = '请选择班主任'
-        this.data.toChooseStudent = false
-
-        this.setData(this.data)
-
-        this.getFamily(this.data.studentId)
-      }
-
-      // if(助教)
-    }
-
-    if (options.callName) {
-      this.setData({
-        callText: '回复' + ' ' + options.callName + ' ',
-        placeholder: '回复' + ' ' + options.callName + ' '
-      })
-    }
-
-    // 编辑未发布
-    // 可以更换学员
-    // 助教固定
-    // 发布家长端按钮
-    // if (app.globalData.editRecordList){
-    //   console.info(1)
-    // }
-
-
-    console.info(options)
   },
 
   getFamily: function(studentId) {
@@ -137,6 +50,55 @@ Page({
         })
       }
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    var reviewList = app.globalData.reviewList
+    this.data.value = reviewList.text
+    this.data.text = reviewList.text
+    this.data.authorId = reviewList.authorId
+    this.data.authorType = reviewList.authorType
+    this.data.studentAvatarUrl = reviewList.avatarUrl
+    this.data.studentName = reviewList.name
+
+    this.data.recordId = reviewList.recordId
+    this.data.studentId = reviewList.studentId
+
+    this.data.imgs = reviewList.pictureUrls
+
+    for (var i in this.data.imgs) {
+      this.data.prepareToUpload[i] = {}
+      this.data.prepareToUpload[i].downloadUrl = this.data.imgs[i]
+      console.info(this.data.prepareToUpload)
+    }
+
+    this.setData(this.data)
+
+    this.getFamily(this.data.studentId)
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    if (app.globalData.chooseStudent) {
+      this.setData({
+        studentName: app.globalData.chooseStudent.name,
+        studentId: app.globalData.chooseStudent.studentId,
+        studentAvatarUrl: app.globalData.chooseStudent.avatarUrl,
+      })
+      this.getFamily(this.data.studentId)
+    }
   },
 
   submit: function() {
@@ -184,7 +146,7 @@ Page({
         image: '',
         duration: 1000,
         mask: true,
-        success: function (res) { },
+        success: function(res) {},
       })
       return
     }
@@ -230,7 +192,7 @@ Page({
     var mainTeacherId = this.data.mainTeacherId
     console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId)
 
-    // return
+    return
     http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, function(res) {
       if (res == 0) {
         wx.showToast({
@@ -249,41 +211,6 @@ Page({
         })
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    if (app.globalData.chooseStudent) {
-      this.setData({
-        studentName: app.globalData.chooseStudent.name,
-        studentId: app.globalData.chooseStudent.studentId,
-        studentAvatarUrl: app.globalData.chooseStudent.avatarUrl,
-      })
-      this.getFamily(this.data.studentId)
-    }
-
-    if (app.globalData.chooseTeacher) {
-      console.info(app.globalData.chooseTeacher)
-      this.setData({
-        teacherName: app.globalData.chooseTeacher.name,
-        teacherId: app.globalData.chooseTeacher.teacherId,
-        teacherAvatarUrl: app.globalData.chooseTeacher.avatarUrl,
-        mainTeacherId: app.globalData.chooseTeacher.teacherId,
-      })
-    }
-
-    // if(){
-      
-    // }
   },
 
   makePicName: function(index, tmpFilePath) {
@@ -411,7 +338,7 @@ Page({
                 key: res.data.data.cdn.key,
                 localFilePath: res.data.data.cdn.localFilePath
               });
-
+              console.info(self.data.prepareToUpload)
             }
           })
         };

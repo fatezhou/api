@@ -36,9 +36,9 @@ Page({
 
   // 班主任编辑助教记录
   toeditRecord: function(e) {
-    app.globalData.editRecordList = e.currentTarget.dataset.item
+    app.globalData.reviewList = e.currentTarget.dataset.item
     wx.navigateTo({
-      url: '../pull/pull'
+      url: '../pull/review'
     })
   },
   // 记录详情页

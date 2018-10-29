@@ -88,11 +88,11 @@ App({
     parentList: [],
 
     // pull 班主任审核记录
-    editRecordList:null,
+    reviewList: null,
 
     // 添加记录选择人员
     chooseTeacher: null,
-    chooseStudent:null,
+    chooseStudent: null,
 
     // 手机型号
     model: null,
