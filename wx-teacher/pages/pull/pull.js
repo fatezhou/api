@@ -184,7 +184,7 @@ Page({
         image: '',
         duration: 1000,
         mask: true,
-        success: function (res) { },
+        success: function(res) {},
       })
       return
     }
@@ -228,10 +228,12 @@ Page({
     var orgAuthorId = this.data.orgAuthorId
     var orgAuthorType = this.data.orgAuthorType
     var mainTeacherId = this.data.mainTeacherId
-    console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId)
+    // recordId 仅为修改或删除时需要
+    var recordId = null
+    console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId)
 
     // return
-    http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, function(res) {
+    http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId, function(res) {
       if (res == 0) {
         wx.showToast({
           title: '发送成功',
@@ -282,7 +284,7 @@ Page({
     }
 
     // if(){
-      
+
     // }
   },
 

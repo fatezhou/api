@@ -17,7 +17,7 @@
       </view>
     </view>
     <block wx:for="{{imgs}}" wx:key='asd' wx:if="{{9>=imgs.length>0}}">
-      <image class='addpic' mode='aspectFill' data-index='{{index}}' src="{{item}}" bindtap='reom'></image>
+      <image class='addpic' mode='aspectFill' data-index='{{index}}' data-item="{{item}}" src="{{item}}" bindtap='reom'></image>
     </block>
   </view>
 
@@ -52,7 +52,7 @@
   <!-- <view style="border-top:1rpx solid #ddd"> -->
     <text>发布到家长端</text>
     <view class='cRightswitch'>
-      <switch checked='true' bindchange='putMemberFav'></switch>
+      <switch checked='{{publishRecord}}' bindchange='publishNow'></switch>
     </view>
   <!-- </view> -->
 </view>

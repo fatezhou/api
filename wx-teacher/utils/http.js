@@ -172,10 +172,28 @@ function getNewMessage(callback) {
   })
 };
 
+function review(recordId, familiIds, assistId, callback) {
+  wx.request({
+    url: app.globalData.minidopeApi.review,
+    data: {
+      openid: app.globalData.openId,
+      unionid: app.globalData.unionId,
+      recordId: recordId, //纪录的id
+      familiIds: familiIds, //其他家庭成员的id
+      assistId: assistId, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
+    },
+    method: 'POST',
+    success: function(res) {
+      console.info(res)
+    }
+  })
+}
+
 // 添加记录或评论
 // 评论不需要studentId
 // mainTeacherId 班主任id 如果值为-1/0 则为班主任自己 -1:publishNow=false ,0:publishNow=true 
-function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, callback) {
+// recordId 仅为修改或删除时需要
+function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId, callback) {
   var data = {}
   if (recordType == 2) {
     data = {
@@ -221,9 +239,9 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
       }
     } else if (app.globalData.role == 1) {
       var publishNow
-      if (mainTeacherId == -1){
+      if (mainTeacherId == -1) {
         publishNow = false
-      }else if(mainTeacherId == 0){
+      } else if (mainTeacherId == 0) {
         publishNow = true
       }
       // 班主任
@@ -250,30 +268,40 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
       }
     }
   }
-  // return
+
+  // 班主任审核/发布助教记录
+  if (recordId) {
+    data = {
+
+    }
+  }
+  console.info(data)
+  return
   wx.request({
     url: app.globalData.minidopeApi.putNewRecord,
-    data: {
-      unionid: app.globalData.unionId,
-      openid: app.globalData.openId,
-      authorType: app.globalData.userType, //1 teacher, 2 parent
-      authorId: app.globalData.userId,
+    data: data,
+    // {
+    //   unionid: app.globalData.unionId,
+    //   openid: app.globalData.openId,
+    //   authorType: app.globalData.userType, //1 teacher, 2 parent
+    //   authorId: app.globalData.userId,
 
-      recordType: recordType,
+    //   recordType: recordType,
 
-      text: text,
-      studentId: studentId,
-      familyIds: familyIds, // 学生所有家长id
-      pictureUrls: pictureUrls,
+    //   text: text,
+    //   studentId: studentId,
+    //   familyIds: familyIds, // 学生所有家长id
+    //   pictureUrls: pictureUrls,
 
-      parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
-      orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
-      orgAuthorType: orgAuthorType,
-    },
+    //   parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
+    //   orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
+    //   orgAuthorType: orgAuthorType,
+    // },
     method: 'POST',
     success: function(res) {
       return callback(0)
-    },complete:function(res){
+    },
+    complete: function(res) {
       console.info(res)
     }
   })

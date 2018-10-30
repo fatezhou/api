@@ -26,14 +26,17 @@ Page({
 
     familyIds: '',
 
+    mainTeacherId: -1,
+    publishRecord: false,
   },
 
   charChange: function(e) {
     var text = e.detail.value
+    var value = e.detail.value
     text = encodeURIComponent(text)
     this.setData({
       text: text,
-      value: text,
+      value: value,
     })
   },
 
@@ -52,11 +55,36 @@ Page({
     })
   },
 
+  getTeacher: function(authorId) {
+    for (var i in app.globalData.teacherList) {
+      if (authorId == app.globalData.teacherList[i].teacherId) {
+        this.data.teacherName = (app.globalData.teacherList[i].nickname ? app.globalData.teacherList[i].nickname : app.globalData.teacherList[i].name)
+        this.data.teacherAvatarUrl = app.globalData.teacherList[i].avatarUrl
+        this.setData(this.data)
+        break
+      }
+    }
+  },
+
+  // 班主任选择发布
+  publishNow: function(e) {
+    var status = e.detail.value
+    this.data.publishRecord = status
+    if (status) {
+      this.data.mainTeacherId = 0
+    } else {
+      this.data.mainTeacherId = -1
+    }
+    this.setData(this.data)
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     var reviewList = app.globalData.reviewList
+    console.info(reviewList)
+
     this.data.value = reviewList.text
     this.data.text = reviewList.text
     this.data.authorId = reviewList.authorId
@@ -72,12 +100,12 @@ Page({
     for (var i in this.data.imgs) {
       this.data.prepareToUpload[i] = {}
       this.data.prepareToUpload[i].downloadUrl = this.data.imgs[i]
-      console.info(this.data.prepareToUpload)
     }
 
     this.setData(this.data)
 
     this.getFamily(this.data.studentId)
+    this.getTeacher(this.data.authorId)
   },
 
   /**
@@ -139,31 +167,23 @@ Page({
       return
     }
 
-    if (this.data.teacherName == '请选择班主任') {
-      wx.showToast({
-        title: '请选择班主任',
-        icon: 'none',
-        image: '',
-        duration: 1000,
-        mask: true,
-        success: function(res) {},
-      })
-      return
-    }
-
     for (var i in this.data.prepareToUpload) {
-      wx.uploadFile({
-        url: app.globalData.qiniup,
-        filePath: this.data.prepareToUpload[i].localFilePath,
-        name: "file",
-        header: 'Content-Type: multipart/form-data;',
-        method: 'post',
-        formData: {
-          token: this.data.prepareToUpload[i].token,
-          key: this.data.prepareToUpload[i].key,
-        },
-        success: function(res) {},
-      });
+      for (var j in app.globalData.reviewList.pictureUrls) {
+        if (this.data.prepareToUpload[i].downloadUrl != app.globalData.reviewList.pictureUrls[i]) {
+          wx.uploadFile({
+            url: app.globalData.qiniup,
+            filePath: this.data.prepareToUpload[i].localFilePath,
+            name: "file",
+            header: 'Content-Type: multipart/form-data;',
+            method: 'post',
+            formData: {
+              token: this.data.prepareToUpload[i].token,
+              key: this.data.prepareToUpload[i].key,
+            },
+            success: function(res) {},
+          });
+        }
+      }
     }
     this.addRecard();
   },
@@ -182,18 +202,24 @@ Page({
       pictureUrls.push(this.data.prepareToUpload[i].downloadUrl);
     }
 
-    var recordType = this.data.recordType
+    var recordType = 1
     var text = this.data.text
     var studentId = this.data.studentId
     var familyIds = this.data.familyIds
-    var parentRecordId = this.data.parentRecordId
-    var orgAuthorId = this.data.orgAuthorId
-    var orgAuthorType = this.data.orgAuthorType
+    var parentRecordId = 0
+    var orgAuthorId = app.globalData.userId
+    var orgAuthorType = app.globalData.userType
     var mainTeacherId = this.data.mainTeacherId
-    console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId)
-
+    var recordId = this.data.recordId
+    console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId)
+    console.info(this.data.imgs)
+    if (app.globalData.reviewList.text == this.data.value && app.globalData.reviewList.pictureUrls == pictureUrls) {
+      console.info(4)
+    }
     return
-    http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, function(res) {
+
+
+    http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId, function(res) {
       if (res == 0) {
         wx.showToast({
           title: '发送成功',
@@ -247,7 +273,7 @@ Page({
   //删除上传图片
   reom(e) {
     let that = this
-    // console.info(e)
+    console.info(e)
     let index = e.currentTarget.dataset.index
     let imgs = that.data.imgs
     for (var i = 0; i < imgs.length; i++) {
@@ -257,6 +283,21 @@ Page({
         break
       }
     }
+    for (var j in app.globalData.reviewList.pictureUrls) {
+      if (app.globalData.reviewList.pictureUrls[j] == e.currentTarget.dataset.item) {
+        app.globalData.reviewList.pictureUrls.splice(j, 1);
+      }
+    }
+
+    that.data.imgs = app.globalData.reviewList.pictureUrls
+
+    that.data.prepareToUpload = []
+    for (var i in that.data.imgs) {
+      that.data.prepareToUpload[i] = {}
+      that.data.prepareToUpload[i].downloadUrl = that.data.imgs[i]
+    }
+    that.setData(that.data)
+  
     if (imgs.length <= 9) {
       that.setData({
         canChoose: true,

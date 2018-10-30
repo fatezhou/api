@@ -65,6 +65,7 @@ App({
 
       // 新api
       getReviewList: "https://api.minidope.com/api/v1.0/get_review_list",
+      review: "https://api.minidope.com/api/v1.0/review",
 
       getNewMessage: 'https://api.minidope.com/api/v2.0/get_new_message',
 
