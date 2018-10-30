@@ -36,10 +36,12 @@ Page({
 
   // 班主任编辑助教记录
   toeditRecord: function(e) {
-    app.globalData.reviewList = e.currentTarget.dataset.item
-    wx.navigateTo({
-      url: '../pull/review'
-    })
+    if(app.globalData.role == 1){
+      app.globalData.reviewList = e.currentTarget.dataset.item
+      wx.navigateTo({
+        url: '../pull/review'
+      })
+    }
   },
   // 记录详情页
   todetail: function(e) {
@@ -89,9 +91,9 @@ Page({
    */
   onShow: function() {
 
-    // http.getReviewList(function(res) {
-    //   console.info(res)
-    // })
+    http.getReviewList(function(res) {
+      console.info(res)
+    })
     var that = this
     wx.showLoading({
       title: '加载中...',

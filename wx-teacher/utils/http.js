@@ -119,7 +119,7 @@ function getReviewList(callback) {
       unionid: app.globalData.unionId,
       openid: app.globalData.openId,
       authorId: 3, //自己的id
-      isAssist: false, //是/否是助理
+      isAssist: true, //是/否是助理
       lastRecordId: 0, //分段加载, 上一回的最后一个recordId, 如果是第一次加载, 可以填0
     },
     method: 'POST',
@@ -172,19 +172,19 @@ function getNewMessage(callback) {
   })
 };
 
-function review(recordId, familiIds, assistId, callback) {
+function review(recordId, familyIds, assistId, callback) {
   wx.request({
     url: app.globalData.minidopeApi.review,
     data: {
       openid: app.globalData.openId,
       unionid: app.globalData.unionId,
       recordId: recordId, //纪录的id
-      familiIds: familiIds, //其他家庭成员的id
+      familiIds: familyIds, //其他家庭成员的id
       assistId: assistId, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
     },
     method: 'POST',
     success: function(res) {
-      console.info(res)
+      return callback(0)
     }
   })
 }
@@ -269,14 +269,48 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
     }
   }
 
-  // 班主任审核/发布助教记录
-  if (recordId) {
-    data = {
 
+  if (recordId) {
+    // 班主任改动记录
+
+    var publishNow
+    if (mainTeacherId == -1) {
+      publishNow = false
+    } else if (mainTeacherId == 0) {
+      publishNow = true
+    }
+
+    var isAssist = false
+    for (var i in app.globalData.teacherList) {
+      if (app.globalData.teacherList[i].teacherId == orgAuthorId && app.globalData.teacherList[i].role == 1){
+        isAssist = true
+      }
+    }
+
+    data = {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+      authorType: app.globalData.userType, //1 teacher, 2 parent
+      authorId: app.globalData.userId,
+
+      recordType: recordType,
+
+      text: text,
+      studentId: studentId,
+      familyIds: familyIds, // 学生所有家长id
+      pictureUrls: pictureUrls,
+
+      parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
+      orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
+      orgAuthorType: orgAuthorType,
+
+      // 新增参数
+      publishNow: publishNow, //立即发布
+      isAssist: isAssist, //是否是助教
     }
   }
   console.info(data)
-  return
+  // return
   wx.request({
     url: app.globalData.minidopeApi.putNewRecord,
     data: data,

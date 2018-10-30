@@ -7,12 +7,16 @@ Page({
    * 页面的初始数据
    */
   data: {
+    defaultAvatar: '',
     value: '',
     text: '',
     authorId: '',
     authorType: '',
     studentAvatarUrl: '',
     studentName: '',
+
+    teacherName: '',
+    teacherAvatarUrl: '',
 
     pictureUrls: [],
     canChoose: true, //是否可选图片
@@ -84,6 +88,7 @@ Page({
   onLoad: function(options) {
     var reviewList = app.globalData.reviewList
     console.info(reviewList)
+    this.data.defaultAvatar = app.globalData.defaultAvatar
 
     this.data.value = reviewList.text
     this.data.text = reviewList.text
@@ -210,33 +215,67 @@ Page({
     var orgAuthorId = app.globalData.userId
     var orgAuthorType = app.globalData.userType
     var mainTeacherId = this.data.mainTeacherId
+    var assistId = this.data.authorId
     var recordId = this.data.recordId
     console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId)
-    console.info(this.data.imgs)
-    if (app.globalData.reviewList.text == this.data.value && app.globalData.reviewList.pictureUrls == pictureUrls) {
-      console.info(4)
-    }
-    return
-
-
-    http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId, function(res) {
-      if (res == 0) {
+    if (app.globalData.reviewList.text == this.data.value && this.data.studentId == app.globalData.reviewList.studentId && this.data.imgs[this.data.imgs.length - 1] == app.globalData.reviewList.pictureUrls[this.data.imgs.length - 1] && mainTeacherId == 0) {
+      // 未做任何改动 并发布
+      http.review(recordId, familyIds, assistId, function(res) {
+        if (res == 0) {
+          wx.showToast({
+            title: '发送成功',
+            icon: 'success',
+            image: '',
+            duration: 1000,
+            mask: true,
+            success: function(res) {
+              setTimeout(function() {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }, 1000)
+            },
+          })
+        }
+      })
+    } else {
+      if (app.globalData.reviewList.text != this.data.value || this.data.studentId != app.globalData.reviewList.studentId || this.data.imgs[this.data.imgs.length - 1] != app.globalData.reviewList.pictureUrls[this.data.imgs.length - 1]) {
+        // 做了改动 如 文本变化 图片变化 学员选择变化
+        http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId, function(res) {
+          if (res == 0) {
+            wx.showToast({
+              title: '发送成功',
+              icon: 'success',
+              image: '',
+              duration: 1000,
+              mask: true,
+              success: function(res) {
+                setTimeout(function() {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }, 1000)
+              },
+            })
+          }
+        })
+      } else if (mainTeacherId == -1) {
         wx.showToast({
-          title: '发送成功',
+          title: '未做任何修改',
           icon: 'success',
           image: '',
           duration: 1000,
           mask: true,
           success: function(res) {
-            setTimeout(function() {
-              wx.navigateBack({
-                delta: 1
-              })
-            }, 1000)
+            // setTimeout(function() {
+            //   wx.navigateBack({
+            //     delta: 1
+            //   })
+            // }, 1000)
           },
         })
       }
-    })
+    }
   },
 
   makePicName: function(index, tmpFilePath) {
@@ -283,13 +322,11 @@ Page({
         break
       }
     }
-    for (var j in app.globalData.reviewList.pictureUrls) {
-      if (app.globalData.reviewList.pictureUrls[j] == e.currentTarget.dataset.item) {
-        app.globalData.reviewList.pictureUrls.splice(j, 1);
+    for (var j in that.data.imgs) {
+      if (that.data.imgs[j] == e.currentTarget.dataset.item) {
+        that.data.imgs.splice(j, 1);
       }
     }
-
-    that.data.imgs = app.globalData.reviewList.pictureUrls
 
     that.data.prepareToUpload = []
     for (var i in that.data.imgs) {
@@ -297,7 +334,7 @@ Page({
       that.data.prepareToUpload[i].downloadUrl = that.data.imgs[i]
     }
     that.setData(that.data)
-  
+
     if (imgs.length <= 9) {
       that.setData({
         canChoose: true,
