@@ -65,8 +65,8 @@ Page({
         url: app.globalData.phoneVcode,
         method: 'POST',
         data: {
-          unionid: app.globalData.unionid,
-          openid: app.globalData.openid,
+          unionid: app.globalData.unionId,
+          openid: app.globalData.openId,
           userType: 1,
           phone: phone,
         },
@@ -109,8 +109,8 @@ Page({
         url: app.globalData.bindPhone,
         method: 'POST',
         data: {
-          unionid: app.globalData.unionid,
-          openid: app.globalData.openid,
+          unionid: app.globalData.unionId,
+          openid: app.globalData.openId,
           phone: phone,
           vcode: code,
           userType: 1,
@@ -127,17 +127,17 @@ Page({
 
               // 通过uid获取教师信息
               wx.request({
-                url: app.globalData.getTeacherInfo,
+                url: app.globalData.minidopeApi.getTeacherInfo,
                 method: 'POST',
                 data: {
-                  unionid: app.globalData.unionid,
-                  openid: app.globalData.openid,
+                  unionid: app.globalData.unionId,
+                  openid: app.globalData.openId,
                 },
                 success: function (res) {
 
                   if (res.data.code === 0) {
                     if (res.data.data.teacherInfo.teacherId) {
-                      app.globalData.teacherInfo = res.data.data.teacherInfo
+                      app.globalData.userInfo = res.data.data.teacherInfo
                       app.globalData.userId = res.data.data.teacherInfo.teacherId
 
                       // wx.switchTab({

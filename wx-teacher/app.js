@@ -75,6 +75,8 @@ App({
     },
 
     qiniup: 'https://up-z2.qiniup.com',
+    phoneVcode:'https://api.minidope.com/api/v1.0/phone-vcode',
+    bindPhone: 'https://api.minidope.com/api/v1.0/bindPhone',
 
     // 记录
     recordsSize: '',

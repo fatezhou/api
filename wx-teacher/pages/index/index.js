@@ -91,9 +91,9 @@ Page({
    */
   onShow: function() {
 
-    http.getReviewList(function(res) {
-      console.info(res)
-    })
+    // http.getReviewList(function(res) {
+    //   console.info(res)
+    // })
     var that = this
     wx.showLoading({
       title: '加载中...',
@@ -201,6 +201,8 @@ Page({
         })
         that.getStudents()
         that.getTeachers()
+      }else{
+        wx.hideLoading()
       }
     })
   },

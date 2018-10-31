@@ -164,6 +164,7 @@ function getNewMessage(callback) {
     },
     method: 'POST',
     success: function(res) {
+      console.info(res.data.data)
       for (var i = 0; i < res.data.data.append.length; i++) {
         res.data.data.append[i].text = decodeURIComponent(res.data.data.append[i].text)
       }
