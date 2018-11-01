@@ -38,6 +38,8 @@ function ApiPutNewRecord(){
                         } 
                     }
 
+                    console.info(JSON.stringify(data));
+
                     var familyIds = "[]";
                     if(data.familyIds){
                         familyIds = JSON.stringify(data.familyIds);
@@ -48,7 +50,7 @@ function ApiPutNewRecord(){
                             author_type, student_id, record_type, \
                             parent_record_id, org_author_id, org_author_type, \
                             family_id, publish_state, main_teacher_id,\
-                            asisst_id, family_ids\
+                            assist_id, family_ids\
                         )VALUES(\
                             ?,?,?,\
                             ?,?,?,\
