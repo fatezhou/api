@@ -177,7 +177,7 @@ Page({
       return
     }
 
-    if (this.data.teacherName == '请选择班主任') {
+    if (this.data.teacherName == '请选择班主任' && app.globalData.role == 0) {
       wx.showToast({
         title: '请选择班主任',
         icon: 'none',

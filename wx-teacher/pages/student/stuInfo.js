@@ -35,6 +35,16 @@ Page({
     })
   },
 
+  // 图片放大
+  showBigImg: function (e) {
+    var urls = []
+    urls[0] = e.currentTarget.dataset.showimg
+    wx.previewImage({
+      current: e.currentTarget.dataset.showimg,
+      urls: urls
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

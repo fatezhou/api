@@ -29,7 +29,7 @@ Page({
       if (app.globalData.teacherList[i].teacherId == options.teacherid) {
         this.setData({
           teachername: app.globalData.teacherList[i].name,
-          teachernickname: app.globalData.teacherList[i].nickname,
+          teachernickname: (app.globalData.teacherList[i].nickname == "" ? app.globalData.teacherList[i].name : app.globalData.teacherList[i].nickname),
           avatarUrl: app.globalData.teacherList[i].avatarUrl,
           phone: app.globalData.teacherList[i].phone,
           sex: app.globalData.teacherList[i].sex,

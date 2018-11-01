@@ -3,8 +3,8 @@
   <view style='display:flex;'>
     <view style='margin-left:30rpx;margin-right:24rpx;position:relative;'>
 
-      <image wx:if="{{avatarUrl == ''}}" src='{{defaultAvatar}}' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;'></image>
-      <image wx:else src="{{avatarUrl}}" style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;' />
+      <image wx:if="{{avatarUrl == ''}}" src='{{defaultAvatar}}' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;' data-showimg="{{defaultAvatar}}" bindtap='showBigImg'></image>
+      <image wx:else src="{{avatarUrl}}" data-showimg="{{avatarUrl}}" bindtap='showBigImg' style='width:130rpx;height:130rpx;background:#f2f2f2;border-radius:50%;' />
     </view>
     <view>
       <view style='display:flex;margin-top:20rpx;'>

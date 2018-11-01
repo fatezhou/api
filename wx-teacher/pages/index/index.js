@@ -84,6 +84,33 @@ Page({
       }
     })
 
+    wx.showLoading({
+      title: '加载中...',
+    })
+    that.setData({
+      recordId: 0,
+    })
+    app.globalData.recordsList = []
+    if (!app.globalData.userId && !app.globalData.unionId) {
+      http.login(function(res) {
+        if (res === 0) {
+          http.getTeacherInfo(function(res) {
+            if (res === 0) {
+              that.setData({
+                role: app.globalData.role
+              })
+              that.getGrowthRecordsWithoutAppend()
+            }
+          })
+        }
+      })
+    } else {
+      that.setData({
+        role: app.globalData.role
+      })
+      that.getGrowthRecordsWithoutAppend()
+    }
+
     // 获取家长列表
     http.getParents()
   },
@@ -97,65 +124,8 @@ Page({
     //   console.info(res)
     // })
     var that = this
-    wx.showLoading({
-      title: '加载中...',
-    })
-    that.setData({
-      recordId: 0,
-    })
-    app.globalData.recordsList = []
-    if (!app.globalData.userId && !app.globalData.unionId) {
-      http.login(function(res) {
-        if (res === 0) {
-          http.getTeacherInfo(function(res) {
-            that.setData({
-              role: app.globalData.role
-            })
-            if (res === 0) {
-              that.getGrowthRecordsWithoutAppend()
-            }
-          })
-        }
-      })
-    } else {
-      that.getGrowthRecordsWithoutAppend()
-    }
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-    var that = this
-    if (!app.globalData.userId && !app.globalData.unionId) {
-      http.login(function(res) {
-        if (res === 0) {
-          http.getTeacherInfo(function(res) {
-            if (res === 0) {
-              http.getGrowthRecordsWithoutAppend(0, 0, 10, function(res) {
-                if (that.data.recordSize !== res.size) {
-                  // 记录数不同 才重新设置
-                  app.globalData.recordsList = res.records
-                  that.setData({
-                    recordSize: res.size,
-                    recordsList: app.globalData.recordsList,
-                  })
-                  // 获取最后一条recordId 用于加载之后的记录
-                  that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
-                  that.setData({
-                    recordId: that.data.recordId
-                  })
-                  that.getStudents()
-                  that.getTeachers()
-                }
-              })
-              wx.stopPullDownRefresh()
-            }
-          })
-        }
-      })
-    } else {
-      http.getGrowthRecordsWithoutAppend(0, 0, 10, function(res) {
+    if (that.data.recordsList) {
+      http.getGrowthRecordsWithoutAppend(0, 0, 10, function (res) {
         if (that.data.recordSize !== res.size) {
           // 记录数不同 才重新设置
           app.globalData.recordsList = res.records
@@ -171,6 +141,59 @@ Page({
           that.getStudents()
           that.getTeachers()
         }
+      })
+    }
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+    var that = this
+    if (!app.globalData.userId && !app.globalData.unionId) {
+      http.login(function(res) {
+        if (res === 0) {
+          http.getTeacherInfo(function(res) {
+            if (res === 0) {
+              http.getGrowthRecordsWithoutAppend(0, 0, 10, function(res) {
+                // if (that.data.recordSize !== res.size) {
+                  // 记录数不同 才重新设置
+                  app.globalData.recordsList = res.records
+                  that.setData({
+                    recordSize: res.size,
+                    recordsList: app.globalData.recordsList,
+                  })
+                  // 获取最后一条recordId 用于加载之后的记录
+                  that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
+                  that.setData({
+                    recordId: that.data.recordId
+                  })
+                  that.getStudents()
+                  that.getTeachers()
+                // }
+              })
+              wx.stopPullDownRefresh()
+            }
+          })
+        }
+      })
+    } else {
+      http.getGrowthRecordsWithoutAppend(0, 0, 10, function(res) {
+        // if (that.data.recordSize !== res.size) {
+          // 记录数不同 才重新设置
+          app.globalData.recordsList = res.records
+          that.setData({
+            recordSize: res.size,
+            recordsList: app.globalData.recordsList,
+          })
+          // 获取最后一条recordId 用于加载之后的记录
+          that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
+          that.setData({
+            recordId: that.data.recordId
+          })
+          that.getStudents()
+          that.getTeachers()
+        // }
       })
       wx.stopPullDownRefresh()
     }
