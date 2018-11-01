@@ -10,6 +10,7 @@
       <view wx:for="{{allTeacherInfo}}" wx:key="teacherIndex" wx:for-item="teacherItem" wx:if="{{listItem.authorId == teacherItem.teacherId}}" style='display:flex;'>
         <image wx:if="{{teacherItem.avatarUrl}}" src='{{teacherItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
         <image wx:else src='{{defaultAvatar}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+        <image src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;margin:40rpx 0 0 44rpx'></image>
         <view style="width:80%">
           <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{teacherItem.nickname ? teacherItem.nickname : teacherItem.name}}</view>
           <view>
@@ -50,6 +51,7 @@
       <view wx:for="{{allTeacherInfo}}" wx:key="teacherIndex" wx:for-item="teacherItem" wx:if="{{listItem.author_id == teacherItem.teacherId}}" style='display:flex;'>
         <image wx:if="{{teacherItem.avatarUrl}}" src='{{teacherItem.avatarUrl}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
         <image wx:else src='{{defaultAvatar}}' style='width:65rpx;height:65rpx;margin-right:20rpx;border-radius:50%'></image>
+           <image src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;margin:40rpx 0 0 44rpx'></image>
         <view style="width:80%">
           <view style='color:#5b6c8c;margin-bottom:10rpx;font-size:30rpx;'>{{teacherItem.nickname ? teacherItem.nickname : teacherItem.name}}</view>
           <image src='../../image/nice.png' style='width:30rpx;' mode='widthFix'></image>
