@@ -98,6 +98,7 @@ function getGrowthRecordsWithoutAppend(recordId, studentId, pageSize, callback) 
     data: data,
     method: 'POST',
     success: function(res) {
+      console.info(res)
       if (res.data.code == 0) {
         for (var i in res.data.data.records) {
           res.data.data.records[i].text = decodeURIComponent(res.data.data.records[i].text)
@@ -180,15 +181,27 @@ function getNewMessage(callback) {
 };
 
 function review(recordId, familyIds, assistId, callback) {
+  var data = {
+    openid: app.globalData.openId,
+    unionid: app.globalData.unionId,
+    authorId: app.globalData.userId,
+    authorType: app.globalData.userType,
+    recordId: recordId, //纪录的id
+    familiIds: familyIds, //其他家庭成员的id
+    assistId: assistId, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
+  }
+  console.info(JSON.stringify(data))
   wx.request({
     url: app.globalData.minidopeApi.review,
-    data: {
-      openid: app.globalData.openId,
-      unionid: app.globalData.unionId,
-      recordId: recordId, //纪录的id
-      familiIds: familyIds, //其他家庭成员的id
-      assistId: assistId, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
-    },
+    data: data
+      // {
+      //   openid: app.globalData.openId,
+      //   unionid: app.globalData.unionId,
+      //   recordId: recordId, //纪录的id
+      //   familiIds: familyIds, //其他家庭成员的id
+      //   assistId: assistId, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
+      // }
+      ,
     method: 'POST',
     success: function(res) {
       return callback(0)
@@ -244,6 +257,7 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
         mainTeacherId: mainTeacherId, //班主任id
         isAssist: true, //是否是助教
       }
+
     } else if (app.globalData.role == 2) {
       var publishNow
       if (mainTeacherId == -1) {
@@ -316,7 +330,7 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
       isAssist: isAssist, //是否是助教
     }
   }
-  console.info(data)
+  console.info(JSON.stringify(data))
   // return
   wx.request({
     url: app.globalData.minidopeApi.putNewRecord,
@@ -490,6 +504,7 @@ module.exports = {
   getTeacherInfo: getTeacherInfo,
 
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
+  review: review,
   getReviewList: getReviewList,
   getoneGrowthRecordWithAppend: getoneGrowthRecordWithAppend,
   getNewMessage: getNewMessage,

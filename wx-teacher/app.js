@@ -48,35 +48,35 @@ App({
     defaultAvatar: null,
 
     minidopeApi: {
-      loginUrl: "https://api.minidope.com/api/v1.0/login",
+      loginUrl: "https://api2.minidope.com/api/v1.0/login",
       defaultAvatarUrl: 'https://ouat-file.buzaishudian.com/images/wx-mini/teacher/ui/default-avatar.png',
-      putFormId: 'https://api.minidope.com/api/v1/put_form_id',
-      getCdnToken: 'https://api.minidope.com/api/v1.0/get_cdn_token',
+      putFormId: 'https://api2.minidope.com/api/v1/put_form_id',
+      getCdnToken: 'https://api2.minidope.com/api/v1.0/get_cdn_token',
 
-      getTeacherInfo: "https://api.minidope.com/api/v1.0/get_teacher_info",
-      getStudents: "https://api.minidope.com/api/v1.0/get_contact",
-      getTeachers: "https://api.minidope.com/api/v1.0/get_teachers",
-      getParents: "https://api.minidope.com/api/v1.0/get_parents_info",
-      getFamily: 'https://api.minidope.com/api/v1.0/get_family',
+      getTeacherInfo: "https://api2.minidope.com/api/v1.0/get_teacher_info",
+      getStudents: "https://api2.minidope.com/api/v1.0/get_contact",
+      getTeachers: "https://api2.minidope.com/api/v1.0/get_teachers",
+      getParents: "https://api2.minidope.com/api/v1.0/get_parents_info",
+      getFamily: 'https://api2.minidope.com/api/v1.0/get_family',
 
-      getGrowthRecordsWithoutAppend: "https://api.minidope.com/api/v1.0/get_growth_records_without_append",
-      getChildGrowthRecordCount: 'https://api.minidope.com/api/v1.0/get_child_growth_record_count',
-      oneGrowthRecordWithAppendUrl: "https://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
+      getGrowthRecordsWithoutAppend: "https://api2.minidope.com/api/v1.0/get_growth_records_without_append",
+      getChildGrowthRecordCount: 'https://api2.minidope.com/api/v1.0/get_child_growth_record_count',
+      oneGrowthRecordWithAppendUrl: "https://api2.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
 
       // 新api
-      getReviewList: "https://api.minidope.com/api/v1.0/get_review_list",
-      review: "https://api.minidope.com/api/v1.0/review",
+      getReviewList: "https://api2.minidope.com/api/v1.0/get_review_list",
+      review: "https://api2.minidope.com/api/v1.0/review",
 
-      getNewMessage: 'https://api.minidope.com/api/v2.0/get_new_message',
+      getNewMessage: 'https://api2.minidope.com/api/v2.0/get_new_message',
 
-      putNewRecord: 'https://api.minidope.com/api/v1.0/put_new_record',
-      putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
-      putMemberFav: "https://api.minidope.com/api/v1.0/put_member_fav",
+      putNewRecord: 'https://api2.minidope.com/api/v1.0/put_new_record',
+      putRecordLike: 'https://api2.minidope.com/api/v1.0/put_record_like',
+      putMemberFav: "https://api2.minidope.com/api/v1.0/put_member_fav",
     },
 
     qiniup: 'https://up-z2.qiniup.com',
-    phoneVcode:'https://api.minidope.com/api/v1.0/phone-vcode',
-    bindPhone: 'https://api.minidope.com/api/v1.0/bindPhone',
+    phoneVcode:'https://api2.minidope.com/api/v1.0/phone-vcode',
+    bindPhone: 'https://api2.minidope.com/api/v1.0/bindPhone',
 
     // 记录
     recordsSize: '',
