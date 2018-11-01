@@ -39,7 +39,7 @@
               <image wx:if="{{teacheriteminfo.avatarUrl == ''}}" src='{{defaultAvatar}}'></image>
               <image wx:else src='{{teacheriteminfo.avatarUrl}}'></image>
               <image src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;margin:21rpx 0 0 45rpx'></image>
-              <text class='phName'>{{teacheriteminfo.nickname}}</text>
+              <text class='phName'>{{teacheriteminfo.nickname == "" ? teacheriteminfo.name : teacheriteminfo.nickname}}</text>
             </view>
           </view>
         </view>
@@ -82,8 +82,8 @@
 
         <view wx:for="{{likesitem.likes.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex' wx:for-index="teacherindex">
           <view wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
-            <text style="font-size:24rpx;color:#98A5A5;margin-left:8rpx" wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}}<text wx:if="{{likesitem.likes.teacher.length-1 > teacherindex}}">，</text>
-            <text wx:if="{{likesitem.likes.parent.length > 0}}" style="inline-block">，</text></text>
+            <text style="font-size:24rpx;color:#98A5A5;margin-left:8rpx" wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname == "" ? allTeacheritem.name : allTeacheritem.nickname}}<text wx:if="{{likesitem.likes.teacher.length-1 > teacherindex}}">，</text>
+            <text wx:if="{{likesitem.likes.teacher.length-1 == teacherindex && likesitem.likes.parent.length > 0}}" style="inline-block">，</text></text>
           </view>
         </view>
 
@@ -166,8 +166,8 @@
 
                 <view wx:for="{{itemappend.like.teacher}}" wx:for-item='teacherLikeitem' wx:for-index="teacherindex" wx:key='teacherLikeindex' style="display:inline-block">
                   <view wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
-                    <text style="margin-left:8rpx" wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}}<text wx:if="{{itemappend.like.teacher.length-1 > teacherindex}}">，</text>
-                    <text wx:if="{{itemappend.like.parent.length > 0}}" style="inline-block">，</text></text>
+                    <text style="margin-left:8rpx" wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname == "" ? allTeacheritem.name : allTeacheritem.nickname}}<text wx:if="{{itemappend.like.teacher.length-1 > teacherindex}}">，</text>
+                    <text wx:if="{{itemappend.like.teacher.length-1 == teacherindex && itemappend.like.parent.length > 0}}" style="inline-block">，</text></text>
                   </view>
                 </view>
 

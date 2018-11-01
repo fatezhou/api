@@ -67,7 +67,7 @@ Page({
     for (var i = 0; i < app.globalData.studentList.length; i++) {
       if (app.globalData.studentList[i].studentId == this.data.studentId) {
         this.data.studentSex = app.globalData.studentList[i].sex
-        this.data.studentName = app.globalData.studentList[i].name
+        this.data.studentName = (app.globalData.studentList[i].name == '' ? app.globalData.studentList[i].nickname : app.globalData.studentList[i].name)
         this.data.studentAvatarUrl = app.globalData.studentList[i].avatarUrl
 
         this.setData(this.data)
@@ -108,27 +108,7 @@ Page({
           recordSize: res.size,
         })
       }
-      for (var t = 0; t < res.records.length; t++) {
-        res.records[t].isfold = true
-        if (res.records[t].text.length > 100) {
-          res.records[t].showTextBtn = true
-        }
 
-        // 排序  修复 点赞图标可能出现两个的问题 
-        if (res.records[t].likes) {
-          if (res.records[t].likes.teacher.length > 0) {
-            for (var i = 0; i < res.records[t].likes.teacher.length; i++) {
-              var length = res.records[t].likes.teacher.length
-              if (res.records[t].likes.teacher[i] == app.globalData.userId) {
-                var temp = res.records[t].likes.teacher[length - 1]
-                res.records[t].likes.teacher[length - 1] = res.records[t].likes.teacher[i]
-                res.records[t].likes.teacher[i] = temp
-                break
-              }
-            }
-          }
-        }
-      }
       if (res.size != 0) {
         that.data.recordsList = that.data.recordsList.concat(res.records)
         app.globalData.timelineRecordsList = that.data.recordsList
@@ -150,6 +130,23 @@ Page({
     var that = this;
     for (var i = 0; i < that.data.recordsListToGetAppend.length; i++) {
       http.getoneGrowthRecordWithAppend(that.data.recordsListToGetAppend[i].recordId, function(res) {
+        console.info(res)
+
+        // 排序  修复 点赞图标可能出现两个的问题 
+        if (res.likes) {
+          if (res.likes.teacher.length > 0) {
+            for (var i = 0; i < res.likes.teacher.length; i++) {
+              var length = res.likes.teacher.length
+              if (res.likes.teacher[i] == app.globalData.userId) {
+                var temp = res.likes.teacher[length - 1]
+                res.likes.teacher[length - 1] = res.likes.teacher[i]
+                res.likes.teacher[i] = temp
+                break
+              }
+            }
+          }
+        }
+
         for (var t = 0; t < res.append.length; t++) {
           res.append[t].isfold = true
           if (res.append[t].text.length > 100) {
@@ -178,7 +175,7 @@ Page({
           if (res.append[i].authorType == 1) {
             for (var j = 0; j < allTeacherInfo.length; j++) {
               if (res.append[i].authorId == allTeacherInfo[j].teacherId) {
-                res.append[i].authorName = allTeacherInfo[j].nickname
+                res.append[i].authorName = (allTeacherInfo[j].nickname == "" ? allTeacherInfo[j].name : allTeacherInfo[j].nickname)
                 res.append[i].avatarUrl = allTeacherInfo[j].avatarUrl
               }
             }

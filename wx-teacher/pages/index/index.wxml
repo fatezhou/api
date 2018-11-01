@@ -23,17 +23,17 @@
       <button formType="submit" hover-class="none" style="margin-left:0;" data-item="{{itemObject}}">
         <view class='toplD'>
           <view class='tlDleft' bindtap='todetail' data-item="{{itemObject}}">
-            <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{defaultAvatar}}'></image>
-            <image wx:else src='{{itemObject.avatarUrl}}'></image>
+            <image wx:if="{{itemObject.studentAvatarUrl == ''}}" src='{{defaultAvatar}}'></image>
+            <image wx:else src='{{itemObject.studentAvatarUrl}}'></image>
 
-            <text class='phName'>{{itemObject.name}}</text>
+            <text class='phName'>{{itemObject.studentName}}</text>
 
           </view>
-          <view class='tlDleft' style="margin-left:22rpx" bindtap='todetail' data-item="{{itemObject}}">
-            <image wx:if="{{itemObject.avatarUrl == ''}}" src='{{defaultAvatar}}'></image>
-            <image wx:else src='{{defaultAvatar}}'></image>
+          <view class='tlDleft' style="margin-left:22rpx" bindtap='todetail' data-item="{{itemObject}}" wx:if="{{role == 2}}">
+            <image wx:if="{{itemObject.teacherAvatarUrl == ''}}" src='{{defaultAvatar}}'></image>
+            <image wx:else src='{{itemObject.teacherAvatarUrl}}'></image>
 
-            <text class='phName'>Aliys</text>
+            <text class='phName'>{{itemObject.teacherName}}</text>
 
           </view>
 

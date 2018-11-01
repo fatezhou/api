@@ -52,6 +52,7 @@ function getTeacherInfo(callback) {
       },
       method: 'POST',
       success: function(res) {
+        console.info(res)
         if (res.data.code === 0) {
           if (res.data.data.teacherInfo.teacherId) {
             app.globalData.userInfo = res.data.data.teacherInfo
@@ -142,6 +143,11 @@ function getoneGrowthRecordWithAppend(recordId, callback) {
     success: function(res) {
       if (res.data.code == 0) {
         res.data.data.record.text = decodeURIComponent(res.data.data.record.text)
+        res.data.data.record.isfold = true
+        if (res.data.data.record.text.length > 100) {
+          res.data.data.record.showTextBtn = true
+        }
+
         for (var i in res.data.data.record.append) {
           res.data.data.record.append[i].text = decodeURIComponent(res.data.data.record.append[i].text)
         }
@@ -238,7 +244,7 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
         mainTeacherId: mainTeacherId, //班主任id
         isAssist: true, //是否是助教
       }
-    } else if (app.globalData.role == 1) {
+    } else if (app.globalData.role == 2) {
       var publishNow
       if (mainTeacherId == -1) {
         publishNow = false
@@ -283,7 +289,7 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
 
     var isAssist = false
     for (var i in app.globalData.teacherList) {
-      if (app.globalData.teacherList[i].teacherId == orgAuthorId && app.globalData.teacherList[i].role == 1){
+      if (app.globalData.teacherList[i].teacherId == orgAuthorId && app.globalData.teacherList[i].role == 2) {
         isAssist = true
       }
     }

@@ -59,7 +59,7 @@
   </navigator>
 </view>
 
-<view class='choose' style="margin-bottom:18rpx" wx:if="{{recordType == 1 && role == 1}}">
+<view class='choose' style="margin-bottom:18rpx" wx:if="{{recordType == 1 && role == 2}}">
   <view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
   <!-- <view style="border-top:1rpx solid #ddd"> -->
   <text>发布到家长端</text>

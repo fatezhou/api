@@ -92,7 +92,7 @@ Page({
         if (res.append[i].authorType == 1) {
           for (var j = 0; j < allTeacherInfo.length; j++) {
             if (res.append[i].authorId == allTeacherInfo[j].teacherId) {
-              res.append[i].authorName = allTeacherInfo[j].nickname
+              res.append[i].authorName = (allTeacherInfo[j].nickname == "" ? allTeacherInfo[j].name : allTeacherInfo[j].nickname)
               res.append[i].avatarUrl = allTeacherInfo[j].avatarUrl
             }
           }

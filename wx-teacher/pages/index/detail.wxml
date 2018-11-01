@@ -39,7 +39,7 @@
   <view style='display:flex;align-items:center;'>
 
 
-    <image wx:if="{{avatarUrl == ''}}" src='{{Imgpath}}' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image>
+    <image wx:if="{{avatarUrl == ''}}" src='{{defaultAvatar}}' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image>
     <image wx:else src='{{avatarUrl}}' style='width:65rpx;height:65rpx;border-radius:50%;margin-left:30rpx;margin-right:20rpx;'></image>
 
     <view>
@@ -57,7 +57,7 @@
 
 <view wx:for='{{appendList}}' wx:for-item='item' wx:key='index' style='padding:30rpx;background:#FFF;font-size:30rpx;display:flex;border-bottom:1rpx solid #e5e5ea;'>
 
-  <image wx:if="{{item.avatarUrl == ''}}" src='{{Imgpath}}' data-item="{{item}}" bindtap='toUserInfo' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
+  <image wx:if="{{item.avatarUrl == ''}}" src='{{defaultAvatar}}' data-item="{{item}}" bindtap='toUserInfo' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
   <image wx:else src='{{item.avatarUrl}}' data-item="{{item}}" bindtap='toUserInfo' style='width:65rpx;height:65rpx;border-radius:50%;'></image>
   <image wx:if="{{item.authorType == 1}}" src='../../image/Ticon.png' style='width:26rpx;height:26rpx;position:absolute;margin:40rpx 0 0 44rpx'></image>
 
@@ -86,8 +86,8 @@
 
         <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex' wx:for-index="teacherindex">
           <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
-            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}}<text wx:if="{{item.like.teacher.length-1 > teacherindex}}">，</text>
-            <text wx:if="{{item.like.parent.length > 0}}" style="inline-block">，</text></text>
+            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname == "" ? allTeacheritem.name : allTeacheritem.nickname}}<text wx:if="{{item.like.teacher.length-1 > teacherindex}}">，</text>
+            <text wx:if="{{item.like.teacher.length-1 == teacherindex && item.like.parent.length > 0}}" style="inline-block">，</text></text>
           </block>
         </block>
 

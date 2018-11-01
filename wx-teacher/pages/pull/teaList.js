@@ -59,7 +59,7 @@ Page({
     var that = this;
     var memberList = []
     for (var i = 0; i < app.globalData.teacherList.length; i++) {
-      if (app.globalData.teacherList[i].role == 1) {
+      if (app.globalData.teacherList[i].role == 2) {
         memberList.push(app.globalData.teacherList[i])
       }
     }

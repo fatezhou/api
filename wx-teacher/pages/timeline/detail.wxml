@@ -28,8 +28,8 @@
 
         <block wx:for="{{item.likes.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex' wx:for-index="teacherindex">
           <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
-            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}}<text wx:if="{{item.likes.teacher.length-1 > teacherindex}}">，</text>
-            <text wx:if="{{item.likes.parent.length > 0}}" style="inline-block">，</text></text>
+            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname == "" ? allTeacheritem.name : allTeacheritem.nickname}}<text wx:if="{{item.likes.teacher.length-1 > teacherindex}}">，</text>
+            <text wx:if="{{item.likes.teacher.length-1 == teacherindex && item.likes.parent.length > 0}}" style="inline-block">，</text></text>
           </block>
         </block>
 
@@ -101,8 +101,8 @@
 
         <block wx:for="{{item.like.teacher}}" wx:for-item='teacherLikeitem' wx:key='teacherLikeindex' wx:for-index="teacherindex">
           <block wx:for="{{allTeacherInfo}}" wx:for-item='allTeacheritem' wx:key='allTeacherindex'>
-            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname}}<text wx:if="{{item.like.teacher.length-1 > teacherindex}}">，</text>
-            <text wx:if="{{item.like.parent.length > 0}}" style="inline-block">，</text></text>
+            <text wx:if="{{allTeacheritem.teacherId == teacherLikeitem}}">{{allTeacheritem.nickname == "" ? allTeacheritem.name : allTeacheritem.nickname}}<text wx:if="{{item.like.teacher.length-1 > teacherindex}}">，</text>
+            <text wx:if="{{item.like.teacher.length-1 == teacherindex && item.like.parent.length > 0}}" style="inline-block">，</text></text>
           </block>
         </block>
 

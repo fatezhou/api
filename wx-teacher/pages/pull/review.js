@@ -94,8 +94,8 @@ Page({
     this.data.text = reviewList.text
     this.data.authorId = reviewList.authorId
     this.data.authorType = reviewList.authorType
-    this.data.studentAvatarUrl = reviewList.avatarUrl
-    this.data.studentName = reviewList.name
+    this.data.studentAvatarUrl = reviewList.studentAvatarUrl
+    this.data.studentName = reviewList.studentName
 
     this.data.recordId = reviewList.recordId
     this.data.studentId = reviewList.studentId
