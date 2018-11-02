@@ -63,7 +63,7 @@ function ApiGetGrowthRecordWithoutAppend(){
             }
 
             
-            if(data.authorId && data.authorType && (data.isAssist == false)){
+            if(data.authorId && data.authorType && (data.isAssist == false || !data.isAssist)){
                 sqlFmt += "and author_id = ? and author_type = ? ";
                 sql.push(data.authorId);
                 sql.push(data.authorType);
