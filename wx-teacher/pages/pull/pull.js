@@ -232,8 +232,9 @@ Page({
     var publishRecord = this.data.publishRecord
     // recordId 仅为修改或删除时需要
     var recordId = null
+    var assistId = null
 
-    http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, publishRecord, recordId, function(res) {
+    http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, publishRecord, recordId, assistId, function(res) {
       if (res == 0) {
         wx.showToast({
           title: '发送成功',

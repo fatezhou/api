@@ -48,9 +48,11 @@ Page({
   // 记录详情页
   todetail: function(e) {
     var item = e.currentTarget.dataset.item
-    wx.navigateTo({
-      url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.studentName + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.studentAvatarUrl,
-    })
+    if (item.publishState == 1){
+      wx.navigateTo({
+        url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.studentName + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.studentAvatarUrl,
+      })
+    }
   },
   //事件处理函数
   showmore: function(e) {
@@ -266,7 +268,7 @@ Page({
         for (var i in teacherList) {
           for (var j in app.globalData.recordsList) {
             var assistId = app.globalData.recordsList[j].assistId
-            if (assistId != 0) {
+            if (assistId) {
               if (teacherList[i].teacherId == assistId) {
                 app.globalData.recordsList[j].teacherName = (teacherList[i].nickname == "" ? teacherList[i].name : teacherList[i].nickname);
                 app.globalData.recordsList[j].teacherAvatarUrl = teacherList[i].avatarUrl;

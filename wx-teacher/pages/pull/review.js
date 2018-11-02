@@ -224,6 +224,7 @@ Page({
       // 未做任何改动 并发布
       http.review(recordId, familyIds, assistId, function(res) {
         if (res == 0) {
+          app.globalData.isReview = true
           wx.showToast({
             title: '发送成功',
             icon: 'success',
@@ -243,11 +244,11 @@ Page({
     } else {
       if (app.globalData.reviewList.text != this.data.value || this.data.studentId != app.globalData.reviewList.studentId || this.data.imgs[this.data.imgs.length - 1] != app.globalData.reviewList.pictureUrls[this.data.imgs.length - 1]) {
         // 做了改动 如 文本变化 图片变化 学员选择变化
-        http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, publishRecord, recordId, function(res) {
+        http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, publishRecord, recordId, assistId, function(res) {
           if (res == 0) {
             app.globalData.isReview = true
             wx.showToast({
-              title: '发送成功',
+              title: '修改成功',
               icon: 'success',
               image: '',
               duration: 1000,
