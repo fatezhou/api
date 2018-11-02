@@ -344,59 +344,6 @@ response:
     }
 }
 
-# 操作审核#
-url: https://ip:port/api/v1.0/review
-method: post
-param:
-{
-	"unionid":"xxxxx",
-	"openid":"xxxxx",
-	"authorId":1234,
-	"recordId":1234,//要审核的纪录id
-	"reason":"xxxx",//选填,填写驳回的原因,使用url编码
-	"state":1, //1通过, 2驳回	
-}
-response:
-{
-	"code":0,
-	"data":{
-		
-	}
-}
-
-#获取审核记录#
-url: https://ip:port/api/v1.0/get_review_list
-method: post
-param:
-{
-	"unionid":"xxxxx",
-	"openid":"xxxxx",
-	"authorId":1234,//自己的id
-	"isAssist":true/false, //是/否是助理
-	"lastRecordId":1123, //分段加载, 上一回的最后一个recordId, 如果是第一次加载, 可以填0		
-}
-response:{
-	"code":1,
-	"data":{
-		"records":[
-			{
-				"recordId":1,
-				"createTime":"yyyy-mm-dd hhmiss",
-				"state":0/1/2, //未审, 通过, 驳回
-				"text":"xxxxxxx",
-				"pictureUrls":[
-				
-				],
-				"orgAuhtorId":1111,//助教id
-				"studentId":1122, //学生id
-			},
-			{
-			
-			}
-		]
-	}
-}
-
 ---------------------------------------------
 # 设置星标(
 url: https://ip:port/api/v1.0/put_member_fav
