@@ -1,0 +1,8 @@
+<!--pages/my/changeAvatar.wxml-->
+<view>
+  <text>选择头像</text>
+  <view bindtap='chooseImageTap'>
+    <image wx:if="{{img.length != 0}}" src='{{img}}' mode='cover'></image>
+    <image wx:else src='./../../image/add.png' mode='cover'></image>
+  </view>
+</view>

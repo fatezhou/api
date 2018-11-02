@@ -22,7 +22,7 @@
           <view wx:if="{{index == current}}">
             <!-- 代码修改   开始   添加 data-showbigimg="{{Imgpath}}" data-showpicurls="{{Imgpath}}" bindtap='showBigImg'-->
             <image wx:if="{{item.avatarUrl == ''}}" src="{{Imgpath}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx;border-radius:50%" data-showbigimg="{{Imgpath}}" data-showpicurls="{{Imgpath}}" bindtap='showBigImg' />
-            <image wx:else src="{{item.avatarUrl}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx；border-radius:50%" data-showbigimg="{{item.avatarUrl}}" data-showpicurls="{{item.avatarUrl}}" bindtap='showBigImg' />
+            <image wx:else src="{{item.avatarUrl}}" mode="cover" style="width:120rpx;height:120rpx;margin:20rpx 40rpx;border-radius:50%" data-showbigimg="{{item.avatarUrl}}" data-showpicurls="{{item.avatarUrl}}" bindtap='showBigImg' />
             <!-- 代码修改 结束 -->
             <view style="display:flex;flex-direction:column;align-items:center;color:#fff;">
               <text>{{item.name}}</text>

@@ -1,0 +1,6 @@
+/* pages/my/changeAvatar.wxss */
+
+image {
+  width: 300rpx;
+  height: 300rpx;
+}

@@ -7,6 +7,7 @@
     "pages/growthRecord/newMess",
     "pages/index/index",
     "pages/my/my",
+    "pages/my/changeAvatar",
     "pages/my/vipCard",
     "pages/my/vipDetail",
     "pages/my/StoredCard",

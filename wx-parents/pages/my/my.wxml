@@ -10,7 +10,7 @@
     </view>
 
   </view>
-  <view style='display:flex;color:#189999;align-items: center;font-weight:bold;margin-right:30rpx;' bindtap='xiugai'>
+  <view style='display:flex;color:#189999;align-items: center;font-weight:bold;margin-right:30rpx;' bindtap='toChangeAvatar'>
     <image src='../../image/pen.png' style='width:26rpx;height:26rpx;margin-right:10rpx;'></image>
     <view>编辑个人资料</view>
   </view>
