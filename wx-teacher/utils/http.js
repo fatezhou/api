@@ -113,24 +113,6 @@ function getGrowthRecordsWithoutAppend(recordId, studentId, pageSize, callback) 
   })
 };
 
-// 获取审核记录
-function getReviewList(callback) {
-  wx.request({
-    url: app.globalData.minidopeApi.getReviewList,
-    data: {
-      unionid: app.globalData.unionId,
-      openid: app.globalData.openId,
-      authorId: 3, //自己的id
-      isAssist: true, //是/否是助理
-      lastRecordId: 0, //分段加载, 上一回的最后一个recordId, 如果是第一次加载, 可以填0
-    },
-    method: 'POST',
-    success: function(res) {
-      console.info(res)
-    }
-  })
-};
-
 // 根据记录id 获取对应的评论
 function getoneGrowthRecordWithAppend(recordId, callback) {
   wx.request({
@@ -181,27 +163,34 @@ function getNewMessage(callback) {
 };
 
 function review(recordId, familyIds, assistId, callback) {
-  var data = {
-    openid: app.globalData.openId,
-    unionid: app.globalData.unionId,
-    authorId: app.globalData.userId,
-    authorType: app.globalData.userType,
-    recordId: recordId, //纪录的id
-    familiIds: familyIds, //其他家庭成员的id
-    assistId: assistId, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
+  var data = {}
+  if (assistId == 0) {
+    // 发布自己的
+    data = {
+      openid: app.globalData.openId,
+      unionid: app.globalData.unionId,
+      authorId: app.globalData.userId,
+      authorType: app.globalData.userType,
+      recordId: recordId, //纪录的id
+      familiIds: familyIds, //其他家庭成员的id
+    }
+  } else {
+    // 发布助教的
+    data = {
+      openid: app.globalData.openId,
+      unionid: app.globalData.unionId,
+      authorId: app.globalData.userId,
+      authorType: app.globalData.userType,
+      recordId: recordId, //纪录的id
+      familiIds: familyIds, //其他家庭成员的id
+      assistId: assistId, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
+    }
   }
   console.info(JSON.stringify(data))
+  // return
   wx.request({
     url: app.globalData.minidopeApi.review,
-    data: data
-      // {
-      //   openid: app.globalData.openId,
-      //   unionid: app.globalData.unionId,
-      //   recordId: recordId, //纪录的id
-      //   familiIds: familyIds, //其他家庭成员的id
-      //   assistId: assistId, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
-      // }
-      ,
+    data: data,
     method: 'POST',
     success: function(res) {
       return callback(0)
@@ -211,9 +200,8 @@ function review(recordId, familyIds, assistId, callback) {
 
 // 添加记录或评论
 // 评论不需要studentId
-// mainTeacherId 班主任id 如果值为-1/0 则为班主任自己 -1:publishNow=false ,0:publishNow=true 
 // recordId 仅为修改或删除时需要
-function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId, callback) {
+function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, publishRecord, recordId, callback) {
   var data = {}
   if (recordType == 2) {
     data = {
@@ -249,22 +237,14 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
         familyIds: familyIds, // 学生所有家长id
         pictureUrls: pictureUrls,
 
-        parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
         orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
         orgAuthorType: orgAuthorType,
 
-        // 新增参数
         mainTeacherId: mainTeacherId, //班主任id
         isAssist: true, //是否是助教
       }
 
     } else if (app.globalData.role == 2) {
-      var publishNow
-      if (mainTeacherId == -1) {
-        publishNow = false
-      } else if (mainTeacherId == 0) {
-        publishNow = true
-      }
       // 班主任
       data = {
         unionid: app.globalData.unionId,
@@ -279,12 +259,10 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
         familyIds: familyIds, // 学生所有家长id
         pictureUrls: pictureUrls,
 
-        parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
         orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
         orgAuthorType: orgAuthorType,
 
-        // 新增参数
-        publishNow: publishNow, //立即发布
+        publishNow: publishRecord, //立即发布
         isAssist: false, //是否是助教
       }
     }
@@ -294,19 +272,12 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
   if (recordId) {
     // 班主任改动记录
 
-    var publishNow
-    if (mainTeacherId == -1) {
-      publishNow = false
-    } else if (mainTeacherId == 0) {
-      publishNow = true
-    }
-
-    var isAssist = false
-    for (var i in app.globalData.teacherList) {
-      if (app.globalData.teacherList[i].teacherId == orgAuthorId && app.globalData.teacherList[i].role == 2) {
-        isAssist = true
-      }
-    }
+    // var isAssist = false
+    // for (var i in app.globalData.teacherList) {
+    //   if (app.globalData.teacherList[i].teacherId == orgAuthorId && app.globalData.teacherList[i].role == 0) {
+    //     isAssist = true
+    //   }
+    // }
 
     data = {
       unionid: app.globalData.unionId,
@@ -321,13 +292,13 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
       familyIds: familyIds, // 学生所有家长id
       pictureUrls: pictureUrls,
 
-      parentRecordId: parentRecordId, //如果是全新的一条记录, 则此项可以不用填,
       orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
       orgAuthorType: orgAuthorType,
 
-      // 新增参数
-      publishNow: publishNow, //立即发布
-      isAssist: isAssist, //是否是助教
+      publishNow: publishRecord, //立即发布
+      isAssist: false, //是否是助教
+
+      recordId: recordId, // 原纪录id  （会导致原纪录失效，插一条新记录）
     }
   }
   console.info(JSON.stringify(data))
@@ -505,7 +476,6 @@ module.exports = {
 
   getGrowthRecordsWithoutAppend: getGrowthRecordsWithoutAppend,
   review: review,
-  getReviewList: getReviewList,
   getoneGrowthRecordWithAppend: getoneGrowthRecordWithAppend,
   getNewMessage: getNewMessage,
 

@@ -119,16 +119,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
-    // http.getReviewList(function(res) {
-    //   console.info(res)
-    // })
     var that = this
     if (that.data.recordsList) {
-      http.getGrowthRecordsWithoutAppend(0, 0, 10, function (res) {
-        if (that.data.recordSize !== res.size) {
+      http.getGrowthRecordsWithoutAppend(0, 0, 10, function(res) {
+        if (that.data.recordSize !== res.size || app.globalData.isReview) {
           // 记录数不同 才重新设置
           app.globalData.recordsList = res.records
+          app.globalData.isReview = false
           that.setData({
             recordSize: res.size,
             recordsList: app.globalData.recordsList,
@@ -157,19 +154,19 @@ Page({
             if (res === 0) {
               http.getGrowthRecordsWithoutAppend(0, 0, 10, function(res) {
                 // if (that.data.recordSize !== res.size) {
-                  // 记录数不同 才重新设置
-                  app.globalData.recordsList = res.records
-                  that.setData({
-                    recordSize: res.size,
-                    recordsList: app.globalData.recordsList,
-                  })
-                  // 获取最后一条recordId 用于加载之后的记录
-                  that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
-                  that.setData({
-                    recordId: that.data.recordId
-                  })
-                  that.getStudents()
-                  that.getTeachers()
+                // 记录数不同 才重新设置
+                app.globalData.recordsList = res.records
+                that.setData({
+                  recordSize: res.size,
+                  recordsList: app.globalData.recordsList,
+                })
+                // 获取最后一条recordId 用于加载之后的记录
+                that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
+                that.setData({
+                  recordId: that.data.recordId
+                })
+                that.getStudents()
+                that.getTeachers()
                 // }
               })
               wx.stopPullDownRefresh()
@@ -180,19 +177,19 @@ Page({
     } else {
       http.getGrowthRecordsWithoutAppend(0, 0, 10, function(res) {
         // if (that.data.recordSize !== res.size) {
-          // 记录数不同 才重新设置
-          app.globalData.recordsList = res.records
-          that.setData({
-            recordSize: res.size,
-            recordsList: app.globalData.recordsList,
-          })
-          // 获取最后一条recordId 用于加载之后的记录
-          that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
-          that.setData({
-            recordId: that.data.recordId
-          })
-          that.getStudents()
-          that.getTeachers()
+        // 记录数不同 才重新设置
+        app.globalData.recordsList = res.records
+        that.setData({
+          recordSize: res.size,
+          recordsList: app.globalData.recordsList,
+        })
+        // 获取最后一条recordId 用于加载之后的记录
+        that.data.recordId = res.records.slice(res.records.length - 1)[0].recordId
+        that.setData({
+          recordId: that.data.recordId
+        })
+        that.getStudents()
+        that.getTeachers()
         // }
       })
       wx.stopPullDownRefresh()
@@ -268,10 +265,19 @@ Page({
         var teacherList = app.globalData.teacherList
         for (var i in teacherList) {
           for (var j in app.globalData.recordsList) {
-            if (teacherList[i].teacherId == app.globalData.recordsList[j].authorId) {
-              app.globalData.recordsList[j].teacherName = (teacherList[i].nickname == "" ? teacherList[i].name : teacherList[i].nickname);
-              app.globalData.recordsList[j].teacherAvatarUrl = teacherList[i].avatarUrl;
+            var assistId = app.globalData.recordsList[j].assistId
+            if (assistId != 0) {
+              if (teacherList[i].teacherId == assistId) {
+                app.globalData.recordsList[j].teacherName = (teacherList[i].nickname == "" ? teacherList[i].name : teacherList[i].nickname);
+                app.globalData.recordsList[j].teacherAvatarUrl = teacherList[i].avatarUrl;
+              }
+            } else {
+              if (teacherList[i].teacherId == app.globalData.recordsList[j].mainTeacherId) {
+                app.globalData.recordsList[j].teacherName = (teacherList[i].nickname == "" ? teacherList[i].name : teacherList[i].nickname);
+                app.globalData.recordsList[j].teacherAvatarUrl = teacherList[i].avatarUrl;
+              }
             }
+
           }
         }
         that.setData({

@@ -35,7 +35,7 @@
   </navigator>
 </view>
 
-<view class='choose'>
+<view class='choose' wx:if="{{assistId != 0}}">
 <view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
   <!-- <view style="border-top:1rpx solid #ddd"> -->
     <text>助教</text>

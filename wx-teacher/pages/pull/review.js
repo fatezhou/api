@@ -27,10 +27,11 @@ Page({
 
     recordId: '',
     studentId: '',
+    assistId: '',
 
     familyIds: '',
 
-    mainTeacherId: -1,
+    mainTeacherId: 0,
     publishRecord: false,
   },
 
@@ -74,11 +75,7 @@ Page({
   publishNow: function(e) {
     var status = e.detail.value
     this.data.publishRecord = status
-    if (status) {
-      this.data.mainTeacherId = 0
-    } else {
-      this.data.mainTeacherId = -1
-    }
+
     this.setData(this.data)
   },
 
@@ -99,6 +96,8 @@ Page({
 
     this.data.recordId = reviewList.recordId
     this.data.studentId = reviewList.studentId
+    // this.data.assistId = parseInt(reviewList.assistId)
+    this.data.assistId = reviewList.assistId
 
     this.data.imgs = reviewList.pictureUrls
 
@@ -215,10 +214,13 @@ Page({
     var orgAuthorId = app.globalData.userId
     var orgAuthorType = app.globalData.userType
     var mainTeacherId = this.data.mainTeacherId
-    var assistId = this.data.authorId
+    var assistId = this.data.assistId
     var recordId = this.data.recordId
-    console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId)
-    if (app.globalData.reviewList.text == this.data.value && this.data.studentId == app.globalData.reviewList.studentId && this.data.imgs[this.data.imgs.length - 1] == app.globalData.reviewList.pictureUrls[this.data.imgs.length - 1] && mainTeacherId == 0) {
+
+    var publishRecord = this.data.publishRecord
+
+    // console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId)
+    if (app.globalData.reviewList.text == this.data.value && this.data.studentId == app.globalData.reviewList.studentId && this.data.imgs[this.data.imgs.length - 1] == app.globalData.reviewList.pictureUrls[this.data.imgs.length - 1] && publishRecord) {
       // 未做任何改动 并发布
       http.review(recordId, familyIds, assistId, function(res) {
         if (res == 0) {
@@ -241,8 +243,9 @@ Page({
     } else {
       if (app.globalData.reviewList.text != this.data.value || this.data.studentId != app.globalData.reviewList.studentId || this.data.imgs[this.data.imgs.length - 1] != app.globalData.reviewList.pictureUrls[this.data.imgs.length - 1]) {
         // 做了改动 如 文本变化 图片变化 学员选择变化
-        http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId, function(res) {
+        http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, publishRecord, recordId, function(res) {
           if (res == 0) {
+            app.globalData.isReview = true
             wx.showToast({
               title: '发送成功',
               icon: 'success',
@@ -259,7 +262,7 @@ Page({
             })
           }
         })
-      } else if (mainTeacherId == -1) {
+      } else if (publishRecord == false) {
         wx.showToast({
           title: '未做任何修改',
           icon: 'success',

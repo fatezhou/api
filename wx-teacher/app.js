@@ -64,7 +64,6 @@ App({
       oneGrowthRecordWithAppendUrl: "https://api2.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
 
       // 新api
-      getReviewList: "https://api2.minidope.com/api/v1.0/get_review_list",
       review: "https://api2.minidope.com/api/v1.0/review",
 
       getNewMessage: 'https://api2.minidope.com/api/v2.0/get_new_message',
@@ -75,9 +74,11 @@ App({
     },
 
     qiniup: 'https://up-z2.qiniup.com',
-    phoneVcode:'https://api2.minidope.com/api/v1.0/phone-vcode',
+    phoneVcode: 'https://api2.minidope.com/api/v1.0/phone-vcode',
     bindPhone: 'https://api2.minidope.com/api/v1.0/bindPhone',
 
+    // 审核
+    isReview: false,
     // 记录
     recordsSize: '',
     recordsList: [],

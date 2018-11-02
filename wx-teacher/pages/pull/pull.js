@@ -11,10 +11,14 @@ Page({
     orgAuthorId: '',
     orgAuthorType: '',
     parentRecordId: 0,
+    text: '',
+    mainTeacherId: 0,
+    publishRecord: false,
+    familyIds: [],
+    pictureUrls: [],
 
     callText: '',
     placeholder: '填写内容(12-500字)',
-    text: '',
 
     studentAvatarUrl: '',
     studentName: '',
@@ -22,14 +26,10 @@ Page({
     teacherAvatarUrl: '',
     teacherName: '',
     teacherId: 0,
-    mainTeacherId: -1,
 
     toChooseStudent: true,
     role: null,
-    publishRecord: false,
 
-    familyIds: [],
-    pictureUrls: [],
     canChoose: true, //是否可选图片
     tempFilePaths: {}, //本地图片地址对象
     downloadUrl: '',
@@ -55,11 +55,11 @@ Page({
   publishNow: function(e) {
     var status = e.detail.value
     this.data.publishRecord = status
-    if (status) {
-      this.data.mainTeacherId = 0
-    } else {
-      this.data.mainTeacherId = -1
-    }
+    // if (status) {
+    //   this.data.mainTeacherId = 0
+    // } else {
+    //   this.data.mainTeacherId = -1
+    // }
     this.setData(this.data)
   },
   /**
@@ -228,12 +228,12 @@ Page({
     var orgAuthorId = this.data.orgAuthorId
     var orgAuthorType = this.data.orgAuthorType
     var mainTeacherId = this.data.mainTeacherId
+
+    var publishRecord = this.data.publishRecord
     // recordId 仅为修改或删除时需要
     var recordId = null
-    console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId)
 
-    // return
-    http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId, function(res) {
+    http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, publishRecord, recordId, function(res) {
       if (res == 0) {
         wx.showToast({
           title: '发送成功',
