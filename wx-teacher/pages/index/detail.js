@@ -31,6 +31,18 @@ Page({
     drawer: false,
   },
 
+  // 分享按钮
+  toShare: function(e) {
+    app.globalData.shareList[0] = {}
+    app.globalData.shareList[0].text = this.data.mainText
+    app.globalData.shareList[0].imgUrl = this.data.imgUrl
+    app.globalData.shareList[0].dateTime = this.data.dateTime
+    app.globalData.shareList[0].avatarUrl = this.data.avatarUrl
+    wx.navigateTo({
+      url: '../share/share',
+    })
+  },
+
   //头像跳转个人信息
   toUserInfo: function(e) {
     let item = e.currentTarget.dataset.item

@@ -1,0 +1,9 @@
+<!--pages/share/share.wxml-->
+<view wx:for="{{shareList}}" wx:key="index" wx:for-item="item">
+  <text>{{item.text}}</text>
+  <view class="image">
+    <image wx:for="{{item.imgUrl}}" wx:key="imgIndex" wx:for-item="imgItem" src="{{imgItem}}" mode='aspectFill'></image>
+  </view>
+  <button open-type='share'>分享</button>
+
+</view>

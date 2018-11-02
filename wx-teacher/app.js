@@ -79,6 +79,9 @@ App({
 
     // 审核
     isReview: false,
+    // 分享信息
+    shareList: [],
+
     // 记录
     recordsSize: '',
     recordsList: [],

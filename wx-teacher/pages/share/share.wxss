@@ -1,0 +1,38 @@
+/* pages/share/share.wxss */
+
+page {
+  background: #f2f4f7;
+}
+
+text {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 20%;
+  padding: 20rpx;
+  margin: 50rpx;
+  color: #292e38;
+  word-break: break-all;
+  letter-spacing: 1rpx;
+  font-size: 28rpx;
+  border-radius: 12rpx;
+  border: 1rpx solid #a5a7ad;
+}
+
+.image {
+  margin: 0 0 0 5rpx;
+  display: inline-block;
+}
+
+image {
+  width: 180rpx;
+  height: 180rpx;
+  margin: 50rpx 0 0 50rpx;
+}
+
+button {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

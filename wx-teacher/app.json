@@ -15,7 +15,8 @@
     "pages/pull/pull",
     "pages/pull/review",
     "pages/pull/stuList",
-    "pages/pull/teaList"
+    "pages/pull/teaList",
+    "pages/share/share"
   ],
   "window": {
     "backgroundTextStyle": "light",
