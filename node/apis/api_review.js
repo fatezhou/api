@@ -10,7 +10,7 @@ function ApiReview(){
             if(!data.recordId || !data.authorId || !data.authorType){
                 callback(response.BadParam());
             }else{
-                var sqlFmt = "update growth_record set state = 1 where id = ?";
+                var sqlFmt = "update growth_record set publish_state = 1 where id = ?";
                 db.Query(sqlFmt, [data.recordId], function(e){
                     if(e.error){
                         callback(response.BadApi());
@@ -21,9 +21,14 @@ function ApiReview(){
                         var familyIds = data.familyIds;
                         var dbFamilyIdsInsert = tools.GetDataBase();
                         var insertNewMsgSql = "insert into new_message(\
-                            record_id, author_id, author_type,\
-                            msg_type, parent_record_id, org_author_id, \
-                            org_author_type, state)values";
+                            record_id,\
+                            author_id,\
+                            author_type,\
+                            msg_type, \
+                            parent_record_id, \
+                            org_author_id, \
+                            org_author_type, \
+                            state)values";
                         for(var i in familyIds){
                             insertNewMsgSql += "(" + res.recordId + "," +
                                 data.authorId + "," + data.authorType + "," +
@@ -33,8 +38,8 @@ function ApiReview(){
                         if(data.assistId){
                             insertNewMsgSql += 
                                 "(" + data.recordId + "," +
-                                    data.assistId + "," + data.authorType + "," + 
-                                    3 + "," + 0 + "," +  data.assistId + "," + 1 + ")";
+                                    data.assistId + "," + 1 + "," + 
+                                    3 + "," + 0 + "," +  data.assistId + ", 1, 0)";
                         }
                         if(insertNewMsgSql.length > 0){
                             if(insertNewMsgSql.charAt(insertNewMsgSql.length - 1) == ','){
