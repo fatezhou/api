@@ -43,7 +43,8 @@
 
           <view class='tlDright' wx:if="{{itemObject.publishState == 0}}">
             <text>{{itemObject.dateTime}}</text>
-            <button style="padding:12rpx 12rpx;background-color:#8F9C9C;border-radius:6rpx;color:#fff;font-size:24rpx" bindtap='toeditRecord' data-item="{{itemObject}}">未发布</button>
+            <!-- <button style="padding:12rpx 12rpx;background-color:#8F9C9C;border-radius:6rpx;color:#fff;font-size:24rpx" bindtap='toeditRecord' data-item="{{itemObject}}">未发布</button> -->
+              <button style="padding:12rpx 12rpx;background-color:#8F9C9C;border-radius:6rpx;color:#fff;font-size:24rpx">未发布</button>
           </view>
           <view class='tlDright' wx:if="{{itemObject.publishState == 1}}">
             <text>{{itemObject.dateTime}}</text>

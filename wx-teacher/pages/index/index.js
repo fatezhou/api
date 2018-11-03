@@ -58,19 +58,24 @@ Page({
         wx.navigateTo({
           url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.studentName + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.studentAvatarUrl,
         })
+      } else {
+        app.globalData.reviewList = item
+        wx.navigateTo({
+          url: '../pull/review'
+        })
       }
     }
   },
 
   // 班主任编辑助教记录
-  toeditRecord: function(e) {
-    // if (app.globalData.role == 2) {
-    app.globalData.reviewList = e.currentTarget.dataset.item
-    wx.navigateTo({
-      url: '../pull/review'
-    })
-    // }
-  },
+  // toeditRecord: function(e) {
+  // if (app.globalData.role == 2) {
+  // app.globalData.reviewList = e.currentTarget.dataset.item
+  // wx.navigateTo({
+  //   url: '../pull/review'
+  // })
+  // }
+  // },
   // 记录详情页
   // todetail: function(e) {
   //   var item = e.currentTarget.dataset.item

@@ -323,24 +323,35 @@ Page({
   //删除上传图片
   reom(e) {
     let that = this
-    // console.info(e)
     let index = e.currentTarget.dataset.index
     let imgs = that.data.imgs
-    for (var i = 0; i < imgs.length; i++) {
-      if (index == i) {
-        imgs.splice(i, 1);
-        i--;
-        break
+    wx.showActionSheet({
+      itemList: ['删除'],
+      itemColor: "#00000",
+      success: function(res) {
+        if (!res.cancel) {
+          if (res.tapIndex == 0) {
+            // console.info(e)
+
+            for (var i = 0; i < imgs.length; i++) {
+              if (index == i) {
+                imgs.splice(i, 1);
+                i--;
+                break
+              }
+            }
+            if (imgs.length <= 9) {
+              that.setData({
+                canChoose: true,
+              });
+            }
+            that.setData({
+              imgs: imgs,
+            });
+          }
+        }
       }
-    }
-    if (imgs.length <= 9) {
-      that.setData({
-        canChoose: true,
-      });
-    }
-    that.setData({
-      imgs: imgs,
-    });
+    })
   },
   //添加上传图片
   chooseImageTap: function() {

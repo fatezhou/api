@@ -34,7 +34,7 @@ Page({
     mainTeacherId: 0,
     publishRecord: false,
 
-    role:'',
+    role: '',
   },
 
   charChange: function(e) {
@@ -103,6 +103,7 @@ Page({
     this.data.mainTeacherId = reviewList.mainTeacherId
 
     this.data.imgs = reviewList.pictureUrls
+
 
     for (var i in this.data.imgs) {
       this.data.prepareToUpload[i] = {}
@@ -175,25 +176,43 @@ Page({
       })
       return
     }
-
-    for (var i in this.data.prepareToUpload) {
-      for (var j in app.globalData.reviewList.pictureUrls) {
-        if (this.data.prepareToUpload[i].downloadUrl != app.globalData.reviewList.pictureUrls[i]) {
-          wx.uploadFile({
-            url: app.globalData.qiniup,
-            filePath: this.data.prepareToUpload[i].localFilePath,
-            name: "file",
-            header: 'Content-Type: multipart/form-data;',
-            method: 'post',
-            formData: {
-              token: this.data.prepareToUpload[i].token,
-              key: this.data.prepareToUpload[i].key,
-            },
-            success: function(res) {},
-          });
+    console.info(this.data.prepareToUpload)
+    if (app.globalData.reviewList.pictureUrls.length > 0) {
+      for (var i in this.data.prepareToUpload) {
+        for (var j in app.globalData.reviewList.pictureUrls) {
+          if (this.data.prepareToUpload[i].downloadUrl != app.globalData.reviewList.pictureUrls[i]) {
+            wx.uploadFile({
+              url: app.globalData.qiniup,
+              filePath: this.data.prepareToUpload[i].localFilePath,
+              name: "file",
+              header: 'Content-Type: multipart/form-data;',
+              method: 'post',
+              formData: {
+                token: this.data.prepareToUpload[i].token,
+                key: this.data.prepareToUpload[i].key,
+              },
+              success: function(res) {},
+            });
+          }
         }
       }
+    } else {
+      for (var i in this.data.prepareToUpload) {
+        wx.uploadFile({
+          url: app.globalData.qiniup,
+          filePath: this.data.prepareToUpload[i].localFilePath,
+          name: "file",
+          header: 'Content-Type: multipart/form-data;',
+          method: 'post',
+          formData: {
+            token: this.data.prepareToUpload[i].token,
+            key: this.data.prepareToUpload[i].key,
+          },
+          success: function(res) {},
+        });
+      }
     }
+
     this.addRecard();
   },
 
@@ -247,7 +266,7 @@ Page({
         }
       })
     } else {
-      if (app.globalData.reviewList.text != this.data.value || this.data.studentId != app.globalData.reviewList.studentId || this.data.imgs[this.data.imgs.length - 1] != app.globalData.reviewList.pictureUrls[this.data.imgs.length - 1]) {
+      if (app.globalData.reviewList.text != this.data.value || this.data.studentId != app.globalData.reviewList.studentId || this.data.imgs[this.data.imgs.length - 1] != app.globalData.reviewList.pictureUrls[app.globalData.reviewList.pictureUrls.length - 1] || this.data.imgs.length != app.globalData.reviewList.pictureUrls.length) {
         // 做了改动 如 文本变化 图片变化 学员选择变化
         http.putNewRecord(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, publishRecord, recordId, assistId, function(res) {
           if (res == 0) {
@@ -268,22 +287,29 @@ Page({
             })
           }
         })
-      } else if (publishRecord == false) {
-        wx.showToast({
-          title: '未做任何修改',
-          icon: 'success',
-          image: '',
-          duration: 1000,
-          mask: true,
-          success: function(res) {
-            // setTimeout(function() {
-            //   wx.navigateBack({
-            //     delta: 1
-            //   })
-            // }, 1000)
-          },
-        })
+      } else {
+        // if(app.globalData.role == 2){
+        if (publishRecord == false) {
+          wx.showToast({
+            title: '未做任何修改',
+            icon: 'success',
+            image: '',
+            duration: 1000,
+            mask: true,
+            success: function(res) {
+              // setTimeout(function() {
+              //   wx.navigateBack({
+              //     delta: 1
+              //   })
+              // }, 1000)
+            },
+          })
+        }
+        // }
+
       }
+
+
     }
   },
 
@@ -321,37 +347,47 @@ Page({
   //删除上传图片
   reom(e) {
     let that = this
-    console.info(e)
     let index = e.currentTarget.dataset.index
     let imgs = that.data.imgs
-    for (var i = 0; i < imgs.length; i++) {
-      if (index == i) {
-        imgs.splice(i, 1);
-        i--;
-        break
-      }
-    }
-    for (var j in that.data.imgs) {
-      if (that.data.imgs[j] == e.currentTarget.dataset.item) {
-        that.data.imgs.splice(j, 1);
-      }
-    }
+    wx.showActionSheet({
+      itemList: ['删除'],
+      itemColor: "#00000",
+      success: function(res) {
+        if (!res.cancel) {
+          if (res.tapIndex == 0) {
+            console.info(e)
+            for (var i = 0; i < imgs.length; i++) {
+              if (index == i) {
+                imgs.splice(i, 1);
+                i--;
+                break
+              }
+            }
+            for (var j in that.data.imgs) {
+              if (that.data.imgs[j] == e.currentTarget.dataset.item) {
+                that.data.imgs.splice(j, 1);
+              }
+            }
 
-    that.data.prepareToUpload = []
-    for (var i in that.data.imgs) {
-      that.data.prepareToUpload[i] = {}
-      that.data.prepareToUpload[i].downloadUrl = that.data.imgs[i]
-    }
-    that.setData(that.data)
+            that.data.prepareToUpload = []
+            for (var i in that.data.imgs) {
+              that.data.prepareToUpload[i] = {}
+              that.data.prepareToUpload[i].downloadUrl = that.data.imgs[i]
+            }
+            that.setData(that.data)
 
-    if (imgs.length <= 9) {
-      that.setData({
-        canChoose: true,
-      });
-    }
-    that.setData({
-      imgs: imgs,
-    });
+            if (imgs.length <= 9) {
+              that.setData({
+                canChoose: true,
+              });
+            }
+            that.setData({
+              imgs: imgs,
+            });
+          }
+        }
+      }
+    })
   },
   //添加上传图片
   chooseImageTap: function() {
@@ -408,6 +444,7 @@ Page({
 
           var self = that;
           var localFilePath = res.tempFilePaths[i];
+
           wx.request({
             url: app.globalData.minidopeApi.getCdnToken,
             method: 'post',
@@ -417,7 +454,6 @@ Page({
               localFilePath: localFilePath
             },
             success: function(res) {
-
               self.data.prepareToUpload.push({
                 fileName: res.data.data.cdn.fileName,
                 token: res.data.data.cdn.token,
