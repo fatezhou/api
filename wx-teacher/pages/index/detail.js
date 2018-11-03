@@ -31,17 +31,44 @@ Page({
     drawer: false,
   },
 
-  // 分享按钮
-  toShare: function(e) {
-    app.globalData.shareList[0] = {}
-    app.globalData.shareList[0].text = this.data.mainText
-    app.globalData.shareList[0].imgUrl = this.data.imgUrl
-    app.globalData.shareList[0].dateTime = this.data.dateTime
-    app.globalData.shareList[0].avatarUrl = this.data.avatarUrl
-    wx.navigateTo({
-      url: '../share/share',
+  toShareOrPull: function(e) {
+    var that = this
+    wx.showActionSheet({
+      itemList: ['评论', '分享'],
+      itemColor: "#00000",
+      success: function(res) {
+        if (!res.cancel) {
+          if (res.tapIndex == 0) {
+            wx.navigateTo({
+              url: '../pull/pull?recordId=' + that.data.recordId + '&type=append&orgAuthorId=' + that.data.orgAuthorId + '&orgAuthorType=' + that.data.orgAuthorType + '&studentId=' + that.data.studentId,
+            })
+
+          } else if (res.tapIndex == 1) {
+            app.globalData.shareList[0] = {}
+            app.globalData.shareList[0].text = that.data.mainText
+            app.globalData.shareList[0].imgUrl = that.data.imgUrl
+            app.globalData.shareList[0].dateTime = that.data.dateTime
+            app.globalData.shareList[0].avatarUrl = that.data.avatarUrl
+            wx.navigateTo({
+              url: '../share/share',
+            })
+          }
+        }
+      }
     })
   },
+
+  // 分享按钮
+  // toShare: function(e) {
+  //   app.globalData.shareList[0] = {}
+  //   app.globalData.shareList[0].text = this.data.mainText
+  //   app.globalData.shareList[0].imgUrl = this.data.imgUrl
+  //   app.globalData.shareList[0].dateTime = this.data.dateTime
+  //   app.globalData.shareList[0].avatarUrl = this.data.avatarUrl
+  //   wx.navigateTo({
+  //     url: '../share/share',
+  //   })
+  // },
 
   //头像跳转个人信息
   toUserInfo: function(e) {
@@ -60,11 +87,11 @@ Page({
   },
 
   // 抽屉
-  drawerClick: function() {
-    this.setData({
-      drawer: !this.data.drawer
-    })
-  },
+  // drawerClick: function() {
+  //   this.setData({
+  //     drawer: !this.data.drawer
+  //   })
+  // },
 
   // 图片放大
   showBigImg: function(e) {

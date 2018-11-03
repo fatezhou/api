@@ -19,13 +19,14 @@
       <view>{{dateTime}} · {{listNumber}}评论 · {{likenumber}}赞</view>
 
       <view>
-        <view class="{{drawer ? 'show' : 'hide'}}">
+        <!-- <view class="{{drawer ? 'show' : 'hide'}}">
           <navigator url="../pull/pull?recordId={{recordId}}&type=append&orgAuthorId={{orgAuthorId}}&orgAuthorType={{orgAuthorType}}&studentId={{studentId}}" hover-class="none">
             <view style="border-right:1rpx solid #fff;padding-right:10rpx">评论</view>
           </navigator>
           <view style="padding:10rpx;" bindtap='toShare'>分享</view>
-        </view>
-        <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx 14rpx 14rpx 0;' mode='cover' bindtap='drawerClick'></image>
+        </view> -->
+        <!-- <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx 14rpx 14rpx 0;' mode='cover' bindtap='drawerClick'></image> -->
+        <image src='../../image/more.png' style='width:50rpx;height:50rpx;padding:14rpx 14rpx 14rpx 0;' mode='cover' bindtap='toShareOrPull'></image>
 
       </view>
 
