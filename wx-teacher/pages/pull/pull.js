@@ -323,8 +323,7 @@ Page({
   //删除上传图片
   reom(e) {
     let that = this
-    let index = e.currentTarget.dataset.index
-    let imgs = that.data.imgs
+  
     wx.showActionSheet({
       itemList: ['删除'],
       itemColor: "#00000",
@@ -332,7 +331,8 @@ Page({
         if (!res.cancel) {
           if (res.tapIndex == 0) {
             // console.info(e)
-
+            let index = e.currentTarget.dataset.index
+            let imgs = that.data.imgs
             for (var i = 0; i < imgs.length; i++) {
               if (index == i) {
                 imgs.splice(i, 1);
@@ -340,6 +340,20 @@ Page({
                 break
               }
             }
+
+            for (var j in that.data.imgs) {
+              if (that.data.imgs[j] == e.currentTarget.dataset.item) {
+                that.data.imgs.splice(j, 1);
+              }
+            }
+
+            that.data.prepareToUpload = []
+            for (var i in that.data.imgs) {
+              that.data.prepareToUpload[i] = {}
+              that.data.prepareToUpload[i].downloadUrl = that.data.imgs[i]
+            }
+            that.setData(that.data)
+            
             if (imgs.length <= 9) {
               that.setData({
                 canChoose: true,

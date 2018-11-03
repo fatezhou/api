@@ -347,14 +347,15 @@ Page({
   //删除上传图片
   reom(e) {
     let that = this
-    let index = e.currentTarget.dataset.index
-    let imgs = that.data.imgs
+
     wx.showActionSheet({
       itemList: ['删除'],
       itemColor: "#00000",
       success: function(res) {
         if (!res.cancel) {
           if (res.tapIndex == 0) {
+            let index = e.currentTarget.dataset.index
+            let imgs = that.data.imgs
             console.info(e)
             for (var i = 0; i < imgs.length; i++) {
               if (index == i) {
