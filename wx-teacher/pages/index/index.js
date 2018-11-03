@@ -20,20 +20,46 @@ Page({
 
   // 新消息 传递formid
   formSubmit_collect: function(e) {
+    console.warn(e)
+    let navigateto = e.target.dataset.navigateto
     let formId = e.detail.formId;
+    var data = {}
+    data = {
+      authorId: app.globalData.userId,
+      authorType: app.globalData.userType,
+      formId: formId,
+      openId: app.globalData.openId,
+      unionId: app.globalData.unionId,
+      accesstoken: app.globalData.token,
+    }
+    console.warn(1)
+    console.warn(JSON.stringify(data))
     wx.request({
       url: app.globalData.minidopeApi.putFormId,
-      data: {
-        "authorId": app.globalData.userId,
-        "authorType": app.globalData.userType,
-        "formId": formId,
-        "openId": app.globalData.openid,
-        "unionId": app.globalData.unionid,
-        "accesstoken": app.globalData.token,
-      },
-      method: 'post',
-      success: function(res) {}
+      data: data,
+      method: 'POST',
+      success: function(res) {
+        console.warn(res.data)
+      }
     })
+
+    if (navigateto == "newMess") {
+      wx.navigateTo({
+        url: 'newMess',
+      })
+    } else if (navigateto == "pull") {
+      wx.navigateTo({
+        url: './../pull/pull?type=record',
+      })
+    } else if (navigateto == "todetail") {
+       // 记录详情页
+      var item = e.currentTarget.dataset.item
+      if (item.publishState == 1) {
+        wx.navigateTo({
+          url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.studentName + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.studentAvatarUrl,
+        })
+      }
+    }
   },
 
   // 班主任编辑助教记录
@@ -46,14 +72,14 @@ Page({
     }
   },
   // 记录详情页
-  todetail: function(e) {
-    var item = e.currentTarget.dataset.item
-    if (item.publishState == 1){
-      wx.navigateTo({
-        url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.studentName + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.studentAvatarUrl,
-      })
-    }
-  },
+  // todetail: function(e) {
+  //   var item = e.currentTarget.dataset.item
+  //   if (item.publishState == 1) {
+  //     wx.navigateTo({
+  //       url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.studentName + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.studentAvatarUrl,
+  //     })
+  //   }
+  // },
   //事件处理函数
   showmore: function(e) {
     for (var i = 0; i < this.data.recordsList.length; i++) {

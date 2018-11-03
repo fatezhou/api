@@ -1,35 +1,39 @@
 <!--index.wxml-->
-<form bindsubmit="formSubmit_collect" report-submit="true">
-  <view class='counts'>
-    <view class='countsLeft'>{{recordSize}}条记录</view>
-    <navigator url='newMess'>
+
+<view class='counts'>
+  <view class='countsLeft'>{{recordSize}}条记录</view>
+
+  <form bindsubmit="formSubmit_collect" data-navigateTo="newMess" report-submit="true">
+    <button formType="submit" hover-class="none" style="background-color:transparent">
       <view class='countsRight'>
         <view class='crNews'>
           <image src='./../../image/icnotification.png' mode='widthFix'></image>
         </view>
-        <button formType="submit" hover-class="none">新消息</button>
+        <button hover-class="none">新消息</button>
       </view>
-    </navigator>
+    </button>
+  </form>
 
 
-  </view>
-  <view wx:if="{{recordSize === 0}}" style="display:flex;flex-direction:column;align-items:center;top:40%;position:fixed;width:750rpx;font-size:28rpx;opacity: .5">
-    <image src="./../../image/icbook.png" style="height:66rpx;width:66rpx;margin-bottom:20rpx"></image>
-    无记录
-  </view>
-  <view class='listDetail' wx:else>
-    <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index' style="padding-bottom:{{itemObject.showTextBtn ? '60rpx' : '40rpx'}}">
 
+</view>
+<view wx:if="{{recordSize === 0}}" style="display:flex;flex-direction:column;align-items:center;top:40%;position:fixed;width:750rpx;font-size:28rpx;opacity: .5">
+  <image src="./../../image/icbook.png" style="height:66rpx;width:66rpx;margin-bottom:20rpx"></image>
+  无记录
+</view>
+<view class='listDetail' wx:else>
+  <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index' style="padding-bottom:{{itemObject.showTextBtn ? '60rpx' : '40rpx'}}" >
+    <form bindsubmit="formSubmit_collect" report-submit="true" data-navigateTo="todetail" data-item="{{itemObject}}">
       <button formType="submit" hover-class="none" style="margin-left:0;" data-item="{{itemObject}}">
         <view class='toplD'>
-          <view class='tlDleft' bindtap='todetail' data-item="{{itemObject}}">
+          <view class='tlDleft'>
             <image wx:if="{{itemObject.studentAvatarUrl == ''}}" src='{{defaultAvatar}}'></image>
             <image wx:else src='{{itemObject.studentAvatarUrl}}'></image>
 
             <text class='phName'>{{itemObject.studentName}}</text>
 
           </view>
-          <view class='tlDleft' style="margin-left:22rpx" bindtap='todetail' data-item="{{itemObject}}" wx:if="{{role == 2}}">
+          <view class='tlDleft' style="margin-left:22rpx" wx:if="{{role == 2}}">
             <image wx:if="{{itemObject.teacherAvatarUrl == ''}}" src='{{defaultAvatar}}'></image>
             <image wx:else src='{{itemObject.teacherAvatarUrl}}'></image>
 
@@ -48,7 +52,7 @@
 
         </view>
       </button>
-      <view bindtap='todetail' data-item="{{itemObject}}" class="words {{itemObject.isfold ? 'hide' : 'show'}}" style="margin-bottom:20rpx;margin-left:10rpx">
+      <view class="words {{itemObject.isfold ? 'hide' : 'show'}}" style="margin-bottom:20rpx;margin-left:10rpx">
         <button formType="submit" hover-class="none" style="margin-left:0">
           <text style="letter-spacing:1rpx;font-size: 28rpx;">{{itemObject.text}}</text>
         </button>
@@ -58,41 +62,40 @@
       <view wx:elif="{{itemObject.showTextBtn}}" bindtap='showmore' data-recordId='{{itemObject.recordId}}' style="position:relative;font-size:24rpx;float:right;margin-right:10rpx;color:#aaa">收起</view>
 
       <view class='picList th1' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 1}}">
-        <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
+        <button formType="submit" hover-class="none" style="margin-left:0">
           <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
         </button>
       </view>
       <view class='picList th2' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length == 2}}">
-        <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
+        <button formType="submit" hover-class="none" style="margin-left:0">
           <image src='{{itemObject.pictureUrls[0]}}' mode="aspectFill"></image>
           <image src='{{itemObject.pictureUrls[1]}}' mode="aspectFill"></image>
         </button>
       </view>
 
       <view class='picList th3' wx:if="{{itemObject.pictureUrls !=[] && itemObject.pictureUrls.length >= 3}}">
-        <button formType="submit" hover-class="none" style="margin-left:0" bindtap='todetail' data-item="{{itemObject}}">
+        <button formType="submit" hover-class="none" style="margin-left:0">
 
           <image wx:for="{{itemObject.pictureUrls}}" wx:for-item="imgitem" wx:key='imgindex' src='{{imgitem}}' mode="aspectFill"></image>
         </button>
 
       </view>
 
-
-    </view>
-
-  </view>
-  <view style="position:relative;height:200rpx;display:flex;font-size:28rpx;flex-direction:column;align-items:center;opacity:.5">{{noTextPrompt}}</view>
-  <view class='fixed'>
-    <navigator url='./../pull/pull?type=record' hover-class="none">
-      <button formType="submit" hover-class="none" style="background-color:transparent">
-        <image src='./../../image/edit.png' mode='widthFix'></image>
-      </button>
-    </navigator>
+    </form>
   </view>
 
+</view>
+<view style="position:relative;height:200rpx;display:flex;font-size:28rpx;flex-direction:column;align-items:center;opacity:.5">{{noTextPrompt}}</view>
+<view class='fixed'>
+  <!-- <navigator url='./../pull/pull?type=record' hover-class="none"> -->
+  <form bindsubmit="formSubmit_collect" data-navigateTo="pull" report-submit="true">
+    <button formType="submit" hover-class="none" style="background-color:transparent;height:90rpx">
+      <image src='./../../image/edit.png' style="width: 96rpx;" mode='widthFix'></image>
+    </button>
+  </form>
+  <!-- </navigator> -->
+</view>
 
-  <import src="../../template/template.wxml" />
-  <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />
 
-
-</form>
+<import src="../../template/template.wxml" />
+<template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />
