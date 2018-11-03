@@ -18,7 +18,7 @@ Page({
     pictureUrls: [],
 
     callText: '',
-    placeholder: '填写内容(12-500字)',
+    placeholder: '填写内容',
 
     studentAvatarUrl: '',
     studentName: '',

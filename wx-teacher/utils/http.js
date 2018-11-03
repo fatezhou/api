@@ -286,7 +286,7 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
 
   if (recordId) {
     // 班主任改动记录
-    if (assistId == 0){
+    if (assistId == 0) {
       data = {
         unionid: app.globalData.unionId,
         openid: app.globalData.openId,
@@ -308,29 +308,57 @@ function putNewRecord(recordType, text, studentId, familyIds, pictureUrls, paren
 
         recordId: recordId, // 原纪录id  （会导致原纪录失效，插一条新记录）
       }
-    }else{
-      data = {
-        unionid: app.globalData.unionId,
-        openid: app.globalData.openId,
-        authorType: app.globalData.userType, //1 teacher, 2 parent
-        authorId: app.globalData.userId,
+    } else {
+      // 有助教id的情况
+      if (app.globalData.role == 2) {
+        // 班主任改动助教
+        data = {
+          unionid: app.globalData.unionId,
+          openid: app.globalData.openId,
+          authorType: app.globalData.userType, //1 teacher, 2 parent
+          authorId: app.globalData.userId,
 
-        recordType: recordType,
+          recordType: recordType,
 
-        text: text,
-        studentId: studentId,
-        familyIds: familyIds, // 学生所有家长id
-        pictureUrls: pictureUrls,
+          text: text,
+          studentId: studentId,
+          familyIds: familyIds, // 学生所有家长id
+          pictureUrls: pictureUrls,
 
-        orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
-        orgAuthorType: orgAuthorType,
+          orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
+          orgAuthorType: orgAuthorType,
 
-        publishNow: publishRecord, //立即发布
-        isAssist: false, //是否是助教
+          publishNow: publishRecord, //立即发布
+          isAssist: false, //是否是助教
 
-        recordId: recordId, // 原纪录id  （会导致原纪录失效，插一条新记录）
-        assistId: assistId,
+          recordId: recordId, // 原纪录id  （会导致原纪录失效，插一条新记录）
+          assistId: assistId,
+        }
+      } else if (app.globalData.role == 0) {
+        // 助教修改自己的
+        data = {
+          unionid: app.globalData.unionId,
+          openid: app.globalData.openId,
+          authorType: app.globalData.userType, //1 teacher, 2 parent
+          authorId: app.globalData.userId,
+
+          recordType: recordType,
+
+          text: text,
+          studentId: studentId,
+          familyIds: familyIds, // 学生所有家长id
+          pictureUrls: pictureUrls,
+
+          orgAuthorId: orgAuthorId, //原作者的id, 如果这是一条全新的, 那么就填自己
+          orgAuthorType: orgAuthorType,
+
+          isAssist: true, //是否是助教
+
+          recordId: recordId, // 原纪录id  （会导致原纪录失效，插一条新记录）
+          mainTeacherId: mainTeacherId,
+        }
       }
+
     }
   }
   console.info(JSON.stringify(data))

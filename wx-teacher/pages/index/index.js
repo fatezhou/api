@@ -52,7 +52,7 @@ Page({
         url: './../pull/pull?type=record',
       })
     } else if (navigateto == "todetail") {
-       // 记录详情页
+      // 记录详情页
       var item = e.currentTarget.dataset.item
       if (item.publishState == 1) {
         wx.navigateTo({
@@ -64,12 +64,12 @@ Page({
 
   // 班主任编辑助教记录
   toeditRecord: function(e) {
-    if (app.globalData.role == 2) {
-      app.globalData.reviewList = e.currentTarget.dataset.item
-      wx.navigateTo({
-        url: '../pull/review'
-      })
-    }
+    // if (app.globalData.role == 2) {
+    app.globalData.reviewList = e.currentTarget.dataset.item
+    wx.navigateTo({
+      url: '../pull/review'
+    })
+    // }
   },
   // 记录详情页
   // todetail: function(e) {

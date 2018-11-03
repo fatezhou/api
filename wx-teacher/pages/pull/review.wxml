@@ -3,7 +3,7 @@
 <view class='uploadimg'>
 
   <form class='all'>
-    <textarea name="evaContent" maxlength="500" value="{{value}}" class="weui-textarea" placeholder="{{placeholder}}" bindinput="charChange" />
+    <textarea name="evaContent" maxlength="-1"  auto-height="true" value="{{value}}" class="weui-textarea" placeholder="{{placeholder}}" bindinput="charChange" />
   </form>
   <view class='uploadimgBox'>
     <view class='addImg' wx:if="{{canChoose}}" bindtap='chooseImageTap'>
@@ -35,25 +35,25 @@
   </navigator>
 </view>
 
-<view class='choose' wx:if="{{assistId != 0}}">
-<view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
+<view class='choose' wx:if="{{assistId != 0 && role == 2}}">
+  <view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
   <!-- <view style="border-top:1rpx solid #ddd"> -->
-    <text>助教</text>
-    <view class='cRight'>
-      <image wx:if="{{teacherAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='cover'></image>
-      <image wx:else src='{{teacherAvatarUrl}}' mode='cover'></image>
-      <text class='phName'>{{teacherName}}</text>
-    </view>
+  <text>助教</text>
+  <view class='cRight'>
+    <image wx:if="{{teacherAvatarUrl == ''}}" src='{{defaultAvatar}}' mode='cover'></image>
+    <image wx:else src='{{teacherAvatarUrl}}' mode='cover'></image>
+    <text class='phName'>{{teacherName}}</text>
+  </view>
   <!-- </view> -->
 </view>
 
-<view class='choose' style="margin:0 0 18rpx 0">
-<view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
+<view class='choose' style="margin:0 0 18rpx 0" wx:if="{{role == 2}}">
+  <view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
   <!-- <view style="border-top:1rpx solid #ddd"> -->
-    <text>发布到家长端</text>
-    <view class='cRightswitch'>
-      <switch checked='{{publishRecord}}' bindchange='publishNow'></switch>
-    </view>
+  <text>发布到家长端</text>
+  <view class='cRightswitch'>
+    <switch checked='{{publishRecord}}' bindchange='publishNow'></switch>
+  </view>
   <!-- </view> -->
 </view>
 

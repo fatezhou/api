@@ -33,6 +33,8 @@ Page({
 
     mainTeacherId: 0,
     publishRecord: false,
+
+    role:'',
   },
 
   charChange: function(e) {
@@ -98,6 +100,7 @@ Page({
     this.data.studentId = reviewList.studentId
     // this.data.assistId = parseInt(reviewList.assistId)
     this.data.assistId = reviewList.assistId
+    this.data.mainTeacherId = reviewList.mainTeacherId
 
     this.data.imgs = reviewList.pictureUrls
 
@@ -105,6 +108,8 @@ Page({
       this.data.prepareToUpload[i] = {}
       this.data.prepareToUpload[i].downloadUrl = this.data.imgs[i]
     }
+
+    this.data.role = app.globalData.role
 
     this.setData(this.data)
 
