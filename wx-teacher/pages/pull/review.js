@@ -110,6 +110,12 @@ Page({
       this.data.prepareToUpload[i].downloadUrl = this.data.imgs[i]
     }
 
+    if (this.data.imgs.length >= 9) {
+      this.setData({
+        canChoose: false,
+      });
+    }
+
     this.data.role = app.globalData.role
 
     this.setData(this.data)
@@ -429,11 +435,18 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: [type],
       success: function(res) {
-
+        console.info(res)
         var imgsLimit = [];
         var tempFilePaths = that.data.tempFilePaths;
         var imgs = that.data.imgs;
         var index = imgs.length;
+        if (imgs.length > 0) {
+          var temp = []
+          for (var i = 0; i < 9 - imgs.length; i++) {
+            temp.push(res.tempFilePaths[i]) 
+          }
+          res.tempFilePaths = temp
+        }
 
         for (var i = 0; i < res.tempFilePaths.length; i++) {
           tempFilePaths[res.tempFilePaths[i]] = '';
