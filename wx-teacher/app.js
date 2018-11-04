@@ -96,6 +96,8 @@ App({
 
     // pull 班主任审核记录
     reviewList: null,
+    // detail
+    detailList: null,
 
     // 添加记录选择人员
     chooseTeacher: null,

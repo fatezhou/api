@@ -22,8 +22,10 @@
   无记录
 </view>
 <view class='listDetail' wx:else>
-  <view class='forlD' wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index' style="padding-bottom:{{itemObject.showTextBtn ? '60rpx' : '40rpx'}}" >
-    <form bindsubmit="formSubmit_collect" report-submit="true" data-navigateTo="todetail" data-item="{{itemObject}}">
+  <form bindsubmit="formSubmit_collect" wx:for="{{recordsList}}" wx:for-item="itemObject" wx:key='index' report-submit="true" data-navigateTo="todetail" data-item="{{itemObject}}">
+    <!-- <button formType="submit" data-item="{{itemObject}}" hover-class='none' style="display:block;text-align:inherit;margin-bottom:18rpx;margin-left:0">  -->
+    <view class='forlD' style="padding-bottom:{{itemObject.showTextBtn ? '60rpx' : '40rpx'}}">
+
       <button formType="submit" hover-class="none" style="margin-left:0;" data-item="{{itemObject}}">
         <view class='toplD'>
           <view class='tlDleft'>
@@ -44,7 +46,7 @@
           <view class='tlDright' wx:if="{{itemObject.publishState == 0}}">
             <text>{{itemObject.dateTime}}</text>
             <!-- <button style="padding:12rpx 12rpx;background-color:#8F9C9C;border-radius:6rpx;color:#fff;font-size:24rpx" bindtap='toeditRecord' data-item="{{itemObject}}">未发布</button> -->
-              <button style="padding:12rpx 12rpx;background-color:#8F9C9C;border-radius:6rpx;color:#fff;font-size:24rpx">未发布</button>
+            <button style="padding:12rpx 12rpx;background-color:#8F9C9C;border-radius:6rpx;color:#fff;font-size:24rpx">未发布</button>
           </view>
           <view class='tlDright' wx:if="{{itemObject.publishState == 1}}">
             <text>{{itemObject.dateTime}}</text>
@@ -82,9 +84,10 @@
 
       </view>
 
-    </form>
-  </view>
 
+    </view>
+<!-- </button> -->
+  </form>
 </view>
 <view style="position:relative;height:200rpx;display:flex;font-size:28rpx;flex-direction:column;align-items:center;opacity:.5">{{noTextPrompt}}</view>
 <view class='fixed'>

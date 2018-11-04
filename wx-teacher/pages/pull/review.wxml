@@ -47,7 +47,7 @@
   <!-- </view> -->
 </view>
 
-<view class='choose' style="margin:0 0 18rpx 0" wx:if="{{role == 2}}">
+<view class='choose' style="margin:0" wx:if="{{role == 2}}">
   <view style="border-top:1rpx solid #000;opacity:.25;width:720rpx"></view>
   <!-- <view style="border-top:1rpx solid #ddd"> -->
   <text>发布到家长端</text>
@@ -57,4 +57,4 @@
   <!-- </view> -->
 </view>
 
-<button bindtap='submit' class="weui-btn mini-btn">提交</button>
+<button bindtap='submit' class="weui-btn mini-btn" style="margin-top:18rpx">提交</button>

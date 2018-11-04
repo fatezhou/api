@@ -55,8 +55,9 @@ Page({
       // 记录详情页
       var item = e.currentTarget.dataset.item
       if (item.publishState == 1) {
+        app.globalData.detailList = item
         wx.navigateTo({
-          url: "detail?recordId=" + item.recordId + "&mainText=" + item.text + "&orgAuthorId=" + item.authorId + "&orgAuthorType=" + item.authorType + "&studentId=" + item.studentId + "&name=" + item.studentName + "&dateTime=" + item.dateTime + "&avatarUrl=" + item.studentAvatarUrl,
+          url: "detail"
         })
       } else {
         app.globalData.reviewList = item
