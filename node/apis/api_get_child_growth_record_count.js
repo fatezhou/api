@@ -5,7 +5,7 @@ function ApiGetChildGrowthRecordCount(){
         var db = tool.GetDataBase();        
         
         var sql = [];        
-        var sqlFmt = "select count(*) as recordSize from growth_record where true ";//
+        var sqlFmt = "select count(*) as recordSize from growth_record where record_type = 1 and publish_state = 1 ";//
         if(data.studentId){
             sqlFmt += " and student_id = ? ";
             sql.push(data.studentId);
