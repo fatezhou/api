@@ -62,34 +62,36 @@ function ApiGetGrowthRecordWithoutAppend(){
                 data.pageSize = 10;
             }
 
+            if((data.role && data.role != 0) || !data.role){
+                if(data.authorId && data.authorType && (data.isAssist == false || !data.isAssist)){
+                    sqlFmt += " and author_id = ? and author_type = ? ";
+                    sql.push(data.authorId);
+                    sql.push(data.authorType);
+    
+                    sqlCountFmt += " and author_id = ? and author_type = ? ";
+                    sqlCount.push(data.authorId);
+                    sqlCount.push(data.authorType);
+                }    
+                
+                if(data.authorId && data.authorType && data.isAssist){
+                    sqlFmt += " and assist_id = ? and author_type = ? ";
+                    sql.push(data.authorId);
+                    sql.push(data.authorType);
+    
+                    sqlCountFmt += " and assist_id = ? and author_type = ? ";
+                    sqlCount.push(data.authorId);
+                    sqlCount.push(data.authorType);
+                }
+    
+                if(data.authorType == 1){
+                    sqlFmt += "and publish_state != 2 ";
+                    sqlCountFmt += "and publish_state != 2 ";
+                }else{
+                    sqlFmt += "and publish_state = 1 ";
+                    sqlCountFmt += "and publish_state = 1 ";
+                }
+            }          
             
-            if(data.authorId && data.authorType && (data.isAssist == false || !data.isAssist)){
-                sqlFmt += "and author_id = ? and author_type = ? ";
-                sql.push(data.authorId);
-                sql.push(data.authorType);
-
-                sqlCountFmt += " and author_id = ? and author_type = ? ";
-                sqlCount.push(data.authorId);
-                sqlCount.push(data.authorType);
-            }    
-            
-            if(data.authorId && data.authorType && data.isAssist){
-                sqlFmt += "and assist_id = ? and author_type = ? ";
-                sql.push(data.authorId);
-                sql.push(data.authorType);
-
-                sqlCountFmt += " and assist_id = ? and author_type = ? ";
-                sqlCount.push(data.authorId);
-                sqlCount.push(data.authorType);
-            }
-
-            if(data.authorType == 1){
-                sqlFmt += "and publish_state != 2 ";
-                sqlCountFmt += "and publish_state != 2 ";
-            }else{
-                sqlFmt += "and publish_state = 1 ";
-                sqlCountFmt += "and publish_state = 1 ";
-            }
             
             sqlFmt += "order by create_time desc limit " + data.pageSize;            
 

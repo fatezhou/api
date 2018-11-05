@@ -126,7 +126,8 @@ function ApiGetNewMessage(){
                     picture_urls as pictureUrls, \
                     org_author_id as orgAuthorId, \
                     org_author_type as orgAuthorType,\
-                    create_time as createTime\
+                    create_time as createTime,\
+                    publish_state as publishState \
                     from growth_record \
                     where record_type = 1 and id in(\
                     select record_id from new_message\
