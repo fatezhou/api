@@ -24,12 +24,17 @@ Page({
     } else {
       var authorId = item.author_id
       var authorType = item.author_type
+      item.authorId = item.author_id
+      item.authorType = item.author_type
     }
     for (var i = 0; i < allStudentInfo.length; i++) {
       if (item.studentId == allStudentInfo[i].studentId) {
         // var name = (allStudentInfo[i].nickname ? allStudentInfo[i].nickname : allStudentInfo[i].name)
         var name = allStudentInfo[i].name
         var avatarUrl = allStudentInfo[i].avatarUrl
+
+        item.studentName = name
+        item.studentAvatarUrl = avatarUrl
       }
     }
     // for (var i = 0; i < app.globalData.studentList.length; i++) {
@@ -37,10 +42,17 @@ Page({
     //     item.familyId = app.globalData.studentList[i].familyId
     //   }
     // }
+    console.info(item)
+    
+    app.globalData.detailList = item
+
 
     wx.navigateTo({
-      url: "detail?recordId=" + item.parentRecordId + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
+      url: "detail"
     })
+    // wx.navigateTo({
+    //   url: "detail?recordId=" + item.parentRecordId + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
+    // })
   },
 
   /**

@@ -58,6 +58,9 @@ function getTeacherInfo(callback) {
             app.globalData.userInfo = res.data.data.teacherInfo
             app.globalData.userId = res.data.data.teacherInfo.teacherId
             app.globalData.role = res.data.data.teacherInfo.role
+
+            // app.globalData.userId = 21
+            // app.globalData.role = 1
             return callback(0)
           } else {
             wx.redirectTo({
@@ -93,6 +96,14 @@ function getGrowthRecordsWithoutAppend(recordId, studentId, pageSize, callback) 
         recordId: recordId,
         authorId: app.globalData.userId,
         authorType: app.globalData.userType,
+        pageSize: pageSize,
+      }
+    } else if (app.globalData.role == 1){
+      // 校长记录
+      data = {
+        unionid: app.globalData.unionId,
+        openid: app.globalData.openId,
+        recordId: recordId,
         pageSize: pageSize,
       }
     }

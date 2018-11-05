@@ -116,6 +116,7 @@ Page({
     this.data.defaultAvatar = app.globalData.defaultAvatar
     this.data.userId = app.globalData.userId
     // this.data.mainText = options.mainText
+    
     this.data.dateTime = detailList.dateTime
     this.data.recordId = parseInt(detailList.recordId)
     this.data.studentId = parseInt(detailList.studentId)

@@ -66,7 +66,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    app.globalData.chooseTeacher = null
     app.globalData.chooseStudent = null
 
     this.data.role = app.globalData.role
@@ -119,7 +118,15 @@ Page({
     // if (app.globalData.editRecordList){
     //   console.info(1)
     // }
-
+    if (app.globalData.chooseTeacher) {
+      console.info(app.globalData.chooseTeacher)
+      this.setData({
+        teacherName: app.globalData.chooseTeacher.name,
+        teacherId: app.globalData.chooseTeacher.teacherId,
+        teacherAvatarUrl: app.globalData.chooseTeacher.avatarUrl,
+        mainTeacherId: app.globalData.chooseTeacher.teacherId,
+      })
+    }
 
     console.info(options)
   },
@@ -189,21 +196,32 @@ Page({
       return
     }
 
-    for (var i in this.data.prepareToUpload) {
-      wx.uploadFile({
-        url: app.globalData.qiniup,
-        filePath: this.data.prepareToUpload[i].localFilePath,
-        name: "file",
-        header: 'Content-Type: multipart/form-data;',
-        method: 'post',
-        formData: {
-          token: this.data.prepareToUpload[i].token,
-          key: this.data.prepareToUpload[i].key,
-        },
-        success: function(res) {},
-      });
+    if (this.data.prepareToUpload.length > 0) {
+      var that = this
+      wx.showLoading({
+        title: '图片上传中',
+      })
+      for (var i in this.data.prepareToUpload) {
+        wx.uploadFile({
+          url: app.globalData.qiniup,
+          filePath: this.data.prepareToUpload[i].localFilePath,
+          name: "file",
+          header: 'Content-Type: multipart/form-data;',
+          method: 'post',
+          formData: {
+            token: this.data.prepareToUpload[i].token,
+            key: this.data.prepareToUpload[i].key,
+          },
+          success: function(res) {
+            that.addRecard();
+          },
+        });
+      }
+    } else {
+      this.addRecard();
     }
-    this.addRecard();
+
+
   },
 
   addRecard() {
@@ -323,7 +341,7 @@ Page({
   //删除上传图片
   reom(e) {
     let that = this
-  
+
     wx.showActionSheet({
       itemList: ['删除'],
       itemColor: "#00000",
@@ -353,7 +371,7 @@ Page({
               that.data.prepareToUpload[i].downloadUrl = that.data.imgs[i]
             }
             that.setData(that.data)
-            
+
             if (imgs.length <= 9) {
               that.setData({
                 canChoose: true,

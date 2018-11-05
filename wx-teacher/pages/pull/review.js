@@ -184,42 +184,65 @@ Page({
     }
     console.info(this.data.prepareToUpload)
     if (app.globalData.reviewList.pictureUrls.length > 0) {
-      for (var i in this.data.prepareToUpload) {
-        for (var j in app.globalData.reviewList.pictureUrls) {
-          if (this.data.prepareToUpload[i].downloadUrl != app.globalData.reviewList.pictureUrls[i]) {
-            wx.uploadFile({
-              url: app.globalData.qiniup,
-              filePath: this.data.prepareToUpload[i].localFilePath,
-              name: "file",
-              header: 'Content-Type: multipart/form-data;',
-              method: 'post',
-              formData: {
-                token: this.data.prepareToUpload[i].token,
-                key: this.data.prepareToUpload[i].key,
-              },
-              success: function(res) {},
-            });
+      // if (this.data.prepareToUpload.length > 0){
+      //   var that = this
+      //   wx.showLoading({
+      //     title: '图片上传中',
+      //   })
+
+        for (var i in this.data.prepareToUpload) {
+          for (var j in app.globalData.reviewList.pictureUrls) {
+            if (this.data.prepareToUpload[i].downloadUrl != app.globalData.reviewList.pictureUrls[i]) {
+              wx.uploadFile({
+                url: app.globalData.qiniup,
+                filePath: this.data.prepareToUpload[i].localFilePath,
+                name: "file",
+                header: 'Content-Type: multipart/form-data;',
+                method: 'post',
+                formData: {
+                  token: this.data.prepareToUpload[i].token,
+                  key: this.data.prepareToUpload[i].key,
+                },
+                success: function (res) { 
+                  // that.addRecard();
+                },
+              });
+            }
           }
         }
-      }
+      // }else{
+      //   this.addRecard();
+      // }
+     
     } else {
-      for (var i in this.data.prepareToUpload) {
-        wx.uploadFile({
-          url: app.globalData.qiniup,
-          filePath: this.data.prepareToUpload[i].localFilePath,
-          name: "file",
-          header: 'Content-Type: multipart/form-data;',
-          method: 'post',
-          formData: {
-            token: this.data.prepareToUpload[i].token,
-            key: this.data.prepareToUpload[i].key,
-          },
-          success: function(res) {},
-        });
-      }
+      // if (this.data.prepareToUpload.length > 0){
+      //   var that = this
+      //   wx.showLoading({
+      //     title: '图片上传中',
+      //   })
+        for (var i in this.data.prepareToUpload) {
+          wx.uploadFile({
+            url: app.globalData.qiniup,
+            filePath: this.data.prepareToUpload[i].localFilePath,
+            name: "file",
+            header: 'Content-Type: multipart/form-data;',
+            method: 'post',
+            formData: {
+              token: this.data.prepareToUpload[i].token,
+              key: this.data.prepareToUpload[i].key,
+            },
+            success: function (res) { 
+              // that.addRecard();
+            },
+          });
+        }
+      // }else{
+      //   this.addRecard();
+      // }
+    
     }
-
     this.addRecard();
+ 
   },
 
   addRecard() {
@@ -443,7 +466,9 @@ Page({
         if (imgs.length > 0) {
           var temp = []
           for (var i = 0; i < 9 - imgs.length; i++) {
-            temp.push(res.tempFilePaths[i]) 
+            if (res.tempFilePaths[i]){
+              temp.push(res.tempFilePaths[i]) 
+            }
           }
           res.tempFilePaths = temp
         }

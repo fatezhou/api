@@ -60,7 +60,7 @@ App({
       getFamily: 'https://api2.minidope.com/api/v1.0/get_family',
 
       getGrowthRecordsWithoutAppend: "https://api2.minidope.com/api/v1.0/get_growth_records_without_append",
-      getChildGrowthRecordCount: 'https://api2.minidope.com/api/v1.0/get_child_growth_record_count',
+      getChildGrowthRecordCount: 'https://api2.minidope.com/api/v2/get_child_growth_record_count',
       oneGrowthRecordWithAppendUrl: "https://api2.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
 
       // 新api

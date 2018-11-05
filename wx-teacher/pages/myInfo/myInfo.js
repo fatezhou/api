@@ -32,11 +32,19 @@ Page({
 
     var userInfo = app.globalData.userInfo
     this.data.defaultAvatar = app.globalData.defaultAvatar
-    this.data.nickName = userInfo.nickname
+    this.data.nickName = (userInfo.nickname == '' ? userInfo.name : userInfo.nickname)
     this.data.name = userInfo.name
     this.data.avatarUrl = userInfo.avatarUrl
     this.data.phone = userInfo.phone
     this.data.sex = userInfo.sex
+
+    if(app.globalData.role == 0){
+      this.data.position = "助教"
+    }else if(app.globalData.role == 1){
+      this.data.position = "校长"
+    }else if(app.globalData.role == 2){
+      this.data.position = "班主任"
+    }
 
     this.setData(this.data)
   },
