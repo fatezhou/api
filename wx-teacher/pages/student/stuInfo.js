@@ -30,9 +30,12 @@ Page({
 
   // 跳转新建记录页面
   toAddRecard: function() {
-    wx.navigateTo({
-      url: '../pull/pull?studentName=' + this.data.name + '&studentId=' + this.data.studentId + '&studentAvatarUrl=' + this.data.avatarUrl + '&type=record',
-    })
+    if(app.globalData.role != 1){
+      wx.navigateTo({
+        url: '../pull/pull?studentName=' + this.data.name + '&studentId=' + this.data.studentId + '&studentAvatarUrl=' + this.data.avatarUrl + '&type=record',
+      })
+    }
+  
   },
 
   // 图片放大

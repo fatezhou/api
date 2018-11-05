@@ -201,6 +201,7 @@ Page({
       wx.showLoading({
         title: '图片上传中',
       })
+      var t = 0
       for (var i in this.data.prepareToUpload) {
         wx.uploadFile({
           url: app.globalData.qiniup,
@@ -213,7 +214,10 @@ Page({
             key: this.data.prepareToUpload[i].key,
           },
           success: function(res) {
-            that.addRecard();
+            t++
+            if (t == that.data.prepareToUpload.length){
+              that.addRecard();
+            }
           },
         });
       }

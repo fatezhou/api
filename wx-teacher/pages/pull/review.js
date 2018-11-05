@@ -190,6 +190,9 @@ Page({
         this.data.UploadNewImg.push(this.data.prepareToUpload[i])
       }
     }
+    this.setData({
+      UploadNewImg: this.data.UploadNewImg
+    })
     console.info(this.data.UploadNewImg)
     // return
     // if (app.globalData.reviewList.pictureUrls.length > 0) {
@@ -229,6 +232,7 @@ Page({
       wx.showLoading({
         title: '图片上传中',
       })
+      var t = 0
       for (var i in this.data.UploadNewImg) {
         wx.uploadFile({
           url: app.globalData.qiniup,
@@ -241,7 +245,12 @@ Page({
             key: this.data.UploadNewImg[i].key,
           },
           success: function(res) {
-            that.addRecard();
+            t++
+            if (t == that.data.UploadNewImg.length) {
+              that.addRecard();
+            }
+            console.info(t)
+
           },
         });
       }

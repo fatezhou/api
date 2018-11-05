@@ -45,11 +45,16 @@ Page({
     console.info(item)
     
     app.globalData.detailList = item
+    if (item.publishState == 1){
+      wx.navigateTo({
+        url: "detail"
+      })
+    }else{
+      wx.showToast({
+        title: '该记录未发布',
+      })
+    }
 
-
-    wx.navigateTo({
-      url: "detail"
-    })
     // wx.navigateTo({
     //   url: "detail?recordId=" + item.parentRecordId + "&orgAuthorId=" + authorId + "&orgAuthorType=" + authorType + "&studentId=" + item.studentId + "&name=" + name + "&dateTime=" + item.dateTime + "&avatarUrl=" + avatarUrl,
     // })

@@ -60,10 +60,12 @@ Page({
           url: "detail"
         })
       } else {
-        app.globalData.reviewList = item
-        wx.navigateTo({
-          url: '../pull/review'
-        })
+        if(app.globalData.role != 1){
+          app.globalData.reviewList = item
+          wx.navigateTo({
+            url: '../pull/review'
+          })
+        } 
       }
     }
   },

@@ -105,6 +105,8 @@ function getGrowthRecordsWithoutAppend(recordId, studentId, pageSize, callback) 
         openid: app.globalData.openId,
         recordId: recordId,
         pageSize: pageSize,
+        authorType: 1,
+        role:0,
       }
     }
 
