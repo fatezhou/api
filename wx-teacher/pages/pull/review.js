@@ -25,6 +25,8 @@ Page({
     prepareToUpload: [],
     imgs: [], //本地图片地址数组
 
+    UploadNewImg: [],
+
     recordId: '',
     studentId: '',
     assistId: '',
@@ -183,66 +185,73 @@ Page({
       return
     }
     console.info(this.data.prepareToUpload)
-    if (app.globalData.reviewList.pictureUrls.length > 0) {
-      // if (this.data.prepareToUpload.length > 0){
-      //   var that = this
-      //   wx.showLoading({
-      //     title: '图片上传中',
-      //   })
-
-        for (var i in this.data.prepareToUpload) {
-          for (var j in app.globalData.reviewList.pictureUrls) {
-            if (this.data.prepareToUpload[i].downloadUrl != app.globalData.reviewList.pictureUrls[i]) {
-              wx.uploadFile({
-                url: app.globalData.qiniup,
-                filePath: this.data.prepareToUpload[i].localFilePath,
-                name: "file",
-                header: 'Content-Type: multipart/form-data;',
-                method: 'post',
-                formData: {
-                  token: this.data.prepareToUpload[i].token,
-                  key: this.data.prepareToUpload[i].key,
-                },
-                success: function (res) { 
-                  // that.addRecard();
-                },
-              });
-            }
-          }
-        }
-      // }else{
-      //   this.addRecard();
-      // }
-     
-    } else {
-      // if (this.data.prepareToUpload.length > 0){
-      //   var that = this
-      //   wx.showLoading({
-      //     title: '图片上传中',
-      //   })
-        for (var i in this.data.prepareToUpload) {
-          wx.uploadFile({
-            url: app.globalData.qiniup,
-            filePath: this.data.prepareToUpload[i].localFilePath,
-            name: "file",
-            header: 'Content-Type: multipart/form-data;',
-            method: 'post',
-            formData: {
-              token: this.data.prepareToUpload[i].token,
-              key: this.data.prepareToUpload[i].key,
-            },
-            success: function (res) { 
-              // that.addRecard();
-            },
-          });
-        }
-      // }else{
-      //   this.addRecard();
-      // }
-    
+    for (var i in this.data.prepareToUpload) {
+      if (this.data.prepareToUpload[i].token) {
+        this.data.UploadNewImg.push(this.data.prepareToUpload[i])
+      }
     }
-    this.addRecard();
- 
+    console.info(this.data.UploadNewImg)
+    // return
+    // if (app.globalData.reviewList.pictureUrls.length > 0) {
+    //   // if (this.data.prepareToUpload.length > 0){
+    //   //   var that = this
+    //   //   wx.showLoading({
+    //   //     title: '图片上传中',
+    //   //   })
+
+    //   for (var i in this.data.prepareToUpload) {
+    //     for (var j in app.globalData.reviewList.pictureUrls) {
+    //       if (this.data.prepareToUpload[i].downloadUrl != app.globalData.reviewList.pictureUrls[i]) {
+    //         wx.uploadFile({
+    //           url: app.globalData.qiniup,
+    //           filePath: this.data.prepareToUpload[i].localFilePath,
+    //           name: "file",
+    //           header: 'Content-Type: multipart/form-data;',
+    //           method: 'post',
+    //           formData: {
+    //             token: this.data.prepareToUpload[i].token,
+    //             key: this.data.prepareToUpload[i].key,
+    //           },
+    //           success: function(res) {
+    //             // that.addRecard();
+    //           },
+    //         });
+    //       }
+    //     }
+    //   }
+    //   // }else{
+    //   //   this.addRecard();
+    //   // }
+
+    // } else {
+    if (this.data.UploadNewImg.length > 0) {
+      var that = this
+      wx.showLoading({
+        title: '图片上传中',
+      })
+      for (var i in this.data.UploadNewImg) {
+        wx.uploadFile({
+          url: app.globalData.qiniup,
+          filePath: this.data.UploadNewImg[i].localFilePath,
+          name: "file",
+          header: 'Content-Type: multipart/form-data;',
+          method: 'post',
+          formData: {
+            token: this.data.UploadNewImg[i].token,
+            key: this.data.UploadNewImg[i].key,
+          },
+          success: function(res) {
+            that.addRecard();
+          },
+        });
+      }
+    } else {
+      this.addRecard();
+    }
+
+    // }
+    // this.addRecard();
+
   },
 
   addRecard() {
@@ -466,8 +475,8 @@ Page({
         if (imgs.length > 0) {
           var temp = []
           for (var i = 0; i < 9 - imgs.length; i++) {
-            if (res.tempFilePaths[i]){
-              temp.push(res.tempFilePaths[i]) 
+            if (res.tempFilePaths[i]) {
+              temp.push(res.tempFilePaths[i])
             }
           }
           res.tempFilePaths = temp
