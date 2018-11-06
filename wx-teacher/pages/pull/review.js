@@ -289,9 +289,10 @@ Page({
     var recordId = this.data.recordId
 
     var publishRecord = this.data.publishRecord
-
+    // console.info(this.data.imgs)
+// return
     // console.info(recordType, text, studentId, familyIds, pictureUrls, parentRecordId, orgAuthorId, orgAuthorType, mainTeacherId, recordId)
-    if (app.globalData.reviewList.text == this.data.value && this.data.studentId == app.globalData.reviewList.studentId && this.data.imgs[this.data.imgs.length - 1] == app.globalData.reviewList.pictureUrls[this.data.imgs.length - 1] && publishRecord) {
+    if (app.globalData.reviewList.text == this.data.value && this.data.studentId == app.globalData.reviewList.studentId && this.data.imgs[this.data.imgs.length - 1] == app.globalData.reviewList.pictureUrls[app.globalData.reviewList.pictureUrls.length - 1] && publishRecord) {
       // 未做任何改动 并发布
       http.review(recordId, familyIds, assistId, function(res) {
         if (res == 0) {
