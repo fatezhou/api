@@ -15,6 +15,10 @@ function ApiGetCdnToken(){
         url += "&file=" + data.fileName;
         url += "&type=image";
 
+        if(data.token){
+            url += "&token=" + data.token;
+        }
+
         https.Get(url, function(e){
             logger.debug(e);
             try{
