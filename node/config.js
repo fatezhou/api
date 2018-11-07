@@ -73,7 +73,7 @@ function CuteConfig(){
         return frontPage + ".buzaishudian.com/api/parents";
     }
     this.GetUploadAvater = function(){
-        return frontPage + ".buzaishudian.com/api/upload-avatar";
+        return "https://test.buzaishudian.com/api/upload-avatar";
     }
 }
 

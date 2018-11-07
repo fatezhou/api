@@ -30,6 +30,9 @@ function CuteResponse(){
     this.Succ = function(succData){
         return {code:0, data:succData, error:"成功"}
     }
+    this.OtherBad = function(obj){
+        return {cord:7, data:obj, error:"其他错误"};
+    }
 }
 
 module.exports = CuteResponse;

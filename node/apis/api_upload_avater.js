@@ -18,9 +18,14 @@ function ApiUploadAvater(){
                 token : data.token,
                 userId : data.userId
             }
-
+            console.info(url);
             https.Post(url, param, function(e){
-                callback(response.Succ({text:e.data}));
+                e = JSON.parse(e);
+                if(e.success){
+                    callback(response.Succ({text:e.data}));
+                }else{
+                    callback(response.OtherBad({text:e.message}));
+                }                
             });
         }    
     }
