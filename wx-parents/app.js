@@ -45,7 +45,7 @@ App({
       recardCount: 16259,
       id: 142,
     }, ],
-  
+
     userType: 2,
     unionid: "",
     openid: "",
@@ -53,36 +53,38 @@ App({
     appId: "wxf4ff3923fa71c9a3",
     minodopeApi: {
       // 获取 openId unionId token
-      loginUrl: "https://api.minidope.com/api/v1.0/login",
-      // contactUrl: "https://api.minidope.com/api/v1.0/get_contact",
+      loginUrl: "https://api2.minidope.com/api/v1.0/login",
+      // contactUrl: "https://api2.minidope.com/api/v1.0/get_contact",
       // 获取单个学员的成长记录（不包括评论）
-      getGrowthRecordsWithoutAppend: "https://api.minidope.com/api/v1.0/get_growth_records_without_append",
+      getGrowthRecordsWithoutAppend: "https://api2.minidope.com/api/v1.0/get_growth_records_without_append",
       // 获取教师列表
-      getTeachers: "https://api.minidope.com/api/v1.0/get_teachers",
+      getTeachers: "https://api2.minidope.com/api/v1.0/get_teachers",
       // 获取家长信息
-      getParentInfo: "https://api.minidope.com/api/v1.0/get_profile",
-      getOneGrowthRecordWithAppendByRecordId: "https://api.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
-      putRecordLike: 'https://api.minidope.com/api/v1.0/put_record_like',
-      getCdnToken: 'https://api.minidope.com/api/v1.0/get_cdn_token',
-      putNewRecord: 'https://api.minidope.com/api/v1.0/put_new_record',
+      getParentInfo: "https://api2.minidope.com/api/v1.0/get_profile",
+      getOneGrowthRecordWithAppendByRecordId: "https://api2.minidope.com/api/v1.0/get_one_growth_record_with_append_by_recordId",
+      putRecordLike: 'https://api2.minidope.com/api/v1.0/put_record_like',
+      getCdnToken: 'https://api2.minidope.com/api/v1.0/get_cdn_token',
+      putNewRecord: 'https://api2.minidope.com/api/v1.0/put_new_record',
 
 
-      getParentsInfo: "https://api.minidope.com/api/v1.0/get_parents_info",
+      getParentsInfo: "https://api2.minidope.com/api/v1.0/get_parents_info",
 
       // 新增代码 新消息提醒   -->
-      putFormId: 'https://api.minidope.com/api/v1/put_form_id',
-      getNewMessage: 'https://api.minidope.com/api/v2.0/get_new_message',
+      putFormId: 'https://api2.minidope.com/api/v1/put_form_id',
+      getNewMessage: 'https://api2.minidope.com/api/v2.0/get_new_message',
       //  <--  新增代码 新消息提醒 
 
+      // 上传头像
+      uploadAvater: 'https://api2.minidope.com/api/v1.0/upload_avater',
     },
 
 
 
 
 
-    phoneVcode: "https://api.minidope.com/api/v1.0/phone-vcode",
+    phoneVcode: "https://api2.minidope.com/api/v1.0/phone-vcode",
 
-    bindPhone: 'https://api.minidope.com/api/v1.0/bindPhone',
+    bindPhone: 'https://api2.minidope.com/api/v1.0/bindPhone',
 
 
     qiniup: 'https://up-z2.qiniup.com',

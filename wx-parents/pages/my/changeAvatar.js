@@ -7,8 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tempFilePaths:[],
-    img: [],
+    tempFilePaths: [],
+    img: null,
     prepareToUpload: [],
   },
 
@@ -84,6 +84,7 @@ Page({
     var imgsPaths = that.data.imgs;
     wx.chooseImage({
       sizeType: ['original', 'compressed'],
+      count: 1,
       sourceType: [type],
       success: function(res) {
         console.info(res)
@@ -104,8 +105,8 @@ Page({
             localFilePath: localFilePath
           },
           success: function(res) {
-console.info(res)
-return
+            console.info(res)
+            return
             that.data.prepareToUpload.push({
               fileName: res.data.data.cdn.fileName,
               token: res.data.data.cdn.token,
