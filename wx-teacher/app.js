@@ -71,6 +71,10 @@ App({
       putNewRecord: 'https://api2.minidope.com/api/v1.0/put_new_record',
       putRecordLike: 'https://api2.minidope.com/api/v1.0/put_record_like',
       putMemberFav: "https://api2.minidope.com/api/v1.0/put_member_fav",
+
+
+      // 头像替换
+      uploadAvater: 'https://api2.minidope.com/api/v1.0/upload_avater',
     },
 
     qiniup: 'https://up-z2.qiniup.com',

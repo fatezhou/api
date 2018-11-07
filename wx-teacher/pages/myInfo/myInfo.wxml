@@ -18,10 +18,10 @@
       <view style='color:#98a5a5;margin-top:20rpx;'>一句话介绍：教育没有捷径</view>
     </view>
   </view>
-  <!-- <view style='display:flex;color:#58698a;align-items: center;font-weight:bold;margin-right:30rpx;' bindtap='xiugai'>
+  <view style='display:flex;color:#58698a;align-items: center;font-weight:bold;margin-right:30rpx;' bindtap='changeAvatar'>
     <image src='../../image/pen.png' style='width:26rpx;height:26rpx;margin-right:10rpx;'></image>
     <view>修改</view>
-  </view> -->
+  </view>
 </view>
 
 <view style='background:#fff;font-size:32rpx;padding-left:30rpx;margin-top:30rpx;'>
