@@ -64,13 +64,16 @@ function CuteConfig(){
 		return frontPage + ".buzaishudian.com/api/teacher-info";
     }
     this.GetCdnTokenUrl = function(){
-        return frontPage + ".buzaishudian.com/api/upload-auth";
+        return frontPage + ".buzaishudian.com/api/upload-auth";//upload-growth
     }
     this.GetFamilyUrl = function(){
         return frontPage + ".buzaishudian.com/api/family-info";
     }
     this.GetParentsUrl = function(){
         return frontPage + ".buzaishudian.com/api/parents";
+    }
+    this.GetUploadAvater = function(){
+        return "https://test.buzaishudian.com/api/upload-avatar";
     }
 }
 

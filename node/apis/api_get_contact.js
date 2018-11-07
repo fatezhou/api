@@ -21,7 +21,11 @@ function ApiGetContact(){
                     e = [];
                 }
                 var starArray = e;
-                cuteHttps.Get(cuteConfig.GetStudentsInfoUrl() + "?pageSize=9999", function(data){
+                var strUrl = cuteConfig.GetStudentsInfoUrl() + "?pageSize=9999";
+                if(data.authorId && !data.role){
+                    strUrl += "&teacherId=" + data.authorId;
+                }
+                cuteHttps.Get(strUrl, function(data){
                     logger.debug("ApiGetContact.OnHttps response.begin");
                     var strJson = data.toString();
                     logger.debug(strJson.length);

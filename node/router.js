@@ -119,7 +119,11 @@ function CuteRouter(){
             case "review":
                 var ApiReview = require("./apis/api_review.js");
                 baseApi = new ApiReview;
-                break;            
+                break;     
+            case "upload_avater":
+                var ApiUploadAvater = require("./apis/api_upload_avater.js");
+                baseApi = new ApiUploadAvater;
+                break;
             default:
                 callback({code:4, data:{}, error:"api错误"});
                 return;

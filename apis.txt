@@ -30,7 +30,9 @@ method: post
 param: 
 {
 	"unionid":"xxxxxx",
-    "openid":"xxxxxxx"
+    "openid":"xxxxxxx",
+    "authorId":xxxx,//某个老师的id
+    "role":0, //校长才传, 别的不要传这个
 }
 response:
 {
@@ -715,7 +717,22 @@ param:
 "assistId":12, // 助教的id,也可能不传, 如果是班主任发的纪录, 那么则没有助教也是可能的
 }
 
-
+------------------------------------------------
+#上传头像
+url: https://api.minidope.com/api/v1.0/upload_avater
+method: post
+param:
+{
+    "openid":"xxxxx",
+    "appId": "xxxxxx",
+    "userType" : "teacher/parent/student",
+    "userId" : 11111,//相当于authorId
+    "token" : "xxxxxxxx",
+}
+response:
+{
+    //跟get cdn url一样
+}
 
 
 
