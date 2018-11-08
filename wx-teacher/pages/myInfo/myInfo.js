@@ -1,6 +1,7 @@
 // pages/myInfo/myInfo.js
-var app = getApp()
+const app = getApp()
 var template = require('../../template/template.js')
+var http = require('../../utils/http.js')
 Page({
 
   /**
@@ -71,18 +72,17 @@ Page({
   },
 
   // 选取图片
-  chooseWxImage: function (type) {
+  chooseWxImage: function(type) {
     var that = this;
     wx.chooseImage({
       sizeType: ['original', 'compressed'],
       count: 1,
       sourceType: [type],
-      success: function (res) {
-        console.info(res)
+      success: function(res) {
+        wx.showLoading({
+          title: '头像上传中',
+        })
         that.data.tempFilePaths[res.tempFilePaths[0]] = '';
-        // that.data.img = res.tempFilePaths[0];
-
-        // var encodePicFileName = that.makePicName(app.globalData.userId, res.tempFilePaths[0]);
 
         var localFilePath = res.tempFilePaths[0];
 
@@ -94,35 +94,49 @@ Page({
           userId: app.globalData.userId, //相当于authorId
           token: app.globalData.token,
         }
-        console.info(JSON.stringify(data))
-        console.info(app.globalData.minidopeApi.uploadAvater)
+        // console.info(JSON.stringify(data))
+        // console.info(app.globalData.minidopeApi.uploadAvater)
         wx.request({
           url: app.globalData.minidopeApi.uploadAvater,
           method: 'post',
           data: data,
-          success: function (res) {
-            console.info(res)
-            return
-            that.data.prepareToUpload.push({
-              fileName: res.data.data.cdn.fileName,
-              token: res.data.data.cdn.token,
-              downloadUrl: res.data.data.cdn.downloadUrl,
-              key: res.data.data.cdn.key,
-              localFilePath: res.data.data.cdn.localFilePath
-            });
-
+          success: function(res) {
+            // console.info(res)
+            // return
+            // that.data.prepareToUpload.push({
+            //   fileName: res.data.data.cdn.fileName,
+            //   token: res.data.data.cdn.token,
+            //   downloadUrl: res.data.data.cdn.downloadUrl,
+            //   key: res.data.data.cdn.key,
+            //   localFilePath: res.data.data.cdn.localFilePath
+            // });
+            var text = res.data.data.text
+            console.info(text)
+            console.info(app.globalData.qiniup)
             wx.uploadFile({
-              url: app.globalData.minodopeApi.qiniup,
-              filePath: this.data.prepareToUpload[0].localFilePath,
+              url: app.globalData.qiniup,
+              // filePath: this.data.prepareToUpload[0].localFilePath,
+              filePath: localFilePath,
               name: "file",
               header: 'Content-Type: multipart/form-data;',
               method: 'post',
               formData: {
-                token: this.data.prepareToUpload[0].token,
-                key: this.data.prepareToUpload[0].key,
+                // token: this.data.prepareToUpload[0].token,
+                // key: this.data.prepareToUpload[0].key,
+                token: text.token,
+                key: text.key,
               },
-              success: function (res) {
+              success: function(res) {
                 console.info(res)
+                app.globalData.userInfo = null
+                http.getTeacherInfo(function(res) {
+                  if (res == 0) {
+                    that.setData({
+                      avatarUrl: app.globalData.userInfo.avatarUrl
+                    })
+                    wx.hideLoading()
+                  }
+                })
               },
             });
 
