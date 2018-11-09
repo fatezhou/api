@@ -1,5 +1,6 @@
 const app = getApp();
 
+var pingyin = require('../utils/pingyin.js')
 // 获取openId unionId token等
 function login(callback) {
   wx.login({
@@ -470,6 +471,7 @@ function getStudents(callback) {
           } else if (res.data.data.contact[i].group == "normal") {
             // 通讯录
             app.globalData.studentList = res.data.data.contact[i].member
+            pingyin.pingyin()
           }
         }
         return callback(0)
