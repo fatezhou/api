@@ -12,6 +12,9 @@ Page({
     memberList: [],
 
     perStudent: [],
+
+    letterList: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+    haveLetter: [],
   },
 
   /**
@@ -21,6 +24,16 @@ Page({
     this.setData({
       defaultAvatar: app.globalData.defaultAvatar
     })
+
+    for (var i in this.data.letterList) {
+      for (var j in app.globalData.studentList) {
+        if (this.data.letterList[i] == app.globalData.studentList[j].initials) {
+          this.data.haveLetter.push(this.data.letterList[i])
+          break
+        }
+      }
+    }
+    this.setData(this.data)
   },
 
   searchName: function(e) {

@@ -44,25 +44,31 @@
 </view>
 
 
-<view style='height:27rpx;'></view>
-<view class='leadW' wx:if="{{perStudent.length == 0}}">通讯录</view>
-<view class='memberListBG' wx:if="{{perStudent.length == 0}}">
-  <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{studentList}}" wx:key='index' bindtap='toStudentInfo' data-item="{{item}}">
-    <image wx:if="{{item.avatarUrl == ''}}" src='{{defaultAvatar}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
-    <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
-    <view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>
-      <view>
-        <view style='font-size:32rpx'>{{item.name}}</view>
-        <view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
-      </view>
-      <view>
-        <image wx:if="{{item.star}}" src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:20rpx;'></image>
-        <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
-      </view>
+<!-- <view style='height:27rpx;'></view>
+<view class='leadW' wx:if="{{perStudent.length == 0}}">通讯录</view> -->
 
+<view style='height:27rpx;'></view>
+<view wx:if="{{perStudent.length == 0}}" wx:for="{{haveLetter}}" wx:key="letterIndex" wx:for-item="letterItem">
+  <view class='leadW'>{{letterItem}}</view>
+  <view class='memberListBG' wx:if="{{perStudent.length == 0}}">
+    <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{studentList}}" wx:key='index' bindtap='toStudentInfo' data-item="{{item}}" wx:if="{{letterItem == item.initials}}">
+      <image wx:if="{{item.avatarUrl == ''}}" src='{{defaultAvatar}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+      <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+      <view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>
+        <view>
+          <view style='font-size:32rpx'>{{item.name}}</view>
+          <view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
+        </view>
+        <view>
+          <image wx:if="{{item.star}}" src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:20rpx;'></image>
+          <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
+        </view>
+
+      </view>
     </view>
   </view>
 </view>
+
 <view style="position:relative;height:250rpx;opacity: 0;">1</view>
 <import src="../../template/template.wxml" />
 <template is="{{isIpx ? 'ipxTabBar' : 'tabBar'}}" data="{{tabBar:bindData.tabBar}}" />

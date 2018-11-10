@@ -14,6 +14,8 @@ Page({
     perStudent: [],
 
     isIpx: '',
+    letterList : ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+    haveLetter:[],
   },
 
   searchName: function(e) {
@@ -70,6 +72,16 @@ Page({
         }, 1000)
       }
     })
+
+    for (var i in this.data.letterList){
+      for (var j in app.globalData.studentList){
+        if (this.data.letterList[i] == app.globalData.studentList[j].initials){
+          this.data.haveLetter.push(this.data.letterList[i])
+          break
+        }
+      }
+    }
+    this.setData(this.data)
   },
 
   /**
