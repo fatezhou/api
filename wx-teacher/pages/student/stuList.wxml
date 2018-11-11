@@ -21,8 +21,8 @@
     </view>
   </view>
 </view>
-
-<view wx:if="{{perStudent.length == 0}}" style="display:flex; justify-content:space-around;height:60rpx;line-height:60rpx">
+<view style='height:5rpx;'></view>
+<view wx:if="{{perStudent.length == 0}}" style="display:flex;height:80rpx;line-height:80rpx;  background-color: #fff">
   <view wx:for="{{navList}}" wx:key="navindex" class="item {{id == item.id ? 'active' : ''}}" bindtap='navChange' data-id="{{index}}">{{item.name}}</view>
 </view>
 

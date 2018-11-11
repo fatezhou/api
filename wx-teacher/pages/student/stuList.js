@@ -32,6 +32,10 @@ Page({
   },
 
   navChange: function(e) {
+    wx.showLoading({
+      title: '加载中...',
+    })
+
     console.info(e.target.dataset)
     this.setData({
       id: e.target.dataset.id
@@ -56,6 +60,9 @@ Page({
     }
     this.setData(this.data)
 
+    setTimeout(function () {
+      wx.hideLoading()
+    },1000)
   },
 
   searchName: function(e) {
