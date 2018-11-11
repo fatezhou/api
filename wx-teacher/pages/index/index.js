@@ -149,6 +149,11 @@ Page({
 
     // 获取家长列表
     http.getParents()
+
+    // 获取全部学员
+    if (app.globalData.allStudentList.length == 0) {
+      http.getAllStudents(function (res) { })
+    } 
   },
 
   /**

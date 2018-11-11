@@ -93,6 +93,8 @@ App({
 
     // 星标
     starList: [],
+    // 全部学员
+    allStudentList:[],
     // 通讯录
     studentList: [],
     teacherList: [],

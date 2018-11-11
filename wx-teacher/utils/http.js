@@ -99,7 +99,7 @@ function getGrowthRecordsWithoutAppend(recordId, studentId, pageSize, callback) 
         authorType: app.globalData.userType,
         pageSize: pageSize,
       }
-    } else if (app.globalData.role == 1){
+    } else if (app.globalData.role == 1) {
       // 校长记录
       data = {
         unionid: app.globalData.unionId,
@@ -107,7 +107,7 @@ function getGrowthRecordsWithoutAppend(recordId, studentId, pageSize, callback) 
         recordId: recordId,
         pageSize: pageSize,
         authorType: 1,
-        role:0,
+        role: 0,
       }
     }
 
@@ -480,6 +480,29 @@ function getStudents(callback) {
   })
 };
 
+function getAllStudents(callback) {
+  wx.request({
+    url: app.globalData.minidopeApi.getStudents,
+    data: {
+      unionid: app.globalData.unionId,
+      openid: app.globalData.openId,
+    },
+    method: 'POST',
+    success: function(res) {
+      if (res.data.code == 0) {
+        for (var i in res.data.data.contact) {
+          if (res.data.data.contact[i].group == "normal") {
+            // 通讯录(所有学员)
+            app.globalData.allStudentList = res.data.data.contact[i].member
+            pingyin.pingyin2()
+          }
+        }
+        return callback(0)
+      }
+    }
+  })
+};
+
 function getTeachers(callback) {
   wx.request({
     url: app.globalData.minidopeApi.getTeachers,
@@ -543,6 +566,7 @@ module.exports = {
   getRecordSize: getRecordSize,
 
   getStudents: getStudents,
+  getAllStudents: getAllStudents,
   getTeachers: getTeachers,
   getParents: getParents,
   getFamily: getFamily,

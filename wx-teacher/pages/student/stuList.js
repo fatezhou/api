@@ -1,6 +1,7 @@
 // pages/student/stuList.js
 const app = getApp();
 var template = require('../../template/template.js')
+var http = require('../../utils/http.js')
 Page({
 
   /**
@@ -9,21 +10,60 @@ Page({
   data: {
     starList: [],
     studentList: [],
+    allStudentList: [],
 
     defaultAvatar: '',
     perStudent: [],
 
     isIpx: '',
-    letterList : ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
-    haveLetter:[],
+    letterList: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+    haveLetter: [],
+    navList: [{
+      id: 0,
+      name: "我的"
+    }, {
+      id: 1,
+      name: "全部"
+    }, {
+      id: 2,
+      name: "星标"
+    }],
+    id: 0,
+  },
+
+  navChange: function(e) {
+    console.info(e.target.dataset)
+    this.setData({
+      id: e.target.dataset.id
+    })
+    var list = []
+    if (this.data.id == 0) {
+      list = app.globalData.studentList
+    } else if (this.data.id == 1) {
+      list = app.globalData.allStudentList
+    } else if (this.data.id == 2) {
+      list = app.globalData.starList
+    }
+    this.data.memberList = list
+    this.data.haveLetter = []
+    for (var i in this.data.letterList) {
+      for (var j in list) {
+        if (this.data.letterList[i] == list[j].initials) {
+          this.data.haveLetter.push(this.data.letterList[i])
+          break
+        }
+      }
+    }
+    this.setData(this.data)
+
   },
 
   searchName: function(e) {
     var searchValue = e.detail.value
     this.data.perStudent = []
-    for (var i = 0; i < this.data.studentList.length; i++) {
-      if (this.data.studentList[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
-        this.data.perStudent.push(this.data.studentList[i])
+    for (var i = 0; i < this.data.allStudentList.length; i++) {
+      if (this.data.allStudentList[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
+        this.data.perStudent.push(this.data.allStudentList[i])
       }
     }
     this.setData({
@@ -73,9 +113,9 @@ Page({
       }
     })
 
-    for (var i in this.data.letterList){
-      for (var j in app.globalData.studentList){
-        if (this.data.letterList[i] == app.globalData.studentList[j].initials){
+    for (var i in this.data.letterList) {
+      for (var j in app.globalData.studentList) {
+        if (this.data.letterList[i] == app.globalData.studentList[j].initials) {
           this.data.haveLetter.push(this.data.letterList[i])
           break
         }
@@ -96,7 +136,8 @@ Page({
    */
   onShow: function() {
     this.setData({
-      studentList: app.globalData.studentList,
+      memberList: app.globalData.studentList,
+      allStudentList: app.globalData.allStudentList,
       starList: app.globalData.starList,
       defaultAvatar: app.globalData.defaultAvatar
     })
