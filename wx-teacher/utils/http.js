@@ -414,6 +414,8 @@ function putRecordLike(recordId, parentRecordId, orgAuthorId, orgAuthorType, can
 
 // 设置星标
 function putMemberFav(studentId, cancel, callback) {
+  console.info(studentId)
+  console.info(cancel)
   wx.request({
     url: app.globalData.minidopeApi.putMemberFav,
     data: {

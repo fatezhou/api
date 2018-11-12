@@ -60,9 +60,9 @@ Page({
     }
     this.setData(this.data)
 
-    setTimeout(function () {
+    setTimeout(function() {
       wx.hideLoading()
-    },1000)
+    }, 1000)
   },
 
   searchName: function(e) {
@@ -119,6 +119,9 @@ Page({
         }, 1000)
       }
     })
+    this.setData({
+      memberList: app.globalData.studentList,
+    })
 
     for (var i in this.data.letterList) {
       for (var j in app.globalData.studentList) {
@@ -143,11 +146,23 @@ Page({
    */
   onShow: function() {
     this.setData({
-      memberList: app.globalData.studentList,
       allStudentList: app.globalData.allStudentList,
       starList: app.globalData.starList,
       defaultAvatar: app.globalData.defaultAvatar
     })
+    if (this.data.id == 2) {
+      this.data.memberList= app.globalData.starList
+      this.data.haveLetter = []
+      for (var i in this.data.letterList) {
+        for (var j in this.data.memberList) {
+          if (this.data.letterList[i] == this.data.memberList[j].initials) {
+            this.data.haveLetter.push(this.data.letterList[i])
+            break
+          }
+        }
+      }
+      this.setData(this.data)
+    }
   },
 
   /**
