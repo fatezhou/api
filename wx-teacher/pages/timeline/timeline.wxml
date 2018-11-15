@@ -31,7 +31,7 @@
   <view class='forlD' wx:for="{{recordsList}}" wx:for-item="item" wx:key='index'>
 
     <view wx:if="{{studentId == item.studentId}}">
-      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&studentName={{studentName}}&dateTime={{item.dateTime}}&hideBtn=true&mainText={{item.text}}&familyId={{familyId}}'
+      <navigator id="{{item.recordId}}" url='detail?recordId={{item.recordId}}&orgAuthorId={{item.authorId}}&orgAuthorType={{item.authorType}}&studentId={{item.studentId}}&studentName={{studentName}}&dateTime={{item.dateTime}}&hideBtn=true&familyId={{familyId}}'
         hover-class="none">
         <view>
           <view class='toplD'>

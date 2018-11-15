@@ -72,9 +72,9 @@
   </view>
 </view>
 
-<view style='padding-left:30rpx;margin-top:30rpx;background:#fff;font-size:32rpx;'>
+<!-- <view style='padding-left:30rpx;margin-top:30rpx;background:#fff;font-size:32rpx;'>
   <view class='MyInformationg' style='border:none;'>
     <view>设为星标</view>
     <switch checked='{{isStar}}' bindchange='putMemberFav'></switch>
   </view>
-</view>
+</view> -->

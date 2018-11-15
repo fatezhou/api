@@ -46,7 +46,8 @@ Page({
     } else if (this.data.id == 1) {
       list = app.globalData.allStudentList
     } else if (this.data.id == 2) {
-      list = app.globalData.starList
+      // list = app.globalData.starList
+      list = []
     }
     this.data.memberList = list
     this.data.haveLetter = []

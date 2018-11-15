@@ -64,11 +64,11 @@ Page({
     this.data.studentId = parseInt(options.studentId)
 
     var that = this
-    for (var i = 0; i < app.globalData.studentList.length; i++) {
-      if (app.globalData.studentList[i].studentId == this.data.studentId) {
-        this.data.studentSex = app.globalData.studentList[i].sex
-        this.data.studentName = (app.globalData.studentList[i].name == '' ? app.globalData.studentList[i].nickname : app.globalData.studentList[i].name)
-        this.data.studentAvatarUrl = app.globalData.studentList[i].avatarUrl
+    for (var i = 0; i < app.globalData.allStudentList.length; i++) {
+      if (app.globalData.allStudentList[i].studentId == this.data.studentId) {
+        this.data.studentSex = app.globalData.allStudentList[i].sex
+        this.data.studentName = (app.globalData.allStudentList[i].name == '' ? app.globalData.allStudentList[i].nickname : app.globalData.allStudentList[i].name)
+        this.data.studentAvatarUrl = app.globalData.allStudentList[i].avatarUrl
 
         this.setData(this.data)
         break
