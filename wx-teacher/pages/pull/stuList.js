@@ -15,6 +15,53 @@ Page({
 
     letterList: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
     haveLetter: [],
+
+    navList: [{
+      id: 0,
+      name: "我的"
+    }, {
+      id: 1,
+      name: "全部"
+    }, {
+      id: 2,
+      name: "星标"
+    }],
+    id: 0,
+  },
+
+  navChange: function (e) {
+    wx.showLoading({
+      title: '加载中...',
+    })
+
+    console.info(e.target.dataset)
+    this.setData({
+      id: e.target.dataset.id
+    })
+    var list = []
+    if (this.data.id == 0) {
+      list = app.globalData.studentList
+    } else if (this.data.id == 1) {
+      list = app.globalData.allStudentList
+    } else if (this.data.id == 2) {
+      // list = app.globalData.starList
+      list = []
+    }
+    this.data.memberList = list
+    this.data.haveLetter = []
+    for (var i in this.data.letterList) {
+      for (var j in list) {
+        if (this.data.letterList[i] == list[j].initials) {
+          this.data.haveLetter.push(this.data.letterList[i])
+          break
+        }
+      }
+    }
+    this.setData(this.data)
+
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 1000)
   },
 
   /**
@@ -39,10 +86,10 @@ Page({
   searchName: function(e) {
     var searchValue = e.detail.value
     this.data.perStudent = []
-    for (var i = 0; i < app.globalData.studentList.length; i++) {
+    for (var i = 0; i < app.globalData.allStudentList.length; i++) {
 
-      if (app.globalData.studentList[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
-        this.data.perStudent.push(app.globalData.studentList[i])
+      if (app.globalData.allStudentList[i].name.indexOf(searchValue) != -1 && searchValue.length > 0) {
+        this.data.perStudent.push(app.globalData.allStudentList[i])
       }
     }
 

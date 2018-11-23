@@ -2,3 +2,17 @@
 .memberListBG{
 	background: #fff;
 }
+
+.item{
+  display: flex;
+  font-size: 32rpx;
+  color:#8e8e93;
+  width: 250rpx;
+  flex-direction:column;
+  align-items: center;
+
+}
+
+.active{
+  color:#000000
+}
