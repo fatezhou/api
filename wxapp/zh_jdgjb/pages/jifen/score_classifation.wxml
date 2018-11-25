@@ -1,0 +1,20 @@
+<view class="jfbanner">
+    <view class="jfgoods">
+        <view bindtap="jifeninfo" class="jfgoodsbox" data-id="{{item.id}}" wx:for="{{goods_list}}" wx:key="*this">
+            <image class="jfgoodsimg" src="{{url}}{{item.img}}"></image>
+            <view class="jfgoodstop">
+                <view class="flex_center">
+                    <view class="jflabel" wx:if="{{item.type==2}}">实物</view>
+                    <view class="jflabel2" wx:else>红包</view>
+                    <view class="jfname">{{item.name}}</view>
+                </view>
+                <view class="flex_bet goodsmoney">
+                    <view>
+                        <text class="goodsfont1">{{item.score}}</text>
+                        <text class="goodsfont2">积分</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

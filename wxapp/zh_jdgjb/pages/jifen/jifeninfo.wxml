@@ -1,0 +1,61 @@
+<view class="home">
+    <view class="info">
+        <image mode="aspectFill" src="{{url}}{{goods_detail.img}}"></image>
+    </view>
+    <view class="infoheader">
+        <view class="flex_center">
+            <view class="jflabel" wx:if="{{goods_detail.type==2}}">实物</view>
+            <view class="jflabel2" wx:else>虚拟</view>
+            <view class="infoname">{{goods_detail.name}}</view>
+        </view>
+        <view>
+            <text class="goodsfont1">{{goods_detail.score}}</text>
+            <text class="goodsfont2">积分</text>
+        </view>
+        <view class="jflimit" wx:if="{{clock!='已经截止'}}">距离兑换结束还有：{{clock}}</view>
+        <view class="jflimit" wx:else>兑换已经结束</view>
+    </view>
+    <view class="infolist flex_center" wx:if="{{goods_detail.type==2}}">
+        <view style="font-size:32rpx;font-weight:bold">配送地址</view>
+    </view>
+    <view bindtap="select_address" class="flex_bet infobox" wx:if="{{edit==false&&goods_detail.type==2}}">
+        <view>您还选择收货地址，马上去</view>
+        <image class="inforit" src="../img/acright.png"></image>
+    </view>
+    <view bindtap="select_address" class="address_info" wx:if="{{edit==true&&goods_detail.type==2}}">
+        <view>
+      收货人姓名:{{name}}
+    </view>
+        <view>
+      收货人电话:{{tel}}
+    </view>
+        <view>
+      收货人地址:{{address}}
+    </view>
+    </view>
+    <view class="infolist flex_center">
+        <view class="infoxian"></view>
+        <view>详细说明：</view>
+    </view>
+    <view class="inforemark">
+        <view class="refont1">活动规则：</view>
+        <view>
+            <rich-text nodes="{{goods_detail.attention_details}}"></rich-text>
+        </view>
+        <view class="refont2">详情说明：</view>
+        <view>
+            <rich-text nodes="{{goods_detail.goods_details}}"></rich-text>
+        </view>
+        <view class="refont2">兑换流程：</view>
+        <view>
+            <rich-text nodes="{{goods_detail.process_details}}"></rich-text>
+        </view>
+    </view>
+    <view class="infootbox"></view>
+    <view class="infoot">
+        <button class="infobutton" wx:if="{{clock=='已经截止'}}">兑换已经结束</button>
+        <button class="infobutton" wx:if="{{scores<score&&clock!='已经截止'}}">积分不足</button>
+        <button bindtap="exchange" class="infobutton" style="background:{{color}}" wx:if="{{scores>=score&&clock!='已经截止'&&goods_detail.number>0}}">立即兑换</button>
+        <button class="infobutton" wx:if="{{scores>=score&&clock!='已经截止'&&goods_detail.number<=0}}">库存不足</button>
+    </view>
+</view>
