@@ -46,7 +46,10 @@
         "zh_jdgjb/pages/recharge/recharge",
         "zh_jdgjb/pages/recharge/jilu",
         "zh_jdgjb/pages/login",
-        "zh_jdgjb/pages/info/index"
+        "zh_jdgjb/pages/info/index",
+        "zh_jdgjb/pages/breakfast_list/breakfast_list",
+        "zh_jdgjb/pages/breakfast_list/breakfast_info",
+        "zh_jdgjb/pages/breakfast_list/place_order"
     ],
     "window": {
         "backgroundTextStyle": "light",

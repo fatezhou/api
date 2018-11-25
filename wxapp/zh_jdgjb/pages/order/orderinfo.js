@@ -28,6 +28,7 @@ Page({
                 a.setData({
                     order_info: e
                 });
+                console.info(e)
             }
         });
     },

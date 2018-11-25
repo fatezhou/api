@@ -13,7 +13,13 @@
                 <view class="rel">
                     <image mode="aspectFill" src="{{url}}{{item.room_logo}}" style="width:100%;height:100%;border-radius:10rpx;"></image>
                 </view>
-                <view class="info">
+                <view class="info" wx:if="{{item.dd_time == '6:00-10:00'}}">
+                    <view>{{item.seller_name}}</view>
+                    <view>套餐：{{item.room_type}}</view>
+                    <!-- <view>床型：{{item.bed_type}}米</view> -->
+                    <view>入住：{{item.arrival_time}} 离店：{{item.departure_time}}</view>
+                </view>
+                <view class="info" wx:else>
                     <view>{{item.seller_name}}</view>
                     <view>房型：{{item.room_type}}</view>
                     <view>床型：{{item.bed_type}}米</view>

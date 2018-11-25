@@ -4,7 +4,7 @@
             <view class="flex_bet hconbox">
                 <view>
                     <view class="hcfont1">{{order_info.seller_name}}</view>
-                    <view bindtap="sele_address" class="hcfont2 gobyndsingle">地址：{{order_info.seller_address}}</view>
+                    <view wx:if="{{order_info.dd_time != '6:00-10:00'}}" bindtap="sele_address" class="hcfont2 gobyndsingle">地址：{{order_info.seller_address}}</view>
                 </view>
                 <image class="ordizhi" src="../../img/more.png"></image>
             </view>
@@ -45,19 +45,22 @@
             <view wx:if="{{order_info.type==3}}">到店付</view>
         </view>
         <view class="osecnei">
-            <view>房型</view>
+            <view>套餐</view>
             <view>{{order_info.room_type}}</view>
         </view>
-        <view class="osecnei">
+        <view class="osecnei" wx:if="{{order_info.dd_time != '6:00-10:00'}}">
             <view>床型</view>
             <view>{{order_info.bed_type}}</view>
         </view>
         <view class="osecnei">
-            <view>房间数</view>
-            <view>{{order_info.num}}间</view>
+            <view wx:if="{{order_info.dd_time != '6:00-10:00'}}">房间数</view>
+            <view wx:else>套餐数</view>
+            <view wx:if="{{order_info.dd_time != '6:00-10:00'}}">{{order_info.num}}间</view>
+            <view wx:else>{{order_info.num}}份</view>
         </view>
         <view class="osecnei">
-            <view>入住天数</view>
+            <view wx:if="{{order_info.dd_time != '6:00-10:00'}}">入住天数</view>
+            <view wx:else>用餐天数</view>
             <view>{{order_info.days}}天</view>
         </view>
         <view class="osecnei">

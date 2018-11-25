@@ -41,6 +41,9 @@ Page({
                     }) : 2 == o && i.setData({
                         order_list: a
                     });
+                    console.info(s)
+                  console.info(t)
+                  console.info(a)
                 }
             }
         });
