@@ -64,10 +64,15 @@ Page({
             }
         });
     },
-    order_more: function(t) {
+    order_more_hotel: function(t) {
         wx.navigateTo({
             url: "../hotel_list/hotel_info?hotel_id=" + this.data.order_info.seller_id + "&type=1"
         });
+    },
+    order_more_breakfast: function (t) {
+      wx.navigateTo({
+        url: "../breakfast_list/breakfast_list?hotel_id=" + this.data.order_info.seller_id + "&type=1"
+      });
     },
     see_more: function(t) {
         2 == this.data.platform.type ? wx.navigateTo({

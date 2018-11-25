@@ -50,7 +50,7 @@
                 </view>
             </view>
         </view>
-        <view bindtap="conlist" class="hotel_info" data-id="{{item.id}}" wx:for="{{hotel}}">
+        <view bindtap="conlist" class="hotel_info" data-id="{{item.id}}" wx:for="{{hotel}}" wx:if="{{item.id != '3' && item.id != '4' && item.id != '5'}}">
             <view class="info_left">
                 <image mode="aspectFill" src="{{url}}{{item.ewm_logo}}"></image>
             </view>

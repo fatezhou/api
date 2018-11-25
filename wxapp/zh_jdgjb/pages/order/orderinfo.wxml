@@ -45,7 +45,8 @@
             <view wx:if="{{order_info.type==3}}">到店付</view>
         </view>
         <view class="osecnei">
-            <view>套餐</view>
+            <view wx:if="{{order_info.dd_time != '6:00-10:00'}}">房型</view>
+            <view wx:else>套餐</view>
             <view>{{order_info.room_type}}</view>
         </view>
         <view class="osecnei" wx:if="{{order_info.dd_time != '6:00-10:00'}}">
@@ -102,7 +103,8 @@
         <view class="ofbox" wx:if="{{order_info.status==8}}">退款被拒绝</view>
         <view bindtap="go_eveluate" class="ofbox" wx:if="{{order_info.status==5}}">去评价</view>
         <button bindtap="confirmorder" class="ofbutton" style="background:{{color}}" wx:if="{{order_info.status==1}}">立即付款</button>
-        <button bindtap="order_more" class="ofbutton" style="background:{{color}}" wx:if="{{order_info.status!=1}}">再订一间</button>
+        <button bindtap="order_more_hotel" class="ofbutton" style="background:{{color}}" wx:if="{{order_info.status!=1 && order_info.dd_time != '6:00-10:00'}}">再订一间</button>
+        <button bindtap="order_more_breakfast" class="ofbutton" style="background:{{color}}" wx:if="{{order_info.status!=1 && order_info.dd_time == '6:00-10:00'}}">再订一份</button>
     </view>
 </view>
 <view class="fixed" wx:if="{{code==true}}">
