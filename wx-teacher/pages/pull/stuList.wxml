@@ -1,5 +1,5 @@
 <!--pages/pull/stuList.wxml-->
-<view style='height:27rpx;'></view>
+<view style='height:1rpx;'></view>
 
 <view class='memberListBG'>
   <input bindinput='searchName' style="padding: 20rpx 30rpx;" placeholder="搜索" placeholder-style="font-size:32rpx"></input>
@@ -21,8 +21,40 @@
   </view>
 </view>
 
+<view style='height:5rpx;'></view>
+<view wx:if="{{perStudent.length == 0}}" style="display:flex;height:80rpx;line-height:80rpx;  background-color: #fff">
+  <view wx:for="{{navList}}" wx:key="navindex" class="item {{id == item.id ? 'active' : ''}}" bindtap='navChange' data-id="{{index}}">{{item.name}}</view>
+</view>
+
+
+<view wx:if="{{memberList.length === 0}}" style="display:flex;flex-direction:column;align-items:center;top:40%;position:fixed;width:750rpx;font-size:28rpx;opacity: .5">
+  <image src="./../../image/icbook.png" style="height:66rpx;width:66rpx;margin-bottom:20rpx"></image>
+  无通讯录
+</view>
 
 <view style='height:27rpx;'></view>
+<view wx:if="{{perStudent.length == 0}}" wx:for="{{haveLetter}}" wx:key="letterIndex" wx:for-item="letterItem">
+  <view class='leadW'>{{letterItem}}</view>
+  <view class='memberListBG' wx:if="{{perStudent.length == 0}}">
+    <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{memberList}}" wx:key='index' bindtap='chooseStudent' data-item="{{item}}" wx:if="{{letterItem == item.initials}}">
+      <image wx:if="{{item.avatarUrl == ''}}" src='{{defaultAvatar}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+      <image wx:else src='{{item.avatarUrl}}' style='width:64rpx;height:64rpx;border-radius:50%;margin-left:30rpx;'></image>
+      <view style='width:636rpx;height:87rpx;display:flex;margin-left:20rpx;justify-content: space-between;align-items:center;border-bottom:1rpx solid #bfbfbf;'>
+        <view>
+          <view style='font-size:32rpx'>{{item.name}}</view>
+          <view style='font-size:26rpx;color:#8f8e94;'>{{item.nickname}}</view>
+        </view>
+        <view>
+          <image wx:if="{{item.star}}" src='../../image/star.png' style='width:34rpx;height:34rpx;margin-right:20rpx;'></image>
+          <image src='../../image/RightIcon.png' style='width:20rpx;margin-right:30rpx;' mode='widthFix'></image>
+        </view>
+
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- <view style='height:27rpx;'></view>
 <view class='leadW' wx:if="{{perStudent.length == 0}}">星标</view>
 <view class='memberListBG' wx:if="{{perStudent.length == 0}}">
   <view style='display:flex;height:88rpx;align-items: center;' wx:for="{{starList}}" wx:key='index' bindtap='chooseStudent' data-item="{{item}}">
@@ -69,4 +101,4 @@
     </view>
   </view>
 </view>
-</view>
+</view> -->

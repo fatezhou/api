@@ -1,0 +1,23 @@
+<!--pages/info/index.wxml-->
+<view class="home">
+  <image class="bg" src="../img/bg.jpg" mode="cover"></image>
+  <view class="btn">
+    <button class="red" bindtap='call'>拨打客服热线</button>
+    <button class="black" open-type='contact'>联系在线客服</button>
+  </view>
+
+  <view class="foot">
+    <view bindtap="home" class="footbox flex3">
+      <image src="../img/wo@2x.png"></image>
+      <view>首页</view>
+    </view>
+    <view class="footbox flex3">
+      <image src="../img/xiaoxi-active.png"></image>
+      <view class="footfont1">消息</view>
+    </view>
+    <view bindtap="wode" class="footbox flex3">
+      <image src="../img/wo@2x.png"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
