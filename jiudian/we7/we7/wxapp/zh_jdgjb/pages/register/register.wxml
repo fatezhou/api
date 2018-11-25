@@ -1,0 +1,41 @@
+<view class="fixed">
+    <view class="ab">
+        <image mode="aspectFill" src="../img/register.png" style="width:100%;height:100%" wx:if="{{platform.hy_img==''}}"></image>
+        <image mode="aspectFill" src="{{url}}{{platform.hy_img}}" style="width:100%;height:100%" wx:else></image>
+    </view>
+    <view class="register ab">
+        <view>
+            <image class="img1" mode="aspectFill" src="{{url}}{{logo}}"></image>
+        </view>
+        <view>{{name}}</view>
+        <view class="info">
+            <view>
+                <view>
+                    <image class="img2" mode="aspectFill" src="../img/user_name.png"></image>
+                </view>
+                <view>
+                    <input bindinput="name" placeholder="姓名" placeholderStyle="color:#fcf8f5"></input>
+                </view>
+            </view>
+            <view>
+                <view>
+                    <image class="img3" mode="aspectFill" src="../img/user_tel.png"></image>
+                </view>
+                <view class="rel">
+                    <input bindinput="phone" maxlength="11" placeholder="手机号" placeholderStyle="color:#fcf8f5" type="number" value="{{phone}}"></input>
+                    <text bindtap="sendmessg" class="ab ud" wx:if="{{platform.is_dxyz==1}}">{{getmsg}}</text>
+                    <button bindgetphonenumber="getPhoneNumber" class="ab ud" openType="getPhoneNumber" wx:if="{{platform.is_dxyz!=1}}">微信验证</button>
+                </view>
+            </view>
+            <view wx:if="{{platform.is_dxyz==1}}">
+                <view>
+                    <image class="img4" mode="aspectFill" src="../img/yz_code.png"></image>
+                </view>
+                <view>
+                    <input bindinput="verification_code" maxlength="6" placeholder="验证码" placeholderStyle="color:#fcf8f5" type="number"></input>
+                </view>
+            </view>
+        </view>
+        <view bindtap="confirm" style="background:{{color}}">确认</view>
+    </view>
+</view>

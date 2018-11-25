@@ -1,0 +1,73 @@
+<view class="home">
+    <view class="bomb" wx:if="{{bomb==true&&rande==1}}">
+        <view class="bombox">
+            <swiper autoplay="true" circular="true" duration="800" indicatorActiveColor="#182E8F" indicatorColor="#ccc" indicatorDots="true" interval="3000">
+                <swiper-item wx:for="{{getad}}" wx:key="*this">
+                    <image bindtap="skip" class="slide-image" data-appid="{{item.appid}}" data-src="{{item.src}}" data-wb_src="{{item.wb_src}}" mode="aspectFill" src="{{url}}{{item.logo}}"></image>
+                </swiper-item>
+            </swiper>
+            <view bindtap="guanbi" class="shanchu">×</view>
+        </view>
+    </view>
+    <view class="indexdi">
+        <image mode="aspectFill" src="{{url}}{{platform.bj_logo}}"></image>
+    </view>
+    <view class="indexup flex3">
+        <view class="indexbox">
+            <view class="isearch" wx:if="{{platform.type==2}}">
+                <view bindtap="search" class="flex_center isearchleft">
+                    <image class="isearchimg" src="../img/sousuo.png"></image>
+                    <input disabled="true" placeholder="请输入{{platform.jd_custom}}名/关键字"></input>
+                </view>
+                <view bindtap="location" class="flex1 isearchrit">
+                    <image class="isearchimg2" src="../img/didian.png"></image>
+                    <view style="color:{{color}}">附近</view>
+                </view>
+            </view>
+            <view class="icontent">
+                <view class="iconnum">{{time}}天</view>
+                <view class="flex3 iconleft">
+                    <picker bindchange="bindDateChange1" end="{{end}}" mode="date" start="{{start}}" value="{{datein}}">
+                        <view class="iconfont1" style="color:{{color}}">{{datein}}</view>
+                    </picker>
+                    <view>入住日期</view>
+                </view>
+                <view class="flex3 iconrit">
+                    <picker bindchange="bindDateChange2" end="{{end}}" mode="date" start="{{start}}">
+                        <view class="iconfont1" style="color:{{color}}">{{dateout}}</view>
+                    </picker>
+                    <view>退房日期</view>
+                </view>
+            </view>
+            <view bindtap="content" class="iconbutton sure" style="background:{{color}}" wx:if="{{time>0}}">
+                <button bindgetuserinfo="bindGetUserInfo" wx:if="{{platform.type==2}}">查询{{platform.jd_custom}}</button>
+                <button bindgetuserinfo="bindGetUserInfo" wx:else>查询{{platform.jd_custom}}</button>
+            </view>
+            <view class="iconbutton none" style="background:{{color}}" wx:if="{{time<=0}}">
+                <button bindgetuserinfo="bindGetUserInfo" wx:if="{{platform.type==2}}">查询{{platform.jd_custom}}</button>
+                <button bindgetuserinfo="bindGetUserInfo" wx:else>查询{{platform.jd_custom}}</button>
+            </view>
+        </view>
+    </view>
+    <view class="footban"></view>
+    <view class="ibanner">
+        <view bindtap="skip" class="flex3" data-appid="{{item.appid}}" data-src="{{item.src}}" data-wb_src="{{item.wb_src}}" wx:for="{{nav}}" wx:key="*this">
+            <image class="ibanimg" mode="aspectFill" src="{{url}}{{item.logo}}"></image>
+            <view class="ibanzname gobyndsingle">{{item.title}}</view>
+        </view>
+    </view>
+    <view class="foot">
+        <view class="footbox flex3">
+            <image src="../img/yuding@2x.png"></image>
+            <view class="footfont1">预订</view>
+        </view>
+        <view bindtap="wode" class="footbox flex3">
+            <image src="../img/wo@2x.png"></image>
+            <view>我的</view>
+        </view>
+    </view>
+    <view bindtap="copyright" class="copyright" style="margin-bottom:100rpx;">
+        <image mode="aspectFill" src="{{url}}{{platform.bq_logo}}"></image>
+    {{platform.bq_name}}
+  </view>
+</view>
