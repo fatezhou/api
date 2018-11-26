@@ -5,9 +5,8 @@
       <view class="title">{{title}}</view>
       <text class="content">{{content}}</text>
     </view>
-
-    <button class="confirm" bindtap='cancelModal'>确定</button>
   </scroll-view>
+  <button class="confirm" bindtap='cancelModal'>确定</button>
 </view>
 <view class="home">
   <view class="lheader rel flex_center" style="background:{{color}}">
