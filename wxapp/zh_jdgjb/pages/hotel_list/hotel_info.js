@@ -136,6 +136,7 @@ Page({
     room_info: function(t) {
         this.data.hotel.id;
         var a = this.data.hotel, e = a.tel, i = a.coordinates, r = a.address, d = a.name;
+        console.info(i)
         wx.navigateTo({
             url: "room_info?coordinates=" + i + "&room_id=" + t.currentTarget.dataset.id + "&tel=" + e + "&address=" + r + "&name=" + d + "&price=" + t.currentTarget.dataset.price
         });

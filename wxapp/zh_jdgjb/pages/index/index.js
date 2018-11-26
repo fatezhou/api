@@ -3,26 +3,9 @@ var app = getApp(), util = require("../../utils/util.js"), _location = "";
 Page({
     data: {
         bomb: !1,
+        hot:false,
+      hotList:[],
         showLoading: !0,
-      product: [{
-        name: '105听风 厦门良筑生活方式酒店位于厦门中心，免费WiFi 公里。免费私人停车场 距环鼓轮渡码头1.5,免费私人停车场',
-        image: 'https://cdn.it120.cc/apifactory/2018/10/29/bb79222e5bb2fa064563068de15a9252.jpg',
-      }, {
-        name: '103晚夕 厦门良筑生活方式酒店位于厦门中心，免费WiFi 公里。免费私人停车场 距环鼓轮渡码头1.5,免费私人停车场',
-        image: 'https://cdn.it120.cc/apifactory/2018/10/29/c85acc62ef2fb61f3a14418aa19beb72.jpg',
-      }, {
-        name: '101薄荷 厦门良筑生活方式酒店位于厦门中心，免费WiFi 公里。免费私人停车场 距环鼓轮渡码头1.5,免费私人停车场',
-        image: 'https://cdn.it120.cc/apifactory/2018/10/29/245b429b89ebb87ddc114bfc09bbea71.jpg',
-      }, {
-        name: 'ins 风的装饰 204米粒 1张1.5米双人床 有窗 不可加床 不可吸烟',
-        image: 'https://cdn.it120.cc/apifactory/2018/10/29/9b47606e0a8160d4a29cbc1ec88a6894.jpg',
-      }, {
-        name: '厦门良筑生活方式酒店位于厦门中心，免费WiFi 公里。免费私人停车场 距环鼓轮渡码头1.5,免费私人停车场',
-        image: 'https://cdn.it120.cc/apifactory/2018/10/29/53af6746e956292ff5a0d80bf1126499.jpg',
-      }, {
-        name: '厦门良筑生活方式酒店厦门, 思明区路22号',
-        image: 'https://cdn.it120.cc/apifactory/2018/10/29/6ee0e93078f7196fe9146cec91afd386.jpg',
-      }]
     },
     onLoad: function(n) {
         var i = this;
@@ -100,17 +83,30 @@ Page({
             url: "entry/wxapp/getad",
             cachetime: "0",
             data: {
-                type: 1
+                type: 1            // 开屏广告
             },
             success: function(t) {
-              // 开屏广告
                 a.data.rande;
                 0 < t.data.length && a.setData({
                     getad: t.data,
                     bomb: !0
                 });
             }
-        }), a.date();
+          }), app.util.request({
+            url: "entry/wxapp/getad",
+            cachetime: "0",
+            data: {
+              type: 5         // 瀑布流
+            },
+            success: function (t) {
+              if(t.data.length > 0){
+                a.setData({
+                  hot: true,
+                  hotList:t.data
+                })
+              }
+            }
+          }),  a.date();
     },
     guanbi: function(t) {
         this.setData({

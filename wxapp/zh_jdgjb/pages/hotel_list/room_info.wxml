@@ -8,9 +8,23 @@
     </view>
     <view bindtap="setclip" class="eject_room">
         <view class="eject_type">{{room.name}}</view>
-        <view class="eject_type" style="color:{{color}};height:50rpx;line-height:50rpx;font-size:30rpx">价格：{{price}}/晚</view>
+        <view class="eject_type" style="color:{{color}};height:50rpx;line-height:50rpx;font-size:30rpx;color:red">￥ {{price}} / 晚</view>
     </view>
-    <view class="seller_info">
+
+    <view class="eject_room eject_floor">
+        <text class="title">基本信息</text>
+        <view>楼层：{{room.floor}}</view>
+        <view>可住人数:{{room.people}}人</view>
+        <view>大床:{{room.size}}米</view>
+        <view wx:if="{{room.yj_cost!=0}}">押金:{{room.yj_cost}}</view>
+        <view wx:if="{{room.windows==0}}">无窗户</view>
+        <view wx:if="{{room.windows==1}}">有窗户</view>
+        <view wx:if="{{room.bed==0}}">不可加床</view>
+        <view wx:if="{{room.bed==1}}">可加床</view>
+        <view wx:if="{{room.breakfast==1}}">有早餐</view>
+        <view wx:if="{{room.breakfast==0}}">无早餐</view>
+    </view>
+        <!-- <view class="seller_info">
         <view bindtap="phone" class="tel">
             <view class="rel">
                 <image class="ab udlr" mode="aspectFit" src="../img/dianhua.png"></image>
@@ -23,23 +37,38 @@
             </view>
             <view>{{address}}</view>
         </view>
+    </view> -->
+    <view class="eject_room_map" bindtap="dizhi" >
+      <view class="clickarea"></view>
+       <map class="map"
+            latitude="{{latitude}}"
+            longitude="{{longitude}}"
+            markers="{{markers}}"
+            enable-scroll="false"
+            enable-zoom="false"
+       ></map>
     </view>
-    <view class="eject_room eject_floor">
-        <text>基本信息</text>
-        <view>楼层：{{room.floor}}</view>
-        <view>可住人数:{{room.people}}人</view>
-        <view>大床:{{room.size}}米</view>
-        <view wx:if="{{room.yj_cost!=0}}">押金:{{room.yj_cost}}</view>
-        <view wx:if="{{room.windows==0}}">无窗户</view>
-        <view wx:if="{{room.windows==1}}">有窗户</view>
-        <view wx:if="{{room.bed==0}}">不可加床</view>
-        <view wx:if="{{room.bed==1}}">可加床</view>
-        <view wx:if="{{room.breakfast==1}}">有早餐</view>
-        <view wx:if="{{room.breakfast==0}}">无早餐</view>
-    </view>
-    <view class="eject_room" style="border:none;">
-        <view class="eject_type">房间设施</view>
+    <view class="eject_room" style="border:none;margin-bottom:100rpx">
+        <view class="title">房间设施</view>
         <view class="eject_font" wx:if="{{room.facilities!=''}}">{{room.facilities}}</view>
         <view class="eject_font" wx:if="{{room.facilities==''}}">暂无</view>
     </view>
+</view>
+
+<view class="bottom">
+  <view class="bottom-left">
+    <button class="btn" open-type='contact'>
+      <image class="infoIcon" src="../../image/info.png" mode="cover" />
+      <text>联系房东</text>
+    </button>
+  </view>
+
+  <view class="bottom-right">
+    <view class="price">
+      ￥ {{price}}/晚
+    </view>
+    <view class="shop" bindtap='toOrder'>
+      立即预订
+    </view>
+  </view>
 </view>

@@ -70,12 +70,12 @@
       <view class="ibanzname gobyndsingle">{{item.title}}</view>
     </view>
   </view>
-  <view class="title">热门推荐</view>
-  <view class="recommend">
-    <view class="hotproduct" wx:for="{{product}}">
+  <view class="title" wx:if="{{hot}}">热门推荐</view>
+  <view class="recommend" wx:if="{{hot}}">
+    <view class="hotproduct" wx:for="{{hotList}}" wx:key="*this">
       <view class="single">
-        <image src="{{item.image}}" mode="cover"></image>
-        <text class="name">{{item.name}}</text>
+        <image bindtap="skip" src="{{url}}{{item.logo}}" data-appid="{{item.appid}}" data-src="{{item.src}}" data-wb_src="{{item.wb_src}}" mode="aspectFill"></image>
+        <text class="name">{{item.title}}</text>
       </view>
     </view>
   </view>
