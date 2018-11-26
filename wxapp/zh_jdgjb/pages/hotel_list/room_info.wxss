@@ -129,6 +129,7 @@
   background-color: white;
   width: 60%;
   float: right;
+  z-index:50;
 }
 
 .bottom-right .price{
@@ -159,13 +160,21 @@
   float: right;
 }
 
+.shop .sub{
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 100%;
+  background-color: orange;
+  color: #ffffff;
+}
+
 .infoIcon{
   width: 40rpx;
   height:40rpx;
   margin-left: 50rpx;
 }
 
-button{position:relative;display:inline;margin-left:10rpx;margin-right:auto;padding-left:0;padding-right:0;box-sizing:inherit;font-size:32rpx;text-align:center;text-decoration:none;line-height:0;border-radius:0;-webkit-tap-highlight-color:transparent;overflow:hidden;color:#000000;background-color:#fff;}
+button{position:relative;display:inline;margin-left:auto;margin-right:auto;padding-left:0;padding-right:0;box-sizing:inherit;font-size:32rpx;text-align:center;text-decoration:none;line-height:0;border-radius:0;-webkit-tap-highlight-color:transparent;overflow:hidden;color:#000000;background-color:#fff;}
 button::after {border: none}
 
 .btn{
@@ -193,15 +202,16 @@ button::after {border: none}
 .eject_room_map {
     padding: 20rpx 0;
     border-bottom: 16rpx solid #e5e5e5;
+    z-index:2
 }
 
 .clickarea {
-  position: absolute;
+  position: relative;
   background-color: red;
   width: 300px;
   height: 150px;
-  z-index:5;
+  z-index:2;
   opacity: 0;
-  transform:translateX(-50%);
+  transform:translate(-50%,-100%);
   margin-left: 50%;
 }

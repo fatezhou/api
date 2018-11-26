@@ -1,7 +1,8 @@
 App({
     globalData: {
         userInfo: null,
-        rande: 1
+        rande: 1,
+        room:null
     },
     util: require("we7/resource/js/util.js"),
     siteInfo: require("siteinfo.js"),
