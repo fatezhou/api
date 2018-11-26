@@ -71,6 +71,14 @@
     </view>
   </view>
   <view class="title">热门推荐</view>
+  <view class="recommend">
+    <view class="hotproduct" wx:for="{{product}}">
+      <view class="single">
+        <image src="{{item.image}}" mode="cover"></image>
+        <text class="name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
   <view class="foot">
     <view class="footbox flex3">
       <image src="../img/yuding@2x.png"></image>

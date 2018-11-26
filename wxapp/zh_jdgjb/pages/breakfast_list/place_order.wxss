@@ -176,7 +176,7 @@ page {
 }
 
 .picker text:last-child {
-    text-align: right;
+    text-align: left;
 }
 
 .button1 {
