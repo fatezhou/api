@@ -30,8 +30,8 @@
 <ul class="nav nav-tabs">    
 	<span class="ygxian"></span>
 	<div class="ygdangq">当前位置:</div>   
-	<li><a href="{php echo $this->createWebUrl('ad')}">广告管理</a></li>
-	<li class="active"><a href="{php echo $this->createWebUrl('addad')}">添加广告</a></li>
+	<li><a href="{php echo $this->createWebUrl('ad')}">推荐位管理</a></li>
+	<li class="active"><a href="{php echo $this->createWebUrl('addad')}">添加推荐位</a></li>
 </ul>
 <div class="main ygmain">
 	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
@@ -42,13 +42,14 @@
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">广告类型</label>
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐位类型</label>
 					<div class="col-sm-9">
 						<select name="type" class="col-md-5">
-							<option value="1" {if $info['type']==1} selected {/if}>开屏广告</option>
+							<!--option value="1" {if $info['type']==1} selected {/if}>开屏广告</option>
 							<option value="2" {if $info['type']==2} selected {/if}>积分商城轮播图</option>
-							<option value="3" {if $info['type']==3} selected {/if}>充值中心轮播图</option>                         
+							<option value="3" {if $info['type']==3} selected {/if}>充值中心轮播图</option-->                         
 							<option value="4" {if $info['type']==4} selected {/if}>首页轮播图</option>                         
+							<option value="5" {if $info['type']==5} selected {/if}>瀑布流</option>                         
 						</select>
 					</div>
 				</div>
@@ -62,9 +63,9 @@
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">图片</label>
 					<div class="col-sm-9">
 						{php echo tpl_form_field_image('logo', $info['logo'])}
-						<span class="help-block">*建议开屏广告图片宽高为300px*482px</span>
+						<!--span class="help-block">*建议开屏广告图片宽高为300px*482px</span>
 						<span class="help-block">*建议充值中心图片宽高为375px*200px</span>
-						<span class="help-block">*建议积分中心图片宽高为375px*200px</span>
+						<span class="help-block">*建议积分中心图片宽高为375px*200px</span-->
 					</div>
 				</div>
 				<div class="form-group">
@@ -80,15 +81,24 @@
 				<div class="form-group ygyi1">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">内部链接</label>
 					<div class="col-sm-9">
-						<input type="text" name="src" class="form-control" value="{$info['src']}" />
-						<span class="help-block">*跳转酒店详情请按以下格式填写,id值在酒店管理中获取(../hotel_list/hotel_info?hotel_id=1)</span>
+						<script>
+							function fillToSrc(text){
+								var src = "../hotel_list/room_info?hotel_id=" + text;
+								document.getElementById("srcId").value = src;
+							}
+						</script>
+						<select class="form-control" onchange="fillToSrc(this[selectedIndex].value);">
+								{php echo $this->showHotels()}
+						</select>
+						<input id="srcId" type="hidden" name="src" class="form-control" value="{$info['src']}" />
+						<!--span class="help-block">*跳转酒店详情请按以下格式填写,id值在酒店管理中获取(../hotel_list/hotel_info?hotel_id=1)</span>
 						<span class="help-block">*跳转入驻商家请按以下格式填写(../settled_store/settled_store)</span>
 						<span class="help-block">*跳转领取优惠券请按以下格式填写(../coupon/receive_coupon)</span>
 						<span class="help-block">*跳转我的优惠券请按以下格式填写(../coupon/store_coupon)</span>              
 						<span class="help-block">*跳转酒店列表请按以下格式填写(../hotel_list/hotel_list)</span>
 						<span class="help-block">*跳转我的订单请按以下格式填写(../order/order)</span>
 						<span class="help-block">*跳转商家管理请按以下格式填写(../login_entry/login_entry)</span>
-						<span class="help-block">*跳转积分商城请按以下格式填写(../jifen/jifen)</span>
+						<span class="help-block">*跳转积分商城请按以下格式填写(../jifen/jifen)</span-->
 					</div>
 				</div>
 				<div class="form-group ygyi2">
