@@ -65,19 +65,19 @@ Page({
                         page: d + 1,
                         none_more: !1
                     }), c = c.concat(t.data);
-                    for (var p = 0; p < c.length; p++){
-                      if (c[p].id == '3' || c[p].id == '4' || c[p].id == '5'){
-                        console.info(c[p])
-                        c.splice(p,1)
-                        p--
-                      }
-                    }
+                    // for (var p = 0; p < c.length; p++){
+                    //   if (c[p].id == '3' || c[p].id == '4' || c[p].id == '5'){
+                    //     c.splice(p,1)
+                    //     p--
+                    //   }
+                    // }
                     for (var e = 0; e < c.length; e++) {
                         var a = c[e].coordinates.split(",");
                         c[e].lat2 = a[0], c[e].lng2 = a[1];
                         var n = s.data.lat1, i = s.data.lng1, r = Number(a[0]), o = Number(a[1]);
                         c[e].distance = app.util.location(n, r, i, o);
                     }
+
                     1 == g ? s.setData({
                         hotel: c,
                         timg: !0
