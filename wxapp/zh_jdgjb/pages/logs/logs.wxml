@@ -1,3 +1,14 @@
+<view class="showModalbg {{showmodal == true ? 'show' : 'hide'}}" wx:if="{{showmodal}}">
+  <scroll-view class="showModal" scroll-y="true" style="{{style}}">
+    <!-- <view bindtap="guanbi" class="shanchu">×</view> -->
+    <view class="text">
+      <view class="title">{{title}}</view>
+      <text class="content">{{content}}</text>
+    </view>
+
+    <button class="confirm" bindtap='cancelModal'>确定</button>
+  </scroll-view>
+</view>
 <view class="home">
   <view class="lheader rel flex_center" style="background:{{color}}">
     <view style="width:50rpx;"></view>
@@ -85,11 +96,11 @@
             <button class="ab ud" openType="openSetting" wx:if="{{users==true}}"></button>
             <button bindgetuserinfo="bindGetUserInfo" class="ab ud" openType="getUserInfo" wx:else></button>
         </view> -->
-    <view class="lbanlist">
+    <view class="lbanlist" bindtap='showModal' data-id="0">
       <view>用户须知</view>
       <image class="lbannerimg" src="../img/acright.png"></image>
     </view>
-    <view class="lbanlist">
+    <view class="lbanlist" bindtap='showModal' data-id="1">
       <view>WIFI密码</view>
       <image class="lbannerimg" src="../img/acright.png"></image>
     </view>
