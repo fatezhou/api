@@ -83,7 +83,7 @@ Page({
             url: "entry/wxapp/getad",
             cachetime: "0",
             data: {
-                type: 1            // 开屏广告
+                type: 4            // 开屏广告
             },
             success: function(t) {
                 a.data.rande;
@@ -126,6 +126,8 @@ Page({
         if ("../register/register" == e && this.Membership(), "" != e && "../register/register" != e) {
             var i = e.replace(/[^0-9]/gi, "");
             e = e.replace(/(\d+|\s+)/g, "");
+            console.info(e)
+            console.info(i)
             wx.navigateTo({
                 url: String(e) + String(i)
             });

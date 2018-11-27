@@ -172,7 +172,6 @@ Page({
       content: content,
       style: style
     })
-    console.info(this.data.style)
   },
 
   cancelModal: function() {
