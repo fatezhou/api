@@ -4,13 +4,13 @@
 <ul class="nav nav-tabs">
     <span class="ygxian"></span>
     <div class="ygdangq">当前位置:</div>    
-    <li class="active"><a href="{php echo $this->createWebUrl('ad')}">广告管理</a></li>
-    <li><a href="{php echo $this->createWebUrl('addad')}">添加广告</a></li>
+    <li class="active"><a href="{php echo $this->createWebUrl('ad')}">推荐位管理</a></li>
+    <li><a href="{php echo $this->createWebUrl('addad')}">添加推荐位</a></li>
 </ul>
 <div class="main">
     <div class="panel panel-default">
         <div class="panel-heading">
-            广告管理
+            推荐位管理*
         </div>
         <div class="panel-body" style="padding: 0px 15px;">
             <div class="row">
@@ -37,7 +37,7 @@
                         <td>{$row['title']}</td>
                         <td><div class="type-parent"><img height="40" src="{media $row['logo']}">&nbsp;&nbsp;</div></td>
                       <!--   <td><div class="type-parent">{$row['src']}&nbsp;&nbsp;</div></td> -->
-                         <td><div class="type-parent">{if $row['type']==1}开屏广告{elseif $row['type']==2}积分商城轮播图{elseif $row['type']==3}充值中心轮播图{elseif $row['type']==4}首页推荐位{/if}</div></td>
+                         <td><div class="type-parent">{if $row['type']==1}开屏广告{elseif $row['type']==2}积分商城轮播图{elseif $row['type']==3}充值中心轮播图{elseif $row['type']==4}首页推荐位{elseif $row['type']==5}瀑布流{/if}</div></td>
                          
                         {if $row['status']==1}
                         <td><button type="button" class="btn ygyouhui2 btn-xs" data-toggle="modal" data-target="#myModal2{$row['id']}">点击禁用</button></td>

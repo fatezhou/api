@@ -45,10 +45,10 @@ class Core extends WeModuleSite
                 )
             );
           $navemenu[2] = array(
-                'title' => '<a href="index.php?c=site&a=entry&op=display&do=ad&m=zh_jdgjb" class="panel-title wytitle" id="yframe-2"><icon style="color:#8d8d8d;" class="fa fa-gift"></icon>广告管理</a>',
+                'title' => '<a href="index.php?c=site&a=entry&op=display&do=ad&m=zh_jdgjb" class="panel-title wytitle" id="yframe-2"><icon style="color:#8d8d8d;" class="fa fa-gift"></icon>推荐位管理</a>',
                 'items' => array(
-                     0 => $this->createMainMenu('广告管理 ', $do, 'ad', ''),
-                     1=> $this->createMainMenu('添加广告', $do, 'addad', ''),
+                     0 => $this->createMainMenu('推荐位管理 ', $do, 'ad', ''),
+                     1=> $this->createMainMenu('添加推荐位', $do, 'addad', ''),
                 )
             );
          $navemenu[18] = array(
