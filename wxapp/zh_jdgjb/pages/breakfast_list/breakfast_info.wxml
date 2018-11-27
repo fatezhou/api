@@ -37,12 +37,13 @@
         <!-- <view wx:if="{{room.breakfast==1}}">有早餐</view> -->
         <!-- <view wx:if="{{room.breakfast==0}}">无早餐</view> -->
     </view>
-    <view class="eject_room" style="border:none;margin-bottom:100rpx">
+    <view class="eject_room" style="border:none;">
         <view class="title">早餐类目</view>
         <view class="eject_font" wx:if="{{room.facilities!=''}}">{{room.facilities}}</view>
         <view class="eject_font" wx:if="{{room.facilities==''}}">暂无</view>
     </view>
 </view>
+<view style="height: 100rpx;opacity: 0"></view>
 
 <view class="bottom">
   <view class="bottom-left">

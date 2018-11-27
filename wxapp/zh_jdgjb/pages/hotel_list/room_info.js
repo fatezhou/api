@@ -10,7 +10,7 @@ Page({
         longitude: '',
         name: ''
       }],
-
+      enablezoom: false,
       singleroom: [],
     },
     onLoad: function(a) {
