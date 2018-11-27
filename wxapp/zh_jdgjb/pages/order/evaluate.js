@@ -61,32 +61,37 @@ Page((_defineProperty(_Page = {
     },
     uploadimg: function(e) {
         var t = this, a = t.data.imgs, i = e.i ? e.i : 0, n = e.success ? e.success : 0, o = e.fail ? e.fail : 0;
-        wx.uploadFile({
+        if(e.path.length > 0){
+          wx.uploadFile({
             url: e.url,
             filePath: e.path[i],
             name: "upfile",
             formData: null,
-            success: function(e) {
-                "" != e.data ? (n++, a.push(e.data), 0 < a.length ? t.setData({
-                    imgs: a,
-                    edit: !0
-                }) : t.setData({
-                    edit: !1
-                })) : wx.showToast({
-                    icon: "loading",
-                    title: "请重试"
-                });
+            success: function (e) {
+              "" != e.data ? (n++ , a.push(e.data), 0 < a.length ? t.setData({
+                imgs: a,
+                edit: !0
+              }) : t.setData({
+                edit: !1
+              })) : wx.showToast({
+                icon: "loading",
+                title: "请重试"
+              });
             },
-            fail: function(e) {
-                o++;
+            fail: function (e) {
+              o++;
             },
-            complete: function() {
-                ++i == e.path.length ? (t.setData({
-                    images: e.path,
-                    upLoadSucess: !0
-                }), t.place_order()) : (e.i = i, e.success = n, e.fail = o, t.uploadimg(e));
+            complete: function () {
+              ++i == e.path.length ? (t.setData({
+                images: e.path,
+                upLoadSucess: !0
+              }), t.place_order()) : (e.i = i, e.success = n, e.fail = o, t.uploadimg(e));
             }
-        });
+          });
+        }else{
+          t.place_order()
+        }
+       
     },
     delete: function(e) {
         var t = e.currentTarget.dataset.index, a = this.data.imgArray1;

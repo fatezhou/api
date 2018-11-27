@@ -97,7 +97,8 @@
     <view class="orderfoot">
         <view bindtap="cancel_order" class="ofbox" data-classify="{{order_info.classify}}" data-hb_id="{{order_info.hb_id}}" data-id="{{order_info.id}}" wx:if="{{order_info.status==1}}">取消订单</view>
         <view bindtap="apply" class="ofbox" data-id="{{order_info.id}}" data-type="{{order_info.type}}" wx:if="{{order_info.status==2}}">申请退款</view>
-        <view bindtap="see_more" class="ofbox" wx:if="{{order_info.status==3||order_info.status==4||order_info.status==9}}">查看更多</view>
+        <!-- <view bindtap="see_more" class="ofbox" wx:if="{{order_info.status==3||order_info.status==4||order_info.status==9}}">查看更多</view> -->
+        <view class="ofbox" wx:if="{{order_info.status==3||order_info.status==4||order_info.status==9}}">已完成</view>
         <view class="ofbox" wx:if="{{order_info.status==6}}">待退款</view>
         <view class="ofbox" wx:if="{{order_info.status==7}}">已退款</view>
         <view class="ofbox" wx:if="{{order_info.status==8}}">退款被拒绝</view>

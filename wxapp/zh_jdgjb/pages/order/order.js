@@ -77,7 +77,7 @@ Page({
     },
     onPullDownRefresh: function() {
         this.setData({
-            index: 0,
+            // index: 0,
             page: 1,
             order_list: []
         }), this.refresh(), wx.stopPullDownRefresh();
