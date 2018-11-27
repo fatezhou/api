@@ -16,14 +16,14 @@
 
 .eject_room {
     padding: 20rpx 30rpx;
-    border-bottom: 1rpx solid #e5e5e5;
+    border-bottom: 16rpx solid #e5e5e5;
 }
 
 .eject_room view {
     line-height: 70rpx;
 }
 
-.eject_floor text,.eject_type {
+.eject_type {
     display: block;
     width: 100%;
     font-size: 32rpx;
@@ -41,9 +41,9 @@
 
 .seller_info>view {
     width: 100%;
-    height: 50%;
+    height: 100%;
     line-height: 80rpx;
-    border-bottom: 1rpx solid #e5e5e5;
+    border-bottom: 16rpx solid #e5e5e5;
 }
 
 .seller_info>view view:nth-child(1) {
@@ -103,4 +103,115 @@
 }
 
 .eject_none {
+}
+
+.bottom{
+  position: fixed;
+  bottom: 0;
+  height: 100rpx;
+  width: 100%;
+}
+
+.bottom-left {
+  position: relative;
+  height: 100rpx;
+  background-color: white;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  float: left
+}
+
+.bottom-right {
+  position: relative;
+  height: 100rpx;
+  background-color: white;
+  width: 60%;
+  float: right;
+  z-index:50;
+}
+
+.bottom-right .price{
+  position: relative;
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 50%;
+  background-color: yellowgreen;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  float: left;
+}
+
+.bottom-right .shop{
+  position: relative;
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 50%;
+  background-color: orange;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  float: right;
+}
+
+.shop .sub{
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 100%;
+  background-color: orange;
+  color: #ffffff;
+}
+
+.infoIcon{
+  width: 40rpx;
+  height:40rpx;
+  margin-left: 50rpx;
+}
+
+button{position:relative;display:inline;margin-left:auto;margin-right:auto;padding-left:0;padding-right:0;box-sizing:inherit;font-size:32rpx;text-align:center;text-decoration:none;line-height:0;border-radius:0;-webkit-tap-highlight-color:transparent;overflow:hidden;color:#000000;background-color:#fff;}
+button::after {border: none}
+
+.btn{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100rpx;
+  width: 100%;
+}
+
+.title{
+  font-size: 32rpx;
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+.map{
+  transform: translateX(-50%);
+  margin-left: 50%;
+}
+
+.eject_room_map {
+    padding: 20rpx 0;
+    border-bottom: 16rpx solid #e5e5e5;
+    z-index:2
+}
+
+.clickarea {
+  position: relative;
+  background-color: red;
+  width: 300px;
+  height: 150px;
+  z-index:2;
+  opacity: 0;
+  transform:translate(-50%,-100%);
+  margin-left: 50%;
 }

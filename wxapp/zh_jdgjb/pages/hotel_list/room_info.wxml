@@ -53,7 +53,7 @@
   <view class="bottom-left">
     <button class="btn" open-type='contact'>
       <image class="infoIcon" src="../../image/info.png" mode="cover" />
-      <text>联系房东</text>
+      <text>联系客服</text>
     </button>
   </view>
 

@@ -1,18 +1,39 @@
 var app = getApp();
 
 Page({
-  data: {},
+  data: {
+    latitude: '',
+    longitude: '',
+    markers: [{
+      id: 1,
+      latitude: '',
+      longitude: '',
+      name: ''
+    }],
+
+    singleroom: [],
+  },
   onLoad: function (a) {
     var t = this;
     app.getUrl(t), app.getSystem(t);
     a.hotel_id;
-    var e = a.room_id, n = (new Date().toLocaleDateString().replace(/\//g, "-"), a.coordinates), o = a.tel, i = a.address, r = a.name, s = a.price;
+    var e = a.room_id, n = (new Date().toLocaleDateString().replace(/\//g, "-"), a.coordinates), o = a.tel, i = a.address, r = a.name, s = a.price, latitude = Number(n.split(",")[0]), longitude = Number(n.split(",")[1]);
+    t.data.markers[0].latitude = latitude
+    t.data.markers[0].longitude = longitude
+    t.data.markers[0].name = r
+    t.data.singleroom[0] = app.globalData.room
     t.setData({
       tel: o,
       coordinates: n,
       address: i,
       name: r,
-      price: s
+      price: s,
+      hotel_id: a.hotel_id,
+      latitude: latitude,
+      longitude: longitude,
+      markers: t.data.markers,
+      singleroom: t.data.singleroom,
+      grade: wx.getStorageSync("platform").open_member 
     }), app.util.request({
       url: "entry/wxapp/RoomDetails",
       cachetime: "0",
@@ -58,8 +79,40 @@ Page({
       }
     });
   },
+  formSubmit: function (t) {
+    var a = t.detail.formId, e = this.data.grade, i = this.data.userInfo;
+    if (1 == e && "" == i.zs_name) wx.showModal({
+      content: "您需要注册会员",
+      success: function (t) {
+        t.confirm && wx.navigateTo({
+          url: "../register/register"
+        });
+      }
+    }); else {
+      var r = wx.getStorageSync("day1"), d = wx.getStorageSync("day2");
+      console.info(t.detail.target.dataset)
+      1 == app.time_title(r, d) && (1 == t.detail.target.dataset.classify ? wx.navigateTo({
+        url: "../breakfast_list/place_order?room_id=" + t.detail.target.dataset.id + "&hotel_id=" + this.data.hotel_id + "&form_d=" + a
+      }) : wx.navigateTo({
+        url: "hour_room?room_id=" + t.detail.target.dataset.id + "&hotel_id=" + this.data.hotel_id + "&form_d=" + a + "&cost=" + t.detail.target.dataset.cost + "&rz_time=" + t.detail.target.dataset.rz_time
+      }));
+    }
+  },
+  bindgetuserinfo: function (t) {
+    "getUserInfo:fail auth deny" == t.detail.errMsg && wx.showModal({
+      title: "",
+      content: "您拒绝了个人信息授权，无法正常使用小程序"
+    });
+  },
   onReady: function () { },
-  onShow: function () { },
+  onShow: function () {
+    var a = this;
+    app.getUserInfo(function (t) {
+      a.setData({
+        userInfo: t
+      });
+    });
+  },
   onHide: function () { },
   onUnload: function () { },
   onPullDownRefresh: function () { },
