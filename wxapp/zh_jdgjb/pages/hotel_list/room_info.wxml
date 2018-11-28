@@ -49,25 +49,28 @@
   </view>
 </view>
 <view style="height: 100rpx;opacity: 0"></view>
+<form bindreset="formReset" bindsubmit="formSubmit" reportSubmit="true">
+  <cover-view class="bottom">
+    <cover-view class="bottom-left">
+      <button class="btn" open-type='contact'>
+        <!-- <image class="infoIcon" src="../../image/info.png" mode="cover" /> -->
+        联系客服
+      </button>
+    </cover-view>
 
-<view class="bottom">
-  <view class="bottom-left">
-    <button class="btn" open-type='contact'>
-      <image class="infoIcon" src="../../image/info.png" mode="cover" />
-      <text>联系客服</text>
-    </button>
-  </view>
+    <cover-view class="bottom-right">
+      <cover-view class="price">
+        <cover-view class="sub">
+          ￥ {{price}}/晚
+        </cover-view>
+      </cover-view>
 
-  <view class="bottom-right">
-    <view class="price">
-      ￥ {{price}}/晚
-    </view>
-    <form bindreset="formReset" bindsubmit="formSubmit" reportSubmit="true">
-      <view class="shop" wx:for="{{singleroom}}" wx:if="{{item.state=='1'}}">
+      <cover-view class="shop" wx:for="{{singleroom}}" wx:if="{{item.state=='1'}}">
         <button class="sub" bindgetuserinfo="bindgetuserinfo" data-classify="{{item.classify}}" data-cost="{{item.cost}}" data-id="{{item.id}}" data-rz_time="{{item.rz_time}}" formType="submit" openType="getUserInfo">预订</button>
-        <view style="background:#ccc" wx:if="{{item.state=='2'}}">满员</view>
-      </view>
-    </form>
-  </view>
+        <cover-view style="background:#ccc" wx:if="{{item.state=='2'}}">满员</cover-view>
+      </cover-view>
 
-</view>
+    </cover-view>
+
+  </cover-view>
+</form>

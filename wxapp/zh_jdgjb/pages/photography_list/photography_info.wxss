@@ -117,10 +117,10 @@
   height: 100rpx;
   background-color: white;
   width: 40%;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
-  float: left
+  align-items: center; */
+  float: left;
 }
 
 .bottom-right {
@@ -129,7 +129,6 @@
   background-color: white;
   width: 60%;
   float: right;
-  z-index:50;
 }
 
 .bottom-right .price{
@@ -145,6 +144,14 @@
   align-items: center;
   float: left;
 }
+
+.price .sub{
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: yellowgreen;
+  color: #ffffff;
+}
+
 
 .bottom-right .shop{
   position: relative;
@@ -178,11 +185,17 @@ button{position:relative;display:inline;margin-left:auto;margin-right:auto;paddi
 button::after {border: none}
 
 .btn{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  position: relative;
   height: 100rpx;
+  line-height: 100rpx;
   width: 100%;
+  background-color: white;
+  color: #000000;
+
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  float: left;
 }
 
 .title{
