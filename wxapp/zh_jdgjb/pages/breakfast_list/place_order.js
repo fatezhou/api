@@ -140,7 +140,7 @@ Page({
           rooms: a[0]
         }), 0 < e.length && wx.showModal({
           title: "",
-          content: e[0].dateday + "没有房间了",
+          content: e[0].dateday + "没有商品了",
           success: function (t) {
             t.confirm ? wx.navigateBack({
               delta: 1
@@ -167,7 +167,7 @@ Page({
     var e = this;
     if (e.data.rooms == e.data.num) wx.showModal({
       title: "",
-      content: "没有这么多房间啦"
+      content: "没有这么多商品啦"
     }); else {
       var a = e.data.num + 1;
       e.setData({
