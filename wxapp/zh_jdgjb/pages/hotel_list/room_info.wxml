@@ -40,7 +40,8 @@
     </view> -->
   <view class="eject_room_map">
     <!-- <view class="clickarea"></view> -->
-    <map class="map" bindtap="dizhi" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" enable-scroll="{{   enablezoom}}" enable-zoom="{{enablezoom}}"></map>
+    <map class="map" bindtap="dizhi" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}"  enable-zoom="{{enablezoom}}"></map>
+    <!-- enable-scroll="{{   enablezoom}}" -->
   </view>
   <view class="eject_room" style="border:none">
     <view class="title">房间设施</view>
