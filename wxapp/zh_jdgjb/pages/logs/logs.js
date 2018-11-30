@@ -105,19 +105,19 @@ Page({
       url: "../coupon/receive_coupon"
     }) : this.bind_user_info();
   },
-  user_zhuce: function(e) {
-    var t = this.data,
-      n = t.userInfo,
-      i = t.platform.open_member;
-    1 == i && null != i ? "" == n.zs_name || null == n.zs_name ? wx.navigateTo({
-      url: "../register/register"
-    }) : wx.navigateTo({
-      url: "member"
-    }) : wx.showModal({
-      title: "温馨提示",
-      content: "平台未开放注册会员,请联系平台管理员"
-    });
-  },
+  // user_zhuce: function(e) {
+  //   var t = this.data,
+  //     n = t.userInfo,
+  //     i = t.platform.open_member;
+  //   1 == i && null != i ? "" == n.zs_name || null == n.zs_name ? wx.navigateTo({
+  //     url: "../register/register"
+  //   }) : wx.navigateTo({
+  //     url: "member"
+  //   }) : wx.showModal({
+  //     title: "温馨提示",
+  //     content: "平台未开放注册会员,请联系平台管理员"
+  //   });
+  // },
   cancel_storange: function(e) {
     wx.clearStorage(), wx.showToast({
       title: "清除成功"

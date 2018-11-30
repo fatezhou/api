@@ -4,7 +4,9 @@ Page({
     data: {
         titel: [ "全部", "待付款", "待入住" ],
         page: 1,
-        order_list: []
+        order_list: [],
+      index: 0,
+      activeIndex: 0,
     },
     onLoad: function(e) {
         var t = this;
@@ -65,8 +67,8 @@ Page({
     onReady: function() {},
     onShow: function() {
         this.setData({
-            index: 0,
-            activeIndex: 0,
+            // index: 0,
+            // activeIndex: 0,
             page: 1,
             order_list: []
         }), this.refresh();

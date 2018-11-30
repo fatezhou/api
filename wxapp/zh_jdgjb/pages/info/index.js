@@ -1,4 +1,5 @@
 // pages/info/index.js
+var app = getApp()
 Page({
 
   /**
@@ -11,14 +12,15 @@ Page({
 
   call: function() {
     wx.makePhoneCall({
-      phoneNumber: '1008611',
+      phoneNumber: '15659838771',
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    var i = this;
+    app.getSystem(i)
   },
 
   wode: function (t) {

@@ -79,9 +79,13 @@ App({
                                             data: {
                                                 openid: e,
                                                 img: t.userInfo.avatarUrl,
-                                                name: t.userInfo.nickName
+                                              // name: encodeURIComponent(t.userInfo.nickName)
+                                              name: t.userInfo.nickName
                                             },
                                             success: function(t) {
+                                        
+                                              // t.data.name = encodeURIComponent(t.data.name)
+                                              // console.info(t)
                                                 getApp().getuniacid = t.data.uniacid, getApp().user_info = t.data, wx.setStorageSync("userInfo", t.data), 
                                                 o(t.data);
                                             }
