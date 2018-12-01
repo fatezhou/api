@@ -52,7 +52,8 @@
         "zh_jdgjb/pages/breakfast_list/place_order",
         "zh_jdgjb/pages/photography_list/photography_list",
         "zh_jdgjb/pages/photography_list/photography_info",
-        "zh_jdgjb/pages/photography_list/place_order"
+        "zh_jdgjb/pages/photography_list/place_order",
+        "zh_jdgjb/pages/coffee_show/index"
     ],
     "window": {
         "backgroundTextStyle": "light",

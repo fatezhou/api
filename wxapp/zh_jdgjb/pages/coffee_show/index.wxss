@@ -1,0 +1,5 @@
+/* zh_jdgjb/pages/coffee_show/index.wxss */
+
+.imgs{
+    width:750rpx;
+}
