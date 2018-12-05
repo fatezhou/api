@@ -77,6 +77,10 @@
             <view>{{order_info.dd_time}}</view>
         </view>
         <view class="osecnei">
+            <view>身份证号</view>
+            <view>{{order_info.code}}</view>
+        </view>
+        <view class="osecnei">
             <view>订单编号</view>
             <view>{{order_info.order_no}}</view>
         </view>
