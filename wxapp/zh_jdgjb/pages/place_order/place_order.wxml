@@ -57,7 +57,7 @@
                     <input name="tel" placeholder="请填写联系电话" type="number" value="{{userInfo.tel}}"></input>
                 </view>
             </view>
-            <view class="form_info_child" wx:if="{{platform.is_sfz==1}}">
+            <view class="form_info_child"> <!--wx:if="{{platform.is_sfz==1}}"-->
                 <view>身份证号</view>
                 <view>
                     <input name="code" placeholder="请填写您的身份证号"></input>

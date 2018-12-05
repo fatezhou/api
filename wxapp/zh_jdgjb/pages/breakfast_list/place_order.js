@@ -315,7 +315,7 @@ Page({
         classify: 1,
         type: F,
         qr_fromid: a,
-        code: s
+        code: "hELLO"
       },
       method: "POST",
       success: function (t) {

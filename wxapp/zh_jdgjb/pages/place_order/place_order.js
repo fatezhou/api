@@ -260,6 +260,7 @@ Page({
         });
     },
     formSubmit: function(t) {
+      console.info(t);
         var e = this, a = e.data.form_d, o = e.data.form_id;
         var d = e.data.userInfo, i = t.detail.formId, r = e.data.hotel, n = e.data.room, s = t.detail.value.code, c = e.data.total_price, u = e.data.settlement, p = e.data.condition, m = (e.data.price, 
         t.detail.value.people), l = t.detail.value.tel, _ = e.data.time, f = r.id, y = n.id, h = wx.getStorageSync("userInfo").id, g = e.data.coupons_id, x = r.name, w = r.address, v = r.coordinates, S = e.data.day1, b = e.data.day2, D = e.data.num, I = n.name, T = n.size, q = e.data.day, M = e.data.discount_price, j = e.data.yj_cost, z = e.data.coupon, N = n.logo, L = e.data.reduction_price, P = e.data.red_bag, k = e.data.red_bag_id, F = e.data.type, R = e.data.platform, O = "";
@@ -314,7 +315,7 @@ Page({
                 classify: 1,
                 type: F,
                 qr_fromid: a,
-                code: s
+              code: t.detail.value.code
             },
             method: "POST",
             success: function(t) {
