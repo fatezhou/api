@@ -24,7 +24,7 @@
                             </picker>
                         </view>
                         <view>入住日期</view>
-                        <view class="iconnum">{{time}}天</view>
+                        <view class="iconnum">{{time}}晚</view>
                     </view>
                     <view class="flex3 iconrit">
                         <view class="iconfont1">

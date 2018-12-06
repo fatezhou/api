@@ -72,11 +72,11 @@
             <view>手机号</view>
             <view>{{order_info.tel}}</view>
         </view>
-        <view class="osecnei">
+        <view class="osecnei" wx:if="{{order_info.seller_name == '早餐' || order_info.seller_name == '摄影'}}">
             <view>预计到店</view>
             <view>{{order_info.dd_time}}</view>
         </view>
-        <view class="osecnei">
+        <view class="osecnei" wx:if="{{order_info.seller_name != '早餐'}}">
             <view>身份证号</view>
             <view>{{order_info.code}}</view>
         </view>

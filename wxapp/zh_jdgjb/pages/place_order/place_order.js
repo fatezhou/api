@@ -6,7 +6,7 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
 
 Page({
     data: {
-        time: "20:00",
+        time: "--:--",
         num: 1,
         see_price: !1,
         red_bag: 0,
