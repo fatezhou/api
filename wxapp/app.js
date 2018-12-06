@@ -1,5 +1,8 @@
 App({
     globalData: {
+      defaultCity: null,
+      defaultCounty: null,
+      
         userInfo: null,
         rande: 1,
         room:null
