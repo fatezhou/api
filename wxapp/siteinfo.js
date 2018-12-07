@@ -1,5 +1,5 @@
 var siteinfo = {
-    name: "本源码由QQ614096466 猫咪科技独家提供提取",
+    name: "11",
     uniacid: "2",
     acid: "2",
     multiid: "0",

@@ -55,6 +55,7 @@ Page({
                 r.setData({
                     hotel: t.data
                 });
+                console.info(t.data)
             }
         });
         d = wx.getStorageSync("day1");
