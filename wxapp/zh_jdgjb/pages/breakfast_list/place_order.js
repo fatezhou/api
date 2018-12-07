@@ -6,7 +6,7 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
 
 Page({
   data: {
-    time: "6:00-10:00",
+    time: "9:00",
     num: 1,
     see_price: !1,
     red_bag: 0,
@@ -157,12 +157,12 @@ Page({
       url: "../coupon/red_bag"
     });
   },
-  // bindTimeChange: function (t) {
-  //   console.info(t.detail)
-  //   this.setData({
-  //     time: t.detail.value
-  //   });
-  // },
+  bindTimeChange: function (t) {
+    console.info(t.detail)
+    this.setData({
+      time: t.detail.value
+    });
+  },
   add_num: function (t) {
     var e = this;
     if (e.data.rooms == e.data.num) wx.showModal({

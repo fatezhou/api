@@ -66,10 +66,10 @@
             <view class="form_info_child">
                 <view>用餐时间</view>
                 <view class="picker">
-                    <!-- <picker bindchange="bindTimeChange" mode="time" value="{{time}}"> -->
+                    <picker bindchange="bindTimeChange" mode="time" value="{{time}}">
                         <text>{{time}}</text>
-                        <!-- <text>〉</text>
-                    </picker> -->
+                        <text>〉</text>
+                    </picker>
                 </view>
             </view>
             <!-- <view class="form_info_child" wx:if="{{yj_cost!=0}}">
