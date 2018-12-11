@@ -263,7 +263,7 @@ Page({
     var e = this, a = e.data.form_d, o = e.data.form_id;
     var d = e.data.userInfo, i = t.detail.formId, r = e.data.hotel, n = e.data.room, s = t.detail.value.code, c = e.data.total_price, u = e.data.settlement, p = e.data.condition, m = (e.data.price,
       t.detail.value.people), l = t.detail.value.tel, _ = e.data.time, f = r.id, y = n.id, h = wx.getStorageSync("userInfo").id, g = e.data.coupons_id, x = r.name, w = r.address, v = r.coordinates, S = e.data.day1, b = e.data.day2, D = e.data.num, I = n.name, T = n.size, q = e.data.day, M = e.data.discount_price, j = e.data.yj_cost, z = e.data.coupon, N = n.logo, L = e.data.reduction_price, P = e.data.red_bag, k = e.data.red_bag_id, F = e.data.type, R = e.data.platform, O = "";
-    if ("" == m) O = "请填写入住人姓名"; else if ("" == l) O = "请填写联系电话"; else if ("" == s && 1 == R.is_sfz) O = "请填写您的身份证号"; else if (2 == R.is_sfz) s = ""; else 0 == /^1[3|4|5|7|8|9][0-9]\d{4,8}$/.test(l) ? O = "请输入正确的手机号" : 0 < z ? p > e.data.discount_price && (O = "不满足优惠券满减条件") : u <= 0 && (u = .01);
+    if ("" == m) O = "请填写入住人姓名"; else if ("" == l) O = "请填写联系电话"; else if (11 != l.length) O = "联系电话填写有误"; else if ("" == s && 1 == R.is_sfz) O = "请填写您的身份证号"; else if (18 != s.length) O = "身份证号填写有误"; else if (2 == R.is_sfz) s = ""; else 0 == /^1[3|4|5|7|8|9][0-9]\d{4,8}$/.test(l) ? O = "请输入正确的手机号" : 0 < z ? p > e.data.discount_price && (O = "不满足优惠券满减条件") : u <= 0 && (u = .01);
     var U = e.data.pay_num;
     "" != O ? (wx.showModal({
       title: "温馨提示",
