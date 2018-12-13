@@ -1,5 +1,6 @@
 // 酒店列表 点进去能看对应房间信息
-var app = getApp(), loading = 2;
+var app = getApp(), loading = 2, utils = require("../../utils/utils.js");
+ 
 
 Page({
     data: {
@@ -166,6 +167,17 @@ Page({
     },
     bindDateChange1: function(t) {
         var e = t.detail.value, a = this.data.dateout, n = (this.data.current_date, app.getTime2Time(a, e));
+      if (e >= a) {
+        a = e
+        a = (Date.parse(a)) + 86400000
+        a = utils.formatTime(new Date(a))
+        a = a.substring(0, 10)
+        console.info(a)
+        n = (this.data.current_date, app.getTime2Time(a, e));
+        this.setData({
+          dateout: a
+        });
+      }
         wx.setStorageSync("day1", e), wx.setStorageSync("day2", a), wx.setStorageSync("day", n), 
         this.setData({
             datein: t.detail.value,
@@ -174,6 +186,17 @@ Page({
     },
     bindDateChange2: function(t) {
         var e = this.data.datein, a = t.detail.value, n = app.getTime2Time(a, e);
+      if (e >= a) {
+        e = a
+        e = (Date.parse(e)) - 86400000
+        e = utils.formatTime(new Date(e))
+        e = e.substring(0, 10)
+        console.info(e)
+        n = (this.data.current_date, app.getTime2Time(a, e));
+        this.setData({
+          datein: e
+        });
+      }
         wx.setStorageSync("day1", e), wx.setStorageSync("day2", a), wx.setStorageSync("day", n), 
         this.setData({
             dateout: t.detail.value,

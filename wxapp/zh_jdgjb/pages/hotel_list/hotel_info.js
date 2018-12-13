@@ -1,5 +1,5 @@
 // 点击酒店进来的  房型列表 详情 评价
-var app = getApp();
+var app = getApp() , utils = require("../../utils/utils.js");
 
 Page({
     data: {
@@ -128,6 +128,18 @@ Page({
     },
     bindDateChange2: function(t) {
         var a = this.data.datein, e = t.detail.value, i = app.getTime2Time(e, a);
+      if (e >= a) {
+        // 入住时间一定小于退房时间
+        e = a
+        e = (Date.parse(e)) - 86400000
+        e = utils.formatTime(new Date(e))
+        e = e.substring(0, 10)
+        console.info(e)
+        n = (this.data.current_date, app.getTime2Time(a, e));
+        this.setData({
+          datein: e
+        });
+      }
         wx.setStorageSync("day1", a), wx.setStorageSync("day2", e), wx.setStorageSync("day", i), 
         this.setData({
             dateout: t.detail.value,

@@ -1,4 +1,4 @@
-var app = getApp(), util = require("../../utils/util.js"), _location = "";
+var app = getApp(), util = require("../../utils/util.js"), utils = require("../../utils/utils.js"), _location = "";
 
 Page({
   data: {
@@ -113,15 +113,15 @@ Page({
       success: function (t) {
         if (t.data.length > 0) {
           for (var i = 0; i < t.data.length - 1; i++) {
-            for (var j = 0; j < t.data.length - 1 - i; j++){
+            for (var j = 0; j < t.data.length - 1 - i; j++) {
               if (t.data[j].orderby > t.data[j + 1].orderby) {
                 var temp = t.data[j];
                 t.data[j] = t.data[j + 1];
                 t.data[j + 1] = temp;
               }
-            } 
+            }
           }
-   
+
           a.setData({
             hot: true,
             hotList: t.data
@@ -169,6 +169,18 @@ Page({
   },
   bindDateChange1: function (t) {
     var e = t.detail.value, a = this.data.dateout, n = (this.data.current_date, app.getTime2Time(a, e));
+    if (e >= a) {
+      // 入住时间一定小于退房时间
+      a = e
+      a = (Date.parse(a)) + 86400000
+      a = utils.formatTime(new Date(a))
+      a = a.substring(0, 10)
+      console.info(a)
+      n = (this.data.current_date, app.getTime2Time(a, e));
+      this.setData({
+        dateout:a
+      });
+    }
     wx.setStorageSync("day1", e), wx.setStorageSync("day2", a), wx.setStorageSync("day", n),
       this.setData({
         datein: t.detail.value,
@@ -177,6 +189,18 @@ Page({
   },
   bindDateChange2: function (t) {
     var e = this.data.datein, a = t.detail.value, n = app.getTime2Time(a, e);
+    if (e >= a) {
+      // 入住时间一定小于退房时间
+      e = a
+      e = (Date.parse(e)) - 86400000
+      e = utils.formatTime(new Date(e))
+      e = e.substring(0, 10)
+      console.info(e)
+      n = (this.data.current_date, app.getTime2Time(a, e));
+      this.setData({
+        datein: e
+      });
+    }
     wx.setStorageSync("day1", e), wx.setStorageSync("day2", a), wx.setStorageSync("day", n),
       this.setData({
         dateout: t.detail.value,
