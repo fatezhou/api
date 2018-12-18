@@ -236,5 +236,10 @@ Page({
         this.setData({
             timg: !1
         }), this.refresh();
+    },
+  onShareAppMessage: function () {
+    return {
+      imageUrl: 'https://api4.minidope.com/attachment/images/2/2018/share/share.jpg',
     }
+  }
 });
