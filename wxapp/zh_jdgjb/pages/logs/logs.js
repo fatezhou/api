@@ -163,7 +163,7 @@ Page({
           // + "\r\n \r\n \r\n"
     } else {
       title = "WIFI密码"
-      content = "关注“Oneday设计师民宿”公众号回复“WIFI”，即可获取WIFI密码\r\n"
+      content = "关注“oneday设计师民宿”公众号回复“WIFI”，即可获取WIFI密码\r\n"
       style =  "height:30%;margin-top: 40%"
     }
     this.setData({
@@ -233,5 +233,10 @@ Page({
   onHide: function() {},
   onUnload: function() {},
   onPullDownRefresh: function() {},
-  onReachBottom: function() {}
+  onReachBottom: function() {},
+  onShareAppMessage: function () {
+    return {
+      imageUrl: 'https://api4.minidope.com/attachment/images/2/2018/share/share.jpg',
+    }
+  }
 });
