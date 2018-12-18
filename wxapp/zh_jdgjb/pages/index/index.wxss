@@ -137,7 +137,8 @@
 
 .isearchrit {
     width: 25%;
-    color: #172A97;
+    /* color: #172A97; */
+    color:#434343
 }
 
 .icontent {
@@ -159,7 +160,8 @@
 
 .iconfont1 {
     font-size: 36rpx;
-    color: #172A97;
+    /* color: #172A97; */
+    color:#434343;
     margin-bottom: 30rpx;
 }
 
@@ -181,7 +183,8 @@
 }
 
 .sure {
-    background: linear-gradient(to right,#172E93,#1F50AF);
+    /* background: linear-gradient(to right,#172E93,#1F50AF); */
+    background: linear-gradient(to right,#434343,#434343);
     color: white;
 }
 
@@ -245,7 +248,8 @@
 }
 
 .footfont1 {
-    color: #182E8F;
+    /* color: #182E8F; */
+    color:#434343;
 }
 
 button {

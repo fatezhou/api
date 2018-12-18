@@ -52,9 +52,9 @@
   </view>
   <view class="title" wx:if="{{bomb==true&&rande==1}}">今日推荐</view>
   <view class="footban">
-    <!-- <view class="bomb" wx:if="{{bomb==true&&rande==1}}"> -->
+    <!-- <view class="bomb" wx:if="{{bomb==true&&rande==1}}"> #182E8F -->
     <view class="bombox" wx:if="{{bomb==true&&rande==1}}">
-      <swiper autoplay="true" circular="true" duration="800" indicatorActiveColor="#182E8F" indicatorColor="#ccc" indicatorDots="true" interval="3000">
+      <swiper autoplay="true" circular="true" duration="800" indicatorActiveColor="#434343" indicatorColor="#ccc" indicatorDots="true" interval="3000">
         <swiper-item wx:for="{{getad}}" wx:key="*this">
           <image bindtap="skip" class="slide-image" data-appid="{{item.appid}}" data-src="{{item.src}}" data-wb_src="{{item.wb_src}}" mode="aspectFill" src="{{url}}{{item.logo}}"></image>
         </swiper-item>

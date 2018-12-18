@@ -89,7 +89,7 @@ Page({
         if (t.data.length > 0) {
           for (var i = 0; i < t.data.length - 1; i++) {
             for (var j = 0; j < t.data.length - 1 - i; j++) {
-              if (t.data[j].orderby > t.data[j + 1].orderby) {
+              if (Number(t.data[j].orderby) > Number(t.data[j + 1].orderby)) {
                 var temp = t.data[j];
                 t.data[j] = t.data[j + 1];
                 t.data[j + 1] = temp;
@@ -114,7 +114,7 @@ Page({
         if (t.data.length > 0) {
           for (var i = 0; i < t.data.length - 1; i++) {
             for (var j = 0; j < t.data.length - 1 - i; j++) {
-              if (t.data[j].orderby > t.data[j + 1].orderby) {
+              if (Number(t.data[j].orderby) > Number(t.data[j + 1].orderby)) {
                 var temp = t.data[j];
                 t.data[j] = t.data[j + 1];
                 t.data[j + 1] = temp;

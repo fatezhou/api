@@ -7,7 +7,7 @@
   <view class="search_result">
     <view bindtap="search_result" class="result" data-id="{{item.id}}" wx:if="{{hotel!=''}}" wx:for="{{hotel}}">
       <view>{{item.name}}</view>
-      <view>搜索</view>
+      <view wx:if="{{index == 0}}">搜索</view>
     </view>
 
     <!-- <view class="none_result rel" wx:if="{{hotel==''}}">
