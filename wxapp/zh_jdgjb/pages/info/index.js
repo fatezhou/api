@@ -80,6 +80,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      imageUrl: 'https://api4.minidope.com/attachment/images/2/2018/share/share.jpg',
+    }
   }
 })
