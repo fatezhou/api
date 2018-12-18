@@ -117,5 +117,10 @@ Page({
   onHide: function () { },
   onUnload: function () { },
   onPullDownRefresh: function () { },
-  onReachBottom: function () { }
+  onReachBottom: function () { },
+  onShareAppMessage: function () {
+    return {
+      imageUrl: 'https://api4.minidope.com/attachment/images/2/2018/share/share.jpg',
+    }
+  }
 });
