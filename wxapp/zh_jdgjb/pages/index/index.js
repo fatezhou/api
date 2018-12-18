@@ -304,5 +304,9 @@ Page({
   },
   onReachBottom: function () { },
   onUnload: function () { },
-  onShareAppMessage: function () { }
+  onShareAppMessage: function () {
+    return {
+      imageUrl:'https://api4.minidope.com/attachment/images/2/2018/share/share.jpg',
+    }
+   }
 });
