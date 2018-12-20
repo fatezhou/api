@@ -34,12 +34,12 @@
         </view>
         <view class="form_info">
             <view class="form_info_child">
-                <view>房间数</view>
+                <view>小时数</view>
                 <view class="home_num">
                     <view bindtap="reduce_num">
                         <image mode="aspectFill" src="../img/jian.png"></image>
                     </view>
-                    <view>{{num}}间</view>
+                    <view>{{num}}小时</view>
                     <view bindtap="add_num">
                         <image mode="aspectFill" src="../img/jia.png"></image>
                     </view>
@@ -73,7 +73,7 @@
                 </view>
             </view>
             <view class="form_info_child" wx:if="{{yj_cost!=0}}">
-                <view>房间押金</view>
+                <view>基础房费</view>
                 <view>
                     <input disabled="true" name="phone" placeholder="+{{yj_price}}" placeholderStyle="color:#000" type="number"></input>
                 </view>
@@ -123,7 +123,7 @@
             <view>{{item.mprice}}元</view>
         </view>
         <view wx:if="{{room.yj_cost!=0}}">
-            <view>房间押金</view>
+            <view>基础房费</view>
             <view>+{{yj_price}}</view>
         </view>
         <view>
