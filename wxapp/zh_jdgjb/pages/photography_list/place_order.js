@@ -167,7 +167,8 @@ Page({
     if (e.data.rooms == e.data.num) wx.showModal({
       title: "",
       content: "没有这么多房间啦"
-    }); else {
+    }); else if (e.data.num<3){
+      // 增加了if(e.data.num < 3)
       var a = e.data.num + 1;
       e.setData({
         num: a
@@ -225,7 +226,8 @@ Page({
     }), e.cost());
   },
   cost: function (t) {
-    var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o * a, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r + d - n, m = s - r - n;
+    // 更改了d = o * a
+    var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r + d - n, m = s - r - n;
     (m = m.toFixed(2)) <= 0 && (m = 0), c = c.toFixed(2), u = u.toFixed(2);
     var l = s;
     (p = p.toFixed(2)) <= 0 && (p = 0 != o ? d : .01), s = (s += d).toFixed(2), l = l.toFixed(2),
