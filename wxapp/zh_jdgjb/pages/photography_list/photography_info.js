@@ -29,6 +29,7 @@ Page({
       address: i,
       name: r,
       price: s,
+      // parseFloat(parseFloat(s) + 100).toFixed(2)
       hotel_id: a.hotel_id,
       latitude: latitude,
       longitude: longitude,
