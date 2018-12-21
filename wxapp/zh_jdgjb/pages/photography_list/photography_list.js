@@ -75,7 +75,9 @@ Page({
               end: o
             },
             success: function (t) {
-              e[a].cost = t.data[0].mprice, r.setData({
+              // e[a].cost = t.data[0].mprice 原版
+              //  e[a].cost =parseFloat(parseFloat(t.data[0].mprice) + parseFloat(e[a].yj_cost)).toFixed(2) 
+              e[a].cost = (Number(t.data[0].mprice) + 100).toFixed(2) , r.setData({
                 room: e
               });
             }
@@ -141,8 +143,9 @@ Page({
         app.globalData.room = this.data.room[j]
       }
     }
+    console.info(t.currentTarget.dataset)
     wx.navigateTo({
-      url: "photography_info?coordinates=" + i + "&room_id=" + t.currentTarget.dataset.id + "&tel=" + e + "&address=" + r + "&name=" + d + "&price=" + t.currentTarget.dataset.price + "&hotel_id=" + this.data.hotel_id
+      url: "photography_info?coordinates=" + i + "&room_id=" + t.currentTarget.dataset.id + "&tel=" + e + "&address=" + r + "&name=" + d + "&price=" + t.currentTarget.dataset.price + "&hotel_id=" + this.data.hotel_id + "&yjcost=" + t.currentTarget.dataset.yjcost
     });
   },
   order: function (t) { },

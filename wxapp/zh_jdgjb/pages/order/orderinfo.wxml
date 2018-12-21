@@ -4,7 +4,7 @@
             <view class="flex_bet hconbox">
                 <view>
                     <view class="hcfont1">{{order_info.seller_name}}</view>
-                    <view wx:if="{{order_info.dd_time != '6:00-10:00'}}" bindtap="sele_address" class="hcfont2 gobyndsingle">地址：{{order_info.seller_address}}</view>
+                    <view wx:if="{{order_info.seller_name != '早餐'}}" bindtap="sele_address" class="hcfont2 gobyndsingle">地址：{{order_info.seller_address}}</view>
                 </view>
                 <image class="ordizhi" src="../../img/more.png"></image>
             </view>
@@ -45,23 +45,26 @@
             <view wx:if="{{order_info.type==3}}">到店付</view>
         </view>
         <view class="osecnei">
-            <view wx:if="{{order_info.dd_time != '6:00-10:00'}}">房型</view>
+            <view wx:if="{{order_info.seller_name != '早餐'}}">房型</view>
             <view wx:else>套餐</view>
             <view>{{order_info.room_type}}</view>
         </view>
-        <view class="osecnei" wx:if="{{order_info.dd_time != '6:00-10:00'}}">
+        <view class="osecnei" wx:if="{{order_info.seller_name != '早餐'}}">
             <view>床型</view>
             <view>{{order_info.bed_type}}</view>
         </view>
         <view class="osecnei">
-            <view wx:if="{{order_info.dd_time != '6:00-10:00'}}">房间数</view>
-            <view wx:else>套餐数</view>
-            <view wx:if="{{order_info.dd_time != '6:00-10:00'}}">{{order_info.num}}间</view>
-            <view wx:else>{{order_info.num}}份</view>
+            <view wx:if="{{order_info.seller_name == '早餐'}}">套餐数</view>
+            <view wx:elif="{{order_info.seller_name == '摄影'}}">摄影时间</view>
+            <view wx:else>房间数</view>
+            <view wx:if="{{order_info.seller_name == '早餐'}}">{{order_info.num}}份</view>
+            <view wx:elif="{{order_info.seller_name == '摄影'}}">{{order_info.num}}小时</view>
+            <view wx:else>{{order_info.num}}间</view>
         </view>
         <view class="osecnei">
-            <view wx:if="{{order_info.dd_time != '6:00-10:00'}}">入住天数</view>
-            <view wx:else>用餐天数</view>
+            <view wx:if="{{order_info.seller_name == '早餐'}}">用餐天数</view>
+            <view wx:elif="{{order_info.seller_name == '摄影'}}">摄影天数</view>
+            <view wx:else>入住天数</view>
             <view>{{order_info.days}}天</view>
         </view>
         <view class="osecnei">
@@ -108,8 +111,8 @@
         <view class="ofbox" wx:if="{{order_info.status==8}}">退款被拒绝</view>
         <view bindtap="go_eveluate" class="ofbox" wx:if="{{order_info.status==5}}">去评价</view>
         <button bindtap="confirmorder" class="ofbutton" style="background:{{color}}" wx:if="{{order_info.status==1}}">立即付款</button>
-        <button bindtap="order_more_hotel" class="ofbutton" style="background:{{color}}" wx:if="{{order_info.status!=1 && order_info.dd_time != '6:00-10:00'}}">再订一间</button>
-        <button bindtap="order_more_breakfast" class="ofbutton" style="background:{{color}}" wx:if="{{order_info.status!=1 && order_info.dd_time == '6:00-10:00'}}">再订一份</button>
+        <button bindtap="order_more_hotel" class="ofbutton" style="background:{{color}}" wx:if="{{order_info.status!=1 && order_info.seller_name != '早餐'}}">再订一间</button>
+        <button bindtap="order_more_breakfast" class="ofbutton" style="background:{{color}}" wx:if="{{order_info.status!=1 && order_info.seller_name == '早餐'}}">再订一份</button>
     </view>
 </view>
 <view class="fixed" wx:if="{{code==true}}">

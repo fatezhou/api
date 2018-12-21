@@ -15,10 +15,11 @@ Page({
     singleroom: [],
   },
   onLoad: function (a) {
+    console.info(a)
     var t = this;
     app.getUrl(t), app.getSystem(t);
     a.hotel_id;
-    var e = a.room_id, n = (new Date().toLocaleDateString().replace(/\//g, "-"), a.coordinates), o = a.tel, i = a.address, r = a.name, s = a.price, latitude = Number(n.split(",")[0]), longitude = Number(n.split(",")[1]);
+    var e = a.room_id, n = (new Date().toLocaleDateString().replace(/\//g, "-"), a.coordinates), o = a.tel, i = a.address, r = a.name, s = a.price, yjcost = a.yjcost, latitude = Number(n.split(",")[0]), longitude = Number(n.split(",")[1]);
     t.data.markers[0].latitude = latitude
     t.data.markers[0].longitude = longitude
     t.data.markers[0].name = r
@@ -28,8 +29,8 @@ Page({
       coordinates: n,
       address: i,
       name: r,
+      // price: parseFloat(parseFloat(s) + parseFloat(yjcost)).toFixed(2),
       price: s,
-      // parseFloat(parseFloat(s) + 100).toFixed(2)
       hotel_id: a.hotel_id,
       latitude: latitude,
       longitude: longitude,

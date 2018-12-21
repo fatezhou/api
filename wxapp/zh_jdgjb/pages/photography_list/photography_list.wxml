@@ -51,7 +51,7 @@
         </view>
         <view class="roomlist" wx:if="{{activeIndex==0}}" wx:for="{{room}}">
             <view class="roombox">
-                <image bindtap="photography_info" class="roomleft" data-id="{{item.id}}" data-price="{{item.price}}" mode="aspectFill" src="{{url}}{{item.logo}}"></image>
+                <image bindtap="photography_info" class="roomleft" data-id="{{item.id}}" data-price="{{item.price}}" mode="aspectFill" src="{{url}}{{item.logo}}" data-yjcost="{{item.yj_cost}}"></image>
                 <view class="roomright flex5">
                     <view class="flex_bet roomtop">
                         <view class="roomname">{{item.name}}</view>

@@ -73,7 +73,7 @@
                 </view>
             </view>
             <view class="form_info_child" wx:if="{{yj_cost!=0}}">
-                <view>基础房费</view>
+                <view>房间押金</view>
                 <view>
                     <input disabled="true" name="phone" placeholder="+{{yj_price}}" placeholderStyle="color:#000" type="number"></input>
                 </view>
@@ -123,13 +123,13 @@
             <view>{{item.mprice}}元</view>
         </view>
         <view wx:if="{{room.yj_cost!=0}}">
-            <view>基础房费</view>
+            <view>房间押金</view>
             <view>+{{yj_price}}</view>
         </view>
-        <view>
+        <!-- <view>
             <view>应付金额</view>
             <view>+{{price}}</view>
-        </view>
+        </view> -->
         <view>
             <view>优惠券</view>
             <view>-{{coupon}}</view>
