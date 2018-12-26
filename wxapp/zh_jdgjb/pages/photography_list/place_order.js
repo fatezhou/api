@@ -44,7 +44,7 @@ Page({
         end: i
       },
       success: function (t) {
-        console.info(t)
+        // console.info(t)
         for (var k in t.data) t.data[k].mprice = (Number(t.data[k].mprice) + 100).toFixed(2)
         for (var e in t.data) n += Number(t.data[e].mprice);
         a.setData({
@@ -92,6 +92,7 @@ Page({
         room_id: e
       },
       success: function (t) {
+        console.info(t.data)
         t.data.price, t.data.yj_cost;
         a.setData({
           room: t.data,
@@ -171,6 +172,29 @@ Page({
       content: "没有这么多房间啦"
     }); else if (e.data.num<3){
       // 增加了if(e.data.num < 3)
+
+      if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125) {
+      console.info("这家店只能1个小时")
+      return
+      } else if (e.data.room.id == 121 || e.data.room.id == 122 || e.data.room.id == 123 || e.data.room.id == 126 || e.data.room.id == 127) {
+        console.info("这家店只能1个小时和3个小时")
+        var a = e.data.num + 2;
+        e.setData({
+          num: a
+        });
+        if (e.data.room.id == 123) {
+          for (var k in e.data.price_infos) e.data.price_infos[k].mprice = (((Number(e.data.price_infos[k].mprice) - 100) * a + 100) + 50).toFixed(2); e.setData({
+            price_infos: e.data.price_infos
+          }), e.cost();
+          return
+        }
+        for (var k in e.data.price_infos) e.data.price_infos[k].mprice = (((Number(e.data.price_infos[k].mprice) - 100) * a + 100)+100).toFixed(2); e.setData({
+          price_infos: e.data.price_infos
+        }), e.cost();
+      return
+    }
+
+
       var a = e.data.num + 1;
       e.setData({
         num: a
@@ -185,6 +209,31 @@ Page({
       console.info('小时数已经是：' + this.data.num + '，不可再减少')
       return
     }
+
+    if (this.data.room.id == 121 || this.data.room.id == 122 || this.data.room.id == 123 || this.data.room.id == 126 || this.data.room.id == 127) {
+      console.info("这家店只能1个小时和3个小时")
+      var e = this.data.num - 2;;
+    
+      if (this.data.room.id == 123) {
+        for (var k in this.data.price_infos) this.data.price_infos[k].mprice = ((Number(this.data.price_infos[k].mprice) - 150) / 3 + 100).toFixed(2); this.setData({
+          price_infos: this.data.price_infos
+        })
+
+        1 <= e && (this.setData({
+          num: e
+        }), this.cost());
+        return
+      }
+      for (var k in this.data.price_infos) this.data.price_infos[k].mprice = ((Number(this.data.price_infos[k].mprice) - 200) / 3 + 100 ).toFixed(2); this.setData({
+        price_infos: this.data.price_infos
+      })
+
+      1 <= e && (this.setData({
+        num: e
+      }), this.cost());
+      return
+    }
+
     var e = this.data.num - 1;
     for (var k in this.data.price_infos) this.data.price_infos[k].mprice = (Number(this.data.price_infos[k].mprice) - ((Number(this.data.price_infos[k].mprice) - 100)/(e+1))).toFixed(2); this.setData({
       price_infos: this.data.price_infos
@@ -241,7 +290,28 @@ Page({
   cost: function (t) {
     // 更改了d = o * a
     // 更改了 p = c - r + d - n
-    var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d - (100 * Number(a - 1) * e.data.price_infos.length), m = s - r - n;
+    if (this.data.room.id == 121 || this.data.room.id == 122 || this.data.room.id == 123 || this.data.room.id == 126 || this.data.room.id == 127) {
+      console.info(this.data.room.id)
+      var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d - (100 * Number(a - 1) * e.data.price_infos.length), m = s - r - n;
+
+      if(a == 3){
+        if (this.data.room.id == 123){
+          p = p + (50 * e.data.price_infos.length)
+        }else{
+          p = p + (100 * e.data.price_infos.length)
+        }
+      }
+      console.info(c)
+      console.info(r)
+      console.info(n)
+      console.info(a)
+
+      console.info(d)
+      console.info(p)
+    } else{
+      var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d - (100 * Number(a - 1) * e.data.price_infos.length), m = s - r - n;
+    }
+
     (m = m.toFixed(2)) <= 0 && (m = 0), c = c.toFixed(2), u = u.toFixed(2);
     var l = s;
     (p = p.toFixed(2)) <= 0 && (p = 0 != o ? d : .01), s = (s += d).toFixed(2), l = l.toFixed(2),
