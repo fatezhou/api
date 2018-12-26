@@ -172,8 +172,8 @@ Page({
       content: "没有这么多房间啦"
     }); else if (e.data.num<3){
       // 增加了if(e.data.num < 3)
-
-      if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125) {
+      // console.info(e.data.room.id)
+      if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125 || e.data.room.id == 129 || e.data.room.id == 130) {
       console.info("这家店只能1个小时")
       return
       } else if (e.data.room.id == 121 || e.data.room.id == 122 || e.data.room.id == 123 || e.data.room.id == 126 || e.data.room.id == 127) {
@@ -301,13 +301,13 @@ Page({
           p = p + (100 * e.data.price_infos.length)
         }
       }
-      console.info(c)
-      console.info(r)
-      console.info(n)
-      console.info(a)
+      // console.info(c)
+      // console.info(r)
+      // console.info(n)
+      // console.info(a)
 
-      console.info(d)
-      console.info(p)
+      // console.info(d)
+      // console.info(p)
     } else{
       var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d - (100 * Number(a - 1) * e.data.price_infos.length), m = s - r - n;
     }
