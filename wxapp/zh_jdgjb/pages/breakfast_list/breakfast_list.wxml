@@ -68,7 +68,7 @@
                         <view bindtap="order" class="roomyuding" style="background:{{color}}" wx:if="{{item.state==1}}">
                             <button bindgetuserinfo="bindgetuserinfo" class="users" data-classify="{{item.classify}}" data-cost="{{item.cost}}" data-id="{{item.id}}" data-rz_time="{{item.rz_time}}" formType="submit" openType="getUserInfo">预订</button>
                         </view>
-                        <view class="roomyuding" style="background:#ccc" wx:if="{{item.state==2}}">满员</view>
+                        <view class="roomyuding" style="background:#ccc" wx:if="{{item.state==2}}">满房</view>
                     </view>
                 </view>
             </view>

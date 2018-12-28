@@ -169,14 +169,25 @@ Page({
     var e = this;
     if (e.data.rooms == e.data.num) wx.showModal({
       title: "",
-      content: "没有这么多房间啦"
-    }); else if (e.data.num<3){
+      content: "没有这么多拍摄时间啦"
+    }); else if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125 || e.data.room.id == 129 || e.data.room.id == 130){
+      var a = e.data.num + 1;
+      e.setData({
+        num: a
+      });
+      // for (var k in e.data.price_infos) console.info(e.data.price_infos[k].mprice)
+      // debugger
+      for (var k in e.data.price_infos) e.data.price_infos[k].mprice = ((Number(e.data.price_infos[k].mprice) / (a - 1)) * a).toFixed(2); e.setData({
+        price_infos: e.data.price_infos
+      }), e.cost();
+    } else if (e.data.num<3){
       // 增加了if(e.data.num < 3)
       // console.info(e.data.room.id)
-      if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125 || e.data.room.id == 129 || e.data.room.id == 130) {
-      console.info("这家店只能1个小时")
-      return
-      } else if (e.data.room.id == 121 || e.data.room.id == 122 || e.data.room.id == 123 || e.data.room.id == 126 || e.data.room.id == 127) {
+      // if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125 || e.data.room.id == 129 || e.data.room.id == 130) {
+      // console.info("这家店只能1个小时")
+      // return
+      // } else 
+      if (e.data.room.id == 121 || e.data.room.id == 122 || e.data.room.id == 123 || e.data.room.id == 126 || e.data.room.id == 127) {
         console.info("这家店只能1个小时和3个小时")
         var a = e.data.num + 2;
         e.setData({
@@ -209,8 +220,19 @@ Page({
       console.info('小时数已经是：' + this.data.num + '，不可再减少')
       return
     }
+    if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130){
+      //没有优惠
+      var e = this.data.num - 1;
+      for (var k in this.data.price_infos) this.data.price_infos[k].mprice = (Number(this.data.price_infos[k].mprice) - (Number(this.data.price_infos[k].mprice) / (e + 1))).toFixed(2); this.setData({
+        price_infos: this.data.price_infos
+      })
 
-    if (this.data.room.id == 121 || this.data.room.id == 122 || this.data.room.id == 123 || this.data.room.id == 126 || this.data.room.id == 127) {
+      1 <= e && (this.setData({
+        num: e
+      }), this.cost());
+
+    return
+    }else if (this.data.room.id == 121 || this.data.room.id == 122 || this.data.room.id == 123 || this.data.room.id == 126 || this.data.room.id == 127) {
       console.info("这家店只能1个小时和3个小时")
       var e = this.data.num - 2;;
     
@@ -308,6 +330,9 @@ Page({
 
       // console.info(d)
       // console.info(p)
+    } else if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130){
+      var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r + d - n, m = s - r - n;
+     
     } else{
       var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d - (100 * Number(a - 1) * e.data.price_infos.length), m = s - r - n;
     }
