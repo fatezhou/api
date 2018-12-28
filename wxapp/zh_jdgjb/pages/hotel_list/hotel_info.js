@@ -127,19 +127,21 @@ Page({
         }), this.refresh();
     },
     bindDateChange2: function(t) {
-        var a = this.data.datein, e = t.detail.value, i = app.getTime2Time(e, a);
-      if (e >= a) {
+        var a = this.data.datein, e = t.detail.value;
+      if (e <= a) {
+        console.info(3)
         // 入住时间一定小于退房时间
-        e = a
-        e = (Date.parse(e)) - 86400000
-        e = utils.formatTime(new Date(e))
-        e = e.substring(0, 10)
-        console.info(e)
-        n = (this.data.current_date, app.getTime2Time(a, e));
+        a = e
+        a = (Date.parse(a)) - 86400000
+        a = utils.formatTime(new Date(a))
+        a = a.substring(0, 10)
+        console.info(a)
+       // var n = (this.data.current_date, app.getTime2Time(e, a));
         this.setData({
-          datein: e
+          datein: a
         });
       }
+      var i = app.getTime2Time(e, a);
         wx.setStorageSync("day1", a), wx.setStorageSync("day2", e), wx.setStorageSync("day", i), 
         this.setData({
             dateout: t.detail.value,
