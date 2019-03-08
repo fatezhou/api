@@ -8,7 +8,7 @@
 
   <view class="foot">
     <view bindtap="home" class="footbox flex3">
-      <image src="../img/wo@2x.png"></image>
+      <image src="../img/yudingg@2x.png"></image>
       <view>首页</view>
     </view>
     <view class="footbox flex3">
