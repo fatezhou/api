@@ -77,9 +77,19 @@ Page({
             success: function (t) {
               // e[a].cost = t.data[0].mprice 原版
               //  e[a].cost =parseFloat(parseFloat(t.data[0].mprice) + parseFloat(e[a].yj_cost)).toFixed(2) 
-              e[a].cost = (Number(t.data[0].mprice) + 100).toFixed(2) , r.setData({
-                room: e
-              });
+              // console.info(e[a].id)
+              // console.info(t)
+              if (e[a].id == 143 || e[a].id == 144){
+                e[a].cost = (Number(t.data[0].mprice)).toFixed(2), r.setData({
+                  room: e
+                });
+              }else{
+                // 加100是因为 要求的价格幅度是 比如:300 500 700(初始200)
+                e[a].cost = (Number(t.data[0].mprice) + 100).toFixed(2), r.setData({
+                  room: e
+                });
+              }
+              
             }
           }), app.util.request({
             url: "entry/wxapp/GetRoomNum",

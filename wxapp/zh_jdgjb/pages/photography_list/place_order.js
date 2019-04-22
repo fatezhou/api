@@ -43,13 +43,19 @@ Page({
         start: d,
         end: i
       },
-      success: function (t) {
+      success: function (res) {
         // console.info(t)
-        for (var k in t.data) t.data[k].mprice = (Number(t.data[k].mprice) + 100).toFixed(2)
-        for (var e in t.data) n += Number(t.data[e].mprice);
+        console.info(t.room_id)
+        if (t.room_id == 143 || t.room_id == 144){
+          for (var k in res.data) res.data[k].mprice = (Number(res.data[k].mprice)).toFixed(2)
+        }else{
+          for (var k in res.data) res.data[k].mprice = (Number(res.data[k].mprice) + 100).toFixed(2)
+        }
+      
+        for (var e in res.data) n += Number(res.data[e].mprice);
         a.setData({
           z_price: n,
-          price_infos: t.data
+          price_infos: res.data
         }), a.refresh(), a.room_num();
       }
     });
@@ -210,9 +216,15 @@ Page({
       e.setData({
         num: a
       });
-      for (var k in e.data.price_infos) e.data.price_infos[k].mprice = (((Number(e.data.price_infos[k].mprice) - 100)/(a-1))*a+100).toFixed(2);e.setData({
-        price_infos: e.data.price_infos
-      }), e.cost();
+      if (e.data.room.id == 143 || e.data.room.id == 144){
+        for (var k in e.data.price_infos) e.data.price_infos[k].mprice = ((Number(e.data.price_infos[k].mprice)/(a-1)) * a).toFixed(2); e.setData({
+          price_infos: e.data.price_infos
+        }), e.cost();
+      }else{
+        for (var k in e.data.price_infos) e.data.price_infos[k].mprice = (((Number(e.data.price_infos[k].mprice) - 100) / (a - 1)) * a + 100).toFixed(2); e.setData({
+          price_infos: e.data.price_infos
+        }), e.cost();
+      }
     }
   },
   reduce_num: function (t) {
@@ -255,11 +267,18 @@ Page({
       }), this.cost());
       return
     }
-
+  
     var e = this.data.num - 1;
-    for (var k in this.data.price_infos) this.data.price_infos[k].mprice = (Number(this.data.price_infos[k].mprice) - ((Number(this.data.price_infos[k].mprice) - 100)/(e+1))).toFixed(2); this.setData({
-      price_infos: this.data.price_infos
-    })
+    if (this.data.room.id == 143 || this.data.room.id == 144) {
+      for (var k in this.data.price_infos) this.data.price_infos[k].mprice = (Number(this.data.price_infos[k].mprice) - (Number(this.data.price_infos[k].mprice) / (e + 1))).toFixed(2); this.setData({
+        price_infos: this.data.price_infos
+      })
+    } else {
+      for (var k in this.data.price_infos) this.data.price_infos[k].mprice = (Number(this.data.price_infos[k].mprice) - ((Number(this.data.price_infos[k].mprice) - 100) / (e + 1))).toFixed(2); this.setData({
+        price_infos: this.data.price_infos
+      })
+    }
+    
 
     1 <= e && (this.setData({
       num: e
@@ -313,11 +332,13 @@ Page({
     // 更改了d = o * a
     // 更改了 p = c - r + d - n
     if (this.data.room.id == 121 || this.data.room.id == 122 || this.data.room.id == 123 || this.data.room.id == 126 || this.data.room.id == 127) {
+      // 只能订 一个小时 和 三个小时 的
       console.info(this.data.room.id)
       var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d - (100 * Number(a - 1) * e.data.price_infos.length), m = s - r - n;
 
       if(a == 3){
         if (this.data.room.id == 123){
+          // 三小时的价格 和别的 不一样
           p = p + (50 * e.data.price_infos.length)
         }else{
           p = p + (100 * e.data.price_infos.length)
@@ -331,10 +352,24 @@ Page({
       // console.info(d)
       // console.info(p)
     } else if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130){
+      // 只能订 一小时的
       var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r + d - n, m = s - r - n;
      
     } else{
-      var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d - (100 * Number(a - 1) * e.data.price_infos.length), m = s - r - n;
+      if (this.data.room.id == 143 || this.data.room.id == 144){
+        var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d, m = s - r - n;
+        console.info(a)
+        console.info(o)
+        console.info(i)
+        console.info(r)
+        console.info(n)
+        console.info(s)
+        console.info(c)
+        console.info(u)
+        console.info(p)
+      }else{
+        var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d - (100 * Number(a - 1) * e.data.price_infos.length), m = s - r - n;
+      }
     }
 
     (m = m.toFixed(2)) <= 0 && (m = 0), c = c.toFixed(2), u = u.toFixed(2);
