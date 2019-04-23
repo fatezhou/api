@@ -60,5 +60,10 @@
         "navigationBarBackgroundColor": "",
         "navigationBarTitleText": "",
         "navigationBarTextStyle": "white"
+    },
+    "permission": {
+      "scope.userLocation": {
+        "desc": "为了给您提供更好的服务，我们需要获取您的地理位置"
+      }
     }
 }

@@ -85,14 +85,38 @@ Page({
                         data: {
                             room_id: e[a].id,
                             start: d,
-                            end: o
+                            // end: o
+                          end: wx.getStorageSync("day2")
                         },
                         success: function(t) {
-                            e[a].room_num = t.data[0].nums, r.setData({
+                          // console.info(t)
+                          // console.info(e[a])
+                          e[a].have_room_list = []
+                          e[a].not_room_list = []
+                          r.setData(r.data)
+                          e[a].room_num = t.data[0].nums
+                          for (var q in t.data){
+                            if (e[a].room_num == 1){
+                              break
+                            }else{
+                              e[a].room_num = t.data[q].nums
+                            }
+                          }
+                          t.data.map(function(k){
+                            if(k.nums == 1){
+                              e[a].have_room_list.push(k.dateday)
+                              r.setData(r.data)
+                            }else{
+                              e[a].not_room_list.push(k.dateday)
+                              r.setData(r.data)
+                            }
+                          })
+                            // e[a].room_num = t.data[0].nums,
+                             r.setData({
                                 room: e
                             });
                         }
-                    });
+                      });
                 };
                 for (var i in e) a(i);
             }
@@ -147,6 +171,7 @@ Page({
             dateout: t.detail.value,
             time: i
         });
+      this.refresh();
     },
     room_info: function(t) {
         this.data.hotel.id;
@@ -206,12 +231,38 @@ Page({
                 });
             }
         }); else {
-            var r = wx.getStorageSync("day1"), d = wx.getStorageSync("day2");
-            1 == app.time_title(r, d) && (1 == t.detail.target.dataset.classify ? wx.navigateTo({
-                url: "../place_order/place_order?room_id=" + t.detail.target.dataset.id + "&hotel_id=" + this.data.hotel_id + "&form_d=" + a
-            }) : wx.navigateTo({
-                url: "hour_room?room_id=" + t.detail.target.dataset.id + "&hotel_id=" + this.data.hotel_id + "&form_d=" + a + "&cost=" + t.detail.target.dataset.cost + "&rz_time=" + t.detail.target.dataset.rz_time
-            }));
+          for(var qq in this.data.room){
+            if (this.data.room[qq].id == t.detail.target.dataset.id){
+              if (this.data.room[qq].not_room_list.length > 0){
+                console.info(this.data.room[qq].have_room_list)
+                var tt = ''
+                tt = this.data.room[qq].have_room_list.toString()
+                // wx.showModal({
+                //   title: '抱歉，现只有'+tt+'有房间未被预定',
+                //   content: '如有需要，请改动日期后进行预定',
+                // })
+                wx.showModal({
+                  title: '抱歉',
+                  content: '现只有' + tt + '有房间未被预定，如有需要，请改动日期后进行预定',
+                })
+              }else{
+                var r = wx.getStorageSync("day1"), d = wx.getStorageSync("day2");
+                1 == app.time_title(r, d) && (1 == t.detail.target.dataset.classify ? wx.navigateTo({
+                  url: "../place_order/place_order?room_id=" + t.detail.target.dataset.id + "&hotel_id=" + this.data.hotel_id + "&form_d=" + a
+                }) : wx.navigateTo({
+                  url: "hour_room?room_id=" + t.detail.target.dataset.id + "&hotel_id=" + this.data.hotel_id + "&form_d=" + a + "&cost=" + t.detail.target.dataset.cost + "&rz_time=" + t.detail.target.dataset.rz_time
+                }));
+              }
+            }
+          }
+          // console.info(this.data.)
+          // 这里跳转
+            // var r = wx.getStorageSync("day1"), d = wx.getStorageSync("day2");
+            // 1 == app.time_title(r, d) && (1 == t.detail.target.dataset.classify ? wx.navigateTo({
+            //     url: "../place_order/place_order?room_id=" + t.detail.target.dataset.id + "&hotel_id=" + this.data.hotel_id + "&form_d=" + a
+            // }) : wx.navigateTo({
+            //     url: "hour_room?room_id=" + t.detail.target.dataset.id + "&hotel_id=" + this.data.hotel_id + "&form_d=" + a + "&cost=" + t.detail.target.dataset.cost + "&rz_time=" + t.detail.target.dataset.rz_time
+            // }));
         }
     },
     hotel_in: function(t) {
@@ -242,5 +293,5 @@ Page({
     return {
       imageUrl: 'https://api4.minidope.com/attachment/images/2/2018/share/share.jpg',
     }
-  }
+  },
 });

@@ -147,7 +147,7 @@ Page({
       this.setData({
         dateout: t.detail.value,
         time: i
-      });
+      }), this.refresh();
   },
   photography_info: function (t) {
     this.data.hotel.id;
