@@ -95,15 +95,18 @@ Page({
                           e[a].not_room_list = []
                           r.setData(r.data)
                           e[a].room_num = t.data[0].nums
+                          console.info(t.data)
                           for (var q in t.data){
-                            if (e[a].room_num == 1){
+                            if (e[a].room_num >= 1){
+                              // 这边判断吧 e[a].room_num == 1 改为 e[a].room_num >= 1
                               break
                             }else{
                               e[a].room_num = t.data[q].nums
                             }
                           }
                           t.data.map(function(k){
-                            if(k.nums == 1){
+                            if(k.nums >= 1){
+                              // 这边判断吧 k.nums == 1 改为 k.nums >= 1
                               e[a].have_room_list.push(k.dateday)
                               r.setData(r.data)
                             }else{
