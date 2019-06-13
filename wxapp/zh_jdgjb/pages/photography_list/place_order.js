@@ -46,7 +46,8 @@ Page({
       success: function (res) {
         // console.info(t)
         console.info(t.room_id)
-        if (t.room_id == 143 || t.room_id == 144){
+        // 这部分是价格倍数增长 只能选择1~3个小时 价格如 400 800 1200
+        if (t.room_id == 143 || t.room_id == 144 || t.room_id == 72 || t.room_id == 112 || t.room_id == 113 || t.room_id == 114 || t.room_id == 115 || t.room_id == 116 || t.room_id == 117 || t.room_id == 118 || t.room_id == 131 || t.room_id == 132 || t.room_id == 133 || t.room_id == 134){
           for (var k in res.data) res.data[k].mprice = (Number(res.data[k].mprice)).toFixed(2)
         }else{
           for (var k in res.data) res.data[k].mprice = (Number(res.data[k].mprice) + 100).toFixed(2)
@@ -216,7 +217,7 @@ Page({
       e.setData({
         num: a
       });
-      if (e.data.room.id == 143 || e.data.room.id == 144){
+      if (e.data.room.id == 143 || e.data.room.id == 144 || e.data.room.id == 72 || e.data.room.id == 112 || e.data.room.id == 113 || e.data.room.id == 114 || e.data.room.id == 115 || e.data.room.id == 116 || e.data.room.id == 117 || e.data.room.id == 118 || e.data.room.id == 131 || e.data.room.id == 132 || e.data.room.id == 133 || e.data.room.id == 134){
         for (var k in e.data.price_infos) e.data.price_infos[k].mprice = ((Number(e.data.price_infos[k].mprice)/(a-1)) * a).toFixed(2); e.setData({
           price_infos: e.data.price_infos
         }), e.cost();
@@ -269,7 +270,7 @@ Page({
     }
   
     var e = this.data.num - 1;
-    if (this.data.room.id == 143 || this.data.room.id == 144) {
+    if (this.data.room.id == 143 || this.data.room.id == 144 || this.data.room.id == 72 || this.data.room.id == 112 || this.data.room.id == 113 || this.data.room.id == 114 || this.data.room.id == 115 || this.data.room.id == 116 || this.data.room.id == 117 || this.data.room.id == 118 || this.data.room.id == 131 || this.data.room.id == 132 || this.data.room.id == 133 || this.data.room.id == 134) {
       for (var k in this.data.price_infos) this.data.price_infos[k].mprice = (Number(this.data.price_infos[k].mprice) - (Number(this.data.price_infos[k].mprice) / (e + 1))).toFixed(2); this.setData({
         price_infos: this.data.price_infos
       })
@@ -355,7 +356,7 @@ Page({
       var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r + d - n, m = s - r - n;
      
     } else{
-      if (this.data.room.id == 143 || this.data.room.id == 144){
+      if (this.data.room.id == 143 || this.data.room.id == 144 || this.data.room.id == 72 || this.data.room.id == 112 || this.data.room.id == 113 || this.data.room.id == 114 || this.data.room.id == 115 || this.data.room.id == 116 || this.data.room.id == 117 || this.data.room.id == 118 || this.data.room.id == 131 || this.data.room.id == 132 || this.data.room.id == 133 || this.data.room.id == 134){
         var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r - n + d, m = s - r - n;
         console.info(a)
         console.info(o)

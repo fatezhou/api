@@ -14,6 +14,9 @@ Page({
       singleroom: [],
     },
     onLoad: function(a) {
+      if(a.hotel_id == 15 && a.room_id == 78){
+        a.coordinates = "30.644120, 104.083090"
+      }
         var t = this;
         app.getUrl(t), app.getSystem(t);
         a.hotel_id;

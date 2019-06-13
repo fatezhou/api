@@ -24,12 +24,22 @@ Page({
     t.data.markers[0].longitude = longitude
     t.data.markers[0].name = r
     t.data.singleroom[0] = app.globalData.room
+    console.info(e)
+    if (e == 143 || e == 144 || e == 72 || e == 112 || e == 113 || e == 114 || e == 115 || e == 116 || e == 117 || e == 118 || e == 131 || e == 132 || e == 133 || e == 134){
+      t.setData({
+        price: s
+      })
+    }else{
+      t.setData({
+        price: parseFloat(parseFloat(s) + 100).toFixed(2)
+      })
+    }
     t.setData({
       tel: o,
       coordinates: n,
       address: i,
       name: r,
-      price: parseFloat(parseFloat(s) + 100).toFixed(2),
+      // price: parseFloat(parseFloat(s) + 100).toFixed(2),
       // price: s,
       hotel_id: a.hotel_id,
       latitude: latitude,

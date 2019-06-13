@@ -79,7 +79,8 @@ Page({
               //  e[a].cost =parseFloat(parseFloat(t.data[0].mprice) + parseFloat(e[a].yj_cost)).toFixed(2) 
               // console.info(e[a].id)
               // console.info(t)
-              if (e[a].id == 143 || e[a].id == 144){
+              // 这部分是价格倍数增长 只能选择1~3个小时 价格如 400 800 1200
+              if (e[a].id == 143 || e[a].id == 144 || e[a].id == 72 || e[a].id == 112 || e[a].id == 113 || e[a].id == 114 || e[a].id == 115 || e[a].id == 116 || e[a].id == 117 || e[a].id == 118 || e[a].id == 131 || e[a].id == 132 || e[a].id == 133 || e[a].id == 134){
                 e[a].cost = (Number(t.data[0].mprice)).toFixed(2), r.setData({
                   room: e
                 });
