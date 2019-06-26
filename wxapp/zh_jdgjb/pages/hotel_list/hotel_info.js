@@ -185,8 +185,9 @@ Page({
             app.globalData.room = this.data.room[j]
           }
         }
+        // 修改 t.currentTarget.dataset.price -> t.currentTarget.dataset.cost
         wx.navigateTo({
-          url: "room_info?coordinates=" + i + "&room_id=" + t.currentTarget.dataset.id + "&tel=" + e + "&address=" + r + "&name=" + d + "&price=" + t.currentTarget.dataset.price + "&hotel_id=" + this.data.hotel_id
+          url: "room_info?coordinates=" + i + "&room_id=" + t.currentTarget.dataset.id + "&tel=" + e + "&address=" + r + "&name=" + d + "&price=" + t.currentTarget.dataset.cost + "&hotel_id=" + this.data.hotel_id
         });
     },
     order: function(t) {},
