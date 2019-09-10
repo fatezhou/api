@@ -1,4 +1,5 @@
 // zh_jdgjb/pages/blank/blank.js
+const app = getApp()
 Page({
 
   /**
@@ -13,8 +14,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let str = this.getToken()
-    this.queue(str)
+    let token = this.getToken()
+    this.queue(token)
   },
 
   getToken: function() {
@@ -23,14 +24,15 @@ Page({
     return ran + timestamp
   },
 
-  queue: function(str) {
+  queue: function(token) {
+    app.globalData.token = token
     let self = this
     let root = 'https://queue1.youyueworld.com/apis/'
     let api = root + 'queue'
     wx.request({
       url: api,
       data: {
-        str: str
+        token: token
       },
       method: "post",
       success: function(res) {
