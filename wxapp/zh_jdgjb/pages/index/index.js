@@ -150,6 +150,12 @@ Page({
       e = e.replace(/(\d+|\s+)/g, "");
       console.info(e)
       console.info(i)
+      if(i == 23){
+        wx.navigateTo({
+          url: '../photography_list/photography_list?hotel_id=' + String(i)
+        });
+        return
+      }
       wx.navigateTo({
         url: String(e) + String(i)
       });

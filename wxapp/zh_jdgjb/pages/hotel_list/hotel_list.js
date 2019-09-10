@@ -204,6 +204,12 @@ Page({
         });
     },
     conlist: function(t) {
+      if (t.currentTarget.dataset.id == 23) {
+        wx.navigateTo({
+          url: '../photography_list/photography_list?hotel_id=' + t.currentTarget.dataset.id,
+        })
+        return
+      }
         wx.navigateTo({
             url: "hotel_info?hotel_id=" + t.currentTarget.dataset.id + "&type=1"
         });

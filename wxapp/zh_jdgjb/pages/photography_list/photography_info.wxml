@@ -8,7 +8,7 @@
   </view>
   <view bindtap="setclip" class="eject_room">
     <view class="eject_type">{{room.name}}</view>
-    <view class="eject_type" style="color:{{color}};height:50rpx;line-height:50rpx;font-size:30rpx;color:red">价格：{{price}}/次</view>
+    <view class="eject_type" style="color:{{color}};height:50rpx;line-height:50rpx;font-size:30rpx;color:red">价格：{{price}}/时</view>
   </view>
   <!-- <view class="seller_info">
         <view bindtap="phone" class="tel">
@@ -62,7 +62,7 @@
     <cover-view class="bottom-right">
       <cover-view class="price">
       <cover-view class="sub">
-              ￥ {{price}}/份
+              ￥ {{price}}/时
       </cover-view>
 
       </cover-view>
