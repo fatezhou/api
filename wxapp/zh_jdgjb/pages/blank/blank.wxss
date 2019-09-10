@@ -1,0 +1,16 @@
+/* zh_jdgjb/pages/blank/blank.wxss */
+
+page {
+  background-color: #fff;
+}
+
+image{
+  width: 100%;
+}
+
+.text {
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}

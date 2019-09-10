@@ -1,5 +1,6 @@
 {
   "pages": [
+    "zh_jdgjb/pages/blank/blank",
     "zh_jdgjb/pages/index/index",
     "zh_jdgjb/pages/hotel_list/hotel_in",
     "zh_jdgjb/pages/index/search",

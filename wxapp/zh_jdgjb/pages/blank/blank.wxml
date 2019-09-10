@@ -1,0 +1,3 @@
+<!--zh_jdgjb/pages/blank/blank.wxml-->
+<image src="{{image}}" mode="widthFix"></image>
+<view class="text">{{text}}</view>
