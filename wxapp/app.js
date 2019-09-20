@@ -16,6 +16,7 @@ App({
       // 1分钟检查一次 小程序存活就更新时间
       let Interval = setInterval(function(){
         let root = 'https://queue1.youyueworld.com/apis/'
+        // let root = 'http://127.0.0.1:9001/apis/'
         let api = root + 'update_queue_time_by_token'
         wx.request({
           url: api,

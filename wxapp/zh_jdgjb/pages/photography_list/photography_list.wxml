@@ -59,7 +59,7 @@
                     </view>
                     <view class="flex_bet roombot">
                         <view>
-                            <view>剩余:{{item.room_num}}间</view>
+                            <view>剩余:{{item.room_num}}小时</view>
                             <view>床型
 {{item.size}}</view>
                             <view>可住人数:{{item.people}}</view>

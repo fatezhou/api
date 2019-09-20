@@ -47,7 +47,7 @@ Page({
         // console.info(t)
         console.info(t.room_id)
         // 这部分是价格倍数增长 只能选择1~3个小时 价格如 400 800 1200
-        if (t.room_id == 143 || t.room_id == 144 || t.room_id == 72 || t.room_id == 112 || t.room_id == 113 || t.room_id == 114 || t.room_id == 115 || t.room_id == 116 || t.room_id == 117 || t.room_id == 118 || t.room_id == 131 || t.room_id == 132 || t.room_id == 133 || t.room_id == 134 || t.room_id == 146 || t.room_id == 147 || t.room_id == 149 || t.room_id == 150){
+        if (t.room_id == 143 || t.room_id == 144 || t.room_id == 72 || t.room_id == 112 || t.room_id == 113 || t.room_id == 114 || t.room_id == 115 || t.room_id == 116 || t.room_id == 117 || t.room_id == 118 || t.room_id == 131 || t.room_id == 132 || t.room_id == 133 || t.room_id == 134 || t.room_id == 146 || t.room_id == 147 || t.room_id == 149 || t.room_id == 150 || t.room_id == 151 || t.room_id == 152 || t.room_id == 153 || t.room_id == 154){
           for (var k in res.data) res.data[k].mprice = (Number(res.data[k].mprice)).toFixed(2)
         }else{
           for (var k in res.data) res.data[k].mprice = (Number(res.data[k].mprice) + 100).toFixed(2)
@@ -177,7 +177,7 @@ Page({
     if (e.data.rooms == e.data.num) wx.showModal({
       title: "",
       content: "没有这么多拍摄时间啦"
-    }); else if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125 || e.data.room.id == 129 || e.data.room.id == 130 || e.data.room.id == 146 || e.data.room.id == 147 || e.data.room.id == 149 || e.data.room.id == 150){
+    }); else if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125 || e.data.room.id == 129 || e.data.room.id == 130 || e.data.room.id == 146 || e.data.room.id == 147 || e.data.room.id == 149 || e.data.room.id == 150 || e.data.room.id == 151 || e.data.room.id == 152 || e.data.room.id == 153 || e.data.room.id == 154){
       var a = e.data.num + 1;
       e.setData({
         num: a
@@ -233,7 +233,7 @@ Page({
       console.info('小时数已经是：' + this.data.num + '，不可再减少')
       return
     }
-    if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130 || this.data.room.id == 146 || this.data.room.id == 147 || this.data.room.id == 149 || this.data.room.id == 150){
+    if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130 || this.data.room.id == 146 || this.data.room.id == 147 || this.data.room.id == 149 || this.data.room.id == 150 || this.data.room.id == 151 || this.data.room.id == 152 || this.data.room.id == 153 || this.data.room.id == 154){
       //没有优惠 即价格增加值为初始值
       var e = this.data.num - 1;
       for (var k in this.data.price_infos) this.data.price_infos[k].mprice = (Number(this.data.price_infos[k].mprice) - (Number(this.data.price_infos[k].mprice) / (e + 1))).toFixed(2); this.setData({
@@ -352,7 +352,7 @@ Page({
 
       // console.info(d)
       // console.info(p)
-    } else if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130 || this.data.room.id == 146 || this.data.room.id == 147 || this.data.room.id == 149 || this.data.room.id == 150){
+    } else if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130 || this.data.room.id == 146 || this.data.room.id == 147 || this.data.room.id == 149 || this.data.room.id == 150 || this.data.room.id == 151 || this.data.room.id == 152 || this.data.room.id == 153 || this.data.room.id == 154){
       var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r + d - n, m = s - r - n;
      
     } else{
