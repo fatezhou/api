@@ -17,7 +17,10 @@ Page({
     pay_mode: !1,
     refrer_to: "确认支付",
     pay_num: 1,
-    type: 1
+    type: 1,
+
+    // jolly店下午茶套装单位为 /份，其余为 /小时
+    unit:'小时'
   },
   onLoad: function (t) {
     var a = this;
@@ -46,6 +49,11 @@ Page({
       success: function (res) {
         // console.info(t)
         console.info(t.room_id)
+        if(t.room_id == 155 || t.room_id == 156){
+          a.setData({
+            unit:'份'
+          })
+        }
         // 这部分是价格倍数增长 只能选择1~3个小时 价格如 400 800 1200
         if (t.room_id == 143 || t.room_id == 144 || t.room_id == 72 || t.room_id == 112 || t.room_id == 113 || t.room_id == 114 || t.room_id == 115 || t.room_id == 116 || t.room_id == 117 || t.room_id == 118 || t.room_id == 131 || t.room_id == 132 || t.room_id == 133 || t.room_id == 134 || t.room_id == 146 || t.room_id == 147 || t.room_id == 149 || t.room_id == 150 || t.room_id == 151 || t.room_id == 152 || t.room_id == 153 || t.room_id == 154){
           for (var k in res.data) res.data[k].mprice = (Number(res.data[k].mprice)).toFixed(2)
@@ -194,7 +202,11 @@ Page({
       // console.info("这家店只能1个小时")
       // return
       // } else 
-      if (e.data.room.id == 121 || e.data.room.id == 122 || e.data.room.id == 123 || e.data.room.id == 126 || e.data.room.id == 127) {
+      if(e.data.room.id == 155 || e.data.room.id == 156){
+        console.info("这家店只能1个小时")
+        return
+      }
+      else if (e.data.room.id == 121 || e.data.room.id == 122 || e.data.room.id == 123 || e.data.room.id == 126 || e.data.room.id == 127) {
         console.info("这家店只能1个小时和3个小时")
         var a = e.data.num + 2;
         e.setData({

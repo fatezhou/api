@@ -39,7 +39,8 @@
                     <view bindtap="reduce_num">
                         <image mode="aspectFill" src="../img/jian.png"></image>
                     </view>
-                    <view>{{num}}小时</view>
+                    <!-- <view>{{num}}小时</view> -->
+                    <view>{{num}}{{unit}}</view>
                     <view bindtap="add_num">
                         <image mode="aspectFill" src="../img/jia.png"></image>
                     </view>
