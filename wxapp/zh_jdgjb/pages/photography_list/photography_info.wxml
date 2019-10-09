@@ -44,7 +44,7 @@
   </view>
   <view class="eject_room" style="border:none">
     <view class="title">房间设施</view>
-    <view class="eject_font" wx:if="{{room.facilities!=''}}">{{room.facilities}}</view>
+    <view class="eject_font" wx:if="{{room.facilities!=''}}"><rich-text nodes="{{room.facilities}}" space="emsp"></rich-text></view>
     <view class="eject_font" wx:if="{{room.facilities==''}}">暂无</view>
   </view>
 </view>
