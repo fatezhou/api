@@ -34,7 +34,7 @@
         </view>
         <view class="form_info">
             <view class="form_info_child">
-                <view>小时数</view>
+                <view>{{unit}}数</view>
                 <view class="home_num">
                     <view bindtap="reduce_num">
                         <image mode="aspectFill" src="../img/jian.png"></image>
