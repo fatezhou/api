@@ -65,9 +65,19 @@ Page({
         });
     },
     order_more_hotel: function(t) {
+      if (this.data.order_info.seller_id == 5){
+        // 摄影
         wx.navigateTo({
-            url: "../hotel_list/hotel_info?hotel_id=" + this.data.order_info.seller_id + "&type=1"
+          url: "../photography_list/photography_list?hotel_id=" + this.data.order_info.seller_id + "&type=1"
         });
+      }else{
+        wx.navigateTo({
+          url: "../hotel_list/hotel_info?hotel_id=" + this.data.order_info.seller_id + "&type=1"
+        });
+      }
+        // wx.navigateTo({
+        //     url: "../hotel_list/hotel_info?hotel_id=" + this.data.order_info.seller_id + "&type=1"
+        // });
     },
     order_more_breakfast: function (t) {
       wx.navigateTo({

@@ -6,6 +6,7 @@ Page({
     activeIndex: 0
   },
   onLoad: function (t) {
+    console.info(t)
     var a = this;
     app.getUrl(a), app.getSystem(a), a.date(), a.setData({
       grade: wx.getStorageSync("platform").open_member
