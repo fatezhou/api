@@ -7,7 +7,8 @@ App({
         rande: 1,
         room:null,
 
-      token:''
+      token:'',
+      random_url:"",
     },
     util: require("we7/resource/js/util.js"),
     siteInfo: require("siteinfo.js"),
@@ -45,7 +46,8 @@ App({
       let self = this
       // 1分钟检查一次 小程序存活就更新时间
       let Interval = setInterval(function(){
-        let root = 'https://queue1.youyueworld.com/apis/'
+        let root = self.globalData.random_url || 'https://queue1.youyueworld.com/apis/'
+        // let root = 'https://queue1.youyueworld.com/apis/'
         // let root = 'http://127.0.0.1:9001/apis/'
         let api = root + 'update_queue_time_by_token'
         wx.request({
@@ -55,7 +57,11 @@ App({
           },
           method: "post",
           success: function (res) {
-            
+            if (res.data.data.code == 0) {
+              wx.redirectTo({
+                url: '../blank/blank',
+              })
+            }
           },
         })
       },60000)

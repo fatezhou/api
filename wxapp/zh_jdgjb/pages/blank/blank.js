@@ -13,21 +13,42 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    let token = this.getToken()
-    this.queue(token)
+  onLoad: function(options) {
+    this.getRandomUrl()
   },
 
-  getToken: function () {
+  getRandomUrl: function() {
+    let self = this
+    // let root = 'https://queue1.youyueworld.com/apis/'
+    let root = 'https://geturl.youyueworld.com/apis/'
+    let api = root + 'random_url'
+    wx.request({
+      url: api,
+      data: {},
+      method: "post",
+      success: function(res) {
+        app.globalData.random_url = res.data.data.random_url + "/apis/"
+        let token = self.getToken()
+        self.queue(token)
+      },
+      fail: function(res) {
+        let token = self.getToken()
+        self.queue(token)
+      }
+    })
+  },
+
+  getToken: function() {
     let timestamp = new Date().getTime()
     let ran = Math.random().toString(36).slice(-8)
     return ran + timestamp
   },
 
-  queue: function (token) {
+  queue: function(token) {
     app.globalData.token = token
     let self = this
-    let root = 'https://queue1.youyueworld.com/apis/'
+    let root = app.globalData.random_url || 'https://queue1.youyueworld.com/apis/'
+    // let root = 'https://queue1.youyueworld.com/apis/'
     // let root = 'http://127.0.0.1:9001/apis/'
     let api = root + 'queue'
     wx.request({
@@ -36,7 +57,7 @@ Page({
         token: token
       },
       method: "post",
-      success: function (res) {
+      success: function(res) {
         if (res.data.data.code == 1) {
           // 放行
           wx.redirectTo({
@@ -47,11 +68,11 @@ Page({
             title: '',
           })
           self.setData({
-            text: '服务器正忙，请稍等片刻再进入哦~',
+            text: '当前进入人数过多，您已在队列中，请稍等片刻后进入~',
             image: '../img/loading.jpg'
           })
           // 继续排队
-          setTimeout(function () {
+          setTimeout(function() {
             self.queue(token)
           }, 30000)
         }
@@ -62,14 +83,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     // if (wx.canIUse("getUpdateManager")) {
     //   let updateManager = wx.getUpdateManager();
     //   updateManager.onCheckForUpdate((res) => {
@@ -123,41 +144,41 @@ Page({
     // updateManager.onUpdateFailed(function () {
     //   // 新版本下载失败
     // })
-    
+
   },
 
-/**
- * 生命周期函数--监听页面隐藏
- */
-onHide: function() {
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
 
-},
+  },
 
-/**
- * 生命周期函数--监听页面卸载
- */
-onUnload: function() {
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
 
-},
+  },
 
-/**
- * 页面相关事件处理函数--监听用户下拉动作
- */
-onPullDownRefresh: function() {
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
 
-},
+  },
 
-/**
- * 页面上拉触底事件的处理函数
- */
-onReachBottom: function() {
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
 
-},
+  },
 
-/**
- * 用户点击右上角分享
- */
-onShareAppMessage: function() {
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
 
-}
+  }
 })
