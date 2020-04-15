@@ -19,7 +19,7 @@ Page({
     pay_num: 1,
     type: 1,
 
-    // jolly店下午茶套装单位为 /份，其余为 /小时
+    // jolly店下午茶套装单位为 /份，jolly room1/3双早为间， 其余为 /小时
     unit:'小时'
   },
   onLoad: function (t) {
@@ -52,6 +52,10 @@ Page({
         if(t.room_id == 155 || t.room_id == 156){
           a.setData({
             unit:'份'
+          })
+        } else if (t.room_id == 191 || t.room_id == 192){
+          a.setData({
+            unit: '间'
           })
         }
         // 这部分是价格倍数增长 只能选择1~3个小时 价格如 400 800 1200
