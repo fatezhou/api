@@ -73,6 +73,12 @@
                     </picker>
                 </view>
             </view>
+            <view class="form_info_child">
+                <view>用户须知</view>
+                <view class="picker">
+                    {{cancleDay}} 12：00前可免费取消
+                </view>
+            </view>
             <view class="form_info_child" wx:if="{{yj_cost!=0}}">
                 <view>房间押金</view>
                 <view>

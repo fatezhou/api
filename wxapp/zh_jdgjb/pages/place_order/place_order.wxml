@@ -63,6 +63,12 @@
                     <input name="code" placeholder="请填写您的身份证号" type="idcard"></input>
                 </view>
             </view>
+            <view class="form_info_child">
+                <view>用户须知</view>
+                <view class="picker">
+                    {{cancleDay}} 12：00前可免费取消
+                </view>
+            </view>
             <!-- <view class="form_info_child">
                 <view>选择到店时间</view>
                 <view class="picker">

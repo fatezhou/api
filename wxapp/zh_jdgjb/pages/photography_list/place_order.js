@@ -36,7 +36,12 @@ Page({
       condition: 0,
       coupons_id: -1,
       form_d: t.form_d,
-      grade: wx.getStorageSync("platform").open_member
+      grade: wx.getStorageSync("platform").open_member,
+
+      cancleDay: new Date(new Date(d).getTime() - (15*24*60*60*1000)).toLocaleDateString().split('/').map(val=>{
+        val = val.toString()
+        return val[1] ? val : '0' + val
+      }).join("-")
     });
     var n = 0;
     app.util.request({
