@@ -35,10 +35,7 @@ Page({
             form_d: t.form_d,
             grade: wx.getStorageSync("platform").open_member,
 
-          cancleDay: new Date(new Date(d).getTime() - (15 * 24 * 60 * 60 * 1000)).toLocaleDateString().split('/').map(val => {
-            val = val.toString()
-            return val[1] ? val : '0' + val
-          }).join("-")
+          cancleDay: require("../../../zh_jdgjb/utils/utils.js").formatTime(new Date(new Date(d).getTime() - (15 * 24 * 60 * 60 * 1000))).substring(0, 10)
         });
         var n = 0;
         app.util.request({
