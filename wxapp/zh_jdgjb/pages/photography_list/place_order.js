@@ -38,7 +38,7 @@ Page({
       form_d: t.form_d,
       grade: wx.getStorageSync("platform").open_member,
 
-      cancleDay: require("../../../zh_jdgjb/utils/utils.js").formatTime(new Date(new Date(d).getTime() - (15 * 24 * 60 * 60 * 1000))).substring(0, 10)
+      cancleDay: require("../../../zh_jdgjb/utils/utils.js").formatTime(new Date(new Date(d).getTime() - (7 * 24 * 60 * 60 * 1000))).substring(0, 10)
     });
     var n = 0;
     app.util.request({
