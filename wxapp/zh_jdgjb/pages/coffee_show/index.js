@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      img: 'https://api4.minidope.com/attachment/images/2/2018/coffee/coffee.jpg?' + Math.random()
+      img: 'https://oneday.youyueworld.com/attachment/images/2/2018/coffee/coffee.jpg?' + Math.random()
     })
   },
 

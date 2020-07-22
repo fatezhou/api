@@ -312,7 +312,7 @@ Page({
   onUnload: function () { },
   onShareAppMessage: function () {
     return {
-      imageUrl:'https://api4.minidope.com/attachment/images/2/2018/share/share.jpg',
+      imageUrl:'https://oneday.youyueworld.com/attachment/images/2/2018/share/share.jpg',
     }
    }
 });
