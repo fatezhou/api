@@ -165,6 +165,7 @@ page {
     background-color: #182E8F;
     color: white;
     border-radius: 10rpx;
+    flex-shrink: 0;
 }
 
 .roomname {

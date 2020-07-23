@@ -38,7 +38,8 @@ Page({
       form_d: t.form_d,
       grade: wx.getStorageSync("platform").open_member,
 
-      cancleDay: require("../../../zh_jdgjb/utils/utils.js").formatTime(new Date(new Date(d).getTime() - (7 * 24 * 60 * 60 * 1000))).substring(0, 10)
+      cancleDay: require("../../../zh_jdgjb/utils/utils.js").formatTime(new Date(new Date(d).getTime() - (7 * 24 * 60 * 60 * 1000))).substring(0, 10),
+      num:(e == 207 || e == 208) ? 2 : a.data.num
     });
     var n = 0;
     app.util.request({
@@ -61,7 +62,7 @@ Page({
           })
         }
         // 这部分是价格倍数增长 只能选择1~3个小时 价格如 400 800 1200
-        if (t.room_id == 143 || t.room_id == 144 || t.room_id == 72 || t.room_id == 112 || t.room_id == 113 || t.room_id == 114 || t.room_id == 115 || t.room_id == 116 || t.room_id == 117 || t.room_id == 118 || t.room_id == 131 || t.room_id == 132 || t.room_id == 133 || t.room_id == 134 || t.room_id == 146 || t.room_id == 147 || t.room_id == 149 || t.room_id == 150 || t.room_id == 151 || t.room_id == 152 || t.room_id == 153 || t.room_id == 154 || t.room_id == 191 || t.room_id == 192){
+        if (t.room_id == 143 || t.room_id == 144 || t.room_id == 72 || t.room_id == 112 || t.room_id == 113 || t.room_id == 114 || t.room_id == 115 || t.room_id == 116 || t.room_id == 117 || t.room_id == 118 || t.room_id == 131 || t.room_id == 132 || t.room_id == 133 || t.room_id == 134 || t.room_id == 146 || t.room_id == 147 || t.room_id == 149 || t.room_id == 150 || t.room_id == 151 || t.room_id == 152 || t.room_id == 153 || t.room_id == 154 || t.room_id == 191 || t.room_id == 192 || t.room_id == 207 || t.room_id == 208){
           for (var k in res.data) res.data[k].mprice = (Number(res.data[k].mprice)).toFixed(2)
         }else{
           for (var k in res.data) res.data[k].mprice = (Number(res.data[k].mprice) + 100).toFixed(2)
@@ -159,7 +160,7 @@ Page({
         for (var o in t.data.map(function (t) {
           var e;
           e = Number(t.nums), a.push(e);
-        }), t.data) t.data[o].nums <= 0 && e.push(t.data[o]);
+        }), t.data) ((t.data[o].nums <= 0 && e.push(t.data[o])) || (((d.data.room_id == 207 || d.data.room_id == 208) && t.data[o].nums <= 1) && e.push(t.data[o])));
         a = a.sort(app.sort_num_order), d.setData({
           rooms: a[0]
         }), 0 < e.length && wx.showModal({
@@ -191,7 +192,7 @@ Page({
     if (e.data.rooms == e.data.num) wx.showModal({
       title: "",
       content: "没有这么多拍摄时间啦"
-    }); else if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125 || e.data.room.id == 129 || e.data.room.id == 130 || e.data.room.id == 146 || e.data.room.id == 147 || e.data.room.id == 149 || e.data.room.id == 150 || e.data.room.id == 151 || e.data.room.id == 152 || e.data.room.id == 153 || e.data.room.id == 154 || e.data.room.id == 191 || e.data.room.id == 192){
+    }); else if (e.data.room.id == 119 || e.data.room.id == 120 || e.data.room.id == 124 || e.data.room.id == 125 || e.data.room.id == 129 || e.data.room.id == 130 || e.data.room.id == 146 || e.data.room.id == 147 || e.data.room.id == 149 || e.data.room.id == 150 || e.data.room.id == 151 || e.data.room.id == 152 || e.data.room.id == 153 || e.data.room.id == 154 || e.data.room.id == 191 || e.data.room.id == 192 || e.data.room.id == 207 || e.data.room.id == 208){
       // 新增 最多3小时 正常涨价的
       if (e.data.room.id == 124 || e.data.room.id == 125){
         if (e.data.num == 3){
@@ -261,11 +262,11 @@ Page({
     }
   },
   reduce_num: function (t) {
-    if (this.data.num == 1){
+    if (this.data.num == 1 || (this.data.num == 2 && (this.data.room.id == 207 || this.data.room.id == 208))){
       console.info('小时数已经是：' + this.data.num + '，不可再减少')
       return
     }
-    if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130 || this.data.room.id == 146 || this.data.room.id == 147 || this.data.room.id == 149 || this.data.room.id == 150 || this.data.room.id == 151 || this.data.room.id == 152 || this.data.room.id == 153 || this.data.room.id == 154 || this.data.room.id == 191 || this.data.room.id == 192){
+    if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130 || this.data.room.id == 146 || this.data.room.id == 147 || this.data.room.id == 149 || this.data.room.id == 150 || this.data.room.id == 151 || this.data.room.id == 152 || this.data.room.id == 153 || this.data.room.id == 154 || this.data.room.id == 191 || this.data.room.id == 192 || this.data.room.id == 207 || this.data.room.id == 208){
       //没有优惠 即价格增加值为初始值
       var e = this.data.num - 1;
       if(this.data.room.id == 124 || this.data.room.id == 125){
@@ -396,7 +397,7 @@ Page({
 
       // console.info(d)
       // console.info(p)
-    } else if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130 || this.data.room.id == 146 || this.data.room.id == 147 || this.data.room.id == 149 || this.data.room.id == 150 || this.data.room.id == 151 || this.data.room.id == 152 || this.data.room.id == 153 || this.data.room.id == 154 || this.data.room.id == 191 || this.data.room.id == 192){
+    } else if (this.data.room.id == 119 || this.data.room.id == 120 || this.data.room.id == 124 || this.data.room.id == 125 || this.data.room.id == 129 || this.data.room.id == 130 || this.data.room.id == 146 || this.data.room.id == 147 || this.data.room.id == 149 || this.data.room.id == 150 || this.data.room.id == 151 || this.data.room.id == 152 || this.data.room.id == 153 || this.data.room.id == 154 || this.data.room.id == 191 || this.data.room.id == 192 || this.data.room.id == 207 || this.data.room.id == 208){
       var e = this, a = e.data.num, o = Number(e.data.yj_cost), d = o, i = e.data.z_price, r = e.data.coupon, n = Number(e.data.red_bag), s = Number(i) * a, c = s * e.data.discount, u = s - c, p = c - r + d - n, m = s - r - n;
 
       if (this.data.room.id == 124 || this.data.room.id == 125){
