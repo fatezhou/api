@@ -5,45 +5,20 @@ Page({
   data: {
     activeIndex: 0
   },
-  getPlatform() {
-    var a = this
-    app.util.request({
-      url: "entry/wxapp/GetSystem",
-      cachetime: "0",
-      success: function (t) {
-        // 平台信息
-        wx.setStorageSync("platform", t.data), wx.setNavigationBarTitle({
-          title: t.data.pt_name
-        });
-        a.setData({
-          grade: wx.getStorageSync("platform").open_member
-        })
-      }
-    })
-  },
   onLoad: function (t) {
+    console.info(t)
     var a = this;
-    let I = setInterval(() => {
-      if (app.globalData.url) {
-        clearInterval(I)
-        app.getUrl(a), app.getSystem(a), a.date(), a.setData({
-          grade: wx.getStorageSync("platform").open_member
-        });
-        a.data.text;
-        var e = decodeURIComponent(t.scene);
-        if (null == t.hotel_id) var i = e; else i = t.hotel_id;
-        a.setData({
-          hotel_id: i,
-          start: app.util.time(),
-          end: app.util.addDate(app.util.time(), 28)
-        }), a.refresh();
-      } else {
-        app.getUrl(a), app.getSystem(a), a.date(), a.getPlatform(), a.setData({
-          grade: wx.getStorageSync("platform").open_member
-        });
-        a.onLoad(t)
-      }
-    }, 1000)
+    app.getUrl(a), app.getSystem(a), a.date(), a.setData({
+      grade: wx.getStorageSync("platform").open_member
+    });
+    a.data.text;
+    var e = decodeURIComponent(t.scene);
+    if (null == t.hotel_id) var i = e; else i = t.hotel_id;
+    a.setData({
+      hotel_id: i,
+      start: app.util.time(),
+      end: app.util.addDate(app.util.time(), 28)
+    }), a.refresh();
   },
   date: function (t) {
     var a = wx.getStorageSync("day1"), e = wx.getStorageSync("day2"), i = wx.getStorageSync("day"), r = app.util.time();
@@ -106,17 +81,17 @@ Page({
               // console.info(e[a].id)
               // console.info(t)
               // 这部分是价格倍数增长 只能选择1~3个小时 价格如 400 800 1200
-              if (e[a].id == 143 || e[a].id == 144 || e[a].id == 72 || e[a].id == 112 || e[a].id == 113 || e[a].id == 114 || e[a].id == 115 || e[a].id == 116 || e[a].id == 117 || e[a].id == 118 || e[a].id == 131 || e[a].id == 132 || e[a].id == 133 || e[a].id == 134 || e[a].id == 146 || e[a].id == 147 || e[a].id == 149 || e[a].id == 150 || e[a].id == 151 || e[a].id == 152 || e[a].id == 153 || e[a].id == 154 || e[a].id == 191 || e[a].id == 192 || e[a].id == 207 || e[a].id == 208) {
+              if (e[a].id == 143 || e[a].id == 144 || e[a].id == 72 || e[a].id == 112 || e[a].id == 113 || e[a].id == 114 || e[a].id == 115 || e[a].id == 116 || e[a].id == 117 || e[a].id == 118 || e[a].id == 131 || e[a].id == 132 || e[a].id == 133 || e[a].id == 134 || e[a].id == 146 || e[a].id == 147 || e[a].id == 149 || e[a].id == 150 || e[a].id == 151 || e[a].id == 152 || e[a].id == 153 || e[a].id == 154 || e[a].id == 191 || e[a].id == 192 || e[a].id == 207 || e[a].id == 208){
                 e[a].cost = (Number(t.data[0].mprice)).toFixed(2), r.setData({
                   room: e
                 });
-              } else {
+              }else{
                 // 加100是因为 要求的价格幅度是 比如:300 500 700(初始200)
                 e[a].cost = (Number(t.data[0].mprice) + 100).toFixed(2), r.setData({
                   room: e
                 });
               }
-
+              
             }
           }), app.util.request({
             url: "entry/wxapp/GetRoomNum",
@@ -253,7 +228,7 @@ Page({
     }
   },
   hotel_in: function (t) {
-    if (t.currentTarget.dataset.id == 23) {
+    if (t.currentTarget.dataset.id == 23){
       wx.navigateTo({
         url: "../hotel_list/hotel_in?seller_id=" + t.currentTarget.dataset.id
       });
