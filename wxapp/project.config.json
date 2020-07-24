@@ -62,6 +62,27 @@
 					"pathName": "zh_jdgjb/pages/hotel_list/hotel_info",
 					"query": "hotel_id=25&wx.setStorageSync(\"platform\", \"t.data\")",
 					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "zh_jdgjb/pages/photography_list/photography_info",
+					"pathName": "zh_jdgjb/pages/photography_list/photography_info",
+					"query": "hotel_id=25&room_id=192",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "jolly房间",
+					"pathName": "zh_jdgjb/pages/photography_list/photography_info",
+					"query": "coordinates=24.438510,118.087326&hotel_id=23&price=688.00&room_id=192",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "zh_jdgjb/pages/photography_list/photography_list",
+					"pathName": "zh_jdgjb/pages/photography_list/photography_list",
+					"query": "hotel_id=23",
+					"scene": null
 				}
 			]
 		}
