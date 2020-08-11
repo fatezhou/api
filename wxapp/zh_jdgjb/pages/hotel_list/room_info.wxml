@@ -8,15 +8,15 @@
   </view>
   <view bindtap="setclip" class="eject_room">
     <view class="eject_type">{{room.name}}</view>
-    <view class="eject_type" style="color:{{color}};height:50rpx;line-height:50rpx;font-size:30rpx;color:red">￥ {{price}} <text wx:if="{{room.id != 211}}">/ 晚</text></view>
+    <view class="eject_type" style="color:{{color}};height:50rpx;line-height:50rpx;font-size:30rpx;color:red">￥ {{price}} <text wx:if="{{room.id != 211 && room.id != 241}}">/ 晚</text></view>
   </view>
 
   <view class="eject_room eject_floor">
     <text class="title">基本信息</text>
     <view>楼层：{{room.floor}}</view>
-    <view wx:if="{{room.id != 211}}">可住人数:{{room.people}}人</view>
+    <view wx:if="{{room.id != 211 && room.id != 241}}">可住人数:{{room.people}}人</view>
     <view wx:else>人数:{{room.people}}人</view>
-    <block wx:if="{{room.id != 211}}">
+    <block wx:if="{{room.id != 211 && room.id != 241}}">
     <view>大床:{{room.size}}米</view>
     <view wx:if="{{room.yj_cost!=0}}">押金:{{room.yj_cost}}</view>
     <view wx:if="{{room.windows==0}}">无窗户</view>
@@ -65,7 +65,7 @@
     <cover-view class="bottom-right">
       <cover-view class="price">
         <cover-view class="sub">
-          ￥ {{price}}<text wx:if="{{room.id != 211}}">/晚</text>
+          ￥ {{price}}<text wx:if="{{room.id != 211 && room.id != 241}}">/晚</text>
         </cover-view>
       </cover-view>
 

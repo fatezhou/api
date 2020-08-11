@@ -34,12 +34,12 @@
         </view>
         <view class="form_info">
             <view class="form_info_child">
-                <view>{{room_id != 211 ? "房间数" : "份数"}}</view>
+                <view>{{room_id != 211 ? room_id != 241 ? "房间数" : "小时数" : "份数"}}</view>
                 <view class="home_num">
                     <view bindtap="reduce_num">
                         <image mode="aspectFill" src="../img/jian.png"></image>
                     </view>
-                    <view>{{num}}{{room_id != 211 ? "间" : "份"}}</view>
+                    <view>{{num}}{{room_id != 211 ? room_id != 241 ? "间" : "小时" : "份"}}</view>
                     <view bindtap="add_num">
                         <image mode="aspectFill" src="../img/jia.png"></image>
                     </view>
