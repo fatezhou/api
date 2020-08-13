@@ -49,13 +49,15 @@
             <view class="form_info_child">
                 <view>入住人</view>
                 <view>
-                    <input name="people" placeholder="请填写入住人姓名" value="{{userInfo.zs_name}}"></input>
+                    <!-- <input name="people" placeholder="请填写入住人姓名" value="{{userInfo.zs_name}}"></input> -->
+                     <input name="people" placeholder="请填写入住人姓名" value="{{zs_name}}"></input>
                 </view>
             </view>
             <view class="form_info_child">
                 <view>手机号</view>
                 <view>
-                    <input name="tel" placeholder="请填写联系电话" type="number" value="{{userInfo.tel}}"></input>
+                    <!-- <input name="tel" placeholder="请填写联系电话" type="number" value="{{userInfo.tel}}"></input> -->
+                     <input name="tel" placeholder="请填写联系电话" type="number" value="{{tel}}"></input>
                 </view>
             </view>
             <view class="form_info_child"><!-- wx:if="{{platform.is_sfz==1}}"-->
